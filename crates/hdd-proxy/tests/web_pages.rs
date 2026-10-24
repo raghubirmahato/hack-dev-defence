@@ -82,7 +82,6 @@ fn every_static_asset_is_served_with_its_content_type() {
         ("/static/login.js", "text/javascript"),
         ("/static/setup.js", "text/javascript"),
         ("/static/landing.js", "text/javascript"),
-        ("/static/theme.js", "text/javascript"),
         ("/static/favicon.svg", "image/svg+xml"),
     ] {
         let asset = ui::asset(path).expect("documented asset is embedded");
@@ -157,7 +156,7 @@ fn pages_are_accessible_and_responsive_by_construction() {
         css.contains("prefers-reduced-motion"),
         "motion respects the user preference"
     );
-    assert!(css.contains("var(--bg)"), "the dark theme is token-driven");
+    assert!(css.contains("var(--bg)"), "the light theme is token-driven");
 }
 
 #[test]
@@ -325,7 +324,8 @@ fn block_page_has_no_literal_backslash_n_in_styles_or_attributes() {
         "no literal backslash may appear in the inline CSS: {style}"
     );
     assert!(
-        html.contains("font-family:system-ui") && html.contains("line-height:1.55"),
+        html.contains("font-family:\"Instrument Sans\",system-ui")
+            && html.contains("line-height:1.6"),
         "the body CSS declarations must survive the formatting"
     );
     assert!(

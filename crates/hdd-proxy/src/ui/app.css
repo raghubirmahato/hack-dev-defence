@@ -1,5 +1,5 @@
 /* HDD control panel and landing page — self-hosted, no external fonts or CDNs (COLLAB.md Addendum 1).
-   Light and dark themes (system preference, or the toggle in the sidebar), WCAG 2.2 AA basics: visible focus, 4.5:1 body
+   One light theme, WCAG 2.2 AA basics: visible focus, 4.5:1 body
    text contrast, 3:1 UI component contrast, keyboard operable controls, responsive down to 360 px, reduced-motion support. */
 
 /* Self-hosted fonts, the same type system as the Lumina product (SIL Open Font License 1.1, see /static/fonts/FONTS.txt).
@@ -71,34 +71,6 @@
   --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, "Cascadia Mono", Consolas, monospace;
   --sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --display: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
-}
-
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #0c1124;
-  --bg-soft: #141b34;
-  --panel: #141b34;
-  --panel-2: #1e2748;
-  --border: #2a355c;
-  --border-strong: #3b4874;
-  --text: #f0ede4;
-  --muted: #b7c0da;
-  --accent: #3fc3a5;
-  --accent-strong: #7fe0c8;
-  --accent-soft: #0f3a33;
-  --on-accent: #07211c;
-  --ok: #7fe0c8;
-  --ok-bg: #0f3a33;
-  --warn: #e9e04a;
-  --warn-bg: #3a3610;
-  --danger: #ff8a82;
-  --danger-bg: #3d1a1c;
-  --info: #b7c0da;
-  --info-bg: #1e2748;
-  --focus: #e9e04a;
-  --side: #070a16;
-  --side-2: #141b34;
-  --shadow: 0 1px 0 0 rgba(0, 0, 0, 0.5);
 }
 
 *,
@@ -313,11 +285,6 @@ a:hover {
 
 .session-box .chip {
   justify-self: start;
-}
-
-.theme-toggle {
-  grid-column: 1 / -1;
-  justify-content: center;
 }
 
 main {
@@ -1472,11 +1439,7 @@ pre code {
     padding: 0.4rem 0.6rem;
   }
 
-  .theme-toggle {
-    grid-column: auto;
-  }
-
-  .dl {
+    .dl {
     grid-template-columns: 1fr;
   }
 
@@ -2186,44 +2149,6 @@ dialog::backdrop {
   padding: 0;
 }
 
-/* ---- dark theme: the same ink, deeper ----------------------------------------------------------------------------- */
-:root[data-theme="dark"] body {
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent,
-    transparent 31px,
-    rgba(255, 255, 255, 0.035) 31px,
-    rgba(255, 255, 255, 0.035) 32px
-  );
-}
-
-:root[data-theme="dark"] .card,
-:root[data-theme="dark"] .counter,
-:root[data-theme="dark"] .feat,
-:root[data-theme="dark"] .table-wrap {
-  border-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.5);
-}
-
-:root[data-theme="dark"] .btn:not(.primary):not(.danger) {
-  background: #1e2748;
-  border-color: #3b4874;
-  color: #f0ede4;
-}
-
-:root[data-theme="dark"] .btn-group .btn[aria-pressed="true"] {
-  background: #e9e04a;
-  border-color: #e9e04a;
-  color: #0c1124;
-}
-
-:root[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]),
-:root[data-theme="dark"] select,
-:root[data-theme="dark"] textarea {
-  background: #0c1124;
-  border-color: #3b4874;
-}
-
 @media print {
   .sidebar,
   .skip-link {
@@ -2501,4 +2426,49 @@ dialog .dialog-actions {
 #sites-list .card,
 #overview-sites .card {
   margin: 0;
+}
+
+/* ---- sidebar on the page background (2026-10-24): same chalk as the rest of the panel, light and dark ---------------- */
+.sidebar {
+  --side-text: var(--muted);
+  --side-strong: var(--text);
+  background: var(--bg-soft);
+  border-right: 1px solid var(--border);
+}
+
+.brand .brand-name {
+  color: var(--text);
+}
+
+.brand .brand-sub,
+.nav-label {
+  color: var(--muted);
+}
+
+.main-nav a:hover {
+  background: rgba(20, 27, 52, 0.06);
+  color: var(--text);
+}
+
+.session-box {
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+
+.sidebar .session-box .btn,
+.sidebar .session-box .btn:not(.primary):not(.danger) {
+  background: var(--panel);
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.sidebar .session-box .btn:hover:not(:disabled) {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.session-box .chip {
+  background: #f6f1b0;
+  color: #3d3a05;
+  border-color: #cfc64a;
 }

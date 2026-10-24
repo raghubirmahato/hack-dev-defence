@@ -21,7 +21,6 @@ const APP_CSS: &str = include_str!("ui/app.css");
 const APP_JS: &str = include_str!("ui/app.js");
 const LOGIN_JS: &str = include_str!("ui/login.js");
 const LANDING_JS: &str = include_str!("ui/landing.js");
-const THEME_JS: &str = include_str!("ui/theme.js");
 const SETUP_JS: &str = include_str!("ui/setup.js");
 const FAVICON_SVG: &str = include_str!("ui/favicon.svg");
 const FONT_BRICOLAGE: &[u8] = include_bytes!("ui/fonts/BricolageGrotesque-var.woff2");
@@ -53,7 +52,6 @@ pub fn asset(path: &str) -> Option<Asset> {
         "/static/app.js" => Some(asset_of(APP_JS, JAVASCRIPT)),
         "/static/login.js" => Some(asset_of(LOGIN_JS, JAVASCRIPT)),
         "/static/landing.js" => Some(asset_of(LANDING_JS, JAVASCRIPT)),
-        "/static/theme.js" => Some(asset_of(THEME_JS, JAVASCRIPT)),
         "/static/setup.js" => Some(asset_of(SETUP_JS, JAVASCRIPT)),
         "/static/favicon.svg" => Some(asset_of(FAVICON_SVG, SVG)),
         "/static/fonts/BricolageGrotesque-var.woff2" => Some(Asset {
@@ -137,28 +135,34 @@ pub fn block_page(ray_id: &str, host: &str, json: bool) -> (u16, &'static str, S
 <head>\n\
 <meta charset=\"utf-8\">\n\
 <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\
-<meta name=\"color-scheme\" content=\"dark\">\n\
+<meta name=\"color-scheme\" content=\"light\">\n\
 <title>Access denied</title>\n\
 <style>\n\
-:root{{color-scheme:dark}}\n\
+:root{{color-scheme:light}}\n\
 *{{box-sizing:border-box}}\n\
-body{{margin:0;min-height:100vh;display:grid;place-items:center;background:#0a0f1c;color:#e9eef9;\n\
-font-family:system-ui,-apple-system,\"Segoe UI\",Roboto,Arial,sans-serif;line-height:1.55;padding:1.5rem}}\n\
-.card{{width:min(560px,100%);background:#151e33;border:1px solid #2c3b5e;border-radius:12px;padding:1.6rem}}\n\
-.brand{{margin:0 0 .2rem;color:#7fb0ff;font-weight:800;letter-spacing:.12em;font-size:.85rem}}\n\
-h1{{margin:.2rem 0 .7rem;font-size:1.6rem}}\n\
+body{{margin:0;min-height:100vh;display:grid;place-items:center;padding:1.5rem;color:#141b34;background-color:#f5f3ec;\n\
+background-image:repeating-linear-gradient(to bottom,transparent,transparent 31px,rgba(20,27,52,.05) 31px,rgba(20,27,52,.05) 32px);\n\
+font-family:\"Instrument Sans\",system-ui,-apple-system,\"Segoe UI\",Roboto,Arial,sans-serif;line-height:1.6}}\n\
+.card{{width:min(34rem,100%);background:#fffefb;border:1px solid rgba(20,27,52,.12);border-radius:12px;\n\
+box-shadow:0 1px 0 rgba(20,27,52,.06),0 12px 32px -18px rgba(20,27,52,.3);padding:2rem 2.1rem 1.8rem}}\n\
+.brand{{margin:0 0 1.1rem;display:flex;align-items:center;gap:.55rem;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;\n\
+font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#3f4963}}\n\
+.brand::before{{content:\"\";width:.7rem;height:.7rem;border-radius:50%;background:#b5322b}}\n\
+h1{{margin:0 0 1rem;font-family:\"Bricolage Grotesque\",\"Instrument Sans\",system-ui,sans-serif;font-size:2.1rem;line-height:1.15;\n\
+letter-spacing:-.015em}}\n\
+h1 span{{background:linear-gradient(transparent 58%,#e9e04a 58%,#e9e04a 92%,transparent 92%);padding:0 .2rem;margin:0 -.2rem}}\n\
 p{{margin:.5rem 0}}\n\
-.detail{{font-size:1.02rem}}\n\
-.ref{{margin-top:1.1rem;padding:.7rem .9rem;background:#060a13;border:1px solid #2c3b5e;border-radius:8px;\n\
+.detail{{font-size:1.05rem;color:#27304a}}\n\
+.ref{{margin-top:1.4rem;padding:.8rem 1rem;background:#f0ede4;border:1px solid #d2cbb8;border-left:4px solid #b5322b;border-radius:8px;\n\
 font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.92rem;overflow-wrap:anywhere}}\n\
-.site{{color:#a9b6d0;font-size:.88rem}}\n\
-.fine{{margin-top:1.1rem;color:#a9b6d0;font-size:.82rem}}\n\
+.site{{color:#3f4963;font-size:.9rem;margin-top:.9rem}}\n\
+.fine{{margin-top:1.3rem;padding-top:1rem;border-top:1px solid #e4dfd1;color:#3f4963;font-size:.84rem}}\n\
 </style>\n\
 </head>\n\
 <body>\n\
 <main class=\"card\" role=\"main\">\n\
-<p class=\"brand\">HDD</p>\n\
-<h1>Access denied</h1>\n\
+<p class=\"brand\">HDD protection</p>\n\
+<h1><span>Access denied</span></h1>\n\
 <p class=\"detail\">{detail}</p>\n\
 <p class=\"ref\">Reference: {ray}</p>\n\
 <p class=\"site\">Site: {site}</p>\n\

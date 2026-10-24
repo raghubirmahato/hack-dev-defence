@@ -154,7 +154,7 @@ A production-style deployment (reverse proxy in front, systemd unit, origin lock
 
 ## The web panel
 
-Overview (counters, per-site state, guards), Events, Bans, Sites (add, mode, strictness, lock steps, verify), Console (inspect a request without sending it), Block page editor, Account, Users and roles, About. It is keyboard-operable, has light and dark themes, and works down to phone width. Everything the panel does is an admin API call under the same authorisation.
+Overview (counters, per-site state, guards), Events, Bans, Sites (add, mode, strictness, lock steps, verify), Console (inspect a request without sending it), Block page editor, Account, Users and roles, About. It is keyboard-operable, has one light theme, and works down to phone width. Everything the panel does is an admin API call under the same authorisation.
 
 ## Repository map
 
