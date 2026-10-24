@@ -66,10 +66,19 @@ export const STABLE_RUN_MS = 60_000;
 /** How long a stopping child gets between SIGTERM and SIGKILL. */
 export const STOP_GRACE_MS = 3_000;
 
-const SERVICE_HOSTS = new Set(['localhost.run', 'www.localhost.run', 'admin.localhost.run']);
+const SERVICE_HOSTS = new Set(['localhost.run', 'www.localhost.run', 'admin.localhost.run', 'api.trycloudflare.com', 'www.trycloudflare.com', 'trycloudflare.com']);
 const URL_PATTERN = /https?:\/\/[^\s"'<>]+/g;
 const TUNNEL_LINE = /tunneled with tls termination/i;
-const TUNNEL_HOST_PATTERN = /(?:^|\.)(?:lhr\.life|localhost\.run)$/i;
+const TUNNEL_HOST_PATTERN = /(?:^|\.)(?:lhr\.life|localhost\.run|trycloudflare\.com)$/i;
+
+/** The default place the Windows installer puts cloudflared (used only when `--provider cloudflared` is chosen). */
+export const CLOUDFLARED_DEFAULT = 'cloudflared';
+
+/** The cloudflared quick-tunnel command: no account, no config file, the address changes on every start. */
+export function buildCloudflaredArgs(port) {
+  const localPort = parsePort(port);
+  return ['tunnel', '--no-autoupdate', '--url', `http://127.0.0.1:${localPort}`];
+}
 
 /**
  * Parse and validate the local port: a whole number from 1 to 65535. Accepts a number or
@@ -95,6 +104,8 @@ export function parseArgs(argv = []) {
   let port = DEFAULT_PORT;
   let help = false;
   let gist = null;
+  let provider = 'ssh';
+  let cloudflaredPath = CLOUDFLARED_DEFAULT;
   while (rest.length > 0) {
     const current = rest.shift();
     if (current === '--help' || current === '-h') {
@@ -105,13 +116,21 @@ export function parseArgs(argv = []) {
     } else if (current === '--publish-gist') {
       if (rest.length === 0) throw new Error('--publish-gist needs a gist id');
       gist = parseGist(rest.shift());
+    } else if (current === '--provider') {
+      if (rest.length === 0) throw new Error('--provider needs ssh or cloudflared');
+      provider = String(rest.shift());
+      if (provider !== 'ssh' && provider !== 'cloudflared') throw new Error('--provider must be ssh or cloudflared');
+    } else if (current === '--cloudflared-path') {
+      if (rest.length === 0) throw new Error('--cloudflared-path needs a file path');
+      cloudflaredPath = String(rest.shift());
     } else if (current.startsWith('--port=')) {
       port = parsePort(current.slice('--port='.length));
     } else {
       throw new Error(`unknown option "${current}" (usage: node scripts/hdd-tunnel.mjs [--port <n>])`);
     }
   }
-  return { port, help, gist };
+  // The ssh defaults stay out of the result so the long-standing shape of the ssh-only options does not change.
+  return provider === 'ssh' ? { port, help, gist } : { port, help, gist, provider, cloudflaredPath };
 }
 
 /** A GitHub gist id (hex only), so nothing else can reach the `gh` command line. */
@@ -218,7 +237,7 @@ export function publicUrlLines(url, previousUrl = null) {
 /** The usage block printed by --help. */
 export function usageLines() {
   return [
-    'Usage: node scripts/hdd-tunnel.mjs [--port <n>] [--publish-gist <id>]',
+    'Usage: node scripts/hdd-tunnel.mjs [--port <n>] [--publish-gist <id>] [--provider ssh|cloudflared] [--cloudflared-path <file>]',
     '',
     `  --port <n>  local TCP port to forward to (default ${DEFAULT_PORT}; 1..65535)`,
     '  --help      print this usage',
@@ -301,7 +320,20 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
     for (const line of usageLines()) out(line);
     return 0;
   }
-  if (!sshAvailable(spawnSyncImpl)) {
+  const provider = options.provider ?? 'ssh';
+  const cloudflaredPath = options.cloudflaredPath ?? CLOUDFLARED_DEFAULT;
+  if (provider === 'cloudflared') {
+    let probe;
+    try {
+      probe = spawnSyncImpl(cloudflaredPath, ['--version'], { encoding: 'utf8', windowsHide: true, shell: false, timeout: 15_000 });
+    } catch {
+      probe = { error: new Error('not found') };
+    }
+    if (!probe || probe.error) {
+      err('Cannot start the tunnel: cloudflared was not found (winget install --id Cloudflare.cloudflared) or is blocked.');
+      return 1;
+    }
+  } else if (!sshAvailable(spawnSyncImpl)) {
     for (const line of missingSshLines()) err(line);
     return 1;
   }
@@ -309,16 +341,16 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
     err('[hdd-tunnel] this Node.js has no global fetch; the /healthz heartbeat is skipped (the tunnel still runs)');
   }
 
-  out(`[hdd-tunnel] demo only: forwarding 127.0.0.1:${options.port} through the free localhost.run tunnel.`);
+  out(`[hdd-tunnel] demo only: forwarding 127.0.0.1:${options.port} through the free ${provider === 'cloudflared' ? 'Cloudflare quick' : 'localhost.run'} tunnel.`);
   out('[hdd-tunnel] while it runs, the loopback HDD proxy is reachable from the internet; stop it with Ctrl+C.');
   out('[hdd-tunnel] the public URL changes on every restart: update HDD_GATE_URL in Vercel and redeploy when it does.');
   out('[hdd-tunnel] this helper never reads or prints environment values or secrets.');
 
-  return runTunnel(options.port, { spawnImpl, fetchImpl, now, out, err, timers, gist: options.gist, spawnSyncImpl });
+  return runTunnel(options.port, { spawnImpl, fetchImpl, now, out, err, timers, gist: options.gist, spawnSyncImpl, provider, cloudflaredPath });
 }
 
 /** The restart/heartbeat loop. Resolves with the exit code; never rejects for ssh exits. */
-function runTunnel(port, { spawnImpl, fetchImpl, now, out, err, timers, gist = null, spawnSyncImpl = spawnSync }) {
+function runTunnel(port, { spawnImpl, fetchImpl, now, out, err, timers, gist = null, spawnSyncImpl = spawnSync, provider = 'ssh', cloudflaredPath = CLOUDFLARED_DEFAULT }) {
   const later = timers.setTimeout;
   const cancel = timers.clearTimeout;
   const every = timers.setInterval;
@@ -491,13 +523,14 @@ function runTunnel(port, { spawnImpl, fetchImpl, now, out, err, timers, gist = n
 
   function startChild() {
     if (finished || stopping) return;
-    const args = buildSshArgs(port);
-    out(`[hdd-tunnel] starting: ssh ${args.join(' ')}`);
+    const command = provider === 'cloudflared' ? cloudflaredPath : 'ssh';
+    const args = provider === 'cloudflared' ? buildCloudflaredArgs(port) : buildSshArgs(port);
+    out(`[hdd-tunnel] starting: ${command === 'ssh' ? 'ssh' : 'cloudflared'} ${args.join(' ')}`);
     let spawned;
     try {
       // stdin is inherited so a first-run host-key prompt can be answered in the terminal;
       // stdout/stderr are read to find the public URL. No shell is involved.
-      spawned = spawnImpl('ssh', args, { stdio: ['inherit', 'pipe', 'pipe'], windowsHide: true, shell: false });
+      spawned = spawnImpl(command, args, { stdio: ['inherit', 'pipe', 'pipe'], windowsHide: true, shell: false });
     } catch (error) {
       err(`[hdd-tunnel] ssh could not be started: ${error?.message ?? error}`);
       finish(1);

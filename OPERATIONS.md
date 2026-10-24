@@ -253,3 +253,9 @@ the proxy if it exits, publishes the tunnel address to the gist when `--gist` is
 `target/debug` (or `target/release` with `--release`) and generates a bootstrap admin token for the run when
 `HDD_ADMIN_TOKEN` is not set (use the panel's account login). Demo only: the tunnel exposes the loopback proxy to the internet.
 The Overview screen lists the always-on guards (attack tools, request rate, origin connection pool) from `GET /api/guards`.
+
+## Tunnel choice for the live demo stack
+
+`node scripts/hdd-tunnel.mjs --port <n> --provider cloudflared [--cloudflared-path <file>] [--publish-gist <id>]` forwards the proxy through a Cloudflare quick tunnel (install: `winget install --id Cloudflare.cloudflared`). The free localhost.run tunnel (`--provider ssh`, the default) drops its connection every few minutes, which makes the front door answer 503 (it refuses rather than serving a request uninspected). On the Cloudflare tunnel, 20 plain requests in a row all answered 200 and the first injection after 60 and 100 s of idle was blocked. The address of a quick tunnel still changes on every restart; the gist keeps the app pointed at the current one. A named tunnel on a domain you own is the stable choice for anything longer-lived.
+
+The front door's `HDD_FAIL_OPEN` must stay off when blocking matters: with it on, a request is served uninspected whenever the tunnel is down. HDD reads the visitor's address from the first `X-Forwarded-For` entry for requests that carry `X-HDD-Gate-Hop`, because the tunnel appends the address of the platform that called it. Bans are kept in `bans.json` in the data directory and survive a restart.

@@ -230,6 +230,14 @@ pub fn resolve_client_ip(
         .split(',')
         .filter_map(|hop| hop.trim().parse::<IpAddr>().ok())
         .collect();
+    // A request that came through the front door (the app's wrapper sets `X-HDD-Gate-Hop`) names the visitor first: a
+    // tunnel in front of HDD (Cloudflare, for one) appends the address of the host that called it, which is the app's
+    // platform, not the visitor, and banning that address would ban every visitor at once.
+    if header(headers, "x-hdd-gate-hop").is_some()
+        && let Some(first) = hops.first()
+    {
+        return *first;
+    }
     for hop in hops.iter().rev() {
         if !peer_is_trusted(*hop, trusted) {
             return *hop;
@@ -746,6 +754,32 @@ mod tests {
         assert!(is_ray_id(&first), "ray id {first} does not match");
         assert!(is_ray_id(&second));
         assert_ne!(first, second);
+    }
+
+    #[test]
+    fn a_front_door_request_names_the_visitor_not_the_platform_that_called_the_tunnel() {
+        let trusted = vec![Cidr::parse("127.0.0.1/32").expect("valid cidr")];
+        let peer: SocketAddr = "127.0.0.1:50000".parse().expect("valid address");
+        let through_door = vec![
+            (
+                "x-forwarded-for".to_owned(),
+                "203.0.113.7, 34.205.154.144".to_owned(),
+            ),
+            ("x-hdd-gate-hop".to_owned(), "1".to_owned()),
+        ];
+        assert_eq!(
+            resolve_client_ip(peer, &through_door, &trusted).to_string(),
+            "203.0.113.7"
+        );
+        let plain = vec![(
+            "x-forwarded-for".to_owned(),
+            "203.0.113.7, 34.205.154.144".to_owned(),
+        )];
+        assert_eq!(
+            resolve_client_ip(peer, &plain, &trusted).to_string(),
+            "34.205.154.144",
+            "without the front door the rightmost untrusted hop is still the client"
+        );
     }
 
     #[test]
