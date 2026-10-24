@@ -12,6 +12,7 @@
     "demo": "node scripts/demo.mjs",
     "demo:fixed": "node scripts/demo.mjs --fixed",
     "tunnel": "node scripts/hdd-tunnel.mjs",
+    "live": "node scripts/hdd-live.mjs",
     "build": "node scripts/build.mjs",
     "test": "node scripts/test.mjs",
     "test:scripts": "node scripts/run-node-tests.mjs",

@@ -72,3 +72,15 @@ test('a malformed cookie is treated as signed out, not as a server error', async
   const a = await call('GET', '/admin', { headers: { cookie: 'hddshop=%E0%A4%A' } });
   assert.equal(a.status, 303);
 });
+
+test('no page of the shop may be kept by a browser or a shared cache', async () => {
+  const app = require('../api/app');
+  for (const url of ['/', '/product?id=1', '/cart', '/admin/login', '/healthz', '/nope']) {
+    const r = await new Promise((resolve) => {
+      const req = { method: 'GET', url, headers: {}, async *[Symbol.asyncIterator]() {} };
+      const res = { statusCode: 200, h: {}, setHeader(k, v) { this.h[k.toLowerCase()] = String(v); }, end(t) { resolve({ status: this.statusCode, h: this.h }); } };
+      app(req, res);
+    });
+    assert.match(r.h['cache-control'] || '', /no-store/, `${url} (${r.status})`);
+  }
+});

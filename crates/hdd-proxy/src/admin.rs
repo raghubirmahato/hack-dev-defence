@@ -156,6 +156,7 @@ async fn dispatch(
     match (method, path) {
         ("GET", api::paths::API_EVENTS) => Ok(api_core::events(state, &request.query)),
         ("GET", api::paths::API_BANS) => Ok(api_core::bans(state)),
+        ("GET", api::paths::API_GUARDS) => Ok(api_core::guards(state)),
         ("GET", api::paths::API_SITES) => Ok(api_core::sites(state)),
         ("POST", api::paths::API_SITES) => {
             let create: SiteCreateRequest = api_core::parse_body(&request.body)?;

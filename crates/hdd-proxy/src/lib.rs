@@ -28,6 +28,7 @@ pub mod events;
 pub mod finding_export;
 pub mod findings;
 pub mod forward;
+pub mod guards;
 pub mod lockdown;
 pub mod pipeline;
 pub mod server;

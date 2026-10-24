@@ -49,6 +49,8 @@ pub mod paths {
 
     /// `GET /api/events`.
     pub const API_EVENTS: &str = "/api/events";
+    /// `GET /api/guards`: the always-on guards (known attack tools, request rate) and their limits.
+    pub const API_GUARDS: &str = "/api/guards";
     /// `GET /api/bans`.
     pub const API_BANS: &str = "/api/bans";
     /// `POST /api/bans/{ip}/delete`.
@@ -792,6 +794,9 @@ pub struct SiteCreateRequest {
     /// The initial mode (default `monitor`).
     #[serde(default)]
     pub mode: Mode,
+    /// The detector strictness (default `balanced`). `paranoid` also blocks attack-shaped text in password fields.
+    #[serde(default)]
+    pub strictness: Option<Strictness>,
     /// The connection method that will put HDD in front.
     #[serde(default)]
     pub connection: ConnectionMethod,
@@ -1073,6 +1078,17 @@ pub struct ExplainResponse {
     pub message: String,
     /// Whether the response came from the per-finding cache.
     pub cached: bool,
+}
+
+/// `GET /api/guards` response: what the proxy guards against beyond the SQL injection rules.
+#[derive(Debug, Clone, Serialize)]
+pub struct GuardsResponse {
+    /// Whether a `User-Agent` naming a known attack tool is refused (rule `T1-001`).
+    pub attack_tools_blocked: bool,
+    /// Requests one client may send to one site per 10-second window (`0` = the guard is off).
+    pub rate_limit_per_10s: u32,
+    /// Idle keep-alive connections kept per origin.
+    pub origin_pool_per_origin: usize,
 }
 
 /// Whether an admin API path may be called without a session (setup and login only, while unauthenticated).

@@ -207,3 +207,49 @@ The wizard fills these, generates the origin secret once and shows the paste blo
 - A 503 answered because HDD is unreachable happens at Vercel and is not an HDD event; the Vercel function log holds the front door's own error line, which prints no secret.
 - A site is presented as protected only after the lockdown check and Verify protection both pass (R-34); `public_url` must be the public host so Verify probes the front door. For a front-door site the lockdown check's direct request to the second address is forwarded by the wrapper to HDD, whose neutral unknown-host 404 carries an HDD Ray ID; that response shows the app was not served directly and counts as the front-door refusal. A 2xx (the app answered directly) or a Ray-ID-less 404 stays not confirmed.
 - No secret values in files: profiles, this document and the repository hold only environment-variable names. The wizard-generated secret is kept by HDD in an owner-only file and shown once; the Vercel side holds the value in its environment. Rotate it by adding the site again (a new secret) or by updating the environment variable and redeploying.
+
+## Proxy performance: upstream connection pool (2026-10-24)
+
+The proxy keeps idle HTTP/1.1 keep-alive connections to each origin (up to 64 per origin, dropped after 20 s idle or when the
+origin closes them) and reuses one when it is ready. Before this, every request opened a new TCP connection and, for an
+`https://` origin such as Vercel, a new TLS handshake. A body-less GET/HEAD whose reused connection turns out to be stale is
+sent again on a fresh connection; other requests are never replayed.
+
+Measured on one machine over loopback (release build, concurrency 32, 4 KB response, `scripts` bench harness in the session
+notes; numbers vary by machine, so treat them as a comparison, not a promise):
+
+| Case | Requests/s | p50 | p99 |
+| --- | --- | --- | --- |
+| Origin directly | 10672 | 2.81 ms | 4.89 ms |
+| Through HDD, pool off | 5233 | 5.96 ms | 8.63 ms |
+| Through HDD, pool on | 9748 | 3.17 ms | 5.03 ms |
+| Through HDD, SQL injection refused at HDD | 16984 | 1.82 ms | 3.06 ms |
+
+Run the load test with `HDD_RATE_LIMIT_PER_10S=0`, otherwise the rate guard answers 429 to the single test client. Over TLS the saving is larger because the handshake is no longer repeated. Evidence: `docs/evidence/HK1/proxy-bench.txt`.
+
+## Guards against scripted traffic (2026-10-24)
+
+`curl` and other scripts are inspected exactly like browsers: SQL injection in a query string, a form or multipart body, a
+JSON body (nested), a cookie, a header, the URL path, or any method (PUT, DELETE, HEAD) is refused in Block mode. Two guards
+cover what content rules cannot:
+
+- **Announced attack tools (rule `T1-001`, category `policy`).** A `User-Agent` naming a well-known offensive tool (sqlmap,
+  Nikto, Acunetix, Nuclei, gobuster, ffuf, WPScan, hydra and similar) is refused and the client is banned like any other
+  block. Ordinary clients (`curl`, `python-requests`, browsers, crawlers, Postman) are not listed; they are judged by what
+  they send. The header is client-controlled, so this only stops tools that announce themselves.
+- **Request rate.** One client address may send 600 requests per site in a 10-second window by default; the next requests get
+  `429` with `Retry-After: 10` in Block mode and only a `would_block` event in Monitor mode. Set
+  `HDD_RATE_LIMIT_PER_10S=<n>` to change it (`0` switches the guard off, for example for a load test). The table holds at most
+  50,000 client/site pairs.
+
+Both are tested (`extended_corpus.rs`, `guards.rs`) and were exercised against the live shop (`curl_suite` evidence in the
+session notes: 14 of 14 injection vectors refused, sqlmap and Nikto refused, `curl` and normal pages served, 429 after exactly
+the configured limit and recovery after the window).
+
+## One command for the live demo stack (2026-10-24)
+
+`npm run live -- --config <hdd.yaml> [--gist <id>] [--release]` starts the HDD proxy and the temporary tunnel together, restarts
+the proxy if it exits, publishes the tunnel address to the gist when `--gist` is given, and stops both on Ctrl+C. It uses
+`target/debug` (or `target/release` with `--release`) and generates a bootstrap admin token for the run when
+`HDD_ADMIN_TOKEN` is not set (use the panel's account login). Demo only: the tunnel exposes the loopback proxy to the internet.
+The Overview screen lists the always-on guards (attack tools, request rate, origin connection pool) from `GET /api/guards`.

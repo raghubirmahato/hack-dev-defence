@@ -367,6 +367,8 @@ pub struct AppState {
     pub events: EventStore,
     /// The ban store.
     pub bans: BanStore,
+    /// The per-client request-rate guard.
+    pub rate: crate::guards::RateLimiter,
     /// The global counters.
     pub counters: GlobalCounters,
     /// The configuration revision (incremented by every admin mutation).
@@ -469,6 +471,7 @@ impl AppState {
             trusted_proxies: validated.trusted_proxies.clone(),
             events,
             bans: BanStore::new(),
+            rate: crate::guards::RateLimiter::from_env(),
             counters: GlobalCounters::default(),
             config_revision: AtomicU64::new(1),
             auth,

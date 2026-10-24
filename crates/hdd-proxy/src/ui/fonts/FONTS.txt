@@ -1,0 +1,7 @@
+Fonts used by the HDD panel, self-hosted so no request leaves this origin.
+Same type system as the Lumina product: Bricolage Grotesque (display), Instrument Sans (text), IBM Plex Mono (data).
+All three families are licensed under the SIL Open Font License 1.1 (https://openfontlicense.org):
+  Bricolage Grotesque  Copyright 2022 The Bricolage Grotesque Project Authors
+  Instrument Sans      Copyright 2022 The Instrument Sans Project Authors
+  IBM Plex Mono        Copyright 2017 IBM Corp.
+Files are the Latin subset, unchanged.

@@ -132,6 +132,54 @@ pub async fn handle(
         );
     }
 
+    // Request-rate guard: a client far above any human or normal client rate (a script loop) is slowed down first.
+    if state.rate.exceeded(site.host(), client_ip) {
+        let allow = Verdict::allow();
+        let detail = format!(
+            "rate limit exceeded: more than {} requests in 10 seconds from this address",
+            state.rate.limit()
+        );
+        if mode == Mode::Block {
+            site.note_blocked();
+            state
+                .counters
+                .blocked
+                .fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+            let event = event_view(
+                &state,
+                &site,
+                &ray_id,
+                client_ip,
+                &method,
+                &path,
+                "block",
+                &allow,
+                mode,
+                Some(&detail),
+            );
+            state.record_event(event);
+            let mut response =
+                crate::server::page_response(&blockpage::rate_limited(&ray_id, json, 10), &ray_id);
+            response
+                .headers_mut()
+                .insert("retry-after", hyper::header::HeaderValue::from_static("10"));
+            return response;
+        }
+        let event = event_view(
+            &state,
+            &site,
+            &ray_id,
+            client_ip,
+            &method,
+            &path,
+            "would_block",
+            &allow,
+            mode,
+            Some(&detail),
+        );
+        state.record_event(event);
+    }
+
     let read = match read_body(body, mode).await {
         Ok(read) => read,
         Err(BodyError::TooLarge) => {

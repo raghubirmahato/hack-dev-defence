@@ -1,5 +1,5 @@
-//! Origin forwarding: one HTTP/1.1 connection per request over a fresh TCP connection (plain or TLS), with a 3 s
-//! connect timeout and a 30 s total origin-exchange timeout, hop-by-hop header stripping, the forwarded-address headers
+//! Origin forwarding: HTTP/1.1 over pooled keep-alive connections (plain or TLS; a fresh connection only when no idle
+//! one is ready), with a 3 s connect timeout and a 30 s total origin-exchange timeout, hop-by-hop header stripping, the forwarded-address headers
 //! set from the *resolved* client IP (never from an untrusted `X-Forwarded-For`), `Host` preserved or rewritten per
 //! site config, the optional origin secret header injected while any client-supplied copy is removed, and redirects
 //! never followed.
@@ -8,12 +8,15 @@
 //! verification is a 502 at the caller. TLS **termination** is out of scope for HK1 (the proxy runs behind Caddy or
 //! Cloudflare), but forwarding **to** an `https://` origin is in scope.
 
+use std::collections::HashMap;
 use std::net::{IpAddr, SocketAddr};
-use std::sync::{Arc, OnceLock};
-use std::time::Duration;
+use std::sync::{Arc, Mutex, OnceLock};
+use std::time::{Duration, Instant};
 
 use bytes::Bytes;
 use http_body_util::BodyExt;
+use hyper::body::Body as _;
+use hyper::client::conn::http1::SendRequest;
 use hyper::header::{HeaderMap, HeaderName, HeaderValue};
 use hyper::{Request, Response, StatusCode};
 use hyper_util::rt::TokioIo;
@@ -100,10 +103,67 @@ impl ProbeResponse {
     }
 }
 
+/// How long an idle origin connection may wait in the pool before it is dropped (origins close idle sockets on their own
+/// schedule, so a short life keeps the stale-socket race rare).
+const POOL_IDLE: Duration = Duration::from_secs(20);
+
+/// The most idle connections kept per origin.
+pub const POOL_MAX_PER_ORIGIN: usize = 64;
+
+/// One idle keep-alive connection.
+struct Pooled {
+    sender: SendRequest<ResBody>,
+    since: Instant,
+}
+
+/// Idle origin connections by `scheme://host:port`. A sender goes back right after the response headers arrive; it
+/// reports not-ready while the previous body is still streaming, so it is only reused once that body has finished.
+#[derive(Default)]
+struct Pool {
+    idle: Mutex<HashMap<String, Vec<Pooled>>>,
+}
+
+impl Pool {
+    /// Take the most recently used connection that is open and ready, dropping expired and closed ones.
+    fn take(&self, key: &str) -> Option<SendRequest<ResBody>> {
+        let mut map = util::lock(&self.idle);
+        let list = map.get_mut(key)?;
+        let mut busy = Vec::new();
+        let mut found = None;
+        while let Some(entry) = list.pop() {
+            if entry.since.elapsed() > POOL_IDLE || entry.sender.is_closed() {
+                continue;
+            }
+            if entry.sender.is_ready() {
+                found = Some(entry.sender);
+                break;
+            }
+            busy.push(entry);
+        }
+        list.extend(busy.into_iter().rev());
+        found
+    }
+
+    /// Return a connection to the pool (dropped when the pool for that origin is full).
+    fn put(&self, key: String, sender: SendRequest<ResBody>) {
+        let mut map = util::lock(&self.idle);
+        let list = map.entry(key).or_default();
+        list.retain(|entry| !entry.sender.is_closed() && entry.since.elapsed() <= POOL_IDLE);
+        if list.len() < POOL_MAX_PER_ORIGIN {
+            list.push(Pooled {
+                sender,
+                since: Instant::now(),
+            });
+        }
+    }
+}
+
 /// The origin client used by the proxy data path and the lockdown/verify probes.
 pub struct Forwarder {
     /// The TLS client configuration, built lazily from the platform trust store.
     tls: OnceLock<Result<Arc<ClientConfig>, String>>,
+    /// Idle keep-alive connections to origins.
+    pool: Pool,
 }
 
 impl Forwarder {
@@ -112,6 +172,7 @@ impl Forwarder {
     pub fn new() -> Self {
         Self {
             tls: OnceLock::new(),
+            pool: Pool::default(),
         }
     }
 
@@ -125,10 +186,70 @@ impl Forwarder {
         request: Request<ResBody>,
     ) -> Result<Response<hyper::body::Incoming>, ForwardError> {
         let upstream = Upstream::from_origin(origin);
-        let stream = self.connect(&upstream, CONNECT_TIMEOUT).await?;
-        match stream {
-            Stream::Plain(tcp) => exchange(tcp, request).await,
-            Stream::Tls(tcp) => exchange(*tcp, request).await,
+        let key = format!(
+            "{}://{}:{}",
+            if upstream.https { "https" } else { "http" },
+            upstream.host,
+            upstream.port
+        );
+        let (mut sender, reused) = match self.pool.take(&key) {
+            Some(sender) => (sender, true),
+            None => (self.open(&upstream).await?, false),
+        };
+        // A reused socket the origin closed a moment ago fails on first use; a body-less GET/HEAD can be sent again
+        // on a fresh connection, anything else is reported (a request body cannot be replayed).
+        let replay = (reused
+            && request.body().is_end_stream()
+            && matches!(*request.method(), hyper::Method::GET | hyper::Method::HEAD))
+        .then(|| {
+            (
+                request.method().clone(),
+                request.uri().clone(),
+                request.headers().clone(),
+            )
+        });
+        let first = tokio::time::timeout(TOTAL_TIMEOUT, sender.send_request(request)).await;
+        if let Ok(Ok(response)) = first {
+            self.pool.put(key, sender);
+            return Ok(response);
+        }
+        let Some((method, uri, headers)) = replay else {
+            return match first {
+                Err(_) => Err(ForwardError::Timeout(format!(
+                    "the origin did not answer within {TOTAL_TIMEOUT:?}"
+                ))),
+                Ok(Err(error)) => Err(ForwardError::Protocol(format!(
+                    "the origin exchange failed: {error}"
+                ))),
+                Ok(Ok(_)) => Err(ForwardError::Protocol(
+                    "the origin exchange failed".to_owned(),
+                )),
+            };
+        };
+        let mut fresh = self.open(&upstream).await?;
+        let mut again = Request::new(util::empty_body());
+        *again.method_mut() = method;
+        *again.uri_mut() = uri;
+        *again.headers_mut() = headers;
+        match tokio::time::timeout(TOTAL_TIMEOUT, fresh.send_request(again)).await {
+            Err(_) => Err(ForwardError::Timeout(format!(
+                "the origin did not answer within {TOTAL_TIMEOUT:?}"
+            ))),
+            Ok(Err(error)) => Err(ForwardError::Protocol(format!(
+                "the origin exchange failed: {error}"
+            ))),
+            Ok(Ok(response)) => {
+                self.pool.put(key, fresh);
+                Ok(response)
+            }
+        }
+    }
+
+    /// Open a new HTTP/1.1 connection to the upstream and start its driver task.
+    async fn open(&self, upstream: &Upstream) -> Result<SendRequest<ResBody>, ForwardError> {
+        match self.connect(upstream, CONNECT_TIMEOUT).await? {
+            Stream::Plain(tcp) => handshake(tcp).await,
+            Stream::Tls(tcp) => handshake(*tcp).await,
         }
     }
 
@@ -328,15 +449,12 @@ fn build_tls_config() -> Result<Arc<ClientConfig>, String> {
     Ok(Arc::new(config))
 }
 
-/// Run one HTTP/1.1 exchange over an established stream.
-async fn exchange<S>(
-    stream: S,
-    request: Request<ResBody>,
-) -> Result<Response<hyper::body::Incoming>, ForwardError>
+/// Do the HTTP/1.1 handshake over an established stream and drive the connection in the background.
+async fn handshake<S>(stream: S) -> Result<SendRequest<ResBody>, ForwardError>
 where
     S: tokio::io::AsyncRead + tokio::io::AsyncWrite + Unpin + Send + 'static,
 {
-    let (mut sender, connection) = hyper::client::conn::http1::handshake(TokioIo::new(stream))
+    let (sender, connection) = hyper::client::conn::http1::handshake(TokioIo::new(stream))
         .await
         .map_err(|error| {
             ForwardError::Protocol(format!("HTTP handshake with the origin failed: {error}"))
@@ -345,15 +463,7 @@ where
         // The connection driver ends when the origin closes; a send error is reported by the request side.
         let _ = connection.await;
     });
-    match tokio::time::timeout(TOTAL_TIMEOUT, sender.send_request(request)).await {
-        Err(_) => Err(ForwardError::Timeout(format!(
-            "the origin did not answer within {TOTAL_TIMEOUT:?}"
-        ))),
-        Ok(Err(error)) => Err(ForwardError::Protocol(format!(
-            "the origin exchange failed: {error}"
-        ))),
-        Ok(Ok(response)) => Ok(response),
-    }
+    Ok(sender)
 }
 
 /// Build the request headers forwarded upstream.
@@ -546,6 +656,62 @@ pub fn boxed(error: impl std::error::Error + Send + Sync + 'static) -> BoxError 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// Sequential requests to one origin reuse one keep-alive connection instead of opening one each, and a connection
+    /// the origin closed between requests is replaced transparently for a body-less GET.
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn sequential_requests_reuse_one_origin_connection() {
+        use std::sync::atomic::{AtomicUsize, Ordering};
+
+        use http_body_util::BodyExt as _;
+        use hyper::service::service_fn;
+
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0")
+            .await
+            .expect("bind");
+        let port = listener.local_addr().expect("addr").port();
+        let accepted = Arc::new(AtomicUsize::new(0));
+        let counter = Arc::clone(&accepted);
+        tokio::spawn(async move {
+            loop {
+                let Ok((tcp, _)) = listener.accept().await else {
+                    break;
+                };
+                counter.fetch_add(1, Ordering::SeqCst);
+                tokio::spawn(async move {
+                    let service = service_fn(|_request: Request<hyper::body::Incoming>| async {
+                        Ok::<_, std::convert::Infallible>(Response::new(http_body_util::Full::new(
+                            Bytes::from_static(b"hello"),
+                        )))
+                    });
+                    let _ = hyper::server::conn::http1::Builder::new()
+                        .serve_connection(TokioIo::new(tcp), service)
+                        .await;
+                });
+            }
+        });
+
+        let forwarder = Forwarder::new();
+        let target = Origin::parse(&format!("http://127.0.0.1:{port}")).expect("origin parses");
+        for _ in 0..6 {
+            let mut request = Request::new(util::empty_body());
+            *request.uri_mut() = "/".parse().expect("uri");
+            let response = forwarder.send(&target, request).await.expect("sent");
+            assert_eq!(response.status(), StatusCode::OK);
+            let bytes = response
+                .into_body()
+                .collect()
+                .await
+                .expect("body")
+                .to_bytes();
+            assert_eq!(&bytes[..], b"hello");
+        }
+        assert_eq!(
+            accepted.load(Ordering::SeqCst),
+            1,
+            "six sequential requests must share one pooled connection"
+        );
+    }
 
     fn origin() -> Origin {
         Origin::parse("http://127.0.0.1:8081").expect("origin parses")

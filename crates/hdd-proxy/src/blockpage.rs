@@ -101,6 +101,32 @@ pub fn payload_too_large(ray_id: &str, json: bool, cap: usize) -> Page {
     }
 }
 
+/// The 429 page for a client that sent more requests than the per-window limit allows.
+#[must_use]
+pub fn rate_limited(ray_id: &str, json: bool, retry_after: u32) -> Page {
+    let detail = format!(
+        "Too many requests from your address in a short time. Wait {retry_after} seconds and try again."
+    );
+    if json {
+        Page {
+            status: 429,
+            content_type: "application/problem+json",
+            body: problem_json("Too Many Requests", 429, &detail, Some(ray_id)),
+        }
+    } else {
+        Page {
+            status: 429,
+            content_type: "text/html; charset=utf-8",
+            body: shell(
+                "Too many requests",
+                "429 Too many requests",
+                &detail,
+                Some(ray_id),
+            ),
+        }
+    }
+}
+
 /// The branded 408 page for a request body that did not arrive within the body-read deadline (review R1-7).
 #[must_use]
 pub fn request_timeout(ray_id: &str, json: bool) -> Page {

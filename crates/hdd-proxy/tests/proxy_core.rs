@@ -337,6 +337,9 @@ impl Harness {
             COUNTER.fetch_add(1, Ordering::Relaxed)
         );
         let directory = std::env::temp_dir().join(format!("hdd-proxy-it-{unique}"));
+        // A directory left by an earlier run with the same process id (ids are reused) may hold a stale
+        // `removed-sites.json` or `sites.json` that would silently change this test's configuration.
+        let _ = std::fs::remove_dir_all(&directory);
         std::fs::create_dir_all(&directory).unwrap();
         let data_dir = directory.join("data");
         let path = |value: &std::path::Path| value.display().to_string().replace('\\', "/");
@@ -2408,4 +2411,112 @@ async fn a_plain_404_from_the_origin_is_still_an_error_not_a_lockdown() {
         Some(false)
     );
     assert_eq!(harness.state.caught_panics(), 0);
+}
+
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
+async fn the_guards_endpoint_reports_what_is_enforced() {
+    let harness = Harness::start(Setup::new("block")).await;
+    let guards = harness.admin_json("/api/guards").await;
+    assert_eq!(
+        guards
+            .get("attack_tools_blocked")
+            .and_then(serde_json::Value::as_bool),
+        Some(true)
+    );
+    assert!(
+        guards
+            .get("rate_limit_per_10s")
+            .and_then(serde_json::Value::as_u64)
+            .is_some(),
+        "the rate limit is reported as a number: {guards}"
+    );
+    assert!(
+        guards
+            .get("origin_pool_per_origin")
+            .and_then(serde_json::Value::as_u64)
+            .is_some_and(|value| value > 0)
+    );
+}
+
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
+async fn a_site_can_be_created_with_paranoid_strictness_and_it_blocks_attack_text_in_password_fields()
+ {
+    let harness = Harness::start(Setup::new("block")).await;
+    let created = harness
+        .admin(
+            "POST",
+            "/api/sites",
+            Some("Bearer owner-token"),
+            r#"{"host":"strict.test","origin":"http://127.0.0.1:9","mode":"block","strictness":"paranoid"}"#,
+            &[],
+        )
+        .await;
+    assert_eq!(created.status, 201, "body: {}", created.body);
+    let site = harness.admin_json("/api/sites/strict.test").await;
+    assert_eq!(
+        site.get("strictness").and_then(serde_json::Value::as_str),
+        Some("paranoid"),
+        "{site}"
+    );
+    let blocked = harness
+        .proxy_get("strict.test", "/login?password=admin%27%20--", &[])
+        .await;
+    assert_eq!(
+        blocked.status, 403,
+        "Paranoid blocks `admin' --` in a password field"
+    );
+}
+
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
+async fn the_panel_never_lets_a_browser_keep_a_copy() {
+    let harness = Harness::start(Setup::new("block")).await;
+    for path in [
+        "/",
+        "/app",
+        "/login",
+        "/setup",
+        "/static/app.css",
+        "/static/app.js",
+        "/static/fonts/BricolageGrotesque-var.woff2",
+        "/static/fonts/InstrumentSans-var.woff2",
+        "/healthz",
+        "/no-such-page",
+    ] {
+        let response = harness.admin("GET", path, None, "", &[]).await;
+        let header = |name: &str| {
+            response
+                .headers
+                .iter()
+                .find(|(key, _)| key.eq_ignore_ascii_case(name))
+                .map(|(_, value)| value.to_ascii_lowercase())
+        };
+        assert!(
+            header("cache-control").is_some_and(|value| value.contains("no-store")),
+            "{path} ({}) must send Cache-Control: no-store, got {:?}",
+            response.status,
+            header("cache-control")
+        );
+    }
+    let api = harness
+        .admin("GET", "/api/guards", Some("Bearer owner-token"), "", &[])
+        .await;
+    let value = api
+        .headers
+        .iter()
+        .find(|(key, _)| key.eq_ignore_ascii_case("cache-control"))
+        .map(|(_, value)| value.to_ascii_lowercase());
+    assert_eq!(
+        value.as_deref(),
+        Some("no-store"),
+        "API answers are never cached either"
+    );
+    let page = harness.admin("GET", "/login", None, "", &[]).await;
+    for (name, expected) in [("pragma", "no-cache"), ("expires", "0")] {
+        let found = page
+            .headers
+            .iter()
+            .find(|(key, _)| key.eq_ignore_ascii_case(name))
+            .map(|(_, value)| value.as_str());
+        assert_eq!(found, Some(expected), "{name} header on pages");
+    }
 }

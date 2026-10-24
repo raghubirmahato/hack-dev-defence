@@ -126,6 +126,9 @@ struct Outcome {
 /// The function is pure, never panics and runs in time linear in the size of the request vectors (R-09, R-29).
 #[must_use]
 pub fn inspect(input: &InspectInput<'_>, settings: &SiteSettings) -> Verdict {
+    if let Some(verdict) = attack_tool_verdict(input) {
+        return verdict;
+    }
     let mut ops = 0u64;
     let mut truncated = false;
     let budget = work_budget(input);
@@ -154,6 +157,65 @@ pub(crate) fn inspect_with_budget(
     let mut ops = 0u64;
     let mut truncated = false;
     analyze(input, settings, &mut ops, &mut truncated, budget)
+}
+
+/// User-Agent fragments of well-known offensive scanners and exploitation tools (lower case). Ordinary clients such as
+/// `curl`, `python-requests` or a browser are deliberately not listed: they are judged by what they send, not by name.
+const ATTACK_TOOLS: &[&str] = &[
+    "sqlmap",
+    "nikto",
+    "acunetix",
+    "netsparker",
+    "nessus",
+    "openvas",
+    "havij",
+    "w3af",
+    "wpscan",
+    "dirbuster",
+    "gobuster",
+    "feroxbuster",
+    "wfuzz",
+    "ffuf",
+    "hydra",
+    "masscan",
+    "zgrab",
+    "nuclei",
+    "arachni",
+    "skipfish",
+    "sqlninja",
+    "commix",
+    "jaeles",
+    "burpcollaborator",
+    "appscan",
+    "webinspect",
+    "qualys",
+    "grabber",
+    "whatweb",
+];
+
+/// R-24: a request that names a known attack tool in its `User-Agent` is refused as a policy block with the tool as the
+/// subtype evidence. The header is client-controlled, so this only stops tools that announce themselves; the SQL
+/// injection rules still judge everything else by content.
+fn attack_tool_verdict(input: &InspectInput<'_>) -> Option<Verdict> {
+    for (name, value) in input.headers {
+        if !name.eq_ignore_ascii_case("user-agent") {
+            continue;
+        }
+        let lower = value.to_ascii_lowercase();
+        let tool = ATTACK_TOOLS.iter().find(|tool| lower.contains(**tool))?;
+        let evidence: String = value.chars().take(128).collect();
+        return Some(Verdict::block(
+            "policy",
+            "attack_tool",
+            "T1-001",
+            Vector::Header,
+            "User-Agent",
+            FieldKind::Header,
+            format!("{tool}: {evidence}"),
+            90,
+        ));
+    }
+    None
 }
 
 fn inspected_bytes(input: &InspectInput<'_>) -> u64 {
@@ -749,18 +811,62 @@ impl<'a> Scan<'a> {
     }
 
     /// Parse a literal operand starting at `start`.
+    /// Skip up to `depth` closing parentheses that wrap an operand opened with the same number of `(`.
+    fn close_parens(&self, mut index: usize, depth: usize) -> usize {
+        let mut left = depth;
+        while left > 0 && self.punct_is(index, ")") {
+            index += 1;
+            left -= 1;
+        }
+        index
+    }
+
     fn operand(&self, start: usize) -> Option<(Lit, usize)> {
+        let (literal, next, depth) = self.operand_core(start)?;
+        Some((literal, self.close_parens(next, depth)))
+    }
+
+    /// `char(49)`, `char(97,98)`: a string built from character codes is a literal (`' or char(49)=char(49)--`).
+    fn char_call(&self, index: usize) -> Option<(Lit, usize)> {
+        if !self.word_is(index, "char") || !self.punct_is(index + 1, "(") {
+            return None;
+        }
+        let mut cursor = index + 2;
+        let mut built = String::new();
+        while built.len() < 32 {
+            if self.kind_of(cursor) != Some(TokenKind::Number) {
+                return None;
+            }
+            let code: u32 = self.text_of(cursor).parse().ok()?;
+            built.push(char::from_u32(code)?);
+            cursor += 1;
+            if self.punct_is(cursor, ",") {
+                cursor += 1;
+                continue;
+            }
+            if self.punct_is(cursor, ")") {
+                return Some((Lit::string(&built), cursor + 1));
+            }
+            return None;
+        }
+        None
+    }
+
+    fn operand_core(&self, start: usize) -> Option<(Lit, usize, usize)> {
         let mut index = start;
         let mut depth = 0usize;
         while self.punct_is(index, "(") && depth < 64 {
             depth += 1;
             index += 1;
         }
+        if let Some((literal, next)) = self.char_call(index) {
+            return Some((literal, next, depth));
+        }
         if self.punct_is(index, "-") {
             let next = index + 1;
             if self.kind_of(next) == Some(TokenKind::Number) {
                 let text = format!("-{}", self.text_of(next));
-                return Some((Lit::number(&text), next + 1));
+                return Some((Lit::number(&text), next + 1, depth));
             }
             return None;
         }
@@ -773,14 +879,14 @@ impl<'a> Scan<'a> {
                     .map(|open| open.start)
                     .unwrap_or(content_start);
                 let raw = self.text.get(content_start..content_end).unwrap_or("");
-                return Some((Lit::string(raw), close + 1));
+                return Some((Lit::string(raw), close + 1, depth));
             }
             let tail = self.text.get(token.end..).unwrap_or("");
-            return Some((Lit::string(literal_tail(tail)), self.tokens.len()));
+            return Some((Lit::string(literal_tail(tail)), self.tokens.len(), depth));
         }
         match token.kind {
-            TokenKind::Number => Some((Lit::number(token.text(self.text)), index + 1)),
-            TokenKind::Word => Some((Lit::word(token.text(self.text)), index + 1)),
+            TokenKind::Number => Some((Lit::number(token.text(self.text)), index + 1, depth)),
+            TokenKind::Word => Some((Lit::word(token.text(self.text)), index + 1, depth)),
             _ => None,
         }
     }
@@ -805,6 +911,15 @@ impl<'a> Scan<'a> {
         while self.word_is(cursor, "not") && negations < 8 {
             cursor += 1;
             negations += 1;
+        }
+        // `~0`, `~1`: bitwise NOT of an integer is never zero, so it is an always-true bare literal (`' OR ~0--`).
+        if self.text_of(cursor) == "~" && self.kind_of(cursor + 1) == Some(TokenKind::Number) {
+            return Some(Predicate {
+                truth: Some(negations.is_multiple_of(2)),
+                comparison: false,
+                uses_like: false,
+                identifier_operand: false,
+            });
         }
         let mut predicate = self.predicate_core(cursor)?;
         if negations % 2 == 1 {
@@ -926,17 +1041,30 @@ impl<'a> Scan<'a> {
         if let Some(hit) = self.h1_quote_arithmetic() {
             return Some(hit);
         }
+        if let Some(hit) = self.h1_probe_fragment() {
+            return Some(hit);
+        }
         for (index, token) in self.tokens.iter().enumerate() {
-            if !self.is_connector(index) {
+            if !(self.is_connector(index) || self.word_is(index, "having")) {
                 continue;
             }
             let Some(predicate) = self.predicate(index + 1) else {
                 continue;
             };
-            if predicate.truth != Some(true) {
+            let breakout = self.breakout_before(index);
+            // A literal-only comparison that is false (`1 AND 1=2`, `1' AND '1'='2`) is the other half of a blind
+            // boolean probe: it is attack-shaped after a quote break-out, or when the whole field is the expression.
+            let false_probe = predicate.truth == Some(false)
+                && predicate.comparison
+                && !predicate.identifier_operand
+                && (breakout == Breakout::Quote
+                    || (index > 0
+                        && self.kind_of(index - 1) == Some(TokenKind::Number)
+                        && self.starts_numeric
+                        && self.text.len() <= 48));
+            if predicate.truth != Some(true) && !false_probe {
                 continue;
             }
-            let breakout = self.breakout_before(index);
             let numeric_context = index > 0 && self.kind_of(index - 1) == Some(TokenKind::Number);
             let strong = self
                 .terminator_after
@@ -957,7 +1085,7 @@ impl<'a> Scan<'a> {
                 Breakout::Quote => true,
                 // A parenthesis-only break-out is enough for a full comparison, but not for a bare literal.
                 Breakout::Paren => predicate.comparison,
-                Breakout::None => false,
+                Breakout::None => false_probe,
             };
             return Some(Hit {
                 family: Family::H1,
@@ -974,6 +1102,45 @@ impl<'a> Scan<'a> {
             });
         }
         None
+    }
+
+    /// H1-003: a field that is only an injection probe fragment (`'`, `"`, `\`, `' )`, `'; --`, `' OR`): no real input
+    /// is made of nothing but quote characters, closers and a comment or connector, so it is an error-probe.
+    fn h1_probe_fragment(&self) -> Option<Hit> {
+        let trimmed = self.text.trim();
+        if trimmed.is_empty() || trimmed.len() > 8 {
+            return None;
+        }
+        let mut quotes = 0usize;
+        for word in trimmed.split_whitespace() {
+            let lower = word.to_ascii_lowercase();
+            if matches!(lower.as_str(), "or" | "and") {
+                continue;
+            }
+            for c in word.chars() {
+                match c {
+                    '\'' | '"' | '`' | '\\' => quotes = quotes.saturating_add(1),
+                    ')' | '(' | ';' | '-' | '#' | '/' | '*' => {}
+                    _ => return None,
+                }
+            }
+        }
+        if quotes == 0 {
+            return None;
+        }
+        Some(Hit {
+            family: Family::H1,
+            subtype: "probe_fragment",
+            rule_id: "H1-003",
+            score: 80,
+            at: 0,
+            breakout: true,
+            after_identifier: false,
+            comparison: true,
+            hash_numbered: false,
+            numeric_context: false,
+            strong: false,
+        })
     }
 
     /// H1-002: a quoted arithmetic expression (`'-0-'`, `'-1-1-'`), an injection probe with no connector (R1-5).
@@ -1016,6 +1183,27 @@ impl<'a> Scan<'a> {
 
     /// H2: quote break-out followed by a comment starter or a statement terminator (C4.5 H2).
     fn h2(&self) -> Option<Hit> {
+        // `1 --`, `10 #`: a number closed by a comment and nothing else is a numeric-context comment break-out probe.
+        let trimmed = self.text.trim();
+        if trimmed.len() <= 12 {
+            let digits = trimmed.chars().take_while(char::is_ascii_digit).count();
+            let rest = trimmed.get(digits..).unwrap_or("").trim();
+            if digits > 0 && (rest == "--" || rest == "#" || rest == "/*") {
+                return Some(Hit {
+                    family: Family::H2,
+                    subtype: "comment_breakout",
+                    rule_id: "H2-003",
+                    score: 85,
+                    at: 0,
+                    breakout: true,
+                    after_identifier: false,
+                    comparison: false,
+                    hash_numbered: false,
+                    numeric_context: true,
+                    strong: false,
+                });
+            }
+        }
         for (index, token) in self.tokens.iter().enumerate() {
             match token.kind {
                 TokenKind::Comment => {
@@ -1133,11 +1321,15 @@ impl<'a> Scan<'a> {
             }
             let breakout = self.breakout_before(index) != Breakout::None;
             let number_before = self.number_before(index);
-            let sql_after = (cursor + 1..cursor.saturating_add(9)).any(|after| {
-                self.word_is(after, "from")
-                    || self.word_is(after, "where")
-                    || self.text_of(after).starts_with("@@")
-            });
+            let literal_list = self.kind_of(cursor + 1) == Some(TokenKind::Number)
+                || self.word_is(cursor + 1, "null")
+                || self.punct_is(cursor + 1, "*");
+            let sql_after = literal_list
+                || (cursor + 1..cursor.saturating_add(9)).any(|after| {
+                    self.word_is(after, "from")
+                        || self.word_is(after, "where")
+                        || self.text_of(after).starts_with("@@")
+                });
             if breakout || number_before || sql_after {
                 return Some(Hit {
                     family: Family::H3,
@@ -1178,6 +1370,38 @@ impl<'a> Scan<'a> {
                 continue;
             }
             let word = next.text(self.text);
+            // `; select ... from`, `; select 1`, `; set @a=1` after a quote or number break-out are stacked queries too.
+            let extra = match word {
+                "select" => {
+                    (self.breakout_before(index) == Breakout::Quote || self.number_before(index))
+                        && (index + 2..index.saturating_add(9)).any(|after| {
+                            self.word_is(after, "from")
+                                || self.punct_is(after, "*")
+                                || self.kind_of(after) == Some(TokenKind::Comment)
+                                || self.kind_of(after) == Some(TokenKind::Number)
+                        })
+                }
+                "set" => {
+                    (self.breakout_before(index) == Breakout::Quote || self.number_before(index))
+                        && self.text_of(index + 2).starts_with('@')
+                }
+                _ => false,
+            };
+            if extra {
+                return Some(Hit {
+                    family: Family::H4,
+                    subtype: "stacked_query",
+                    rule_id: "H4-001",
+                    score: 94,
+                    at: next.start,
+                    breakout: true,
+                    after_identifier: false,
+                    comparison: true,
+                    hash_numbered: false,
+                    numeric_context: false,
+                    strong: false,
+                });
+            }
             if !STACKED.contains(&word) {
                 continue;
             }
@@ -1224,6 +1448,7 @@ impl<'a> Scan<'a> {
             "xp_dirtree",
             "xp_fileexist",
             "xp_cmdshell",
+            "load_extension",
         ];
         for index in 0..self.tokens.len() {
             let Some(token) = self.token(index) else {
@@ -1278,8 +1503,13 @@ impl<'a> Scan<'a> {
             if word == "select" && index > 0 && self.punct_is(index - 1, "(") && numeric_ctx {
                 return Some(self.h5_hit(token.start, "subselect", "H5-008"));
             }
-            if matches!(word, "ascii" | "substr" | "substring")
-                && called
+            if word == "procedure" && self.word_is(index + 1, "analyse") && numeric_ctx {
+                return Some(self.h5_hit(token.start, "subselect", "H5-008"));
+            }
+            if matches!(
+                word,
+                "ascii" | "substr" | "substring" | "mid" | "ord" | "length"
+            ) && called
                 && self.has_comparison_operator
                 && numeric_ctx
             {

@@ -626,6 +626,11 @@
     dd(dl, "Origin", site.origin);
     dd(dl, "Mode", site.mode);
     dd(dl, "Strictness", site.strictness);
+    dd(
+      dl,
+      "Attack text in password fields",
+      site.strictness === "paranoid" ? "blocked" : "allowed (Balanced): switch to Paranoid to block it too"
+    );
     dd(dl, "Requests since start", String(site.requests));
     dd(dl, "Blocked since start", String(site.blocked));
     if (detailed) {
@@ -906,7 +911,41 @@
     }
   }
 
+  // The always-on guards beyond the SQL injection rules, read from the API (never a made-up number).
+  async function renderGuards() {
+    const box = $("overview-guards");
+    clear(box);
+    let guards = null;
+    try {
+      guards = await api("/api/guards");
+    } catch (error) {
+      return;
+    }
+    if (!guards) {
+      return;
+    }
+    const card = elem("div", "card");
+    card.appendChild(elem("h3", null, "Guards that are always on"));
+    const list = elem("ul", "checklist");
+    list.appendChild(
+      elem("li", null, (guards.attack_tools_blocked ? "ON" : "OFF") + " · Known attack tools (sqlmap, Nikto, Nuclei and similar) are refused by their User-Agent")
+    );
+    list.appendChild(
+      elem(
+        "li",
+        null,
+        guards.rate_limit_per_10s > 0
+          ? "ON · Request rate: " + guards.rate_limit_per_10s + " requests per client per site every 10 seconds, then 429 (Block mode)"
+          : "OFF · Request rate guard is switched off (HDD_RATE_LIMIT_PER_10S=0)"
+      )
+    );
+    list.appendChild(elem("li", null, "ON · Up to " + guards.origin_pool_per_origin + " reused connections per origin for speed"));
+    card.appendChild(list);
+    box.appendChild(card);
+  }
+
   async function loadOverview() {
+    renderGuards();
     const results = await Promise.all([api("/api/sites"), api("/api/events")]);
     const sitesResponse = results[0] || { sites: [] };
     state.sites = sitesResponse.sites || [];
@@ -1749,6 +1788,7 @@
                   host: hostValue,
                   origin: originValue,
                   mode: "monitor",
+                  strictness: "paranoid",
                   connection: "vercel_front_door",
                   upstream_host: secondValue,
                   origin_secret_header: null,
@@ -1758,6 +1798,7 @@
                   host: hostValue,
                   origin: originValue,
                   mode: "monitor",
+                  strictness: "paranoid",
                   connection: "vercel",
                   upstream_host: appAddress,
                   origin_secret_header: null,

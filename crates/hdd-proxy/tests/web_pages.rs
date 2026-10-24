@@ -166,6 +166,7 @@ fn the_web_ui_only_calls_documented_api_paths() {
     let allowed_prefixes = [
         "/api/events",
         "/api/bans",
+        "/api/guards",
         "/api/sites",
         "/api/inspect",
         "/api/block-preview",
@@ -743,4 +744,51 @@ fn the_vercel_quick_mode_offers_the_front_door_choice_and_the_second_address() {
         script.contains("generate_origin_secret: true"),
         "both quick paths still let HDD generate the origin secret"
     );
+}
+
+#[test]
+fn the_lumina_fonts_are_self_hosted_and_wired_into_the_stylesheet() {
+    let css = text(&ui::asset("/static/app.css").expect("stylesheet"));
+    assert!(css.contains("@font-face"));
+    for family in [
+        "\"Bricolage Grotesque\"",
+        "\"Instrument Sans\"",
+        "\"IBM Plex Mono\"",
+    ] {
+        assert!(css.contains(family), "{family} is declared");
+    }
+    assert!(
+        !css.contains("fonts.googleapis") && !css.contains("http://") && !css.contains("https://")
+    );
+    for (path, minimum) in [
+        ("/static/fonts/BricolageGrotesque-var.woff2", 40_000),
+        ("/static/fonts/InstrumentSans-var.woff2", 15_000),
+        ("/static/fonts/IBMPlexMono-400-normal.woff2", 8_000),
+        ("/static/fonts/IBMPlexMono-500-normal.woff2", 8_000),
+    ] {
+        let font = ui::asset(path).unwrap_or_else(|| panic!("{path} is embedded"));
+        assert_eq!(font.content_type, "font/woff2");
+        assert!(font.body.len() > minimum, "{path} is a real font file");
+        assert_eq!(
+            font.body.get(..4),
+            Some(&b"wOF2"[..]),
+            "{path} is a WOFF2 file"
+        );
+        assert!(css.contains(path), "the stylesheet loads {path}");
+    }
+    assert!(
+        ui::asset("/static/fonts/../app.js").is_none(),
+        "no path traversal"
+    );
+    assert!(ui::asset("/static/fonts/unknown.woff2").is_none());
+}
+
+#[test]
+fn every_page_asks_the_browser_not_to_keep_a_copy() {
+    for path in ["/", "/app", "/login", "/setup"] {
+        let page = text(&ui::page_asset(path).expect("page"));
+        assert!(page.contains("http-equiv=\"Cache-Control\""), "{path}");
+        assert!(page.contains("no-store"), "{path}");
+        assert!(page.contains("http-equiv=\"Pragma\""), "{path}");
+    }
 }

@@ -1,0 +1,18 @@
+GET ?q=' OR 1=1--  (curl -G --data-urlencode)                  403
+POST form (curl -d)                                            403
+POST JSON body (curl -H json --data)                           403
+POST JSON nested array                                         403
+POST multipart (curl -F)                                       403
+Cookie header                                                  403
+User-Agent header                                              403
+Referer header                                                 403
+X-Forwarded-For header                                         403
+URL path segment /product/1 OR 1=1                             403
+PUT with body                                                  403
+DELETE with query                                              403
+double URL-encoded                                             403
+HEAD request with payload                                      403
+UA sqlmap/1.7 (benign request)                                 403
+UA Nikto (benign request)                                      403
+UA curl (benign request)                                       200
+plain curl benign page                                         200

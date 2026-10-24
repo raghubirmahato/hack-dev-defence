@@ -2,67 +2,103 @@
    Light and dark themes (system preference, or the toggle in the sidebar), WCAG 2.2 AA basics: visible focus, 4.5:1 body
    text contrast, 3:1 UI component contrast, keyboard operable controls, responsive down to 360 px, reduced-motion support. */
 
+/* Self-hosted fonts, the same type system as the Lumina product (SIL Open Font License 1.1, see /static/fonts/FONTS.txt).
+   Bricolage Grotesque and Instrument Sans are variable fonts: one file covers every weight. */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 400 800;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("/static/fonts/BricolageGrotesque-var.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/static/fonts/InstrumentSans-var.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/static/fonts/IBMPlexMono-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/static/fonts/IBMPlexMono-500-normal.woff2") format("woff2");
+}
+
 :root {
   color-scheme: light;
-  --bg: #f6f9fc;
-  --bg-soft: #edf3f8;
-  --panel: #ffffff;
-  --panel-2: #f6fafc;
-  --border: #e2eaf1;
-  --border-strong: #c5d3e0;
-  --text: #16283b;
-  --muted: #4a5d72;
-  --accent: #0f7d86;
-  --accent-strong: #0a5f67;
-  --accent-soft: #e0f3f4;
+  --bg: #f5f3ec;
+  --bg-soft: #f0ede4;
+  --panel: #fffefb;
+  --panel-2: #faf9f5;
+  --border: #e4dfd1;
+  --border-strong: #d2cbb8;
+  --text: #141b34;
+  --muted: #3f4963;
+  --accent: #0e7c66;
+  --accent-strong: #0a6252;
+  --accent-soft: #e8f4f1;
   --on-accent: #ffffff;
-  --ok: #17794a;
-  --ok-bg: #e3f6ec;
-  --warn: #8a5a00;
-  --warn-bg: #fff4d9;
-  --danger: #c0392f;
-  --danger-bg: #fdeceb;
-  --info: #25629f;
-  --info-bg: #e7f1fb;
-  --focus: #0f7d86;
-  --side: #ffffff;
-  --side-2: #eef5f8;
-  --side-text: #4b6074;
-  --side-strong: #12283b;
-  --radius: 12px;
+  --ok: #0a6252;
+  --ok-bg: #e8f4f1;
+  --warn: #7a5200;
+  --warn-bg: #fbf3c8;
+  --danger: #b5322b;
+  --danger-bg: #fbeae9;
+  --info: #2a355c;
+  --info-bg: #e9ecf6;
+  --focus: #0e7c66;
+  --side: #141b34;
+  --side-2: #1e2748;
+  --side-text: #b7c0da;
+  --side-strong: #ffffff;
+  --radius: 10px;
   --radius-sm: 8px;
-  --shadow: 0 1px 2px rgba(22, 40, 59, 0.05), 0 6px 18px rgba(22, 40, 59, 0.06);
-  --shadow-lg: 0 20px 50px rgba(22, 40, 59, 0.22);
-  --mono: ui-monospace, SFMono-Regular, "Cascadia Mono", Consolas, "Liberation Mono", monospace;
-  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --shadow: 0 1px 0 0 rgba(20, 27, 52, 0.06), 0 1px 3px 0 rgba(20, 27, 52, 0.04);
+  --shadow-lg: 0 12px 32px -12px rgba(20, 27, 52, 0.4);
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, "Cascadia Mono", Consolas, monospace;
+  --sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --display: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #080d19;
-  --bg-soft: #0d1424;
-  --panel: #121b30;
-  --panel-2: #172340;
-  --border: #25335a;
-  --border-strong: #3a4d7c;
-  --text: #e8eefb;
-  --muted: #a3b2d1;
-  --accent: #7ba7ff;
-  --accent-strong: #a8c4ff;
-  --accent-soft: #1a2b57;
-  --on-accent: #07122b;
-  --ok: #55e08a;
-  --ok-bg: #0f2d1d;
-  --warn: #f7c75c;
-  --warn-bg: #33280f;
-  --danger: #ff8f8f;
-  --danger-bg: #381719;
-  --info: #8fc0ff;
-  --info-bg: #13294d;
-  --focus: #9ec5ff;
-  --side: #060a14;
-  --side-2: #0e1628;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.35);
+  --bg: #0c1124;
+  --bg-soft: #141b34;
+  --panel: #141b34;
+  --panel-2: #1e2748;
+  --border: #2a355c;
+  --border-strong: #3b4874;
+  --text: #f0ede4;
+  --muted: #b7c0da;
+  --accent: #3fc3a5;
+  --accent-strong: #7fe0c8;
+  --accent-soft: #0f3a33;
+  --on-accent: #07211c;
+  --ok: #7fe0c8;
+  --ok-bg: #0f3a33;
+  --warn: #e9e04a;
+  --warn-bg: #3a3610;
+  --danger: #ff8a82;
+  --danger-bg: #3d1a1c;
+  --info: #b7c0da;
+  --info-bg: #1e2748;
+  --focus: #e9e04a;
+  --side: #070a16;
+  --side-2: #141b34;
+  --shadow: 0 1px 0 0 rgba(0, 0, 0, 0.5);
 }
 
 *,
@@ -1705,4 +1741,764 @@ dialog pre {
 
 dialog ol.steps > li {
   min-width: 0;
+}
+
+
+/* =====================================================================================================================
+   Lumina design language (2026-10-24). The HDD panel speaks the same visual language as the Lumina product:
+   fountain-pen ink and chalk paper, viridian for "this is fine", a yellow highlighter for the one thing that matters on a
+   screen, a red pen for what was refused. Display type is Bricolage Grotesque, text is Instrument Sans, and data (hosts,
+   addresses, rule ids, evidence) is IBM Plex Mono. Fonts are self-hosted: no request leaves this origin.
+   ===================================================================================================================== */
+
+body {
+  font-family: var(--sans);
+  font-feature-settings: "kern", "liga";
+  font-variant-numeric: lining-nums;
+  background-color: var(--bg);
+  /* The ruled register that sits behind every surface (as in Lumina), kept faint. */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 31px,
+    rgba(20, 27, 52, 0.035) 31px,
+    rgba(20, 27, 52, 0.035) 32px
+  );
+}
+
+/* ---- type ---------------------------------------------------------------------------------------------------------- */
+.screen > h1,
+.hero h1,
+.auth-card h1,
+.auth-art h2,
+.land-section h2,
+dialog h2,
+.screen h2 {
+  font-family: var(--display);
+  font-optical-sizing: auto;
+  font-weight: 640;
+  letter-spacing: -0.018em;
+}
+
+.screen > h1 {
+  font-size: clamp(1.7rem, 1.2rem + 1.2vw, 2.25rem);
+  line-height: 1.12;
+  margin-bottom: 0.45rem;
+}
+
+.screen h2 {
+  font-size: 1.35rem;
+  font-weight: 620;
+  margin: 2rem 0 0.35rem;
+}
+
+.screen > .lead {
+  max-width: 66ch;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.62;
+}
+
+.screen h3,
+.card h3 {
+  font-family: var(--sans);
+  font-weight: 650;
+}
+
+/* Data is set in mono because the product runs on codes: hosts, addresses, rule ids, evidence. */
+.mono,
+code,
+pre,
+td .evidence,
+.dl dd.mono,
+.feed code,
+.copy-block input,
+.dl dd code,
+td.num,
+.tree {
+  font-family: var(--mono);
+  font-feature-settings: "zero";
+}
+
+.dl dd,
+#sites-list .card h3,
+#overview-sites .card h3 {
+  overflow-wrap: anywhere;
+}
+
+#sites-list .card > header h3,
+#overview-sites .card > header h3 {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 0.98rem;
+  letter-spacing: 0;
+}
+
+.nav-label,
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ---- sidebar: pen ink, with the highlighter on the page you are on ------------------------------------------------------ */
+.sidebar {
+  --side-text: #b7c0da;
+  --side-strong: #ffffff;
+  background: linear-gradient(185deg, #141b34 0%, #0c1124 58%, #070a16 100%);
+  border-right: 1px solid #070a16;
+  box-shadow: none;
+}
+
+.brand .brand-name {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+.brand .brand-sub {
+  color: #98a3c4;
+  font-size: 0.74rem;
+}
+
+.brand-mark {
+  filter: drop-shadow(0 3px 8px rgba(233, 224, 74, 0.22));
+}
+
+.nav-label {
+  color: #8b97ba;
+}
+
+.main-nav a {
+  position: relative;
+  isolation: isolate;
+  color: var(--side-text);
+  font-weight: 560;
+  border-radius: 8px;
+  transition: color 140ms ease, background-color 140ms ease;
+}
+
+.main-nav a:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+}
+
+.main-nav a[aria-current="page"] {
+  background: transparent;
+  box-shadow: none;
+  color: #0c1124;
+  font-weight: 650;
+}
+
+/* The highlighter swipe: slightly skewed and rotated, sitting behind the label the way a real marker does. */
+.main-nav a[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 3px 4px;
+  background: #e9e04a;
+  border-radius: 3px;
+  transform: rotate(-0.8deg) skewX(-9deg);
+  transform-origin: left center;
+}
+
+.main-nav a[aria-current="page"] .ico {
+  color: #0c1124;
+}
+
+.session-box {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 10px;
+}
+
+.sidebar .session-box .btn,
+.sidebar .session-box .btn:not(.primary):not(.danger) {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e6eaf6;
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: none;
+}
+
+.sidebar .session-box .btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.session-box .chip {
+  background: rgba(233, 224, 74, 0.16);
+  color: #f3ec7a;
+  border-color: rgba(233, 224, 74, 0.4);
+}
+
+.session-box #session-name {
+  font-family: var(--mono);
+  font-weight: 500;
+}
+
+/* ---- paper cards ------------------------------------------------------------------------------------------------- */
+.card,
+.counter,
+.feat,
+.table-wrap {
+  min-width: 0;
+  background: var(--panel);
+  border: 1px solid rgba(20, 27, 52, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 1px 0 0 rgba(20, 27, 52, 0.06), 0 1px 3px 0 rgba(20, 27, 52, 0.04);
+}
+
+.card > header {
+  border-bottom: 1px solid rgba(20, 27, 52, 0.1);
+}
+
+.counter .counter-value {
+  font-family: var(--display);
+  font-weight: 640;
+  font-size: 2.5rem;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.counter .counter-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* The one number that matters on the Overview: what was blocked. The highlighter marks it, nothing else does. */
+#overview-counters .counter:nth-child(2) .counter-value {
+  position: relative;
+  isolation: isolate;
+  display: inline-block;
+  width: max-content;
+  justify-self: start;
+  align-self: start;
+}
+
+#overview-counters .counter:nth-child(2) .counter-value::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -0.18em;
+  right: -0.22em;
+  bottom: 0.04em;
+  height: 0.5em;
+  background: #e9e04a;
+  opacity: 0.72;
+  transform: rotate(-0.7deg) skewX(-11deg);
+  transform-origin: left center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #overview-counters .counter:nth-child(2) .counter-value::before {
+    animation: hdd-swipe 340ms cubic-bezier(0.2, 0.8, 0.2, 1) 180ms both;
+  }
+
+  .screen > h1 {
+    animation: hdd-rise 260ms ease-out both;
+  }
+}
+
+@keyframes hdd-swipe {
+  from {
+    transform: rotate(-0.7deg) skewX(-11deg) scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(-0.7deg) skewX(-11deg) scaleX(1);
+    opacity: 0.72;
+  }
+}
+
+@keyframes hdd-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.chip {
+  border-radius: 999px;
+  font-weight: 620;
+  padding: 0.16rem 0.62rem;
+}
+
+/* ---- buttons: viridian, ink, a red pen for what cannot be undone ------------------------------------------------------ */
+.btn {
+  border-radius: 8px;
+  font-weight: 620;
+  transition: background-color 140ms ease, box-shadow 140ms ease, transform 140ms ease, border-color 140ms ease;
+}
+
+.btn:not(.primary):not(.danger) {
+  background: #fffefb;
+  border-color: rgba(20, 27, 52, 0.22);
+  color: var(--text);
+  box-shadow: 0 1px 0 0 rgba(20, 27, 52, 0.06);
+}
+
+.btn:not(.primary):not(.danger):hover:not(:disabled) {
+  background: #f5f3ec;
+  border-color: rgba(20, 27, 52, 0.4);
+}
+
+.btn.primary {
+  background: #0e7c66;
+  border-color: #0a6252;
+  color: #ffffff;
+  box-shadow: 0 1px 0 0 rgba(7, 72, 60, 0.5);
+}
+
+.btn.primary:hover:not(:disabled) {
+  background: #0a6252;
+  box-shadow: 0 1px 0 0 rgba(7, 72, 60, 0.6);
+}
+
+.btn.danger {
+  background: #b5322b;
+  border-color: #8f2620;
+  color: #ffffff;
+}
+
+.btn.danger:hover:not(:disabled) {
+  background: #8f2620;
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn-group .btn[aria-pressed="true"] {
+  background: #141b34;
+  border-color: #141b34;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+/* ---- forms ------------------------------------------------------------------------------------------------------- */
+input:not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+  border-radius: 8px;
+  border: 1px solid rgba(20, 27, 52, 0.28);
+  background: #fffefb;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):focus,
+select:focus,
+textarea:focus {
+  border-color: #0e7c66;
+  box-shadow: 0 0 0 3px rgba(14, 124, 102, 0.2);
+}
+
+label {
+  font-weight: 620;
+}
+
+/* ---- tables read like a register: ruled, with mono figures ------------------------------------------------------------- */
+th {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--panel-2);
+}
+
+td,
+th {
+  border-bottom: 1px solid rgba(20, 27, 52, 0.1);
+}
+
+/* ---- dialogs ----------------------------------------------------------------------------------------------------- */
+dialog {
+  border-radius: 12px;
+  border: 1px solid rgba(20, 27, 52, 0.14);
+  box-shadow: 0 12px 32px -12px rgba(20, 27, 52, 0.4), 0 40px 80px -30px rgba(7, 10, 22, 0.5);
+}
+
+dialog::backdrop {
+  background: rgba(7, 10, 22, 0.6);
+}
+
+.alert {
+  border-radius: 10px;
+}
+
+/* ---- first screens: landing, sign in, set-up ------------------------------------------------------------------------------ */
+.auth-art {
+  background: radial-gradient(900px 420px at 0% 0%, rgba(14, 124, 102, 0.3), transparent 60%), linear-gradient(160deg, #141b34 0%, #070a16 100%);
+}
+
+.auth-art h2 {
+  font-size: 2.1rem;
+  line-height: 1.12;
+  font-weight: 640;
+  color: #ffffff;
+}
+
+.auth-card {
+  border-radius: 12px;
+  box-shadow: 0 12px 32px -12px rgba(20, 27, 52, 0.22);
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 5.2vw, 3.9rem);
+  line-height: 1.04;
+  letter-spacing: -0.028em;
+  font-weight: 600;
+}
+
+.hero h1 em {
+  font-style: normal;
+  font-weight: inherit;
+  color: inherit;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+.land-section h2 {
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  font-weight: 640;
+}
+
+.feat h3 {
+  font-weight: 650;
+}
+
+.eyebrow {
+  background: transparent;
+  color: var(--muted);
+  padding: 0;
+}
+
+/* ---- dark theme: the same ink, deeper ----------------------------------------------------------------------------- */
+:root[data-theme="dark"] body {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 31px,
+    rgba(255, 255, 255, 0.035) 31px,
+    rgba(255, 255, 255, 0.035) 32px
+  );
+}
+
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .counter,
+:root[data-theme="dark"] .feat,
+:root[data-theme="dark"] .table-wrap {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.5);
+}
+
+:root[data-theme="dark"] .btn:not(.primary):not(.danger) {
+  background: #1e2748;
+  border-color: #3b4874;
+  color: #f0ede4;
+}
+
+:root[data-theme="dark"] .btn-group .btn[aria-pressed="true"] {
+  background: #e9e04a;
+  border-color: #e9e04a;
+  color: #0c1124;
+}
+
+:root[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]),
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] textarea {
+  background: #0c1124;
+  border-color: #3b4874;
+}
+
+@media print {
+  .sidebar,
+  .skip-link {
+    display: none !important;
+  }
+}
+
+/* =====================================================================================================================
+   Spacing and placement (2026-10-24): one rhythm for the whole panel. Steps of 0.25 rem: 0.5 / 0.75 / 1 / 1.25 / 1.75.
+   Controls share one height, labels sit above their control, actions sit where the eye ends up (the far end of a bar, the
+   bottom right of a form), results breathe below the action that produced them, and on a phone every tap target is at
+   least 44 px.
+   ===================================================================================================================== */
+
+main {
+  padding: 2.5rem clamp(1.25rem, 3vw, 2.75rem) 4.5rem;
+}
+
+.screen > h1 {
+  margin-bottom: 0.5rem;
+}
+
+.screen > .lead {
+  margin-bottom: 1.75rem;
+  line-height: 1.65;
+}
+
+.screen h2 {
+  margin: 2.25rem 0 0.6rem;
+}
+
+.grid,
+#overview-counters {
+  gap: 1.25rem;
+}
+
+.stack {
+  gap: 1.1rem;
+}
+
+/* controls: one height, one inner padding */
+input:not([type="checkbox"]):not([type="radio"]),
+select {
+  min-height: 2.6rem;
+  padding: 0.5rem 0.8rem;
+}
+
+textarea {
+  padding: 0.7rem 0.8rem;
+  line-height: 1.5;
+}
+
+.btn {
+  min-height: 2.6rem;
+  padding: 0.5rem 1.05rem;
+}
+
+.btn.small {
+  min-height: 2.15rem;
+  padding: 0.3rem 0.8rem;
+}
+
+label {
+  display: grid;
+  gap: 0.4rem;
+  align-content: start;
+}
+
+label:has(> input[type="checkbox"]),
+label:has(> input[type="radio"]) {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.hint {
+  line-height: 1.5;
+}
+
+/* filter bars: labels over controls, one baseline, the action at the far end */
+.toolbar {
+  gap: 1rem 1.25rem;
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1.25rem;
+  align-items: flex-end;
+}
+
+.toolbar > label {
+  min-width: 11rem;
+}
+
+.toolbar > label:has(input[type="search"]) {
+  flex: 1 1 16rem;
+  max-width: 28rem;
+}
+
+.preview-note {
+  margin: 0.25rem 0 1rem;
+  min-height: 1.25rem;
+}
+
+/* forms: actions follow their fields with air, results follow actions with air */
+.form-actions {
+  gap: 0.75rem;
+  margin-top: 1.1rem;
+}
+
+.toolbar .form-actions,
+.inline-form .form-actions {
+  margin-top: 0;
+}
+
+#inspect-form .form-actions {
+  margin-top: 1.25rem;
+}
+
+#inspect-result,
+#inspect-empty,
+#events-empty,
+.table-wrap {
+  margin-top: 1.5rem;
+}
+
+.empty {
+  padding: 2.5rem 1.5rem;
+}
+
+.empty h3 {
+  margin-bottom: 0.4rem;
+}
+
+.empty .btn {
+  margin-top: 1.1rem;
+}
+
+/* cards */
+.card {
+  padding: 1.35rem 1.5rem;
+}
+
+.card > header {
+  margin: -1.35rem -1.5rem 1.1rem;
+  padding: 1rem 1.5rem;
+}
+
+.card h3 {
+  margin-bottom: 0.6rem;
+}
+
+.card .dl + .form-actions {
+  margin-top: 1.25rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--border);
+}
+
+.dl {
+  grid-template-columns: minmax(9rem, max-content) minmax(0, 1fr);
+  gap: 0.55rem 1.5rem;
+}
+
+.dl dt {
+  padding-top: 0.05rem;
+}
+
+/* sidebar: air between brand and navigation, a clear footer */
+.sidebar {
+  padding: 1.25rem 0.9rem 1rem;
+}
+
+.brand {
+  padding: 0.25rem 0.5rem 1.5rem;
+}
+
+.nav-label {
+  margin: 0.25rem 0.7rem 0.55rem;
+}
+
+.main-nav {
+  gap: 0.2rem;
+}
+
+.main-nav a {
+  padding: 0.62rem 0.8rem;
+}
+
+.session-box {
+  padding: 0.9rem;
+  gap: 0.6rem 0.5rem;
+}
+
+/* dialogs */
+dialog {
+  padding: 1.9rem 2rem 1.75rem;
+}
+
+dialog h2 {
+  margin: 0 0 0.6rem;
+}
+
+dialog .dialog-lead {
+  margin-bottom: 1.25rem;
+}
+
+dialog .dialog-actions {
+  margin-top: 1.6rem;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+/* phone: stacked bars, full-width actions, comfortable tap targets */
+@media (max-width: 860px) {
+  main {
+    padding: 1.5rem 1rem 3.5rem;
+  }
+
+  .toolbar > label,
+  .toolbar > label:has(input[type="search"]) {
+    flex: 1 1 100%;
+    max-width: none;
+    min-width: 0;
+  }
+
+  .toolbar .spacer {
+    display: none;
+  }
+
+  .btn,
+  input:not([type="checkbox"]):not([type="radio"]),
+  select {
+    min-height: 2.9rem;
+  }
+
+  .form-actions .btn,
+  dialog .dialog-actions .btn {
+    flex: 1 1 auto;
+  }
+
+  dialog {
+    padding: 1.4rem 1.15rem 1.25rem;
+  }
+
+  dialog .dialog-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .card {
+    padding: 1.1rem;
+  }
+
+  .card > header {
+    margin: -1.1rem -1.1rem 1rem;
+    padding: 0.9rem 1.1rem;
+  }
+
+  .dl {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.1rem;
+  }
+
+  .dl dd {
+    margin-bottom: 0.65rem;
+  }
+}
+
+/* site cards: one card uses the full width, several share it two by two */
+#sites-list,
+#overview-sites {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 30rem), 1fr));
+  gap: 1.25rem;
+  align-items: start;
+}
+
+#sites-list .card,
+#overview-sites .card {
+  margin: 0;
 }

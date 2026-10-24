@@ -1,0 +1,11 @@
+concurrency 32, 6s per row, 4 KB response
+direct origin (no HDD)                         10441 req/s   p50    2.90 ms   p99    4.98 ms   ok 62644 non200 0
+HDD, connection pool ON (benign)                9769 req/s   p50    3.20 ms   p99    4.40 ms   ok 58613 non200 0
+HDD, connection pool ON (SQLi blocked at HDD)   16525 req/s   p50    1.87 ms   p99    2.79 ms   ok 0 non200 99150
+
+Earlier run of the same harness with a temporary switch that disabled the pool (switch removed afterwards):
+concurrency 32, 6s per row, 4 KB response
+direct origin (no HDD)                         10672 req/s   p50    2.81 ms   p99    4.89 ms
+HDD, connection pool OFF (benign)               5233 req/s   p50    5.96 ms   p99    8.63 ms
+HDD, connection pool ON (benign)                9748 req/s   p50    3.17 ms   p99    5.03 ms
+HDD, connection pool ON (SQLi blocked at HDD)  16984 req/s   p50    1.82 ms   p99    3.06 ms

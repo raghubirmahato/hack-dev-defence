@@ -180,6 +180,7 @@ impl Harness {
             COUNTER.fetch_add(1, Ordering::Relaxed)
         );
         let directory = std::env::temp_dir().join(format!("hdd-findings-{unique}"));
+        let _ = std::fs::remove_dir_all(&directory);
         std::fs::create_dir_all(&directory).unwrap();
         let data_dir = directory.join("data");
         let path = |value: &std::path::Path| value.display().to_string().replace('\\', "/");

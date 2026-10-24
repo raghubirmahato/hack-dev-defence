@@ -24,6 +24,11 @@ const LANDING_JS: &str = include_str!("ui/landing.js");
 const THEME_JS: &str = include_str!("ui/theme.js");
 const SETUP_JS: &str = include_str!("ui/setup.js");
 const FAVICON_SVG: &str = include_str!("ui/favicon.svg");
+const FONT_BRICOLAGE: &[u8] = include_bytes!("ui/fonts/BricolageGrotesque-var.woff2");
+const FONT_INSTRUMENT: &[u8] = include_bytes!("ui/fonts/InstrumentSans-var.woff2");
+const FONT_PLEX_400: &[u8] = include_bytes!("ui/fonts/IBMPlexMono-400-normal.woff2");
+const FONT_PLEX_500: &[u8] = include_bytes!("ui/fonts/IBMPlexMono-500-normal.woff2");
+const WOFF2: &str = "font/woff2";
 
 const HTML: &str = "text/html; charset=utf-8";
 const CSS: &str = "text/css; charset=utf-8";
@@ -51,6 +56,22 @@ pub fn asset(path: &str) -> Option<Asset> {
         "/static/theme.js" => Some(asset_of(THEME_JS, JAVASCRIPT)),
         "/static/setup.js" => Some(asset_of(SETUP_JS, JAVASCRIPT)),
         "/static/favicon.svg" => Some(asset_of(FAVICON_SVG, SVG)),
+        "/static/fonts/BricolageGrotesque-var.woff2" => Some(Asset {
+            content_type: WOFF2,
+            body: FONT_BRICOLAGE,
+        }),
+        "/static/fonts/InstrumentSans-var.woff2" => Some(Asset {
+            content_type: WOFF2,
+            body: FONT_INSTRUMENT,
+        }),
+        "/static/fonts/IBMPlexMono-400-normal.woff2" => Some(Asset {
+            content_type: WOFF2,
+            body: FONT_PLEX_400,
+        }),
+        "/static/fonts/IBMPlexMono-500-normal.woff2" => Some(Asset {
+            content_type: WOFF2,
+            body: FONT_PLEX_500,
+        }),
         _ => None,
     }
 }

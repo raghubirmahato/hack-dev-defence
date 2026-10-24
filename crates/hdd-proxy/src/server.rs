@@ -267,6 +267,8 @@ pub fn page_response(page: &Page, ray_id: &str) -> Response<ResBody> {
         hyper::header::CACHE_CONTROL,
         HeaderValue::from_static("no-store"),
     );
+    headers.insert(hyper::header::PRAGMA, HeaderValue::from_static("no-cache"));
+    headers.insert(hyper::header::EXPIRES, HeaderValue::from_static("0"));
     if let Ok(value) = HeaderValue::from_str(ray_id) {
         headers.insert(HeaderName::from_static("hdd-ray-id"), value);
     }
@@ -302,6 +304,8 @@ pub fn api_response(response: ApiResponse, ray_id: &str) -> Response<ResBody> {
             hyper::header::CACHE_CONTROL,
             HeaderValue::from_static("no-store"),
         );
+        headers.insert(hyper::header::PRAGMA, HeaderValue::from_static("no-cache"));
+        headers.insert(hyper::header::EXPIRES, HeaderValue::from_static("0"));
         if let Ok(value) = HeaderValue::from_str(ray_id) {
             headers.insert(HeaderName::from_static("hdd-ray-id"), value);
         }
@@ -327,6 +331,8 @@ pub fn asset_response(asset: &Asset, ray_id: &str) -> Response<ResBody> {
         hyper::header::CACHE_CONTROL,
         HeaderValue::from_static("no-store"),
     );
+    headers.insert(hyper::header::PRAGMA, HeaderValue::from_static("no-cache"));
+    headers.insert(hyper::header::EXPIRES, HeaderValue::from_static("0"));
     if let Ok(value) = HeaderValue::from_str(ray_id) {
         headers.insert(HeaderName::from_static("hdd-ray-id"), value);
     }
@@ -338,6 +344,10 @@ pub fn asset_response(asset: &Asset, ray_id: &str) -> Response<ResBody> {
 pub fn redirect_response(location: &str) -> Response<ResBody> {
     let mut response = Response::new(util::full_body("see other"));
     *response.status_mut() = StatusCode::SEE_OTHER;
+    response.headers_mut().insert(
+        hyper::header::CACHE_CONTROL,
+        HeaderValue::from_static("no-store"),
+    );
     if let Ok(value) = HeaderValue::from_str(location) {
         response
             .headers_mut()

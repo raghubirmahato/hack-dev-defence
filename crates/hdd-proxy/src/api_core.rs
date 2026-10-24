@@ -94,6 +94,16 @@ pub fn events(state: &AppState, query: &[(String, String)]) -> ApiResponse {
     })
 }
 
+/// `GET /api/guards`.
+#[must_use]
+pub fn guards(state: &AppState) -> ApiResponse {
+    ApiResponse::json(&crate::api::GuardsResponse {
+        attack_tools_blocked: true,
+        rate_limit_per_10s: state.rate.limit(),
+        origin_pool_per_origin: crate::forward::POOL_MAX_PER_ORIGIN,
+    })
+}
+
 /// `GET /api/bans`.
 #[must_use]
 pub fn bans(state: &AppState) -> ApiResponse {
