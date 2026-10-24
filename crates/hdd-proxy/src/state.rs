@@ -470,7 +470,7 @@ impl AppState {
             sites: RwLock::new(sites),
             trusted_proxies: validated.trusted_proxies.clone(),
             events,
-            bans: BanStore::new(),
+            bans: BanStore::open(&validated.data_dir.join("bans.json")),
             rate: crate::guards::RateLimiter::from_env(),
             counters: GlobalCounters::default(),
             config_revision: AtomicU64::new(1),

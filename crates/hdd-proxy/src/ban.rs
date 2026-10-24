@@ -3,6 +3,7 @@
 //! A ban is a time-limited denial for one IP key, site-scoped in this slice, enforced at the proxy listener before any
 //! inspection or forwarding happens. The ladder step grows with the offence count (quiet resets after [`QUIET_DECAY`]),
 //! and the last ladder entry repeats. The store is in memory and bounded: expired records are purged on every access
+//! (`BanStore::open` also keeps them in `bans.json` in the data directory, so a restart does not release an attacker),
 //! and the ban list is capped so a hostile scan cannot grow memory without limit (`MAX_ACTIVE_BANS`).
 //!
 //! Cross-site ban-poisoning resistance lives in [`is_cross_site_subresource`]: a block verdict caused by a cross-site
@@ -13,8 +14,11 @@
 
 use std::collections::HashMap;
 use std::net::IpAddr;
+use std::path::{Path, PathBuf};
 use std::sync::Mutex;
 use std::time::{Duration, Instant, SystemTime};
+
+use serde::{Deserialize, Serialize};
 
 use crate::api::BanView;
 use crate::util;
@@ -86,6 +90,42 @@ struct Offence {
 pub struct BanStore {
     /// Bans and offence counters behind one mutex.
     inner: Mutex<Inner>,
+    /// Where the bans are kept across restarts (`None` for an in-memory store).
+    path: Option<PathBuf>,
+}
+
+/// The on-disk form of the store: wall-clock times, because an `Instant` means nothing after a restart.
+#[derive(Debug, Default, Serialize, Deserialize)]
+struct Saved {
+    bans: Vec<SavedBan>,
+    offences: Vec<SavedOffence>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct SavedBan {
+    ip: String,
+    site: Option<String>,
+    reason: String,
+    rule_id: Option<String>,
+    category: Option<String>,
+    created_at: String,
+    expires_at: String,
+    expires_unix: u64,
+    ttl_seconds: u64,
+    step: u32,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct SavedOffence {
+    ip: String,
+    units: u32,
+    last_unix: u64,
+}
+
+fn unix_now() -> u64 {
+    SystemTime::now()
+        .duration_since(SystemTime::UNIX_EPOCH)
+        .map_or(0, |elapsed| elapsed.as_secs())
 }
 
 /// Mutable state of the ban store.
@@ -105,6 +145,113 @@ impl BanStore {
                 bans: HashMap::new(),
                 offences: HashMap::new(),
             }),
+            path: None,
+        }
+    }
+
+    /// Open a store that keeps its bans and offence counters in `path` (best effort: an unreadable file starts empty,
+    /// a failed write leaves the in-memory store authoritative).
+    #[must_use]
+    pub fn open(path: &Path) -> Self {
+        let mut store = Self::new();
+        store.path = Some(path.to_path_buf());
+        let saved: Saved = std::fs::read_to_string(path)
+            .ok()
+            .and_then(|text| serde_json::from_str(&text).ok())
+            .unwrap_or_default();
+        let now = Instant::now();
+        let wall = unix_now();
+        {
+            let mut inner = util::lock(&store.inner);
+            for ban in saved.bans {
+                let Ok(ip) = ban.ip.parse::<IpAddr>() else {
+                    continue;
+                };
+                if ban.expires_unix <= wall {
+                    continue;
+                }
+                inner.bans.insert(
+                    ip,
+                    BanRecord {
+                        ip,
+                        site: ban.site,
+                        reason: ban.reason,
+                        rule_id: ban.rule_id,
+                        category: ban.category,
+                        created_at: ban.created_at,
+                        expires_at: ban.expires_at,
+                        expires_instant: now + Duration::from_secs(ban.expires_unix - wall),
+                        ttl_seconds: ban.ttl_seconds,
+                        step: ban.step,
+                    },
+                );
+            }
+            for offence in saved.offences {
+                let Ok(ip) = offence.ip.parse::<IpAddr>() else {
+                    continue;
+                };
+                let age = Duration::from_secs(wall.saturating_sub(offence.last_unix));
+                if age > QUIET_DECAY {
+                    continue;
+                }
+                inner.offences.insert(
+                    ip,
+                    Offence {
+                        units: offence.units,
+                        last: now.checked_sub(age).unwrap_or(now),
+                    },
+                );
+            }
+        }
+        store
+    }
+
+    /// Write the current bans and offence counters to disk (no-op for an in-memory store).
+    fn save(&self, inner: &Inner) {
+        let Some(path) = &self.path else {
+            return;
+        };
+        let now = Instant::now();
+        let wall = unix_now();
+        let saved = Saved {
+            bans: inner
+                .bans
+                .values()
+                .map(|record| SavedBan {
+                    ip: record.ip.to_string(),
+                    site: record.site.clone(),
+                    reason: record.reason.clone(),
+                    rule_id: record.rule_id.clone(),
+                    category: record.category.clone(),
+                    created_at: record.created_at.clone(),
+                    expires_at: record.expires_at.clone(),
+                    expires_unix: wall.saturating_add(
+                        record
+                            .expires_instant
+                            .saturating_duration_since(now)
+                            .as_secs(),
+                    ),
+                    ttl_seconds: record.ttl_seconds,
+                    step: record.step,
+                })
+                .collect(),
+            offences: inner
+                .offences
+                .iter()
+                .map(|(ip, offence)| SavedOffence {
+                    ip: ip.to_string(),
+                    units: offence.units,
+                    last_unix: wall
+                        .saturating_sub(now.saturating_duration_since(offence.last).as_secs()),
+                })
+                .collect(),
+        };
+        let Ok(text) = serde_json::to_string(&saved) else {
+            return;
+        };
+        let temp = path.with_extension("json.tmp");
+        if std::fs::write(&temp, text).is_ok() {
+            let _ = std::fs::rename(&temp, path);
         }
     }
 
@@ -168,6 +315,7 @@ impl BanStore {
         if inner.bans.len() > MAX_ACTIVE_BANS {
             evict_oldest(&mut inner.bans);
         }
+        self.save(&inner);
         view
     }
 
@@ -175,7 +323,11 @@ impl BanStore {
     pub fn remove(&self, ip: IpAddr) -> bool {
         let mut inner = util::lock(&self.inner);
         purge_expired(&mut inner.bans, Instant::now());
-        inner.bans.remove(&ban_key(ip)).is_some()
+        let removed = inner.bans.remove(&ban_key(ip)).is_some();
+        if removed {
+            self.save(&inner);
+        }
+        removed
     }
 
     /// Purge expired bans and offence counters that have been quiet longer than [`QUIET_DECAY`].
@@ -315,6 +467,45 @@ mod tests {
     fn ip(text: &str) -> IpAddr {
         text.parse()
             .unwrap_or(IpAddr::V4(std::net::Ipv4Addr::LOCALHOST))
+    }
+
+    #[test]
+    fn bans_and_the_ladder_survive_a_restart() {
+        let dir = std::env::temp_dir().join(format!("hdd-ban-persist-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&dir);
+        assert!(std::fs::create_dir_all(&dir).is_ok());
+        let path = dir.join("bans.json");
+        let ladder = [60, 600, 3600];
+        {
+            let store = BanStore::open(&path);
+            let first = store.create(
+                ip("203.0.113.9"),
+                Some("shop.test"),
+                "block verdict",
+                Some("H1-001"),
+                Some("sqli"),
+                &ladder,
+                BanContext::Direct,
+            );
+            assert_eq!(first.ttl_seconds, 60);
+        }
+        let reopened = BanStore::open(&path);
+        let view = reopened.active(ip("203.0.113.9"));
+        assert!(view.is_some(), "the ban is still active after a restart");
+        assert!(view.is_some_and(|ban| ban.remaining_seconds > 0 && ban.remaining_seconds <= 60));
+        let second = reopened.create(
+            ip("203.0.113.9"),
+            Some("shop.test"),
+            "block verdict",
+            Some("H1-001"),
+            Some("sqli"),
+            &ladder,
+            BanContext::Direct,
+        );
+        assert_eq!(second.ttl_seconds, 600, "the offence counter survived too");
+        assert!(reopened.remove(ip("203.0.113.9")));
+        assert!(BanStore::open(&path).active(ip("203.0.113.9")).is_none());
+        let _ = std::fs::remove_dir_all(&dir);
     }
 
     #[test]
