@@ -1,0 +1,6 @@
+# Pinned stable toolchain (T-0004 step 4). MSRV is recorded as rust-version in Cargo.toml.
+# hdd-xdp-ebpf uses its own pinned nightly + bpf-linker, selected by `cargo xtask xdp build` (T-0466, ADR-0025); it is not this file.
+[toolchain]
+channel = "1.98.1"
+components = ["rustfmt", "clippy"]
+profile = "minimal"

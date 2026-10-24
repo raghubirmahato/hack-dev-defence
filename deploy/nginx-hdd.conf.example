@@ -1,0 +1,69 @@
+# deploy/nginx-hdd.conf.example - nginx TLS terminator in front of the HDD proxy (HK1).
+#
+# Topology (live site): Internet -> nginx :443 -> hdd-proxy 127.0.0.1:8080 -> origin
+# Use this when the operator already runs nginx or prefers it to Caddy. Caddy example:
+# deploy/Caddyfile.example. The proxy does not terminate TLS in HK1.
+#
+# BEFORE USE:
+#   * replace site.example.com, the certificate paths and the ACME/contact details;
+#   * in the HDD site profile set `trusted_proxies` to the address nginx uses to reach
+#     the proxy (127.0.0.1/32 when nginx and hdd-proxy share the host). Never trust
+#     0.0.0.0/0: it would let clients spoof X-Forwarded-For and dodge bans;
+#   * keep the site in mode `block` only after the origin lockdown is verified.
+
+upstream hdd_proxy {
+    server 127.0.0.1:8080;
+    keepalive 16;
+}
+
+# Map to avoid forwarding a client-supplied X-Forwarded-For twice when nginx is the
+# edge terminators: nginx must overwrite it with the real peer. If nginx itself sits
+# behind another trusted proxy/CDN, use $proxy_add_x_forwarded_for instead and make
+# sure only that trusted hop can reach this server.
+map $remote_addr $hdd_forwarded_for {
+    default $remote_addr;
+}
+
+server {
+    listen 80;
+    server_name site.example.com;
+    # Operator/ACME: redirect plain HTTP to HTTPS (or use certbot --nginx).
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    http2 on;
+    server_name site.example.com;
+
+    # Operator: replace with the real certificate and keep TLS modern.
+    ssl_certificate     /etc/letsencrypt/live/site.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/site.example.com/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers off;
+
+    # The proxy inspects request bodies up to its cap (256 KB) and streams larger ones.
+    client_max_body_size 2m;
+    client_body_buffer_size 256k;
+
+    # Do not cache login/admin responses anywhere.
+    add_header Cache-Control "no-store" always;
+
+    location / {
+        proxy_pass http://hdd_proxy;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+
+        # Route by site host and give the proxy the real client identity.
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $hdd_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+
+        proxy_connect_timeout 5s;
+        proxy_send_timeout 30s;
+        proxy_read_timeout 30s;
+    }
+
+    # Operator: one server block per protected site; do not reuse this domain.
+}

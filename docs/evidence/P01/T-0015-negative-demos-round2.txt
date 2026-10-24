@@ -1,0 +1,29 @@
+# T-0015 review round 2: F-11 mutation demonstrations on docs/UX/NAVIGATION.md. Each mutation must make 'cargo xtask ux-docs' FAIL; the file is restored after each step and its SHA-256 compared.
+# Date: 2026-10-19.
+
+## 1. the / row removed from Documented conflicts
+[ux-docs] docs/UX/NAVIGATION.md: the shortcut `/` has a browser or screen-reader default but no row in `Documented conflicts` (F-11)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 2. an empty Mitigation cell (Ctrl/Cmd+K row)
+[ux-docs] docs/UX/NAVIGATION.md:159: a `Documented conflicts` row has an empty `Mitigation` cell (F-11)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 3. a Mitigation naming a non-existent element (moon button)
+[ux-docs] docs/UX/NAVIGATION.md:159: the `Mitigation` of ``Ctrl/Cmd+K`` does not name an element of the `Navigation elements` table, the search control or the command palette (F-11)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 4. a stale Documented conflicts row (Ctrl/Cmd+Q)
+[ux-docs] docs/UX/NAVIGATION.md:161: the `Documented conflicts` row `ctrl/cmd+q` is stale: it is not in the shortcut map (F-11)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## restored file
+ux-docs: PASS
+(exit 0)
+NAVIGATION.md SHA-256 before: 65D49F6098145D3421FA2E468DDA35057C130F1AB5606CB028722535CF04DD3D
+NAVIGATION.md SHA-256 after:  65D49F6098145D3421FA2E468DDA35057C130F1AB5606CB028722535CF04DD3D
+hash equal: True

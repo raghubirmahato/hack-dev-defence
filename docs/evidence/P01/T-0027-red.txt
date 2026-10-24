@@ -1,0 +1,843 @@
+T-0027 data visualization: RED evidence
+Captured: 2026-10-20 (Asia/Katmandu)
+Command: cargo nextest run -p hdd-xtask ux_docs::dataviz --no-fail-fast
+State of the module at capture: the tests and the fixtures are final; every rule function returns Vec::new() (the
+documented scaffold that the task protocol requires before the implementation). The fixture-pass tests are green by
+construction, the mutation tests fail because no rule can fire yet.
+Exit code: 100
+Result line:     Summary [   0.171s] 25 tests run: 2 passed, 23 failed, 376 skipped
+Note: the first red attempt, made before the rule functions existed, could not build because two sibling files owned by
+other workers were mid-edit (mojibake and borrow errors in responsive.rs and accessibility.rs). This run is the real
+scaffold-state run of this module after the tree built again; the implementation followed it and the green run is
+docs/evidence/P01/T-0027-verify.txt. The full captured output follows verbatim.
+
+    Blocking waiting for file lock on build directory
+   Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+warning: unused variable: `dataviz`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:505:33
+    |
+505 | pub(crate) fn document_findings(dataviz: &str, dictionary: &str) -> Vec<Finding> {
+    |                                 ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dataviz`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `dictionary`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:505:48
+    |
+505 | pub(crate) fn document_findings(dataviz: &str, dictionary: &str) -> Vec<Finding> {
+    |                                                ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dictionary`
+
+warning: unused variable: `dataviz`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:512:5
+    |
+512 |     dataviz: &str,
+    |     ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dataviz`
+
+warning: unused variable: `spec`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:513:5
+    |
+513 |     spec: &str,
+    |     ^^^^ help: if this is intentional, prefix it with an underscore: `_spec`
+
+warning: unused variable: `kpis`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:514:5
+    |
+514 |     kpis: &BTreeSet<String>,
+    |     ^^^^ help: if this is intentional, prefix it with an underscore: `_kpis`
+
+warning: unused variable: `dataviz`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:521:35
+    |
+521 | pub(crate) fn chart_form_findings(dataviz: &str, spec: &str) -> Vec<Finding> {
+    |                                   ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dataviz`
+
+warning: unused variable: `spec`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:521:50
+    |
+521 | pub(crate) fn chart_form_findings(dataviz: &str, spec: &str) -> Vec<Finding> {
+    |                                                  ^^^^ help: if this is intentional, prefix it with an underscore: `_spec`
+
+warning: unused variable: `dataviz`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:527:42
+    |
+527 | pub(crate) fn chart_alternative_findings(dataviz: &str) -> Vec<Finding> {
+    |                                          ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dataviz`
+
+warning: unused variable: `dataviz`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:599:35
+    |
+599 | pub(crate) fn chart_rule_findings(dataviz: &str) -> Vec<Finding> {
+    |                                   ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dataviz`
+
+warning: unused variable: `dataviz`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:604:35
+    |
+604 | pub(crate) fn table_spec_findings(dataviz: &str) -> Vec<Finding> {
+    |                                   ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dataviz`
+
+warning: unused variable: `dataviz`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:610:35
+    |
+610 | pub(crate) fn time_range_findings(dataviz: &str) -> Vec<Finding> {
+    |                                   ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dataviz`
+
+warning: unused variable: `dataviz`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:616:35
+    |
+616 | pub(crate) fn comparison_findings(dataviz: &str) -> Vec<Finding> {
+    |                                   ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dataviz`
+
+warning: unused variable: `dataviz`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:622:35
+    |
+622 | pub(crate) fn annotation_findings(dataviz: &str, spec: &str) -> Vec<Finding> {
+    |                                   ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dataviz`
+
+warning: unused variable: `spec`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:622:50
+    |
+622 | pub(crate) fn annotation_findings(dataviz: &str, spec: &str) -> Vec<Finding> {
+    |                                                  ^^^^ help: if this is intentional, prefix it with an underscore: `_spec`
+
+warning: unused variable: `dataviz`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:628:31
+    |
+628 | pub(crate) fn colour_findings(dataviz: &str, spec: &str) -> Vec<Finding> {
+    |                               ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dataviz`
+
+warning: unused variable: `spec`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:628:46
+    |
+628 | pub(crate) fn colour_findings(dataviz: &str, spec: &str) -> Vec<Finding> {
+    |                                              ^^^^ help: if this is intentional, prefix it with an underscore: `_spec`
+
+warning: unused variable: `dataviz`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:634:36
+    |
+634 | pub(crate) fn performance_findings(dataviz: &str) -> Vec<Finding> {
+    |                                    ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dataviz`
+
+warning: unused variable: `dataviz`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:639:32
+    |
+639 | pub(crate) fn unknown_findings(dataviz: &str) -> Vec<Finding> {
+    |                                ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dataviz`
+
+warning: unused variable: `dataviz`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:644:33
+    |
+644 | pub(crate) fn spec_gap_findings(dataviz: &str) -> Vec<Finding> {
+    |                                 ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dataviz`
+
+warning: unused variable: `dictionary`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:650:35
+    |
+650 | pub(crate) fn dictionary_findings(dictionary: &str) -> Vec<Finding> {
+    |                                   ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dictionary`
+
+warning: unused variable: `dataviz`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:656:34
+    |
+656 | pub(crate) fn metric_id_findings(dataviz: &str, dictionary: &str, spec: &str) -> Vec<Finding> {
+    |                                  ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dataviz`
+
+warning: unused variable: `dictionary`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:656:49
+    |
+656 | pub(crate) fn metric_id_findings(dataviz: &str, dictionary: &str, spec: &str) -> Vec<Finding> {
+    |                                                 ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dictionary`
+
+warning: unused variable: `spec`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:656:67
+    |
+656 | pub(crate) fn metric_id_findings(dataviz: &str, dictionary: &str, spec: &str) -> Vec<Finding> {
+    |                                                                   ^^^^ help: if this is intentional, prefix it with an underscore: `_spec`
+
+warning: unused variable: `dictionary`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:685:42
+    |
+685 | pub(crate) fn metric_type_label_findings(dictionary: &str, spec: &str) -> Vec<Finding> {
+    |                                          ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dictionary`
+
+warning: unused variable: `spec`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:685:60
+    |
+685 | pub(crate) fn metric_type_label_findings(dictionary: &str, spec: &str) -> Vec<Finding> {
+    |                                                            ^^^^ help: if this is intentional, prefix it with an underscore: `_spec`
+
+warning: unused variable: `dataviz`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:690:36
+    |
+690 | pub(crate) fn placeholder_findings(dataviz: &str, dictionary: &str) -> Vec<Finding> {
+    |                                    ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dataviz`
+
+warning: unused variable: `dictionary`
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:690:51
+    |
+690 | pub(crate) fn placeholder_findings(dataviz: &str, dictionary: &str) -> Vec<Finding> {
+    |                                                   ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_dictionary`
+
+warning: constant `REQUIRED_SCREENS` is never used
+  --> crates\hdd-xtask\src\ux_docs\dataviz.rs:52:7
+   |
+52 | const REQUIRED_SCREENS: [&str; 9] = [
+   |       ^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `ALLOWED_FORMS` is never used
+  --> crates\hdd-xtask\src\ux_docs\dataviz.rs:60:7
+   |
+60 | const ALLOWED_FORMS: [&str; 8] = [
+   |       ^^^^^^^^^^^^^
+
+warning: constant `CHART_FORMS` is never used
+  --> crates\hdd-xtask\src\ux_docs\dataviz.rs:72:7
+   |
+72 | const CHART_FORMS: [&str; 6] = [
+   |       ^^^^^^^^^^^
+
+warning: constant `DENIED_FORMS` is never used
+  --> crates\hdd-xtask\src\ux_docs\dataviz.rs:82:7
+   |
+82 | const DENIED_FORMS: [&str; 9] = [
+   |       ^^^^^^^^^^^^
+
+warning: constant `TIME_PRESETS` is never used
+  --> crates\hdd-xtask\src\ux_docs\dataviz.rs:95:7
+   |
+95 | const TIME_PRESETS: [(&str, &str); 6] = [
+   |       ^^^^^^^^^^^^
+
+warning: constant `AGGREGATIONS` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:105:7
+    |
+105 | const AGGREGATIONS: [&str; 12] = [
+    |       ^^^^^^^^^^^^
+
+warning: constant `VALUE_TYPES` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:122:7
+    |
+122 | const VALUE_TYPES: [&str; 7] = [
+    |       ^^^^^^^^^^^
+
+warning: constant `PROM_TYPES` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:133:7
+    |
+133 | const PROM_TYPES: [&str; 3] = ["counter", "gauge", "histogram"];
+    |       ^^^^^^^^^^
+
+warning: constant `SOURCE_TABLES` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:137:7
+    |
+137 | const SOURCE_TABLES: [&str; 45] = [
+    |       ^^^^^^^^^^^^^
+
+warning: constant `REQUIRED_ANNOTATIONS` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:186:7
+    |
+186 | const REQUIRED_ANNOTATIONS: [(&str, &str); 4] = [
+    |       ^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `DATAVIZ_SECTIONS` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:194:7
+    |
+194 | const DATAVIZ_SECTIONS: [&str; 11] = [
+    |       ^^^^^^^^^^^^^^^^
+
+warning: constant `DICTIONARY_SECTIONS` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:209:7
+    |
+209 | const DICTIONARY_SECTIONS: [&str; 3] = ["Source legend", "Reading a row", "Metrics"];
+    |       ^^^^^^^^^^^^^^^^^^^
+
+warning: constant `PLACEHOLDER_TOKENS` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:212:7
+    |
+212 | const PLACEHOLDER_TOKENS: [&str; 8] = [
+    |       ^^^^^^^^^^^^^^^^^^
+
+warning: function `token_in` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:232:4
+    |
+232 | fn token_in(hay: &str, needle: &str) -> bool {
+    |    ^^^^^^^^
+
+warning: function `is_token_char` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:256:4
+    |
+256 | fn is_token_char(c: Option<char>) -> bool {
+    |    ^^^^^^^^^^^^^
+
+warning: function `mentions` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:261:4
+    |
+261 | fn mentions(hay: &str, needle: &str) -> bool {
+    |    ^^^^^^^^
+
+warning: function `word_count` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:267:4
+    |
+267 | fn word_count(cell: &str) -> usize {
+    |    ^^^^^^^^^^
+
+warning: function `line_has_all` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:273:4
+    |
+273 | fn line_has_all(text: &str, needles: &[&str]) -> bool {
+    |    ^^^^^^^^^^^^
+
+warning: function `b11_10_body` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:282:4
+    |
+282 | fn b11_10_body(spec: &str) -> String {
+    |    ^^^^^^^^^^^
+
+warning: function `section_text` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:288:4
+    |
+288 | fn section_text(spec: &str, heading: &str) -> String {
+    |    ^^^^^^^^^^^^
+
+warning: function `allowed_forms` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:299:4
+    |
+299 | fn allowed_forms(spec: &str) -> (BTreeSet<String>, Vec<String>) {
+    |    ^^^^^^^^^^^^^
+
+warning: struct `Metric` is never constructed
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:320:8
+    |
+320 | struct Metric {
+    |        ^^^^^^
+
+warning: function `b9_metrics` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:327:4
+    |
+327 | fn b9_metrics(spec: &str) -> BTreeMap<String, Metric> {
+    |    ^^^^^^^^^^
+
+warning: function `metric_tokens` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:382:4
+    |
+382 | fn metric_tokens(text: &str) -> Vec<String> {
+    |    ^^^^^^^^^^^^^
+
+warning: function `audit_tokens` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:387:4
+    |
+387 | fn audit_tokens(text: &str) -> Vec<String> {
+    |    ^^^^^^^^^^^^
+
+warning: function `prefixed_tokens` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:392:4
+    |
+392 | fn prefixed_tokens(text: &str, prefix: &str) -> Vec<String> {
+    |    ^^^^^^^^^^^^^^^
+
+warning: function `hex_values` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:420:4
+    |
+420 | fn hex_values(text: &str) -> Vec<String> {
+    |    ^^^^^^^^^^
+
+warning: function `cell` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:451:4
+    |
+451 | fn cell(row: &[String], index: usize) -> &str {
+    |    ^^^^
+
+warning: function `chart_widgets` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:532:4
+    |
+532 | fn chart_widgets(dataviz: &str) -> BTreeSet<String> {
+    |    ^^^^^^^^^^^^^
+
+warning: function `all_widgets` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:556:4
+    |
+556 | fn all_widgets(dataviz: &str) -> BTreeSet<String> {
+    |    ^^^^^^^^^^^
+
+warning: function `table_widgets` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:574:4
+    |
+574 | fn table_widgets(dataviz: &str) -> BTreeSet<String> {
+    |    ^^^^^^^^^^^^^
+
+warning: function `doc_paths` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:661:4
+    |
+661 | fn doc_paths(text: &str) -> Vec<String> {
+    |    ^^^^^^^^^
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 59 warnings (run `cargo fix --bin "hdd-xtask" -p hdd-xtask --tests` to apply 27 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 12.20s
+────────────
+ Nextest run ID cb34ab6b-ae0c-443a-ae86-d78b2e44448f with nextest profile: default
+    Starting 25 tests across 1 binary (376 tests skipped)
+        FAIL [   0.021s] ( 1/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_kpi_must_be_a_dictionary_row
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_kpi_must_be_a_dictionary_row ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_kpi_must_be_a_dictionary_row
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_kpi_must_be_a_dictionary_row' (29076) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1227:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.014s] ( 2/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_derived_kpis_state_their_formula
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_derived_kpis_state_their_formula ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_derived_kpis_state_their_formula
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_derived_kpis_state_their_formula' (11612) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1484:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.026s] ( 3/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_downsampling_thresholds_are_numeric
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_downsampling_thresholds_are_numeric ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_downsampling_thresholds_are_numeric
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_downsampling_thresholds_are_numeric' (29284) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1411:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.033s] ( 4/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_colour_has_eight_patterned_b11_2_series
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_colour_has_eight_patterned_b11_2_series ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_colour_has_eight_patterned_b11_2_series
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_colour_has_eight_patterned_b11_2_series' (7964) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1391:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.039s] ( 5/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_a_byte_order_mark_or_mojibake_fails_the_document_rule
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_a_byte_order_mark_or_mojibake_fails_the_document_rule ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_a_byte_order_mark_or_mojibake_fails_the_document_rule
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_a_byte_order_mark_or_mojibake_fails_the_document_rule' (34684) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1159:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.045s] ( 6/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_metric_ids_exist_in_b9_and_audit_ids_in_b8
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_metric_ids_exist_in_b9_and_audit_ids_in_b8 ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_metric_ids_exist_in_b9_and_audit_ids_in_b8
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_metric_ids_exist_in_b9_and_audit_ids_in_b8' (33020) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1492:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.051s] ( 7/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_a_spec_without_b9_or_b11_10_is_a_finding_not_a_panic
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_a_spec_without_b9_or_b11_10_is_a_finding_not_a_panic ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_a_spec_without_b9_or_b11_10_is_a_finding_not_a_panic
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_a_spec_without_b9_or_b11_10_is_a_finding_not_a_panic' (33940) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1540:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.060s] ( 8/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_comparison_defines_the_previous_period_and_the_unknown_case
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_comparison_defines_the_previous_period_and_the_unknown_case ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_comparison_defines_the_previous_period_and_the_unknown_case
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_comparison_defines_the_previous_period_and_the_unknown_case' (21672) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1354:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.065s] ( 9/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_screen_has_a_visual_not_only_the_table_alternative
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_every_screen_has_a_visual_not_only_the_table_alternative ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_every_screen_has_a_visual_not_only_the_table_alternative
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_every_screen_has_a_visual_not_only_the_table_alternative' (26284) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1218:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.072s] (10/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_required_screen_has_a_question_and_a_metric
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_every_required_screen_has_a_question_and_a_metric ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_every_required_screen_has_a_question_and_a_metric
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_every_required_screen_has_a_question_and_a_metric' (25644) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1179:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.091s] (11/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_chart_has_a_text_summary_and_a_view_as_table_toggle
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_every_chart_has_a_text_summary_and_a_view_as_table_toggle ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_every_chart_has_a_text_summary_and_a_view_as_table_toggle
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_every_chart_has_a_text_summary_and_a_view_as_table_toggle' (31140) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1266:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.091s] (12/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_annotations_include_mode_rule_ban_and_deployment
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_annotations_include_mode_rule_ban_and_deployment ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_annotations_include_mode_rule_ban_and_deployment
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_annotations_include_mode_rule_ban_and_deployment' (26588) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1369:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.091s] (13/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_chart_form_is_justified
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_every_chart_form_is_justified ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_every_chart_form_is_justified
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_every_chart_form_is_justified' (33668) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1255:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.097s] (14/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_dictionary_columns_and_rows_are_complete
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_dictionary_columns_and_rows_are_complete ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_dictionary_columns_and_rows_are_complete
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_dictionary_columns_and_rows_are_complete' (31728) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1455:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.104s] (15/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_chart_forms_are_the_b11_10_forms_and_whole_tokens
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_chart_forms_are_the_b11_10_forms_and_whole_tokens ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_chart_forms_are_the_b11_10_forms_and_whole_tokens
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_chart_forms_are_the_b11_10_forms_and_whole_tokens' (27876) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1235:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.110s] (16/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_metric_type_and_labels_agree_with_b9
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_metric_type_and_labels_agree_with_b9 ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_metric_type_and_labels_agree_with_b9
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_metric_type_and_labels_agree_with_b9' (34700) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1511:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.092s] (17/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_missing_documents_and_sections_are_findings
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_missing_documents_and_sections_are_findings ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_missing_documents_and_sections_are_findings
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_missing_documents_and_sections_are_findings' (34064) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1148:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.096s] (18/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_placeholder_values_are_rejected
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_placeholder_values_are_rejected ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_placeholder_values_are_rejected
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_placeholder_values_are_rejected' (30920) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1525:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.101s] (19/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_spec_gaps_are_stated_with_real_references
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_spec_gaps_are_stated_with_real_references ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_spec_gaps_are_stated_with_real_references
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_spec_gaps_are_stated_with_real_references' (32828) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1440:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.100s] (20/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_table_specs_need_columns_sort_filters_and_density
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_table_specs_need_columns_sort_filters_and_density ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_table_specs_need_columns_sort_filters_and_density
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_table_specs_need_columns_sort_filters_and_density' (33816) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1322:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.099s] (21/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_the_chart_rules_state_the_global_rules
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_the_chart_rules_state_the_global_rules ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_the_chart_rules_state_the_global_rules
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_the_chart_rules_state_the_global_rules' (28028) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1290:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.105s] (22/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_the_check_reads_the_fixture_tree
+        PASS [   0.106s] (23/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_the_fixture_documents_pass_every_rule
+        FAIL [   0.101s] (24/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_time_presets_are_exactly_the_six_named
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_time_presets_are_exactly_the_six_named ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_time_presets_are_exactly_the_six_named
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_time_presets_are_exactly_the_six_named' (32172) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1337:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.101s] (25/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_unknown_behaviour_is_defined_for_every_widget
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_unknown_behaviour_is_defined_for_every_widget ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_unknown_behaviour_is_defined_for_every_widget
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 400 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_unknown_behaviour_is_defined_for_every_widget' (30124) panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:1426:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   0.171s] 25 tests run: 2 passed, 23 failed, 376 skipped
+        FAIL [   0.021s] ( 1/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_kpi_must_be_a_dictionary_row
+        FAIL [   0.014s] ( 2/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_derived_kpis_state_their_formula
+        FAIL [   0.026s] ( 3/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_downsampling_thresholds_are_numeric
+        FAIL [   0.033s] ( 4/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_colour_has_eight_patterned_b11_2_series
+        FAIL [   0.039s] ( 5/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_a_byte_order_mark_or_mojibake_fails_the_document_rule
+        FAIL [   0.045s] ( 6/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_metric_ids_exist_in_b9_and_audit_ids_in_b8
+        FAIL [   0.051s] ( 7/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_a_spec_without_b9_or_b11_10_is_a_finding_not_a_panic
+        FAIL [   0.060s] ( 8/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_comparison_defines_the_previous_period_and_the_unknown_case
+        FAIL [   0.065s] ( 9/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_screen_has_a_visual_not_only_the_table_alternative
+        FAIL [   0.072s] (10/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_required_screen_has_a_question_and_a_metric
+        FAIL [   0.091s] (11/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_chart_has_a_text_summary_and_a_view_as_table_toggle
+        FAIL [   0.091s] (12/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_annotations_include_mode_rule_ban_and_deployment
+        FAIL [   0.091s] (13/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_chart_form_is_justified
+        FAIL [   0.097s] (14/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_dictionary_columns_and_rows_are_complete
+        FAIL [   0.104s] (15/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_chart_forms_are_the_b11_10_forms_and_whole_tokens
+        FAIL [   0.110s] (16/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_metric_type_and_labels_agree_with_b9
+        FAIL [   0.092s] (17/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_missing_documents_and_sections_are_findings
+        FAIL [   0.096s] (18/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_placeholder_values_are_rejected
+        FAIL [   0.101s] (19/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_spec_gaps_are_stated_with_real_references
+        FAIL [   0.100s] (20/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_table_specs_need_columns_sort_filters_and_density
+        FAIL [   0.099s] (21/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_the_chart_rules_state_the_global_rules
+        FAIL [   0.101s] (24/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_time_presets_are_exactly_the_six_named
+        FAIL [   0.101s] (25/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_unknown_behaviour_is_defined_for_every_widget
+error: test run failed

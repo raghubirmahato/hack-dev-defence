@@ -1,0 +1,11 @@
+PASS front door: the shop home is served on the visitor's own address (200, CoreByte) :: 200
+PASS front door: the request went through HDD (event recorded)
+PASS legitimate admin login works through the front door (303 /admin + cookie) :: (303, '/admin')
+PASS wrong password is 401, not blocked :: 401
+PASS BLOCK: SQL injection refused by HDD (403, rule H1-001) :: (403, 'H1-001')
+PASS MONITOR: injection forwarded and recorded as would-block :: (303, 'would_block')
+PASS OFF: injection reaches the admin panel through the front door :: (303, '/admin')
+PASS a forged secret header does not open the shop (still goes through HDD, healthz from shop) :: 200
+PASS BLOCK: UNION injection in a query string is refused :: 403
+PASS HDD down: the shop is NOT served (fail closed, 503) :: 503
+RESULT ALL PASS 10 / 10

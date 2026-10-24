@@ -1,0 +1,4 @@
+{
+  "rewrites": [{ "source": "/(.*)", "destination": "/api/app" }],
+  "functions": { "api/app.js": { "includeFiles": "node_modules/sql.js/dist/sql-wasm.wasm" } }
+}

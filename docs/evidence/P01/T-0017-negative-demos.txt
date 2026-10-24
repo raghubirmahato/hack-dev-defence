@@ -1,0 +1,71 @@
+# T-0017 pass-1 negative demonstrations: each mutation of a shipped journey map must make 'cargo xtask ux-docs' FAIL; every file is restored after each step and its SHA-256 compared.
+# Date: 2026-10-19. Tool: DeepSeek Harness (implementer). Files: J-13.md to J-18.md (pass 1).
+## 1. J-13 has no Safeguards section (heading renamed)
+[ux-docs] docs/UX/journeys/J-13.md: no `## Safeguards` section (T-0017 pass 1)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-13.md SHA-256: 9C06A50C00875071275D9FAD7ED2D7DEF414C8473CAB2CF1679B710F1BE07169 -> 9C06A50C00875071275D9FAD7ED2D7DEF414C8473CAB2CF1679B710F1BE07169 equal
+
+## 2. a safeguard Kind outside preview/confirmation/undo/time box (J-14)
+[ux-docs] docs/UX/journeys/J-14.md:51: `Kind` value `unsafe` is not one of preview, confirmation, undo, time box
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-14.md SHA-256: D5B0BC038E87F7EC3038C5EF5AD23A5E2246C147EDC26FE0B4F58ED4F9187EFE -> D5B0BC038E87F7EC3038C5EF5AD23A5E2246C147EDC26FE0B4F58ED4F9187EFE equal
+
+## 3. an Exact copy over 25 words (J-15)
+[ux-docs] docs/UX/journeys/J-15.md:49: the `Exact copy` has 34 words; at most 25 are allowed (T-0017)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-15.md SHA-256: D65E804654B39FA3DBE675D23B0EDDAF2613171DE7663209B75DF924C04E5C21 -> D65E804654B39FA3DBE675D23B0EDDAF2613171DE7663209B75DF924C04E5C21 equal
+
+## 4. the safeguard row for a risky step removed (J-17 step 6)
+[ux-docs] docs/UX/journeys/J-17.md: risky step 6 changes a protected object but has no `Safeguards` row (T-0017)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-17.md SHA-256: 3D84E7C8F9D7789EE3B4111C65FEA2DAF86C85493E0FD7B69D6649B0F07BECE7 -> 3D84E7C8F9D7789EE3B4111C65FEA2DAF86C85493E0FD7B69D6649B0F07BECE7 equal
+
+## 5. the What could go wrong table reduced to two rows (J-16)
+[ux-docs] docs/UX/journeys/J-16.md: the `What could go wrong` table has 2 rows; at least three are required (T-0017)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-16.md SHA-256: 3D7211A97C30E5E58985B2D7D54D86A4D9135235EEFE23DCC645780D91F050A9 -> 3D7211A97C30E5E58985B2D7D54D86A4D9135235EEFE23DCC645780D91F050A9 equal
+
+## 6. the protection journey reduced to two ATK- rows (J-18)
+[ux-docs] docs/UX/journeys/J-18.md: the protection journey needs at least three ATK- rows, found 1 (A5)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-18.md SHA-256: EFB8C5014E7B19987ED2473B9C5BEFDA74CCF192C1A99FA108DB3C3F5FBAC615 -> EFB8C5014E7B19987ED2473B9C5BEFDA74CCF192C1A99FA108DB3C3F5FBAC615 equal
+
+## 7. a long sentence copied verbatim into another journey (J-13 to J-14)
+[ux-docs] docs/UX: a sentence of more than 12 words appears verbatim in 2 documents (docs/UX/journeys/J-13.md, docs/UX/journeys/J-14.md): "The conflict record is kept and the previous value is restored from the change history"
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-14.md SHA-256: D5B0BC038E87F7EC3038C5EF5AD23A5E2246C147EDC26FE0B4F58ED4F9187EFE -> D5B0BC038E87F7EC3038C5EF5AD23A5E2246C147EDC26FE0B4F58ED4F9187EFE equal
+
+## 8. an ERR code without a colon and sentence (J-13 step 6)
+[ux-docs] docs/UX/journeys/J-13.md:16: the error path `ERR-SYS-001` has no sentence after the code (F-12)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-13.md SHA-256: 9C06A50C00875071275D9FAD7ED2D7DEF414C8473CAB2CF1679B710F1BE07169 -> 9C06A50C00875071275D9FAD7ED2D7DEF414C8473CAB2CF1679B710F1BE07169 equal
+
+## 9. the accessibility row for a screen-changing step removed (J-15 step 6)
+[ux-docs] docs/UX/journeys/J-15.md: step 6 changes the screen but has no accessibility row (A4)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-15.md SHA-256: D65E804654B39FA3DBE675D23B0EDDAF2613171DE7663209B75DF924C04E5C21 -> D65E804654B39FA3DBE675D23B0EDDAF2613171DE7663209B75DF924C04E5C21 equal
+
+## 10. the Decision support list reduced to four items (J-16)
+[ux-docs] docs/UX/journeys/J-16.md: `Decision support` has 4 items; at least five are required (A2)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-16.md SHA-256: 3D7211A97C30E5E58985B2D7D54D86A4D9135235EEFE23DCC645780D91F050A9 -> 3D7211A97C30E5E58985B2D7D54D86A4D9135235EEFE23DCC645780D91F050A9 equal
+
+## restored tree
+ux-docs: PASS
+(exit 0)
+docs/UX/journeys/J-13.md SHA-256: 9C06A50C00875071275D9FAD7ED2D7DEF414C8473CAB2CF1679B710F1BE07169
+docs/UX/journeys/J-14.md SHA-256: D5B0BC038E87F7EC3038C5EF5AD23A5E2246C147EDC26FE0B4F58ED4F9187EFE
+docs/UX/journeys/J-15.md SHA-256: D65E804654B39FA3DBE675D23B0EDDAF2613171DE7663209B75DF924C04E5C21
+docs/UX/journeys/J-16.md SHA-256: 3D7211A97C30E5E58985B2D7D54D86A4D9135235EEFE23DCC645780D91F050A9
+docs/UX/journeys/J-17.md SHA-256: 3D84E7C8F9D7789EE3B4111C65FEA2DAF86C85493E0FD7B69D6649B0F07BECE7
+docs/UX/journeys/J-18.md SHA-256: EFB8C5014E7B19987ED2473B9C5BEFDA74CCF192C1A99FA108DB3C3F5FBAC615

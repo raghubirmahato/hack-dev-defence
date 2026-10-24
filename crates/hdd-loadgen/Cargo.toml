@@ -1,0 +1,10 @@
+[package]
+name = "hdd-loadgen"
+description = "capped generators: lab floods, HTTP load"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true

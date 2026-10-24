@@ -1,0 +1,59 @@
+﻿# T-0012 negative demonstrations: each mutation of the shipped documents must make 'cargo xtask ux-docs' FAIL; the documents are restored after each step
+# Date: 2026-10-19. Files under test: the seven persona files, the persona-journey matrix and the operator-question register of T-0012.
+
+
+## 1. a header without the fictional-composite statement
+[ux-docs] docs/UX/personas/maya.md: the header must say the persona is a fictional composite (B1 note, R-16)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 2. a persona with two scenarios instead of three
+[ux-docs] docs/UX/personas/dan.md: the persona has 2 scenario(s); at least three scenarios are required (A1)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 3. a scenario without a measurable outcome
+[ux-docs] docs/UX/personas/sara.md:23: a scenario has no measurable outcome (T-0012 step 2): add `Measurable outcome: <result>`
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 4. a persona without anti-goals
+[ux-docs] docs/UX/personas/omar.md: no `## Anti-goals` section (T-0012 step 3)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 5. accessibility not mapped to B11.11
+[ux-docs] docs/UX/personas/vi.md: the accessibility section must map to the B11.11 criteria (A3)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 6. a header without the fictional-composite statement (agency persona)
+[ux-docs] docs/UX/personas/alex.md: the header must say the persona is a fictional composite (B1 note, R-16)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 7. an adversary with fewer than ten ATK references
+[ux-docs] docs/UX/personas/adversary.md: 7 distinct ATK references; the adversary file needs at least ten abuse stories mapped to the attack coverage matrix (A4)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 8. an ATK id that is not in the attack registry
+[ux-docs] docs/UX/personas/adversary.md: `ATK-999` is not an id of the attack coverage matrix (C5)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 9. a journey missing from the persona-journey matrix
+[ux-docs] docs/UX/persona-journey-matrix.md: journey J-17 is not linked to a persona (A2)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 10. the primary-persona question not marked OPEN
+[ux-docs] docs/OPERATOR-QUESTIONS.md:153: the primary-persona question is not marked OPEN (A5)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 11. restored documents
+ux-docs: PASS
+(exit 0)
+
+Restored file hashes equal the pre-demo hashes: True

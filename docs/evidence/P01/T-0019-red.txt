@@ -1,0 +1,458 @@
+cargo :    Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+At line:1 char:129
++ ... ew($false); cargo nextest run -p hdd-xtask "ux_docs::content" --no-fa ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...ates\hdd-xtask):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: unused import: `regex::Regex`
+  --> crates\hdd-xtask\src\ux_docs\content.rs:33:5
+   |
+33 | use regex::Regex;
+   |     ^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `section_body`
+  --> crates\hdd-xtask\src\ux_docs\content.rs:38:13
+   |
+38 | use super::{section_body, section_table};
+   |             ^^^^^^^^^^^^
+
+warning: constant `SECTIONS` is never used
+  --> crates\hdd-xtask\src\ux_docs\content.rs:48:11
+   |
+48 | pub const SECTIONS: [&str; 8] = [
+   |           ^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `MESSAGE_KINDS` is never used
+  --> crates\hdd-xtask\src\ux_docs\content.rs:60:11
+   |
+60 | pub const MESSAGE_KINDS: [&str; 8] = [
+   |           ^^^^^^^^^^^^^
+
+warning: constant `MIN_MESSAGE_EXAMPLES` is never used
+  --> crates\hdd-xtask\src\ux_docs\content.rs:72:11
+   |
+72 | pub const MIN_MESSAGE_EXAMPLES: usize = 10;
+   |           ^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `MIN_VOCAB_ROWS` is never used
+  --> crates\hdd-xtask\src\ux_docs\content.rs:74:11
+   |
+74 | pub const MIN_VOCAB_ROWS: usize = 10;
+   |           ^^^^^^^^^^^^^^
+
+warning: constant `MIN_VISITOR_FORBIDDEN` is never used
+  --> crates\hdd-xtask\src\ux_docs\content.rs:76:11
+   |
+76 | pub const MIN_VISITOR_FORBIDDEN: usize = 5;
+   |           ^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `MIN_VOICE_ROWS` is never used
+  --> crates\hdd-xtask\src\ux_docs\content.rs:78:11
+   |
+78 | pub const MIN_VOICE_ROWS: usize = 4;
+   |           ^^^^^^^^^^^^^^
+
+warning: constant `MAX_DEFINITION_WORDS` is never used
+  --> crates\hdd-xtask\src\ux_docs\content.rs:80:11
+   |
+80 | pub const MAX_DEFINITION_WORDS: usize = 30;
+   |           ^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `GLOSSARY_TERMS` is never used
+  --> crates\hdd-xtask\src\ux_docs\content.rs:83:11
+   |
+83 | pub const GLOSSARY_TERMS: [&str; 16] = [
+   |           ^^^^^^^^^^^^^^
+
+warning: constant `REQUIRED_DISTINCTIONS` is never used
+   --> crates\hdd-xtask\src\ux_docs\content.rs:103:11
+    |
+103 | pub const REQUIRED_DISTINCTIONS: [(&str, &str); 4] = [
+    |           ^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `ALLOWED_ACRONYMS` is never used
+   --> crates\hdd-xtask\src\ux_docs\content.rs:111:7
+    |
+111 | const ALLOWED_ACRONYMS: [&str; 1] = ["HDD"];
+    |       ^^^^^^^^^^^^^^^^
+
+warning: constant `KEY_SHAPE` is never used
+   --> crates\hdd-xtask\src\ux_docs\content.rs:114:7
+    |
+114 | const KEY_SHAPE: &str = r"^[a-z0-9]+(-[a-z0-9]+)*$";
+    |       ^^^^^^^^^
+
+warning: function `tokens` is never used
+   --> crates\hdd-xtask\src\ux_docs\content.rs:118:4
+    |
+118 | fn tokens(text: &str) -> Vec<String> {
+    |    ^^^^^^
+
+warning: function `has_phrase` is never used
+   --> crates\hdd-xtask\src\ux_docs\content.rs:126:4
+    |
+126 | fn has_phrase(text: &str, phrase: &str) -> bool {
+    |    ^^^^^^^^^^
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 15 warnings (run `cargo fix --bin "hdd-xtask" -p hdd-xtask 
+--tests` to apply 2 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.40s
+────────────
+ Nextest run ID c5da1952-ac87-4005-bc23-404ce5fe9a84 with nextest profile: default
+    Starting 17 tests across 1 binary (253 tests skipped)
+        PASS [   0.010s] ( 1/17) hdd-xtask::bin/hdd-xtask ux_docs::content::tests::a_complete_content_fixture_passes
+        PASS [   0.018s] ( 2/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::b13_rows_are_read_from_the_table_and_keep_empty_text
+        FAIL [   0.014s] ( 3/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::message_keys_are_semantic_hyphenated_stems
+  stdout ───
+
+    running 1 test
+    test ux_docs::content::tests::message_keys_are_semantic_hyphenated_stems ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::content::tests::message_keys_are_semantic_hyphenated_stems
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 269 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::content::tests::message_keys_are_semantic_hyphenated_stems' (8952) panicked at 
+crates\hdd-xtask\src\ux_docs\content.rs:495:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.022s] ( 4/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::every_required_glossary_term_is_defined
+  stdout ───
+
+    running 1 test
+    test ux_docs::content::tests::every_required_glossary_term_is_defined ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::content::tests::every_required_glossary_term_is_defined
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 269 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::content::tests::every_required_glossary_term_is_defined' (25596) panicked at 
+crates\hdd-xtask\src\ux_docs\content.rs:603:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.028s] ( 5/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::every_required_content_section_is_named
+  stdout ───
+
+    running 1 test
+    test ux_docs::content::tests::every_required_content_section_is_named ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::content::tests::every_required_content_section_is_named
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 269 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::content::tests::every_required_content_section_is_named' (26748) panicked at 
+crates\hdd-xtask\src\ux_docs\content.rs:402:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.032s] ( 6/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::avoided_terms_are_whole_words_not_substrings
+  stdout ───
+
+    running 1 test
+    test ux_docs::content::tests::avoided_terms_are_whole_words_not_substrings ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::content::tests::avoided_terms_are_whole_words_not_substrings
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 269 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::content::tests::avoided_terms_are_whole_words_not_substrings' (8652) panicked at 
+crates\hdd-xtask\src\ux_docs\content.rs:468:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.035s] ( 7/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::translation_guidance_needs_fluent_plurals_and_the_no_concatenation_rule
+  stdout ───
+
+    running 1 test
+    test ux_docs::content::tests::translation_guidance_needs_fluent_plurals_and_the_no_concatenation_rule ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::content::tests::translation_guidance_needs_fluent_plurals_and_the_no_concatenation_rule
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 269 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::content::tests::translation_guidance_needs_fluent_plurals_and_the_no_concatenation_rule' (26404) 
+panicked at crates\hdd-xtask\src\ux_docs\content.rs:521:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.040s] ( 8/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::visitor_errors_need_five_forbidden_disclosures
+  stdout ───
+
+    running 1 test
+    test ux_docs::content::tests::visitor_errors_need_five_forbidden_disclosures ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::content::tests::visitor_errors_need_five_forbidden_disclosures
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 269 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::content::tests::visitor_errors_need_five_forbidden_disclosures' (19976) panicked at 
+crates\hdd-xtask\src\ux_docs\content.rs:508:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.045s] ( 9/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::b13_review_lists_every_key_exactly_once
+  stdout ───
+
+    running 1 test
+    test ux_docs::content::tests::b13_review_lists_every_key_exactly_once ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::content::tests::b13_review_lists_every_key_exactly_once
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 269 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::content::tests::b13_review_lists_every_key_exactly_once' (3356) panicked at 
+crates\hdd-xtask\src\ux_docs\content.rs:540:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.049s] (10/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::glossary_definitions_are_one_sentence_of_at_most_thirty_words
+  stdout ───
+
+    running 1 test
+    test ux_docs::content::tests::glossary_definitions_are_one_sentence_of_at_most_thirty_words ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::content::tests::glossary_definitions_are_one_sentence_of_at_most_thirty_words
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 269 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::content::tests::glossary_definitions_are_one_sentence_of_at_most_thirty_words' (29040) panicked 
+at crates\hdd-xtask\src\ux_docs\content.rs:580:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.053s] (11/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::b13_review_result_is_pass_or_a_documented_exception
+  stdout ───
+
+    running 1 test
+    test ux_docs::content::tests::b13_review_result_is_pass_or_a_documented_exception ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::content::tests::b13_review_result_is_pass_or_a_documented_exception
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 269 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::content::tests::b13_review_result_is_pass_or_a_documented_exception' (29128) panicked at 
+crates\hdd-xtask\src\ux_docs\content.rs:562:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.058s] (12/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::a_canonical_term_may_not_be_an_avoided_term
+  stdout ───
+
+    running 1 test
+    test ux_docs::content::tests::a_canonical_term_may_not_be_an_avoided_term ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::content::tests::a_canonical_term_may_not_be_an_avoided_term
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 269 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::content::tests::a_canonical_term_may_not_be_an_avoided_term' (27908) panicked at 
+crates\hdd-xtask\src\ux_docs\content.rs:449:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.062s] (13/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::message_patterns_need_ten_examples_and_all_eight_kinds
+  stdout ───
+
+    running 1 test
+    test ux_docs::content::tests::message_patterns_need_ten_examples_and_all_eight_kinds ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::content::tests::message_patterns_need_ten_examples_and_all_eight_kinds
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 269 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::content::tests::message_patterns_need_ten_examples_and_all_eight_kinds' (30564) panicked at 
+crates\hdd-xtask\src\ux_docs\content.rs:478:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.066s] (14/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::the_two_glossaries_carry_the_same_terms
+  stdout ───
+
+    running 1 test
+    test ux_docs::content::tests::the_two_glossaries_carry_the_same_terms ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::content::tests::the_two_glossaries_carry_the_same_terms
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 269 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::content::tests::the_two_glossaries_carry_the_same_terms' (17804) panicked at 
+crates\hdd-xtask\src\ux_docs\content.rs:616:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.071s] (15/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::a_glossary_definition_with_a_forbidden_claim_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::content::tests::a_glossary_definition_with_a_forbidden_claim_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::content::tests::a_glossary_definition_with_a_forbidden_claim_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 269 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::content::tests::a_glossary_definition_with_a_forbidden_claim_fails' (29712) panicked at 
+crates\hdd-xtask\src\ux_docs\content.rs:633:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.076s] (16/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::each_voice_rule_needs_a_good_and_a_bad_sentence
+  stdout ───
+
+    running 1 test
+    test ux_docs::content::tests::each_voice_rule_needs_a_good_and_a_bad_sentence ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::content::tests::each_voice_rule_needs_a_good_and_a_bad_sentence
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 269 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::content::tests::each_voice_rule_needs_a_good_and_a_bad_sentence' (25292) panicked at 
+crates\hdd-xtask\src\ux_docs\content.rs:412:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.067s] (17/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::vocabulary_needs_ten_rows_and_the_required_distinctions
+  stdout ───
+
+    running 1 test
+    test ux_docs::content::tests::vocabulary_needs_ten_rows_and_the_required_distinctions ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::content::tests::vocabulary_needs_ten_rows_and_the_required_distinctions
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 269 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::content::tests::vocabulary_needs_ten_rows_and_the_required_distinctions' (9968) panicked at 
+crates\hdd-xtask\src\ux_docs\content.rs:428:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   0.083s] 17 tests run: 2 passed, 15 failed, 253 skipped
+        FAIL [   0.014s] ( 3/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::message_keys_are_semantic_hyphenated_stems
+        FAIL [   0.022s] ( 4/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::every_required_glossary_term_is_defined
+        FAIL [   0.028s] ( 5/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::every_required_content_section_is_named
+        FAIL [   0.032s] ( 6/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::avoided_terms_are_whole_words_not_substrings
+        FAIL [   0.035s] ( 7/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::translation_guidance_needs_fluent_plurals_and_the_no_concatenation_rule
+        FAIL [   0.040s] ( 8/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::visitor_errors_need_five_forbidden_disclosures
+        FAIL [   0.045s] ( 9/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::b13_review_lists_every_key_exactly_once
+        FAIL [   0.049s] (10/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::glossary_definitions_are_one_sentence_of_at_most_thirty_words
+        FAIL [   0.053s] (11/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::b13_review_result_is_pass_or_a_documented_exception
+        FAIL [   0.058s] (12/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::a_canonical_term_may_not_be_an_avoided_term
+        FAIL [   0.062s] (13/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::message_patterns_need_ten_examples_and_all_eight_kinds
+        FAIL [   0.066s] (14/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::the_two_glossaries_carry_the_same_terms
+        FAIL [   0.071s] (15/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::a_glossary_definition_with_a_forbidden_claim_fails
+        FAIL [   0.076s] (16/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::each_voice_rule_needs_a_good_and_a_bad_sentence
+        FAIL [   0.067s] (17/17) hdd-xtask::bin/hdd-xtask 
+ux_docs::content::tests::vocabulary_needs_ten_rows_and_the_required_distinctions
+error: test run failed

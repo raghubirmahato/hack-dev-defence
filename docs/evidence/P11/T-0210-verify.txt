@@ -1,0 +1,203 @@
+# T-0210 verification evidence (final green tree)
+# Date: 2026-10-20 (Asia/Katmandu); Windows 11, Track L (no Docker)
+# Toolchain:
+#   rustc 1.98.1 (48a229cea 2026-09-01)
+#   cargo 1.98.1 (797e8a9bc 2026-08-05)
+#   cargo-nextest 0.9.148 (cd1d6d546 2026-10-07)
+# Deliverables: crates/hdd-canary (lib+bin+tests), crates/hddctl canary subcommands, CANARY.md, deploy/hdd-canary.service,
+# evidence docs/evidence/P11/T-0210-{red,verify,negative-demos}.txt.
+
+============================================================
+1) cargo nextest run -p hdd-canary -p hddctl --no-fail-fast
+============================================================
+cargo.exe :     Finished `test` profile [unoptimized + debuginfo] target(s) in 0.20s
+At line:19 char:8
++ $out = & cargo nextest run -p hdd-canary -p hddctl --no-fail-fast 2>& ...
++        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Finished `t...get(s) in 0.20s:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+────────────
+ Nextest run ID af86c38e-3bb9-4ca1-a7cd-95f6cd0de71d with nextest profile: default
+    Starting 49 tests across 7 binaries
+        PASS [   0.020s] ( 1/49) hdd-canary tests::t0210_sha256_is_real_sha256
+        PASS [   0.031s] ( 2/49) hdd-canary tests::t0210_echo_headers_json_is_bounded_and_redacts_credentials
+        PASS [   0.036s] ( 3/49) hdd-canary tests::t0210_base_path_normalisation_table
+        PASS [   0.048s] ( 4/49) hdd-canary tests::t0210_check_manifest_detects_a_changed_file_and_names_it
+        PASS [   0.051s] ( 5/49) hdd-canary tests::t0210_parse_request_rejects_methods_bodies_and_malformed_heads
+        PASS [   0.054s] ( 6/49) hdd-canary 
+tests::t0210_check_manifest_detects_missing_file_and_missing_or_extra_entries
+        PASS [   0.062s] ( 7/49) hdd-canary tests::t0210_generate_writes_the_five_contract_files_and_real_hashes
+        PASS [   0.063s] ( 8/49) hdd-canary tests::t0210_metrics_are_bounded_and_saturate
+        PASS [   0.069s] ( 9/49) hdd-canary tests::t0210_manifest_text_round_trips_and_rejects_bad_input
+        PASS [   0.075s] (10/49) hdd-canary tests::t0210_parse_request_enforces_the_header_size_and_count_limits
+        PASS [   0.079s] (11/49) hdd-canary tests::t0210_parse_request_accepts_the_documented_shapes
+        PASS [   0.085s] (12/49) hdd-canary tests::t0210_parse_request_enforces_the_request_line_limit
+        PASS [   0.090s] (13/49) hdd-canary tests::t0210_route_serves_only_the_exact_contract_paths
+        PASS [   0.117s] (14/49) hdd-canary::cli t0210_the_binary_fails_closed_without_the_contract_files
+        PASS [   0.144s] (15/49) hdd-canary tests::t0210_generate_is_idempotent
+        PASS [   0.160s] (16/49) hdd-canary::cli t0210_the_binary_fails_closed_on_a_manifest_mismatch
+        PASS [   0.125s] (17/49) hdd-canary::cli t0210_the_binary_serves_the_contract_files_on_the_reported_listener
+        PASS [   0.137s] (18/49) hdd-canary::cli t0210_the_binary_prints_help_and_version
+        PASS [   0.131s] (19/49) hdd-canary::hostile a2_a_slow_client_is_bounded_by_the_read_timeout
+        PASS [   0.140s] (20/49) hdd-canary::hostile a2_a_body_is_never_read_and_the_server_keeps_serving
+        PASS [   0.141s] (21/49) hdd-canary::hostile a2_an_oversized_request_line_is_rejected_and_serving_continues
+        PASS [   0.129s] (22/49) hddctl::canary t0210_generate_writes_the_contract_files_with_real_hashes
+        PASS [   0.142s] (23/49) hdd-canary::hostile a3_echo_headers_returns_only_received_headers_with_a_size_cap
+        PASS [   0.191s] (24/49) hdd-canary::hostile a1_the_sidecar_serves_exactly_the_c16_1_files
+        PASS [   0.170s] (25/49) hddctl::canary t0210_generate_is_idempotent_and_rejects_a_bad_base_path
+        PASS [   0.191s] (26/49) hddctl::canary t0210_verify_a_missing_echo_endpoint_fails_when_the_sidecar_is_expected
+        PASS [   0.128s] (27/49) hddctl::canary t0210_verify_fails_a_broken_profile_instead_of_a_fake_pass
+        PASS [   0.088s] (28/49) hddctl::canary t0210_verify_without_a_dir_reports_the_manifest_half_unverified
+        PASS [   0.165s] (29/49) hddctl::canary t0210_verify_detects_a_tampered_or_missing_manifest
+        PASS [   0.253s] (30/49) hdd-canary::hostile a2_query_strings_do_not_change_what_is_served_and_are_not_echoed
+        PASS [   0.287s] (31/49) hdd-canary::hostile a2_hostile_requests_get_one_opaque_response_and_no_reflection
+        PASS [   0.069s] (32/49) hddctl::preflight a3_unknown_keys_are_rejected_with_the_key_path
+        PASS [   0.103s] (33/49) hddctl::preflight 
+a2_the_runner_ip_inside_admin_cidrs_fails_with_the_documented_message
+        PASS [   0.116s] (34/49) hddctl::preflight 
+a1_the_example_file_fails_only_on_the_empty_required_fields_with_remediation
+        PASS [   0.152s] (35/49) hddctl::canary t0210_verify_retries_one_transient_connection_error
+        PASS [   0.074s] (36/49) hddctl::preflight a4_a_token_in_a_name_field_is_rejected_and_never_echoed
+        PASS [   0.033s] (37/49) hddctl::preflight 
+t0561_a5_a_machine_without_docker_postgres_redis_nft_and_dig_gets_track_l_and_exit_zero
+        PASS [   0.085s] (38/49) hddctl::preflight a_complete_profile_passes_profile_only_preflight
+        PASS [   0.057s] (39/49) hddctl::preflight 
+t0561_the_plan_follows_hdd_runtime_profile_and_a_missing_profile_file_still_prints_it
+        PASS [   0.107s] (40/49) hddctl::preflight a_missing_file_prints_every_required_field_and_how_to_provide_it
+        PASS [   0.064s] (41/49) hddctl::preflight the_profile_only_mode_never_prints_probe_sections
+        PASS [   0.292s] (42/49) hddctl::canary t0210_verify_detects_served_bytes_that_differ_from_the_contract
+        PASS [   0.131s] (43/49) hddctl::preflight full_preflight_runs_the_probes_but_only_through_the_allowlist
+        PASS [   0.308s] (44/49) hddctl::canary t0210_verify_does_not_assert_the_runner_ip_on_a_direct_only_echo
+        PASS [   0.360s] (45/49) hddctl::canary 
+t0210_verify_checks_the_through_path_and_query_invariance_when_overridden
+        PASS [   0.319s] (46/49) hddctl::canary t0210_verify_without_a_profile_is_honest
+        PASS [   0.352s] (47/49) hddctl::canary t0210_verify_reports_a_runner_ip_that_the_echo_does_not_show
+        PASS [   0.361s] (48/49) hddctl::canary t0210_verify_reports_a_static_install_echo_as_unverified
+        PASS [   0.994s] (49/49) hdd-canary tests::t0210_parser_never_panics_on_arbitrary_bytes_and_keeps_limits
+────────────
+     Summary [   0.995s] 49 tests run: 49 passed, 0 skipped
+
+[exit code: 0]
+
+============================================================
+2) cargo fmt -p hdd-canary -p hddctl -- --check
+============================================================
+(no output: every file is formatted)
+[exit code: 0]
+
+============================================================
+3) cargo clippy -p hdd-canary -p hddctl --all-targets -- -D warnings
+============================================================
+cargo.exe :     Checking hddctl v0.0.0 (D:\Hack Dev Defence\crates\hddctl)
+At line:35 char:8
++ $out = & cargo clippy -p hdd-canary -p hddctl --all-targets -- -D war ...
++        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Checking hd...\crates\hddctl):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.47s
+
+[exit code: 0]
+
+============================================================
+4) cargo xtask claims-lint (CANARY.md claims policy, R-10)
+============================================================
+claims-lint: scanned 291 files with 34 phrases and 1 context rules
+claims-lint: PASS
+
+[exit code: 0]
+
+============================================================
+5) cargo xtask verify --only rules (R-01 placeholders, R-22 one egress path, forbid(unsafe_code))
+============================================================
+[10] rules                PASS  (log 10-rules.log, sha256 01d11d9954525512)
+verify: 1 PASS, 0 FAIL, 0 UNVERIFIED; logs in D:\Hack Dev Defence\acceptance-verify\20261020T042349Z-verify
+
+[exit code: 0]
+
+============================================================
+6) SHA-256 of the delivered files
+============================================================
+D43F799262085E9F1CEDBB7D9727E7687A501BA68C59A1E21DD486507867900E  crates/hdd-canary/Cargo.toml
+E7CB6C94B1A9706E7AB25917A0C687EEDC085DC5963C1AB2F2028D0231BD3061  crates/hdd-canary/src/lib.rs
+141681E1FEF9BE6595D23D8283E3C91E30F6F7F74166ED4D17A922C5EE6FD5DB  crates/hdd-canary/src/main.rs
+BC56CE580B2FEE0D469F61BCFE0687FACF4922535128B505B3AD0CDEDF1D4E70  crates/hdd-canary/tests/hostile.rs
+2A881F7699E32E9092AF14DF66300FFE211C8824AC7B3C2A880813DB63FBCFE0  crates/hdd-canary/tests/cli.rs
+36BA4FB40275F4048AE7C2354F78A03DFDEBCA7864BA28931A0DFF4991F48B32  crates/hddctl/Cargo.toml
+0FC248D11D75DECCAD4AC35E980B9A64DE187768E08D96C2A08CC15A849E4CF4  crates/hddctl/src/main.rs
+1A92C14016C957394A2FD55471F5FC89E5FAC5A6F2A135CB6EC3DC4EDC0ABE5C  crates/hddctl/tests/canary.rs
+5301A8A9B9B6D7AC1FE3099955EB67D5BF7B8C0068D2AD50EB7DE422C56FB319  CANARY.md
+F89257C77FF676500358421F6A99B6229A749316A39A436E8E0C52920DD3A7CF  deploy/hdd-canary.service
+1618AC01AF9AF49A8D11A16F6948CE687CA27E72155C957D7C10E398C0D1C027  docs/evidence/P11/T-0210-red.txt
+FDFFD5FED0E547E39CBDABCA7F479C2DBE809F1E6E3881B53D2FA5D94BB4837C  docs/evidence/P11/T-0210-negative-demos.txt
+
+============================================================
+7) Encoding check (UTF-8 without byte-order mark)
+============================================================
+   CANARY.md  BOM=False
+   deploy/hdd-canary.service  BOM=False
+   crates/hdd-canary/src/lib.rs  BOM=False
+   crates/hdd-canary/src/main.rs  BOM=False
+   crates/hdd-canary/tests/hostile.rs  BOM=False
+   crates/hdd-canary/tests/cli.rs  BOM=False
+   crates/hddctl/src/main.rs  BOM=False
+   crates/hddctl/tests/canary.rs  BOM=False
+   docs/evidence/P11/T-0210-red.txt  BOM=False
+   docs/evidence/P11/T-0210-negative-demos.txt  BOM=False
+
+============================================================
+8) Working-tree state at capture (git status --short; includes peer files of the parallel batch)
+============================================================
+ M CANARY.md
+ M Cargo.lock
+ M crates/hdd-acceptance/Cargo.toml
+ M crates/hdd-acceptance/src/main.rs
+ M crates/hdd-canary/Cargo.toml
+ M crates/hdd-canary/src/main.rs
+ M crates/hdd-xtask/src/ux_docs.rs
+ M crates/hdd-xtask/src/ux_docs/tests.rs
+ M crates/hddctl/Cargo.toml
+ M crates/hddctl/src/main.rs
+ M docs/STRIDE.md
+ M supply-chain/config.toml
+?? crates/hdd-acceptance/src/config.rs
+?? crates/hdd-acceptance/src/config/
+?? crates/hdd-acceptance/src/control.rs
+?? crates/hdd-acceptance/src/control/
+?? crates/hdd-acceptance/src/guard.rs
+?? crates/hdd-acceptance/src/guard/
+?? crates/hdd-acceptance/src/inspect.rs
+?? crates/hdd-acceptance/src/inspect/
+?? crates/hdd-acceptance/src/lib.rs
+?? crates/hdd-acceptance/src/limits.rs
+?? crates/hdd-acceptance/src/limits/
+?? crates/hdd-acceptance/src/registry.rs
+?? crates/hdd-acceptance/src/registry/
+?? crates/hdd-acceptance/src/report.rs
+?? crates/hdd-acceptance/src/report/
+?? crates/hdd-acceptance/src/runner.rs
+?? crates/hdd-acceptance/src/runner/
+?? crates/hdd-acceptance/src/status.rs
+?? crates/hdd-acceptance/src/status/
+?? crates/hdd-acceptance/src/test_support.rs
+?? crates/hdd-acceptance/tests/
+?? crates/hdd-canary/src/lib.rs
+?? crates/hdd-canary/tests/
+?? crates/hdd-xtask/src/ux_docs/errors.rs
+?? crates/hdd-xtask/src/ux_docs/i18n_plan.rs
+?? crates/hddctl/tests/canary.rs
+?? deploy/hdd-canary.service
+?? docs/ACCEPTANCE.md
+?? docs/UX/ERRORS.md
+?? docs/UX/I18N.md
+?? docs/evidence/P01/T-0020-red.txt
+?? docs/evidence/P01/T-0023-red.txt
+?? docs/evidence/P11/
+?? i18n/en/errors.ftl
+?? scratch_pseudo.py
+?? scratch_pseudo.txt
+?? scratch_up.py
+?? scratch_upper.txt
+?? scratch_upper2.txt
+

@@ -1,0 +1,91 @@
+# T-0210 batch B2 review round 3 (Q-1..Q-8): red evidence (failing tests written before the fixes)
+# Date: 2026-10-20; host: Windows 11, Track L
+# Command: cargo nextest run -p hdd-canary -p hddctl --no-fail-fast
+# Pre-fix result: 100 tests run, 91 passed, 9 failed, 0 skipped (exit 100). Two test-quality changes and two test
+# deletions are recorded at the end.
+
+## Q-1 (delegation semantics)
+Red tests: hdd-canary tests::t0210_delegation_pending_is_only_a_resolve_of_a_profile_test_hostname;
+hddctl t0210_verify_override_transport_failure_is_a_fail_not_a_pending_step; hddctl
+t0210_verify_non_200_through_response_does_not_claim_no_response_arrived.
+Facts checked on disk: hdd.live.example.yaml line 45 defines lockdown_state = origin firewall / secret header (STOP #2);
+the profile type (crates/hdd-common/src/profile/types.rs) has NO delegation field (`ns_hostnames`/`acme_cname_zone` are
+DNS configuration, not a delegation state). So only EgressError::Resolve on a profile-named test_hostname may be pending.
+Pre-fix: lockdown_state was used as "delegation done", every through transport failure was UNVERIFIED(human_step_pending)
+(so `--local-only --through-url http://127.0.0.1:1` printed "Delegate the pilot subzones" and exited 0), and a non-200
+through response used the phrase "no response arrived".
+
+## Q-2 (runner-IP assertion)
+Red tests: hdd-canary tests::t0210_hdd_echo_evidence_uses_hdd_connecting_ip_and_hdd_built_xff_only; hddctl
+t0210_parsing_echo_and_hdd_agree_on_the_runner_claim.
+Pre-fix: any forwarding header token satisfied the runner claim, so X-Real-IP (which an operator's own TLS terminator
+adds) made CANARY-ECHO PASS while CANARY-HDD was UNVERIFIED for the same claim.
+
+## Q-3 (echo redaction)
+Red tests: hdd-canary tests::t0210_echo_headers_are_an_allowlist_not_a_denylist,
+t0210_origin_auth_kid_is_echoed_only_for_the_exact_v1_shape, hostile
+a_echo_headers_never_leaks_secret_bearing_request_headers.
+Pre-fix (reproduced by the reviewers against a live sidecar): Cookie2, X-Session-Id, X-Amz-Credential, X-Password,
+X-Jwt-Assertion and Referer with a secret query were echoed; `HDD-Origin-Auth: v7;STATICSECRET` came back as
+`v7;STATICSECRET` (any v<digits>;<anything> was treated as a kid) and a static token was not redacted.
+
+## Q-4 (served 200 with trailing bytes)
+Red test: hdd-canary::hostile a_served_response_survives_trailing_client_bytes (5,000 and 60,000 trailing bytes, and
+Content-Length: 0 with trailing data). Pre-fix only the reject path shut the write side down and drained; a served
+response closed with unread bytes, which can reset the connection and lose the body the client was reading.
+
+## Q-5 (override scheme and port)
+Red test: hddctl t0210_verify_profile_overrides_must_match_scheme_and_port. Pre-fix only the host was compared with the
+profile, so an override with another scheme/port on a profile-named host was accepted (`--direct-url https://<origin
+host>:9`), i.e. the check could be pointed at an unrelated service on the same host. The --base-path help text also
+claimed the profile wins, while the code lets an explicit flag override it.
+
+## Q-6 (listener outage export and one idle client)
+Red tests: hdd-canary tests::t0210_start_propagates_a_real_listener_panic_and_counts_it (real start() path, not a fake
+Running). Pre-fix the exit error did not export the panic count, and the single-threaded accept loop let one idle client
+block every other request for its deadline.
+Decision taken (allowed by the review): implement a small bounded worker pool (4 workers, accept queue 16) instead of
+documenting the single-connection limit; the idle-client latency test t0210_verify_... (hostile a_connection... suite)
+shows another connection is served immediately.
+
+## Q-7 (symlinked root/dir)
+Status: NOT REPRODUCED end-to-end on this host. Creating a directory symlink/junction in the test needs a privilege the
+builder session does not hold, so the new test t0210_start_refuses_a_symlinked_root_directory_when_the_privilege_exists
+reports UNVERIFIED(environment_unsupported) itself and returns; the unix-only library symlink test is already
+UNVERIFIED(environment_unsupported) here. The fix is structural: start(), generate() and check_manifest() now call
+ensure_real_directory(), which refuses a symlinked root, a Windows reparse point (junction) and a non-directory root; the
+check-then-use window between symlink_metadata and opening a child is documented in the code as accepted because the
+directory is root-controlled (an attacker who can replace it is already the host owner).
+
+## Q-8 (test quality and reasons)
+- a_slow_reader_does_not_hold_the_single_connection_forever was DELETED (reason): on this host the loopback socket
+  buffers absorb the largest body the sidecar can produce (<64 KiB), so the test passed even without the write deadline;
+  it did not fail without the deadline. The deterministic deadline logic is covered by
+  t0210_write_with_deadline_abandons_a_slow_reader_at_the_deadline and the K-3 mutation demo.
+- The rejected-client timing bound is now relative to the configured connection deadline (elapsed < deadline), not a
+  hard 150 ms.
+- The applied-lockdown direct skip now reports UNVERIFIED(stage_not_reached) instead of capability_not_supplied
+  (test t0210_verify_lockdown_applied_direct_reason_is_stage_not_reached).
+- Two superseded tests were deleted: t0210_parsing_verify_profile_hosts_that_differ_are_not_hdd_evidence (Q-5 now
+  correctly refuses an http:<port> override for test_hostname, so that setup can no longer exist; the
+  two-loopback-literals test still covers "a different host is not evidence") and
+  t0210_verify_through_transport_fails_when_delegation_is_recorded_as_done (the delegation-done concept is removed by
+  Q-1; the override-transport FAIL test and the pure classifier test replace it).#
+# Q-2b (added after the round-3 review): false HDD evidence from an append-only origin terminator
+# Red: with the spoof-stripping requirement reverted (spoof_present forced false), the bypass shape
+# (203.0.113.99 preserved, runner appended) is accepted as HDD evidence, so the new tests FAIL.
+# Command: cargo nextest run -p hdd-canary -p hddctl -E "test(t0210_hdd_echo_evidence_uses_hdd_connecting_ip_and_hdd_built_xff_only) or test(t0210_parsing_spoof_probe_requires_a_hdd_rebuilt_forwarded_chain)"
+# Exit while mutated: 100 (expected non-zero)
+#
+  FAIL [   0.014s] (1/2) hdd-canary tests::t0210_hdd_echo_evidence_uses_hdd_connecting_ip_and_hdd_built_xff_only
+  thread 'tests::t0210_hdd_echo_evidence_uses_hdd_connecting_ip_and_hdd_built_xff_only' (36736) panicked at
+  FAIL [   2.312s] (2/2) hddctl::canary t0210_parsing_spoof_probe_requires_a_hdd_rebuilt_forwarded_chain
+  thread 't0210_parsing_spoof_probe_requires_a_hdd_rebuilt_forwarded_chain' (37056) panicked at
+  FAIL [   0.014s] (1/2) hdd-canary tests::t0210_hdd_echo_evidence_uses_hdd_connecting_ip_and_hdd_built_xff_only
+  FAIL [   2.312s] (2/2) hddctl::canary t0210_parsing_spoof_probe_requires_a_hdd_rebuilt_forwarded_chain
+
+# SHA-256 before: B4571DFCB8766D7BC4E7A3ADF83D339452454FADD5C333655D0B50E6B0BAA458
+# SHA-256 after restore: B4571DFCB8766D7BC4E7A3ADF83D339452454FADD5C333655D0B50E6B0BAA458
+# Restore byte-identical: True
+# After restore: same command exit 0 (expected 0)
+

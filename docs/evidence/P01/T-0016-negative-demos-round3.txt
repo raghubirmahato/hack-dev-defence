@@ -1,0 +1,67 @@
+# T-0016 third delivery: Cutover safety demonstrations for J-08/J-09 plus samples of the old rules on J-08 to J-12. Each mutation must make 'cargo xtask ux-docs' FAIL; every file is restored and its SHA-256 compared.
+# Date: 2026-10-19.
+
+## 1. a cutover row removed for a DNS-changing step (J-08 step 2)
+[ux-docs] docs/UX/journeys/J-08.md: step 2 changes DNS or routing but has no `Cutover safety` row (T-0016)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 2. an empty Guard cell in J-08
+[ux-docs] docs/UX/journeys/J-08.md:52: a cutover-safety row needs four non-empty cells (T-0016)
+[ux-docs] docs/UX/journeys/J-08.md: step 2 changes DNS or routing but has no `Cutover safety` row (T-0016)
+ux-docs: FAIL (2 finding(s))
+(exit 1)
+
+## 3. the Cutover safety section removed from J-09
+[ux-docs] docs/UX/journeys/J-09.md: no `## Cutover safety` section for a domain-cutover journey (T-0016)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 4. a bad ERR code in J-08 (ERR-NOPE-999)
+[ux-docs] docs/UX/journeys/J-08.md:11: `ERR-NOPE-999` is not a code of the B7 error catalog (A3)
+[ux-docs] docs/UX/journeys/J-08.md:11: the error sentence for `ERR-NOPE-999` shares no content word with the B7 title or note (F-12)
+ux-docs: FAIL (2 finding(s))
+(exit 1)
+
+## 5. a bad ATK id in J-10 (ATK-999)
+[ux-docs] docs/UX/journeys/J-10.md:31: `ATK-999` is not an id of the C5 attack matrix (A4)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 6. a changed title in J-11
+[ux-docs] docs/UX/journeys/J-11.md: the title `# J-11 Ownership check` differs from the spec title `# J-11 Owner verifies ownership`
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 7. a removed persona link in J-12 (Dan)
+[ux-docs] docs/UX/journeys/J-12.md: the persona links (maya) differ from the persona-journey matrix row (dan, maya)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 8. an eleven-step table in J-08 (step 12 removed)
+[ux-docs] docs/UX/journeys/J-08.md: the steps table has 11 rows; at least 12 are required (A1)
+[ux-docs] docs/UX/journeys/J-08.md:45: accessibility row names step `12`, which is not in the steps table
+[ux-docs] docs/UX/journeys/J-08.md:56: cutover-safety row names step `12`, which is not in the steps table
+ux-docs: FAIL (3 finding(s))
+(exit 1)
+
+## 9. a screen missing from spec-patches in J-09 (S-999)
+[ux-docs] docs/UX/journeys/J-09.md:11: screen `S-999` is not in B12.1 and is not listed in spec-patches.md (A5)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 10. an error sentence unrelated to its code in J-10
+[ux-docs] docs/UX/journeys/J-10.md:11: the error sentence for `ERR-DOM-003` shares no content word with the B7 title or note (F-12)
+[ux-docs] docs/UX/journeys/J-10.md:11: the error sentence for `ERR-DOM-003` shares no content word with the step (F-12)
+ux-docs: FAIL (2 finding(s))
+(exit 1)
+
+## restored files
+ux-docs: PASS
+(exit 0)
+docs/UX/journeys/J-08.md SHA-256: A2B4A0FB5B3947B26F24ED79C4F78FA86E90B72EFDF51DFBB016C9F97F334339 -> A2B4A0FB5B3947B26F24ED79C4F78FA86E90B72EFDF51DFBB016C9F97F334339
+docs/UX/journeys/J-09.md SHA-256: 24C00DA811A66626181CCAE44AEF7BA91D0FC9840F6DF2484A48F6B3E07B846D -> 24C00DA811A66626181CCAE44AEF7BA91D0FC9840F6DF2484A48F6B3E07B846D
+docs/UX/journeys/J-10.md SHA-256: 8FA8F77013B1C2BE319B5F889E8374AFBC526E22AF9341DE9BE14F56B1420664 -> 8FA8F77013B1C2BE319B5F889E8374AFBC526E22AF9341DE9BE14F56B1420664
+docs/UX/journeys/J-11.md SHA-256: 10FC76EA09147C43D4276FB17853B8180E2453966F26FAD4386B6FC329A263EF -> 10FC76EA09147C43D4276FB17853B8180E2453966F26FAD4386B6FC329A263EF
+docs/UX/journeys/J-12.md SHA-256: A3260D2250E3692523E6F2F8946E8103309DF42D8F08AF39C134CF8C51182234 -> A3260D2250E3692523E6F2F8946E8103309DF42D8F08AF39C134CF8C51182234
+all hashes equal: True

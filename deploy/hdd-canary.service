@@ -1,0 +1,80 @@
+# hdd-canary.service: origin-side canary fixture sidecar (spec section C16.1, task T-0210, runbook CANARY.md).
+#
+# The sidecar serves exactly the five canary files under /__hdd_canary/ and GET /__hdd_canary/echo-headers.
+# It reads the files once at startup, verifies manifest.sha256, makes no outbound connection, never writes to the
+# filesystem, reads no request body and never reflects request input.
+#
+# Install (details and the undo steps are in CANARY.md section 4):
+#   install -d -m 0750 /var/lib/hdd-canary
+#   hddctl canary generate --dir /var/lib/hdd-canary --base-path /__hdd_canary/
+#   chown -R root:hdd-canary /var/lib/hdd-canary && chmod 0640 /var/lib/hdd-canary/*
+#   cp deploy/hdd-canary.service /etc/systemd/system/hdd-canary.service
+#   systemctl daemon-reload && systemctl enable --now hdd-canary.service
+#   systemd-analyze security hdd-canary.service      # shows the sandbox score on the Linux host
+#
+# EDIT BEFORE PRODUCTION: --bind must name the private interface (or WireGuard address) that HDD reaches, and
+# IPAddressAllow must name the HDD address once lockdown is applied. Do not bind a public interface while
+# origin.lockdown_state is pending. After editing, restart the unit and re-run systemd-analyze security.
+
+[Unit]
+Description=HDD canary fixture sidecar (spec C16.1)
+# The runbook is CANARY.md in the HDD repository (install, verify, security notes, undo).
+After=network-online.target
+Wants=network-online.target
+# Fail closed at boot when the verified fixture is absent instead of serving a directory that no longer matches.
+ConditionPathExists=/var/lib/hdd-canary/ok.txt
+
+[Service]
+Type=simple
+# The default listens on loopback only. Change the address for the interface HDD reaches (CANARY.md section 7).
+ExecStart=/usr/local/bin/hdd-canary --bind 127.0.0.1:8080 --base-path /__hdd_canary/ --root /var/lib/hdd-canary --manifest /var/lib/hdd-canary/manifest.sha256
+
+# Run as the unprivileged service account created for the sidecar (no shell, no home).
+User=hdd-canary
+Group=hdd-canary
+UMask=0077
+
+# A4: no capabilities at all, and they cannot be regained.
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+# Sandbox: the whole filesystem is read-only for the service; only the canary directory is readable.
+ProtectSystem=strict
+ReadOnlyPaths=/var/lib/hdd-canary
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectHostname=yes
+ProtectClock=yes
+ProtectProc=invisible
+ProcSubset=pid
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+
+# Sockets: only TCP/UDP over IPv4/IPv6 for the listener plus AF_UNIX for the journal socket of stdout/stderr.
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+# Incoming connections: default deny; loopback is enough for the default loopback bind. For a private-interface bind
+# add the HDD address here and keep the deny (for example: IPAddressAllow=10.0.0.5).
+IPAddressDeny=any
+IPAddressAllow=localhost
+
+# Syscalls: the @system-service set (no privileged, mount, module, clock, keyring, raw-io groups) and native ABI only.
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+SystemCallArchitectures=native
+
+# Restart on a crash; the fixture is stateless, so a restart is safe.
+Restart=on-failure
+RestartSec=5s
+TimeoutStopSec=5s
+
+[Install]
+WantedBy=multi-user.target

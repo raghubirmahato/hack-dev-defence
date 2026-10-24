@@ -1,0 +1,14 @@
+# T-0563 A2 on the real archive: one flipped bit (re-run after the review fixes)
+tampered file: 4eae590d66b11414fe27393cedd80ab6c1f76966d5c6a94f5f1b1bb749998384 (48321881 bytes, same size as the original)
+
+$ cargo xtask db up --data-dir <fresh dir> --bundle <tampered>
+xtask: the archive does not match the pinned SHA-256 (expected 9855f1b2a9acf127…, found 4eae590d66b11414…); it was refused and nothing was installed or started
+exit code: 2
+
+fresh data directory afterwards:
+/tmp/tmp.ePUxfO0wxI/data:
+.hdd-local.lock
+cache
+
+/tmp/tmp.ePUxfO0wxI/data/cache:
+(postgres install dir exists: no; pgdata exists: no)

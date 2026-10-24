@@ -1,0 +1,22 @@
+T-0027 round-2 mutation demo: one mutation of docs/UX/metrics-dictionary.md
+Date: 2026-10-20
+
+File: docs/UX/metrics-dictionary.md
+SHA-256 before mutation: 02CC19C108C3848615550416E82A4E04C33630104DBE3055F99C4D463ED3BF0A
+Mutation: change the `live-top-category` Aggregation from `argmax over the count` back to `max`.
+SHA-256 while mutated:    E154E8A578F6ECFBE8CEE924B0AFABAB74709FF5010C14941E68243F3DB358BE
+
+Command: cargo xtask ux-docs
+[ux-docs] docs/UX/metrics-dictionary.md:78: the definition ranks a key (`the category with ...` or `the most ...`) but the Aggregation `max` is not an argmax or a top list (F-29)
+ux-docs: FAIL (1 finding(s))
+ux-docs exit code: 1
+
+Restore: copy C:\Users\Raghu\AppData\Local\Temp\T-0027-18dc32bb8dab47b5b8971283402c2ae4.md back over the file
+SHA-256 after restore:    02CC19C108C3848615550416E82A4E04C33630104DBE3055F99C4D463ED3BF0A
+before == after: True
+
+Command: cargo xtask ux-docs
+ux-docs: PASS
+ux-docs exit code: 0
+
+Result: the mutation makes ux-docs FAIL with the named finding; the restored file is byte-identical and ux-docs PASSes again.

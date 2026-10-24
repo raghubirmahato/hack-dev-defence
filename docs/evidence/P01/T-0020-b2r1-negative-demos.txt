@@ -1,0 +1,121 @@
+# T-0020 batch B2 review round 1 mutation demos (findings D-1 to D-4)
+
+Each demo writes docs/UX/ERRORS.md from the original text with one mutation, runs `cargo xtask ux-docs`,
+shows the expected finding and the non-zero exit, restores the original text byte-identically and proves
+the SHA-256 before the mutation equals the SHA-256 after the restore. The run ends on `ux-docs: PASS`.
+
+Command under test: cargo xtask ux-docs
+Repository: D:\Hack Dev Defence
+Date: 2026-10-20 11:52:22 +05:45
+Scratch backup directory: C:\Users\Raghu\AppData\Local\Temp\hdd-t20-b2r1-demos-33076
+ERRORS.md SHA-256 before: 979CF861B7AFE2AE478C2B7D0DA10184E0696E3B1C699AA3422B9DF50B3383AC
+
+## D-1a - the required authentication row is renamed in the matrix (D-1)
+file: docs/UX/ERRORS.md
+SHA-256 before: 979CF861B7AFE2AE478C2B7D0DA10184E0696E3B1C699AA3422B9DF50B3383AC
+SHA-256 while mutated: 2F92C1E303F43937FD548A073A6B09746F42C7D711663866B9A6B5EFB9BD1374
+cargo xtask ux-docs exit: 1
+expected finding token: authentication
+matching output lines:
+[ux-docs] docs/UX/ERRORS.md:18: `permission-extra` is not one of the class rows (the nine task classes plus authentication, T-0020 step 1 and D-1)
+[ux-docs] docs/UX/ERRORS.md: the class `authentication` has no row in the class and pattern matrix (T-0020 step 1)
+[ux-docs] docs/UX/ERRORS.md: the class and pattern matrix has no `authentication` row (T-0020 D-1)
+[ux-docs] docs/UX/ERRORS.md: the class matrix gives `ERR-AUTH-002` as the example of `permission-extra`, but the status and exception tables give `authentication` (T-0020 D-1)
+[ux-docs] docs/UX/ERRORS.md: `ERR-AUTH-002` is listed under `permission-extra`, which is not a class row (T-0020 D-1)
+ux-docs: FAIL (5 finding(s))
+restored SHA-256: 979CF861B7AFE2AE478C2B7D0DA10184E0696E3B1C699AA3422B9DF50B3383AC
+restore byte-identical: True
+
+## D-1b - the authentication coverage row is relabelled as permission, so the tables disagree (D-1 cross-table)
+file: docs/UX/ERRORS.md
+SHA-256 before: 979CF861B7AFE2AE478C2B7D0DA10184E0696E3B1C699AA3422B9DF50B3383AC
+SHA-256 while mutated: 2E6729BA601E8AB214B07365C81AADBCACD8D9E56F1D32AC17DFEC68E21A895D
+cargo xtask ux-docs exit: 1
+expected finding token: ERR-AUTH-002
+matching output lines:
+[ux-docs] docs/UX/ERRORS.md:323: the class `permission` has more than one coverage row
+[ux-docs] docs/UX/ERRORS.md: the coverage table has no row for the class `authentication`
+[ux-docs] docs/UX/ERRORS.md: the `authentication` row says none in the delivered journeys, but `ERR-AUTH-002` is classified as `authentication`
+[ux-docs] docs/UX/ERRORS.md: the `authentication` row says none in the delivered journeys, but `ERR-AUTH-003` is classified as `authentication`
+[ux-docs] docs/UX/ERRORS.md: the `authentication` row says none in the delivered journeys, but `ERR-AUTH-006` is classified as `authentication`
+[ux-docs] docs/UX/ERRORS.md: the `authentication` row says none in the delivered journeys, but `ERR-AUTH-007` is classified as `authentication`
+[ux-docs] docs/UX/ERRORS.md: the `authentication` row says none in the delivered journeys, but `ERR-AUTH-008` is classified as `authentication`
+[ux-docs] docs/UX/ERRORS.md: the `authentication` row says none in the delivered journeys, but `ERR-AUTH-012` is classified as `authentication`
+restored SHA-256: 979CF861B7AFE2AE478C2B7D0DA10184E0696E3B1C699AA3422B9DF50B3383AC
+restore byte-identical: True
+
+## D-2a - a moved 409 code is put back under conflict in the exception table (D-2)
+file: docs/UX/ERRORS.md
+SHA-256 before: 979CF861B7AFE2AE478C2B7D0DA10184E0696E3B1C699AA3422B9DF50B3383AC
+SHA-256 while mutated: A3460F7C15C9FA4A249F8057A547B3D2C7E0F4A841FE28B06BBC2EBAB7AF4068
+cargo xtask ux-docs exit: 1
+expected finding token: ERR-ORG-001
+matching output lines:
+[ux-docs] docs/UX/ERRORS.md: the document lists the exception `ERR-ORG-001` as `conflict`; the reviewed class is `validation`
+[ux-docs] docs/UX/ERRORS.md: the exception `ERR-ORG-001` maps to `conflict`, which is already the default of its HTTP status 409, so it refines nothing
+[ux-docs] docs/UX/ERRORS.md: the journey error-path coverage table lists `ERR-ORG-001` under `validation`, but the status and exception tables give `conflict` (T-0020 D-1: one class per code)
+ux-docs: FAIL (3 finding(s))
+restored SHA-256: 979CF861B7AFE2AE478C2B7D0DA10184E0696E3B1C699AA3422B9DF50B3383AC
+restore byte-identical: True
+
+## D-2b - the exception row of a non-version 409 code is removed (D-2)
+file: docs/UX/ERRORS.md
+SHA-256 before: 979CF861B7AFE2AE478C2B7D0DA10184E0696E3B1C699AA3422B9DF50B3383AC
+SHA-256 while mutated: B8DEFB9F6D44C4BBD61E3625C5FC70A3135CC8AB0B884F1922229C6FA75D0BD1
+cargo xtask ux-docs exit: 1
+expected finding token: 409
+matching output lines:
+[ux-docs] docs/UX/ERRORS.md: the exception table has no row for `ERR-DOM-004` (`upstream`), which the model rules apply
+[ux-docs] docs/UX/ERRORS.md: the journey error-path coverage table lists `ERR-DOM-004` under `upstream`, but the status and exception tables give `conflict` (T-0020 D-1: one class per code)
+[ux-docs] docs/UX/ERRORS.md: `ERR-DOM-004` falls to the conflict class only by its 409 status; it is not a version or key conflict, so it needs an exception row with a Why (T-0020 D-2)
+ux-docs: FAIL (3 finding(s))
+restored SHA-256: 979CF861B7AFE2AE478C2B7D0DA10184E0696E3B1C699AA3422B9DF50B3383AC
+restore byte-identical: True
+
+## D-3 - P-8 is rewritten back to the one-cause-shown-once wording (D-3)
+file: docs/UX/ERRORS.md
+SHA-256 before: 979CF861B7AFE2AE478C2B7D0DA10184E0696E3B1C699AA3422B9DF50B3383AC
+SHA-256 while mutated: F916E8B21B1B6CD29D916D13722FC00C97A3FAA46DF8D2DFD933526D6DC36E8C
+cargo xtask ux-docs exit: 1
+expected finding token: P-8
+matching output lines:
+[ux-docs] docs/UX/ERRORS.md: P-8 still says one cause is shown once; the rule is once per channel with the same text (T-0020 D-3)
+[ux-docs] docs/UX/ERRORS.md: P-8 does not say that one cause appears once per channel (T-0020 D-3)
+[ux-docs] docs/UX/ERRORS.md: the rule `P-8` still claims one cause is shown once; the rule is once per channel (T-0020 D-3)
+ux-docs: FAIL (3 finding(s))
+restored SHA-256: 979CF861B7AFE2AE478C2B7D0DA10184E0696E3B1C699AA3422B9DF50B3383AC
+restore byte-identical: True
+
+## D-4a - the unsafe action set is thinned to one row (D-4)
+file: docs/UX/ERRORS.md
+SHA-256 before: 979CF861B7AFE2AE478C2B7D0DA10184E0696E3B1C699AA3422B9DF50B3383AC
+SHA-256 while mutated: 1E148C65BE6E6A1032623E26757E1F3E3DBB8E84DF48B1E693FDD653EBDEEA39
+cargo xtask ux-docs exit: 1
+expected finding token: unsafe
+matching output lines:
+[ux-docs] docs/UX/ERRORS.md: the table lists 2 unsafe POST rows; at least five are required (T-0020 D-4: an email POST, a webhook or integration POST, a secret rotation, an emergency action and a POST with no idempotency key)
+[ux-docs] docs/UX/ERRORS.md: the table lists no unsafe POST that sends email (resend verification, password reset or contact); review D-4 requires one (T-0020 step 3)
+[ux-docs] docs/UX/ERRORS.md: the table lists no unsafe POST that sends a webhook or integration test; review D-4 requires one (T-0020 step 3)
+[ux-docs] docs/UX/ERRORS.md: the table lists no unsafe POST that rotates a secret; review D-4 requires one (T-0020 step 3)
+[ux-docs] docs/UX/ERRORS.md: the table lists no unsafe POST that enters an emergency action; review D-4 requires one (T-0020 step 3)
+ux-docs: FAIL (5 finding(s))
+restored SHA-256: 979CF861B7AFE2AE478C2B7D0DA10184E0696E3B1C699AA3422B9DF50B3383AC
+restore byte-identical: True
+
+## D-4b - an unsafe webhook test is given an Idempotency-Key requirement (D-4 cross-check)
+file: docs/UX/ERRORS.md
+SHA-256 before: 979CF861B7AFE2AE478C2B7D0DA10184E0696E3B1C699AA3422B9DF50B3383AC
+SHA-256 while mutated: E3CA3FEBEC326A6ED56BDD84E09621CB7E0E31F5674CDCF7205AF7FE72211899
+cargo xtask ux-docs exit: 1
+expected finding token: Idempotency-Key
+matching output lines:
+[ux-docs] docs/UX/ERRORS.md:180: the row `Test a webhook delivery` says `unsafe` but a POST row is `safe with idempotency-key` (T-0020 step 3, A3)
+ux-docs: FAIL (1 finding(s))
+restored SHA-256: 979CF861B7AFE2AE478C2B7D0DA10184E0696E3B1C699AA3422B9DF50B3383AC
+restore byte-identical: True
+
+## Restored tree
+cargo xtask ux-docs exit: 0
+ux-docs: PASS
+
+ERRORS.md SHA-256 after all demos: 979CF861B7AFE2AE478C2B7D0DA10184E0696E3B1C699AA3422B9DF50B3383AC

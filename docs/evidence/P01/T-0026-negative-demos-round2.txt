@@ -1,0 +1,36 @@
+# T-0026 (batch B1 round 1) negative demos: F-19 and F-20 checks
+
+Date: 2026-10-20. Each block backs the file up into %TEMP%\hdd-t0026-demos, mutates one value, runs the ux-docs gate, restores the backup and compares the SHA-256.
+
+=== DEMO all-Pass outcome turned into a task (F-20b) ===
+file: docs\UX\ONBOARDING.md
+mutation: "13. rule 13: if always then Nothing to do now." -> "13. rule 13: if always then Review the checklist at S-044."
+sha256 before: 94E2A565079C99125A38EEA71C0BE06F64AC849CED0FDA78510197B6A8177165
+sha256 after:  94E2A565079C99125A38EEA71C0BE06F64AC849CED0FDA78510197B6A8177165
+restore: RESTORED from the backup; SHA-256 before and after are equal
+command: target\debug\hdd-xtask.exe ux-docs (built from the working tree)
+ux-docs: FAIL, with finding(s) naming the file
+[ux-docs] docs/UX/ONBOARDING.md:103: the example expects the action `Nothing to do now.` but rule 13 returns `Review the checklist at S-044.` (T-0026 Tests)
+[ux-docs] docs/UX/ONBOARDING.md: the all-Pass state must return the distinct outcome `Nothing to do now.`, but rule 13 returns `Review the checklist at S-044.` (F-20b)
+
+=== DEMO monitor-mode Partial ratio changed (F-19a) ===
+file: docs\UX\READINESS-MODEL.md
+mutation: "| F | RD-WAF-MODE Partial(0.5) | 96 | 0 |" -> "| F | RD-WAF-MODE Partial(0.25) | 96 | 0 |"
+sha256 before: C18DC0765C12959770016BCD4548EB528C52A25B78BE3279EEC6824A5F077C68
+sha256 after:  C18DC0765C12959770016BCD4548EB528C52A25B78BE3279EEC6824A5F077C68
+restore: RESTORED from the backup; SHA-256 before and after are equal
+command: target\debug\hdd-xtask.exe ux-docs (built from the working tree)
+ux-docs: FAIL, with finding(s) naming the file
+[ux-docs] docs/UX/READINESS-MODEL.md:140: case F uses the ratio 0.25 but the monitor-mode design value is 0.5 (F-19a)
+[ux-docs] docs/UX/READINESS-MODEL.md:140: the scoring example `RD-WAF-MODE Partial(0.25)` expects the score 96 but the scoring function gives 94 (T-0026 Tests)
+
+=== DEMO B12.2 phrase removed from the mapping (F-19c) ===
+file: docs\UX\READINESS-MODEL.md
+mutation: "| delegation or CNAME verified | Traffic | RD-DELEGATION |" -> "| delegation or CNAME checked | Traffic | RD-DELEGATION |"
+sha256 before: C18DC0765C12959770016BCD4548EB528C52A25B78BE3279EEC6824A5F077C68
+sha256 after:  C18DC0765C12959770016BCD4548EB528C52A25B78BE3279EEC6824A5F077C68
+restore: RESTORED from the backup; SHA-256 before and after are equal
+command: target\debug\hdd-xtask.exe ux-docs (built from the working tree)
+ux-docs: FAIL, with finding(s) naming the file
+[ux-docs] docs/UX/READINESS-MODEL.md: the B12.2 check phrase `delegation or CNAME verified` has no row in the mapping table (F-19c)
+[ux-docs] docs/UX/READINESS-MODEL.md:69: the mapping row `delegation or CNAME checked` is not a check phrase of the B12.2 S-044 bullet lists (F-19c)

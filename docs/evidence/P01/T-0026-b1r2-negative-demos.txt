@@ -1,0 +1,22 @@
+T-0026 round-2 mutation demo: one mutation of i18n/en/onboarding.ftl
+Date: 2026-10-20
+
+File: i18n/en/onboarding.ftl
+SHA-256 before mutation: 42F707BA2E05A411317CF6E5625FDE0EE71782D776D54DE99C4542FB7A709CED
+Mutation: remove the definition line of the key `empty-alerts` (an undefined copy key).
+SHA-256 while mutated:    3DFAF60DF8BB310DE9076735262593D29B54A25C996CD68FE98B3FCF255EB88C
+
+Command: cargo xtask ux-docs
+[ux-docs] docs/UX/ONBOARDING.md:137: the copy key `empty-alerts` is not defined in B13, i18n/en/copy-deck.ftl or i18n/en/onboarding.ftl (F-28)
+ux-docs: FAIL (1 finding(s))
+ux-docs exit code: 1
+
+Restore: copy C:\Users\Raghu\AppData\Local\Temp\T-0026-cb9640a0846543f28898f11f1351e301.ftl back over the file
+SHA-256 after restore:    42F707BA2E05A411317CF6E5625FDE0EE71782D776D54DE99C4542FB7A709CED
+before == after: True
+
+Command: cargo xtask ux-docs
+ux-docs: PASS
+ux-docs exit code: 0
+
+Result: the mutation makes ux-docs FAIL with the named finding; the restored file is byte-identical and ux-docs PASSes again.

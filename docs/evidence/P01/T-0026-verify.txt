@@ -1,0 +1,53 @@
+T-0026 verification evidence (onboarding and readiness model)
+Captured: 2026-10-20 00:54:12 +05:45
+
+===== cargo nextest run -p hdd-xtask ux_docs::onboarding --no-fail-fast =====
+    Blocking waiting for file lock on build directory
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.04s
+────────────
+ Nextest run ID c24a2107-2424-4754-bdeb-e505e8c573c6 with nextest profile: default
+    Starting 19 tests across 1 binary (382 tests skipped)
+        PASS [   0.016s] ( 1/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_scoring_example_is_evaluated
+        PASS [   0.022s] ( 2/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_empty_states_name_real_screens_and_honest_keys
+        PASS [   0.027s] ( 3/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_category_weights_sum_to_one_hundred
+        PASS [   0.035s] ( 4/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_malformed_specification_is_findings_not_panics
+        PASS [   0.039s] ( 5/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_no_forbidden_claims_phrase
+        PASS [   0.046s] ( 6/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_measures_use_local_counters_only
+        PASS [   0.051s] ( 7/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_checklist_requires_persistence_and_resume
+        PASS [   0.057s] ( 8/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_activation_emails_have_a_subject_structure_and_safe_keys
+        PASS [   0.064s] ( 9/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_catalog_weights_sum_to_one_hundred
+        PASS [   0.087s] (10/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_catalog_rows_have_weight_source_interval_and_real_screen
+        PASS [   0.102s] (11/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_check_on_a_fixture_tree_is_green
+        PASS [   0.110s] (12/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_footnote_equals_the_b13_text
+        PASS [   0.110s] (13/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_next_best_action_is_evaluated_against_its_examples
+        PASS [   0.113s] (14/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_monitor_summary_keeps_the_block_decision_evidence
+        PASS [   0.125s] (15/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_missing_documents_are_findings_not_panics
+        PASS [   0.125s] (16/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_nudges_have_a_numeric_cap_and_an_opt_out
+        PASS [   0.104s] (17/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_structure_requires_the_named_sections
+        PASS [   0.110s] (18/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_stage_map_uses_the_expected_real_screen_for_each_stage
+        PASS [   0.109s] (19/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_unknown_never_counts_as_a_pass
+────────────
+     Summary [   0.138s] 19 tests run: 19 passed, 382 skipped
+exit code: 0
+
+===== cargo xtask ux-docs =====
+ux-docs: PASS
+exit code: 0
+
+===== cargo xtask claims-lint =====
+claims-lint: scanned 247 files with 34 phrases and 1 context rules
+claims-lint: PASS
+exit code: 0
+
+===== cargo fmt --all --check =====
+
+exit code: 0
+
+===== cargo clippy -p hdd-xtask --all-targets -- -D warnings =====
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.19s
+exit code: 0
+
+===== rustfmt --edition 2024 --check crates/hdd-xtask/src/ux_docs/onboarding.rs =====
+
+exit code: 0
+

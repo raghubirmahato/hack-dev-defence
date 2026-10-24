@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Sign in · HDD</title>
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/static/app.css" />
+    <script src="/static/theme.js"></script>
+  </head>
+  <body>
+    <div class="auth">
+      <section class="auth-art" aria-label="About HDD">
+        <a class="brand auth-top" href="/" aria-label="HDD home"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 44" focusable="false"><defs><linearGradient id="hg2" x1="4" y1="2" x2="36" y2="42" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#14b8a6"/><stop offset="1" stop-color="#2563eb"/></linearGradient></defs><path d="M20 2.2 35.5 8v13.2c0 10.2-6.5 17.4-15.5 20.8C11 38.600 4.500 31.400 4.500 21.200V8z" fill="url(#hg2)"/><path d="M20 2.2 4.500 8v13.200c0 10.200 6.500 17.400 15.500 20.800z" fill="#fff" opacity=".13"/><path d="M20 6 32 10.500v10.800c0 8-5 13.800-12 16.800C13 35.100 8 29.300 8 21.300V10.500z" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="1"/><path d="M13.200 14.500v15M26.800 14.500v15" fill="none" stroke="#fff" stroke-width="3.600" stroke-linecap="round"/><path d="M13.200 22h13.600" fill="none" stroke="#99f6e4" stroke-width="3.600" stroke-linecap="round"/></svg></span><span><span class="brand-name">HDD</span><span class="brand-sub">Hack Dev Defence</span></span></a>
+        <h2>Protect your website and see exactly why.</h2>
+        <p>HDD sits in front of your website, inspects every request, and explains every decision it makes.</p>
+        <ul><li><svg class="ico" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Blocks attacks before they reach your site (SQL injection today, more layers planned)</span></li><li><svg class="ico" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Explains every block: rule, field, redacted evidence, reference ID</span></li><li><svg class="ico" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Switch protection off, monitor or block with one control</span></li></ul>
+      </section>
+      <main class="auth-panel" id="main">
+        <div class="auth-card">
+          <h1>Sign in</h1>
+          <p class="lead">Use the account created during <strong>first-run setup</strong>. Sessions expire after 8 hours of inactivity.</p>
+          <div id="login-error" class="alert error" role="alert" aria-live="assertive" hidden></div>
+          <form id="login-form" class="stack" novalidate>
+          <label for="login-username">
+            Username
+            <input
+              type="text"
+              id="login-username"
+              name="username"
+              autocomplete="username"
+              autocapitalize="none"
+              spellcheck="false"
+              required
+              autofocus
+            />
+          </label>
+          <label for="login-password">
+            Password
+            <input type="password" id="login-password" name="password" autocomplete="current-password" required />
+          </label>
+          <div class="form-actions"><button type="submit" class="btn primary large" id="login-submit">Sign in</button></div>
+        </form>
+          <p class="alt" id="setup-hint" hidden>
+            No account exists yet. <a href="/setup">Open first-run setup</a> (only available on this machine).
+          </p>
+          <p class="alt"><a href="/">Back to the home page</a></p>
+          <noscript>
+            <p class="alert warn">JavaScript is required for the sign-in form. The API is reachable at /api/login.</p>
+          </noscript>
+        </div>
+      </main>
+    </div>
+    <script src="/static/login.js" defer></script>
+  </body>
+</html>

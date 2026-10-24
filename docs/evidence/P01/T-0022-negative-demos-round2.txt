@@ -1,0 +1,39 @@
+T-0022 round 2 mutation demos (F-25, F-26)
+Date: 2026-10-20; tool: DeepSeek Harness; task: T-0022 (batch B1 round 1 fix).
+Each demo backs the file up into the scratch directory, mutates one cell, runs the real check,
+prints the finding and the FAIL line, restores the backup and proves the SHA-256 is unchanged.
+
+### F-25: grade a criterion-failure example as Moderate
+
+Target file: docs/UX/ACCESSIBILITY.md
+SHA-256 before: B2D5F1D43D5DFD7B8655CBCD618776244CB131FA8537B7671CD530B8E23F2076
+Mutation: replaced `| A DNS table header button does not expose its sort state in J-14. | yes | no | no | serious | Serious |`
+          with `| A DNS table header button does not expose its sort state in J-14. | yes | no | no | serious | Moderate |`
+
+Command: cargo xtask ux-docs
+[ux-docs] docs/UX/ACCESSIBILITY.md:237: the example defect "A DNS table header button does not expose its sort state in J-14." is graded `Moderate` but the precedence scheme returns `Serious` from its four inputs (T-0022 step 5, F-25)
+[ux-docs] docs/UX/RESPONSIVE.md:23: the catalog row `DA-07` is time-boxed or sits on a security-critical screen, but no `## Security-critical controls` row covers it and no `excluded:` row names it with a reason (T-0024 F-22)
+[ux-docs] docs/UX/dangerous-actions.md:30: the value of "org-delete-confirm" has no `Type { $variable }` shape, so it never asks the user to type (T-0025 step 5, review F-14)
+ux-docs: FAIL (3 finding(s))
+
+SHA-256 after restore: B2D5F1D43D5DFD7B8655CBCD618776244CB131FA8537B7671CD530B8E23F2076
+Restored byte-identical: True
+
+### F-26: put a screen that J-04 does not list back on the Screens: line
+
+Target file: docs/UX/a11y-checklists/j-04-login-mfa.md
+SHA-256 before: 10E84089B1B667E16579F1CFBC990B482BA38774EFDECDE947A59AC17CBD59AE
+Mutation: replaced `Screens: S-023, S-024, S-026, S-034, S-040.`
+          with `Screens: S-023, S-024, S-025, S-026, S-034, S-040.`
+
+Command: cargo xtask ux-docs
+[ux-docs] docs/UX/a11y-checklists/j-04-login-mfa.md: `S-025` is not a screen of the `## Steps` table of J-04 and is not declared on an `Outside the journey:` line with a reason (T-0022 A2, F-26)
+[ux-docs] docs/UX/RESPONSIVE.md:23: the catalog row `DA-07` is time-boxed or sits on a security-critical screen, but no `## Security-critical controls` row covers it and no `excluded:` row names it with a reason (T-0024 F-22)
+[ux-docs] docs/UX/dangerous-actions.md:32: a permission of "Create a global ban" has `S` in B4.2, so the Safeguards must name step-up (review F-15)
+ux-docs: FAIL (3 finding(s))
+
+SHA-256 after restore: 10E84089B1B667E16579F1CFBC990B482BA38774EFDECDE947A59AC17CBD59AE
+Restored byte-identical: True
+
+Both files are restored; the check is expected to pass on them again (only another task's in-flight
+RESPONSIVE.md finding may remain in the shared tree).

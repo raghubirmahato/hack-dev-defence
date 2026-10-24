@@ -1,0 +1,71 @@
+# T-0017 pass-2 negative demonstrations: each mutation of a shipped journey map must make 'cargo xtask ux-docs' FAIL; every file is restored after each step and its SHA-256 compared.
+# Date: 2026-10-19. Tool: DeepSeek Harness (implementer). Files: J-19.md to J-24.md (pass 2).
+## 1. the J-19 rule-builder error taxonomy section removed
+[ux-docs] docs/UX/journeys/J-19.md: no `## Rule builder error taxonomy` section (T-0017 J-19)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-19.md SHA-256: C465C4ADF4967CC47E354EC30E6648F2A20E0D57384F70D5C42B0BB7C8F9E5B5 -> C465C4ADF4967CC47E354EC30E6648F2A20E0D57384F70D5C42B0BB7C8F9E5B5 equal
+
+## 2. all syntax rows removed from the J-19 taxonomy
+[ux-docs] docs/UX/journeys/J-19.md: class `syntax` has 0 rows; at least two are required (T-0017 J-19)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-19.md SHA-256: C465C4ADF4967CC47E354EC30E6648F2A20E0D57384F70D5C42B0BB7C8F9E5B5 -> C465C4ADF4967CC47E354EC30E6648F2A20E0D57384F70D5C42B0BB7C8F9E5B5 equal
+
+## 3. the J-22 abuse-case table reduced to four rows
+[ux-docs] docs/UX/journeys/J-22.md: the `Abuse cases` table has 4 rows; at least five are required (T-0017 J-22)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-22.md SHA-256: A2B0CD8E7EFCF514ADBB258AFECE546C4F71D5E774C2C384EA5C4AD2EDCEDD03 -> A2B0CD8E7EFCF514ADBB258AFECE546C4F71D5E774C2C384EA5C4AD2EDCEDD03 equal
+
+## 4. an ATK id outside the C5 matrix in the J-22 abuse cases
+[ux-docs] docs/UX/journeys/J-22.md:66: `ATK-999` is not an id of the C5 attack matrix (T-0017 J-22)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-22.md SHA-256: A2B0CD8E7EFCF514ADBB258AFECE546C4F71D5E774C2C384EA5C4AD2EDCEDD03 -> A2B0CD8E7EFCF514ADBB258AFECE546C4F71D5E774C2C384EA5C4AD2EDCEDD03 equal
+
+## 5. the decline outcome removed from the J-23 owner outcomes
+[ux-docs] docs/UX/journeys/J-23.md: `Owner outcomes` does not name the outcome `decline with reason` (T-0017 J-23)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-23.md SHA-256: 793FFEEA1329B3AAE3F067FA061E540AC3421876A3CD39E91CD46DC0BD76AB26 -> 793FFEEA1329B3AAE3F067FA061E540AC3421876A3CD39E91CD46DC0BD76AB26 equal
+
+## 6. the nftables row removed from the J-24 stacks
+[ux-docs] docs/UX/journeys/J-24.md: `Stacks` does not name `nftables` (T-0017 J-24)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-24.md SHA-256: 7B289D83B14FF9871C5B0096E0A820B886554E78AFF071E4D5C5D19E14ACBFB7 -> 7B289D83B14FF9871C5B0096E0A820B886554E78AFF071E4D5C5D19E14ACBFB7 equal
+
+## 7. a fenced command block inserted into the J-24 stacks
+[ux-docs] docs/UX/journeys/J-24.md: the `Stacks` section must stay conceptual and contain no fenced command block (T-0017 J-24)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-24.md SHA-256: 7B289D83B14FF9871C5B0096E0A820B886554E78AFF071E4D5C5D19E14ACBFB7 -> 7B289D83B14FF9871C5B0096E0A820B886554E78AFF071E4D5C5D19E14ACBFB7 equal
+
+## 8. the J-24 verification probes reduced to three rows
+[ux-docs] docs/UX/journeys/J-24.md: the `Verification probes` table has 3 rows; at least four are required (T-0017 J-24)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-24.md SHA-256: 7B289D83B14FF9871C5B0096E0A820B886554E78AFF071E4D5C5D19E14ACBFB7 -> 7B289D83B14FF9871C5B0096E0A820B886554E78AFF071E4D5C5D19E14ACBFB7 equal
+
+## 9. the cannot-prove cell emptied in a J-24 verification probe
+[ux-docs] docs/UX/journeys/J-24.md:78: a `Verification probes` row needs a probe, what it proves and what it cannot prove (T-0017 J-24)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-24.md SHA-256: 7B289D83B14FF9871C5B0096E0A820B886554E78AFF071E4D5C5D19E14ACBFB7 -> 7B289D83B14FF9871C5B0096E0A820B886554E78AFF071E4D5C5D19E14ACBFB7 equal
+
+## 10. an ATK id of the wrong C5 family on a J-24 security row
+[ux-docs] docs/UX/journeys/J-24.md:33: `ATK-094` belongs to the `dns` family but step 4 implies `ssrf`; the family check is a C5-text heuristic (T-0017)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+docs/UX/journeys/J-24.md SHA-256: 7B289D83B14FF9871C5B0096E0A820B886554E78AFF071E4D5C5D19E14ACBFB7 -> 7B289D83B14FF9871C5B0096E0A820B886554E78AFF071E4D5C5D19E14ACBFB7 equal
+
+## restored tree
+ux-docs: PASS
+(exit 0)
+docs/UX/journeys/J-19.md SHA-256: C465C4ADF4967CC47E354EC30E6648F2A20E0D57384F70D5C42B0BB7C8F9E5B5
+docs/UX/journeys/J-20.md SHA-256: C9D6D90309A97468702DFABAD65CA24EBE88437705712B7D4C4AC666FD734DB6
+docs/UX/journeys/J-21.md SHA-256: 5B5F40FAB9CB64FC65B54382F949FABDDDCA3AFE07C9C898DAC0669EF9B9DE2B
+docs/UX/journeys/J-22.md SHA-256: A2B0CD8E7EFCF514ADBB258AFECE546C4F71D5E774C2C384EA5C4AD2EDCEDD03
+docs/UX/journeys/J-23.md SHA-256: 793FFEEA1329B3AAE3F067FA061E540AC3421876A3CD39E91CD46DC0BD76AB26
+docs/UX/journeys/J-24.md SHA-256: 7B289D83B14FF9871C5B0096E0A820B886554E78AFF071E4D5C5D19E14ACBFB7

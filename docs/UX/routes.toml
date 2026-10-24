@@ -1,0 +1,1332 @@
+# Route table for the HDD console (T-0014, REQ-UXR-04).
+# One [[route]] per route of spec B2.2 and per screen of spec B12.1.
+# Every value comes from specs B2.2, B4.2, B6 and B12.1; choices for silence are in IA.md (Assumptions).
+# Checked by cargo xtask ux-docs.
+
+[[route]]
+pattern = "/"
+screen = "S-001"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/features"
+screen = "S-002"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/how-it-works"
+screen = "S-003"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/pricing"
+screen = "S-004"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/docs"
+screen = "S-005"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/docs/{slug}"
+screen = "S-006"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/api-reference"
+screen = "S-007"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/contact"
+screen = "S-009"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/legal/terms"
+screen = "S-010"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/legal/privacy"
+screen = "S-011"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/legal/acceptable-use"
+screen = "S-012"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/legal/dpa"
+screen = "S-013"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/security"
+screen = "S-014"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/coverage"
+screen = "S-134"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+note = "Public variant of S-134; the domain-scoped variant is the security/coverage route."
+
+[[route]]
+pattern = "/offline"
+screen = "S-018"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/.well-known/security.txt"
+screen = "support"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/robots.txt"
+screen = "support"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/sitemap.xml"
+screen = "support"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/status"
+screen = "S-008"
+surface = "status"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+note = "The status host serves the same screen; B2.2 allows /status or the status host."
+
+[[route]]
+pattern = "/not-found"
+screen = "S-015"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+note = "Rendered for any unmatched path; the router serves it with a 404."
+
+[[route]]
+pattern = "/error"
+screen = "S-016"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+note = "Rendered for an unexpected server error; the router serves it with a 5xx status."
+
+[[route]]
+pattern = "/maintenance"
+screen = "S-017"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+note = "Rendered while the maintenance flag is set."
+
+[[route]]
+pattern = "/signup"
+screen = "S-020"
+surface = "app"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "auth"
+
+[[route]]
+pattern = "/signup/check-email"
+screen = "S-021"
+surface = "app"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "auth"
+
+[[route]]
+pattern = "/verify-email/{token}"
+screen = "S-022"
+surface = "app"
+permission = "public"
+methods = ["GET", "POST"]
+rate_limit_class = "auth"
+note = "One of the token routes; GET shows a confirm page and POST consumes the token."
+
+[[route]]
+pattern = "/login"
+screen = "S-023"
+surface = "app"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "auth"
+
+[[route]]
+pattern = "/login/mfa"
+screen = "S-024"
+surface = "app"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "auth"
+
+[[route]]
+pattern = "/login/recovery"
+screen = "S-025"
+surface = "app"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "auth"
+
+[[route]]
+pattern = "/login/passkey"
+screen = "S-026"
+surface = "app"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "auth"
+
+[[route]]
+pattern = "/forgot-password"
+screen = "S-027"
+surface = "app"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "auth"
+
+[[route]]
+pattern = "/reset-password/{token}"
+screen = "S-028"
+surface = "app"
+permission = "public"
+methods = ["GET", "POST"]
+rate_limit_class = "auth"
+note = "One of the token routes; GET shows a confirm page and POST consumes the token."
+
+[[route]]
+pattern = "/invite/{token}"
+screen = "S-029"
+surface = "app"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "auth"
+note = "One of the token routes; the confirmation is posted to the invitation endpoint."
+
+[[route]]
+pattern = "/mfa/enroll"
+screen = "S-030"
+surface = "app"
+permission = "PERM-account.self"
+methods = ["GET"]
+rate_limit_class = "auth"
+
+[[route]]
+pattern = "/mfa/recovery-codes"
+screen = "S-031"
+surface = "app"
+permission = "PERM-account.self"
+methods = ["GET"]
+rate_limit_class = "auth"
+
+[[route]]
+pattern = "/reauth"
+screen = "S-032"
+surface = "app"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "auth"
+
+[[route]]
+pattern = "/session-expired"
+screen = "S-033"
+surface = "app"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "auth"
+
+[[route]]
+pattern = "/account-locked"
+screen = "S-034"
+surface = "app"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "auth"
+
+[[route]]
+pattern = "/onboarding"
+screen = "S-035"
+surface = "app"
+permission = "PERM-account.self"
+methods = ["GET"]
+rate_limit_class = "auth"
+
+[[route]]
+pattern = "/logout"
+screen = "support"
+surface = "app"
+permission = "PERM-account.self"
+methods = ["POST"]
+rate_limit_class = "auth"
+note = "A POST-only route; a GET is answered 405."
+
+[[route]]
+pattern = "/setup"
+screen = "S-136"
+surface = "app"
+permission = "public"
+methods = ["GET", "POST"]
+rate_limit_class = "auth"
+note = "Local profile only; one of the two B2.2 paths for S-136."
+
+[[route]]
+pattern = "/app"
+screen = "support"
+surface = "app"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "auth"
+note = "Redirects to the last used organisation overview (S-040)."
+
+[[route]]
+pattern = "/app/o/{org}/overview"
+screen = "S-040"
+surface = "app"
+permission = "PERM-analytics.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains"
+screen = "S-041"
+surface = "app"
+permission = "PERM-domain.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/new"
+screen = "S-042"
+surface = "app"
+permission = "PERM-domain.create"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}"
+screen = "S-043"
+surface = "app"
+permission = "PERM-domain.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/readiness"
+screen = "S-044"
+surface = "app"
+permission = "PERM-domain.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/dns"
+screen = "S-045"
+surface = "app"
+permission = "PERM-dns.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/dns/new"
+screen = "S-046"
+surface = "app"
+permission = "PERM-dns.write"
+methods = ["GET"]
+rate_limit_class = "read"
+note = "One of the two B2.2 paths for the record editor S-046."
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/dns/{rec}"
+screen = "S-046"
+surface = "app"
+permission = "PERM-dns.write"
+methods = ["GET"]
+rate_limit_class = "read"
+note = "One of the two B2.2 paths for the record editor S-046."
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/dns/import"
+screen = "S-047"
+surface = "app"
+permission = "PERM-dns.import"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/dns/history"
+screen = "S-048"
+surface = "app"
+permission = "PERM-dns.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/dnssec"
+screen = "S-049"
+surface = "app"
+permission = "PERM-dns.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/dns/propagation"
+screen = "S-099"
+surface = "app"
+permission = "PERM-dns.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/tls"
+screen = "S-050"
+surface = "app"
+permission = "PERM-tls.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/tls/certificates"
+screen = "S-051"
+surface = "app"
+permission = "PERM-tls.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/origin"
+screen = "S-052"
+surface = "app"
+permission = "PERM-origin.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/origin/health"
+screen = "S-053"
+surface = "app"
+permission = "PERM-origin.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/origin/lockdown"
+screen = "S-098"
+surface = "app"
+permission = "PERM-origin.lockdown"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/origin/bypass-guard"
+screen = "S-138"
+surface = "app"
+permission = "PERM-bypass.read"
+methods = ["GET"]
+rate_limit_class = "read"
+note = "The Bypass Guard state screen; B2.2 lists no path for it, so this document records one."
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security"
+screen = "S-054"
+surface = "app"
+permission = "PERM-analytics.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/waf"
+screen = "S-055"
+surface = "app"
+permission = "PERM-waf.mode.update"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/categories"
+screen = "S-056"
+surface = "app"
+permission = "PERM-waf.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/shield"
+screen = "S-057"
+surface = "app"
+permission = "PERM-waf.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/rules"
+screen = "S-058"
+surface = "app"
+permission = "PERM-waf.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/rules/new"
+screen = "S-059"
+surface = "app"
+permission = "PERM-waf.read"
+methods = ["GET"]
+rate_limit_class = "read"
+note = "One of the two B2.2 paths for the rule builder S-059."
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/rules/{rule}"
+screen = "S-059"
+surface = "app"
+permission = "PERM-waf.read"
+methods = ["GET"]
+rate_limit_class = "read"
+note = "One of the two B2.2 paths for the rule builder S-059."
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/rules/{rule}/dry-run"
+screen = "S-060"
+surface = "app"
+permission = "PERM-waf.inspect"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/rate-limits"
+screen = "S-061"
+surface = "app"
+permission = "PERM-ratelimit.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/bots"
+screen = "S-062"
+surface = "app"
+permission = "PERM-waf.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/access"
+screen = "S-063"
+surface = "app"
+permission = "PERM-access.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/exceptions"
+screen = "S-064"
+surface = "app"
+permission = "PERM-waf.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/honeypots"
+screen = "S-095"
+surface = "app"
+permission = "PERM-waf.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/outbound"
+screen = "S-097"
+surface = "app"
+permission = "PERM-waf.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/block-page"
+screen = "S-096"
+surface = "app"
+permission = "PERM-waf.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/revisions"
+screen = "S-092"
+surface = "app"
+permission = "PERM-waf.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/emergency"
+screen = "S-093"
+surface = "app"
+permission = "PERM-waf.policy.update"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/access-gate"
+screen = "S-131"
+surface = "app"
+permission = "PERM-gate.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/api"
+screen = "S-132"
+surface = "app"
+permission = "PERM-apidisc.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/flows"
+screen = "S-133"
+surface = "app"
+permission = "PERM-flow.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/coverage"
+screen = "S-134"
+surface = "app"
+permission = "PERM-coverage.read"
+methods = ["GET"]
+rate_limit_class = "read"
+note = "Domain-scoped variant of S-134; the public variant is /coverage."
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/sentinel"
+screen = "S-137"
+surface = "app"
+permission = "PERM-sentinel.read"
+methods = ["GET"]
+rate_limit_class = "read"
+note = "Sentinel screen; B2.2 lists no path for it, so this document records one."
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/security/known-vulnerabilities"
+screen = "S-139"
+surface = "app"
+permission = "PERM-vkb.read"
+methods = ["GET"]
+rate_limit_class = "read"
+note = "Known-vulnerability screen; B2.2 lists no path for it, so this document records one."
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/events"
+screen = "S-065"
+surface = "app"
+permission = "PERM-event.read"
+methods = ["GET"]
+rate_limit_class = "stream"
+note = "One of the two B2.2 paths for the live threat monitor S-065."
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/events/{ray}"
+screen = "S-066"
+surface = "app"
+permission = "PERM-event.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/bans"
+screen = "S-067"
+surface = "app"
+permission = "PERM-ban.read"
+methods = ["GET"]
+rate_limit_class = "read"
+note = "One of the two B2.2 paths for the IP jail S-067."
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/bans/{ip}"
+screen = "S-068"
+surface = "app"
+permission = "PERM-ban.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/appeals"
+screen = "S-069"
+surface = "app"
+permission = "PERM-appeal.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/analytics"
+screen = "S-070"
+surface = "app"
+permission = "PERM-analytics.read"
+methods = ["GET"]
+rate_limit_class = "read"
+note = "One of the two B2.2 paths for analytics S-070."
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/analytics/geo"
+screen = "S-071"
+surface = "app"
+permission = "PERM-analytics.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/analytics/top"
+screen = "S-072"
+surface = "app"
+permission = "PERM-analytics.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/settings"
+screen = "support"
+surface = "app"
+permission = "PERM-domain.update"
+methods = ["GET"]
+rate_limit_class = "read"
+note = "Domain settings; B12.1 has no screen id for it, so it is recorded as a support route."
+
+[[route]]
+pattern = "/app/o/{org}/domains/{dom}/settings/decommission"
+screen = "S-094"
+surface = "app"
+permission = "PERM-domain.delete"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/events"
+screen = "S-065"
+surface = "app"
+permission = "PERM-event.read"
+methods = ["GET"]
+rate_limit_class = "stream"
+note = "One of the two B2.2 paths for the live threat monitor S-065."
+
+[[route]]
+pattern = "/app/o/{org}/bans"
+screen = "S-067"
+surface = "app"
+permission = "PERM-ban.read"
+methods = ["GET"]
+rate_limit_class = "read"
+note = "One of the two B2.2 paths for the IP jail S-067."
+
+[[route]]
+pattern = "/app/o/{org}/analytics"
+screen = "S-070"
+surface = "app"
+permission = "PERM-analytics.read"
+methods = ["GET"]
+rate_limit_class = "read"
+note = "One of the two B2.2 paths for analytics S-070."
+
+[[route]]
+pattern = "/app/o/{org}/reports"
+screen = "S-073"
+surface = "app"
+permission = "PERM-report.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/reports/new"
+screen = "S-074"
+surface = "app"
+permission = "PERM-report.write"
+methods = ["GET"]
+rate_limit_class = "read"
+note = "One of the two B2.2 paths for the report builder S-074."
+
+[[route]]
+pattern = "/app/o/{org}/reports/{rpt}"
+screen = "S-074"
+surface = "app"
+permission = "PERM-report.read"
+methods = ["GET"]
+rate_limit_class = "read"
+note = "One of the two B2.2 paths for the report builder S-074."
+
+[[route]]
+pattern = "/app/o/{org}/notifications"
+screen = "S-075"
+surface = "app"
+permission = "PERM-notify.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/alerts"
+screen = "S-076"
+surface = "app"
+permission = "PERM-notify.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/integrations"
+screen = "S-077"
+surface = "app"
+permission = "PERM-notify.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/webhooks"
+screen = "S-078"
+surface = "app"
+permission = "PERM-notify.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/webhooks/{whk}/deliveries"
+screen = "S-079"
+surface = "app"
+permission = "PERM-notify.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/api-keys"
+screen = "S-080"
+surface = "app"
+permission = "PERM-apikey.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/team"
+screen = "S-081"
+surface = "app"
+permission = "PERM-member.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/team/invitations"
+screen = "S-082"
+surface = "app"
+permission = "PERM-member.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/team/roles"
+screen = "S-083"
+surface = "app"
+permission = "PERM-member.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/audit"
+screen = "S-084"
+surface = "app"
+permission = "PERM-audit.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/plan"
+screen = "S-085"
+surface = "app"
+permission = "PERM-plan.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/o/{org}/settings"
+screen = "S-086"
+surface = "app"
+permission = "PERM-org.update"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/account/profile"
+screen = "S-087"
+surface = "app"
+permission = "PERM-account.self"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/account/security"
+screen = "S-088"
+surface = "app"
+permission = "PERM-account.self"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/account/sessions"
+screen = "S-089"
+surface = "app"
+permission = "PERM-account.self"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/app/account/privacy"
+screen = "S-090"
+surface = "app"
+permission = "PERM-account.self"
+methods = ["GET"]
+rate_limit_class = "export"
+
+[[route]]
+pattern = "/app/search"
+screen = "S-091"
+surface = "app"
+permission = "PERM-org.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin"
+screen = "S-100"
+surface = "admin"
+permission = "PERM-platform.infra.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/tenants"
+screen = "S-101"
+surface = "admin"
+permission = "PERM-platform.tenant.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/tenants/{org}"
+screen = "S-102"
+surface = "admin"
+permission = "PERM-platform.tenant.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/users"
+screen = "S-103"
+surface = "admin"
+permission = "PERM-platform.user.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/users/{usr}"
+screen = "S-104"
+surface = "admin"
+permission = "PERM-platform.user.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/domains"
+screen = "S-105"
+surface = "admin"
+permission = "PERM-platform.domain.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/jail"
+screen = "S-106"
+surface = "admin"
+permission = "PERM-platform.jail.write"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/rules"
+screen = "S-107"
+surface = "admin"
+permission = "PERM-platform.rules.publish"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/intel"
+screen = "S-108"
+surface = "admin"
+permission = "PERM-platform.intel.write"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/allowlists"
+screen = "S-109"
+surface = "admin"
+permission = "PERM-platform.jail.write"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/infra"
+screen = "S-110"
+surface = "admin"
+permission = "PERM-platform.infra.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/services"
+screen = "S-111"
+surface = "admin"
+permission = "PERM-platform.infra.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/certificates"
+screen = "S-112"
+surface = "admin"
+permission = "PERM-platform.infra.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/dns"
+screen = "S-113"
+surface = "admin"
+permission = "PERM-platform.infra.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/abuse"
+screen = "S-114"
+surface = "admin"
+permission = "PERM-platform.abuse.write"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/signup-policy"
+screen = "S-115"
+surface = "admin"
+permission = "PERM-platform.settings.write"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/plans"
+screen = "S-116"
+surface = "admin"
+permission = "PERM-platform.plan.write"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/audit"
+screen = "S-117"
+surface = "admin"
+permission = "PERM-platform.audit.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/impersonation"
+screen = "S-118"
+surface = "admin"
+permission = "PERM-platform.impersonate"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/settings"
+screen = "S-119"
+surface = "admin"
+permission = "PERM-platform.settings.write"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/email-templates"
+screen = "S-120"
+surface = "admin"
+permission = "PERM-platform.email.write"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/flags"
+screen = "S-121"
+surface = "admin"
+permission = "PERM-platform.flags.write"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/emergency"
+screen = "S-122"
+surface = "admin"
+permission = "PERM-platform.emergency"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/releases"
+screen = "S-123"
+surface = "admin"
+permission = "PERM-platform.release"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/backups"
+screen = "S-124"
+surface = "admin"
+permission = "PERM-platform.backup"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/exposure"
+screen = "S-125"
+surface = "admin"
+permission = "PERM-platform.exposure"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/virtual-patches"
+screen = "S-126"
+surface = "admin"
+permission = "PERM-platform.exposure"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/ddos"
+screen = "S-127"
+surface = "admin"
+permission = "PERM-platform.shield"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/firewall"
+screen = "S-128"
+surface = "admin"
+permission = "PERM-platform.shield"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/announcements"
+screen = "S-129"
+surface = "admin"
+permission = "PERM-platform.flags.write"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/support"
+screen = "S-130"
+surface = "admin"
+permission = "PERM-platform.support"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/runtime"
+screen = "S-135"
+surface = "admin"
+permission = "PERM-platform.runtime.read"
+methods = ["GET"]
+rate_limit_class = "read"
+
+[[route]]
+pattern = "/admin/hosting"
+screen = "S-136"
+surface = "admin"
+permission = "PERM-platform.runtime.read"
+methods = ["GET"]
+rate_limit_class = "read"
+note = "Hosted variant of S-136; the local first-run setup is /setup."
+
+[[route]]
+pattern = "/admin/design-system"
+screen = "support"
+surface = "admin"
+permission = "PERM-platform.runtime.read"
+methods = ["GET"]
+rate_limit_class = "read"
+note = "The component gallery of T-0047; B2.2 lists no screen id for it."
+
+[[route]]
+pattern = "/openapi.json"
+screen = "support"
+surface = "public"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+note = "The OpenAPI document from B6.10; API clients on the api host read it."
+
+[[route]]
+pattern = "/{path}"
+screen = "data-plane"
+surface = "data-plane"
+permission = "public"
+methods = ["GET", "HEAD"]
+rate_limit_class = "public"
+note = "Any path on a customer domain: S-140 block page, S-142 rate limit, S-143 origin error, S-144 unknown host, S-147 under attack, S-148 suspended domain."
+
+[[route]]
+pattern = "/{path}"
+screen = "data-plane"
+surface = "data-plane"
+permission = "public"
+methods = ["POST", "PUT", "PATCH", "DELETE"]
+rate_limit_class = "write"
+note = "Blocked mutating request on a customer domain: the same S-140 to S-148 responses."
+
+[[route]]
+pattern = "/__hdd/challenge"
+screen = "data-plane"
+surface = "data-plane"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+note = "The proof-of-work challenge: S-141."
+
+[[route]]
+pattern = "/__hdd/challenge/verify"
+screen = "data-plane"
+surface = "data-plane"
+permission = "public"
+methods = ["POST"]
+rate_limit_class = "auth"
+note = "The challenge verification: S-141."
+
+[[route]]
+pattern = "/__hdd/appeal"
+screen = "data-plane"
+surface = "data-plane"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+note = "The appeal form: S-145."
+
+[[route]]
+pattern = "/__hdd/appeal"
+screen = "data-plane"
+surface = "data-plane"
+permission = "public"
+methods = ["POST"]
+rate_limit_class = "write"
+note = "The appeal submission: S-146."
+
+[[route]]
+pattern = "/__hdd/health"
+screen = "support"
+surface = "data-plane"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/__hdd/csp-report"
+screen = "support"
+surface = "data-plane"
+permission = "public"
+methods = ["POST"]
+rate_limit_class = "write"
+
+[[route]]
+pattern = "/__hdd/assets/{asset}"
+screen = "support"
+surface = "data-plane"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+
+[[route]]
+pattern = "/.well-known/acme-challenge/{token}"
+screen = "support"
+surface = "data-plane"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+note = "One of the token routes; used only for ACME validation."
+
+[[route]]
+pattern = "/.well-known/hdd-verification/{token}"
+screen = "support"
+surface = "data-plane"
+permission = "public"
+methods = ["GET"]
+rate_limit_class = "public"
+note = "One of the token routes; proves domain control for verification."
+

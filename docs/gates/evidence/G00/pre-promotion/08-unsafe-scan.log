@@ -1,0 +1,3 @@
+first-party unsafe scan (substitute for cargo-geiger, ADR-0018): forbid(unsafe_code) at every crate root, inherited workspace lints
+dependency unsafe counts: not measured (cargo-geiger viability is decided by T-0517)
+no findings

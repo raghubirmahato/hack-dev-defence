@@ -1,0 +1,610 @@
+# T-0020 batch B2 review round 1 (D-1 to D-4): verification on the fixed tree
+
+Repository: D:\Hack Dev Defence
+Date: 2026-10-20 12:06:10 +05:45
+Tools are invoked directly so the transcript is the normal cargo output (stdout and stderr captured
+separately and concatenated).
+
+## D-1..D-4 module tests plus the whole T-0020 set
+command: cargo nextest run -p hdd-xtask -E test(/t20_/) --no-fail-fast
+exit code: 0
+stdout:
+
+stderr:
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.22s
+────────────
+ Nextest run ID 5d58f29a-16d6-471d-9ca6-1d4131fe4793 with nextest profile: default
+    Starting 34 tests across 1 binary (469 tests skipped)
+        PASS [   0.024s] ( 1/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_background_polls_are_bounded
+        PASS [   0.043s] ( 2/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d2_conflict_default_must_be_reviewed
+        PASS [   0.053s] ( 3/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_claims_are_scanned
+        PASS [   0.060s] ( 4/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d3_one_cause_once_per_channel
+        PASS [   0.080s] ( 5/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d1_code_class_differs_between_tables
+        PASS [   0.081s] ( 6/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_exception_table_matches
+        PASS [   0.098s] ( 7/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d4_unsafe_actions_are_listed
+        PASS [   0.106s] ( 8/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d4_unsafe_post_cannot_claim_a_key
+        PASS [   0.112s] ( 9/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_job_failure_has_three_channels
+        PASS [   0.121s] (10/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_each_class_example_exists
+        PASS [   0.063s] (11/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_missing_documents_are_findings
+        PASS [   0.076s] (12/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_malformed_input_gives_findings
+        PASS [   0.089s] (13/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_logging_is_structured
+        PASS [   0.137s] (14/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_class_table_requires_nine_classes
+        PASS [   0.117s] (15/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_journey_coverage_is_exact
+        PASS [   0.069s] (16/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_offline_never_silent
+        PASS [   0.149s] (17/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d1_authentication_row_is_required
+        PASS [   0.042s] (18/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_required_sections_are_checked
+        PASS [   0.067s] (19/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_retry_conventions_are_read
+        PASS [   0.054s] (20/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_status_rules_match_the_check
+        PASS [   0.064s] (21/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_retry_table_checks_b6_rows
+        PASS [   0.090s] (22/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_security_notes_cover_enumeration
+        PASS [   0.099s] (23/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_retry_safety_follows_method
+        PASS [   0.134s] (24/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_request_id_pattern
+        PASS [   0.238s] (25/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_example_fits_class_and_family
+        PASS [   0.104s] (26/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_visitor_pages_declare_json
+        PASS [   0.270s] (27/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_copy_keys_defined_once
+        PASS [   0.152s] (28/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_visitor_pages_cover_nine
+        PASS [   0.316s] (29/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_accessibility_per_pattern
+        PASS [   0.235s] (30/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_pattern_values_are_real_patterns
+        PASS [   0.166s] (31/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_whole_tokens_are_used
+        PASS [   1.003s] (32/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_visitor_constraints_are_testable
+        PASS [   1.484s] (33/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_a_complete_fixture_passes_every_rule
+        PASS [   3.430s] (34/34) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_visitor_copy_rejects_disclosures
+────────────
+     Summary [   3.574s] 34 tests run: 34 passed, 469 skipped
+
+## rustfmt check of the owned module
+command: rustfmt --edition 2024 --check crates\hdd-xtask\src\ux_docs\errors.rs
+exit code: 0
+stdout:
+
+
+## clippy on the crate, all targets, warnings denied
+command: cargo clippy -p hdd-xtask --all-targets -- -D warnings
+exit code: 0
+stdout:
+
+stderr:
+    Blocking waiting for file lock on build directory
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.97s
+
+## ux-docs structure, budget, link and cross-document check
+command: cargo xtask ux-docs
+exit code: 0
+stdout:
+ux-docs: PASS
+
+## claims-lint (R-10)
+command: cargo xtask claims-lint
+exit code: 0
+stdout:
+claims-lint: scanned 308 files with 34 phrases and 1 context rules
+claims-lint: PASS
+
+## whole hdd-xtask test suite (fixture tree included)
+command: cargo nextest run -p hdd-xtask --no-fail-fast
+exit code: 0
+stdout:
+
+stderr:
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.23s
+────────────
+ Nextest run ID 9254c302-d7ee-4b10-8c88-8271dd360148 with nextest profile: default
+    Starting 503 tests across 1 binary
+        PASS [   0.011s] (  1/503) hdd-xtask::bin/hdd-xtask claims::tests::approved_patterns_of_section_4_3_pass
+        PASS [   0.015s] (  2/503) hdd-xtask::bin/hdd-xtask claims::tests::a_line_that_merely_mentions_the_marker_does_not_open_a_block
+        PASS [   0.030s] (  3/503) hdd-xtask::bin/hdd-xtask claims::tests::context_scope_terms_are_whole_phrases
+        PASS [   0.030s] (  4/503) hdd-xtask::bin/hdd-xtask claims::tests::a_context_rule_never_fires_outside_its_paths
+        PASS [   0.030s] (  5/503) hdd-xtask::bin/hdd-xtask deps::tests::a_crate_whose_msrv_exceeds_the_workspace_is_flagged
+        PASS [   0.034s] (  6/503) hdd-xtask::bin/hdd-xtask claims::tests::allow_block_excuses_quotations_and_unbalanced_blocks_fail
+        PASS [   0.044s] (  7/503) hdd-xtask::bin/hdd-xtask claims::tests::qualified_ddos_protection_passes_and_unqualified_fails
+        PASS [   0.050s] (  8/503) hdd-xtask::bin/hdd-xtask claims::tests::the_shipped_configuration_declares_a_context_rule_with_its_paths
+        PASS [   0.056s] (  9/503) hdd-xtask::bin/hdd-xtask claims::tests::context_window_is_twelve_words_not_thirteen
+        PASS [   0.062s] ( 10/503) hdd-xtask::bin/hdd-xtask claims::tests::context_rules_keep_the_phrase_rules_and_the_markers
+        PASS [   0.064s] ( 11/503) hdd-xtask::bin/hdd-xtask claims::tests::the_shipped_configuration_does_not_excuse_the_phrase_by_a_mere_upstream_mention
+        PASS [   0.070s] ( 12/503) hdd-xtask::bin/hdd-xtask deps::tests::external_deps_skip_path_dependencies_and_include_dev
+        PASS [   0.075s] ( 13/503) hdd-xtask::bin/hdd-xtask claims::tests::seeded_forbidden_phrase_in_a_template_fails
+        PASS [   0.086s] ( 14/503) hdd-xtask::bin/hdd-xtask claims::tests::scope_follows_include_exclude_and_extension
+        PASS [   0.086s] ( 15/503) hdd-xtask::bin/hdd-xtask deps::tests::adding_a_crate_without_vetting_is_flagged
+        PASS [   0.079s] ( 16/503) hdd-xtask::bin/hdd-xtask deps::tests::ffi_and_unmaintained_crates_need_an_existing_adr
+        PASS [   0.093s] ( 17/503) hdd-xtask::bin/hdd-xtask claims::tests::context_fixtures_hold_under_the_shipped_configuration
+        PASS [   0.081s] ( 18/503) hdd-xtask::bin/hdd-xtask deps::tests::fully_vetted_manifest_passes
+        PASS [   0.071s] ( 19/503) hdd-xtask::bin/hdd-xtask gate::tests::cells_escape_pipes_and_newlines
+        PASS [   0.076s] ( 20/503) hdd-xtask::bin/hdd-xtask deps::tests::stale_entries_and_bad_dates_are_flagged
+        PASS [   0.081s] ( 21/503) hdd-xtask::bin/hdd-xtask deps::tests::workspace_and_target_tables_are_read
+        PASS [   0.083s] ( 22/503) hdd-xtask::bin/hdd-xtask gate::tests::criteria_are_parsed_from_the_acceptance_list
+        PASS [   0.077s] ( 23/503) hdd-xtask::bin/hdd-xtask gate::tests::nextest_summary_is_extracted_from_the_tail
+        PASS [   0.077s] ( 24/503) hdd-xtask::bin/hdd-xtask matrix::tests::a_done_row_with_hash_checked_passing_evidence_passes_and_tampering_fails
+        PASS [   0.076s] ( 25/503) hdd-xtask::bin/hdd-xtask matrix::tests::a_done_row_without_evidence_fails
+        PASS [   0.078s] ( 26/503) hdd-xtask::bin/hdd-xtask matrix::tests::failing_run_record_and_missing_test_are_rejected
+        PASS [   0.076s] ( 27/503) hdd-xtask::bin/hdd-xtask matrix::tests::generated_matrix_has_one_row_per_task_with_req_ids
+        PASS [   0.076s] ( 28/503) hdd-xtask::bin/hdd-xtask matrix::tests::run_record_detection
+        PASS [   0.076s] ( 29/503) hdd-xtask::bin/hdd-xtask matrix::tests::todo_rows_and_explicit_deferrals_need_nothing
+        PASS [   0.076s] ( 30/503) hdd-xtask::bin/hdd-xtask profile_check::tests::generated_schema_is_valid_json_with_the_expected_top_level_fields
+        PASS [   0.076s] ( 31/503) hdd-xtask::bin/hdd-xtask profile_check::tests::schema_paths_list_nested_object_fields_and_treat_arrays_as_leaves
+        PASS [   0.121s] ( 32/503) hdd-xtask::bin/hdd-xtask gate::tests::the_gate_report_is_deterministic_follows_the_template_and_flags_unrecorded_criteria
+        PASS [   0.079s] ( 33/503) hdd-xtask::bin/hdd-xtask profile_check::tests::value_paths_follow_mappings_only
+        PASS [   0.087s] ( 34/503) hdd-xtask::bin/hdd-xtask profile_lint::tests::a2_a_profile_check_added_to_the_detection_crate_fails_and_the_clean_tree_passes
+        PASS [   0.085s] ( 35/503) hdd-xtask::bin/hdd-xtask profile_lint::tests::a3_a_redis_client_call_outside_the_kv_module_fails
+        PASS [   0.081s] ( 36/503) hdd-xtask::bin/hdd-xtask profile_lint::tests::a_capability_missing_from_the_matrix_list_fails
+        PASS [   0.085s] ( 37/503) hdd-xtask::bin/hdd-xtask profile_lint::tests::a_mention_of_the_test_marker_in_a_comment_does_not_hide_the_rest_of_the_file
+        PASS [   0.081s] ( 38/503) hdd-xtask::bin/hdd-xtask profile_lint::tests::a_missing_config_is_a_finding_not_a_pass
+        PASS [   0.082s] ( 39/503) hdd-xtask::bin/hdd-xtask profile_lint::tests::a_renamed_redis_dependency_is_still_caught
+        PASS [   0.074s] ( 40/503) hdd-xtask::bin/hdd-xtask profile_lint::tests::redis_client_dependencies_are_caught_in_every_manifest_but_the_common_one
+        PASS [   0.085s] ( 41/503) hdd-xtask::bin/hdd-xtask profile_lint::tests::profile_cfg_features_and_environment_variables_are_caught
+        PASS [   0.076s] ( 42/503) hdd-xtask::bin/hdd-xtask profile_lint::tests::the_registry_rows_are_parsed_and_the_generated_table_round_trips
+        PASS [   0.100s] ( 43/503) hdd-xtask::bin/hdd-xtask profile_lint::tests::comments_test_code_and_other_crates_are_not_flagged
+        PASS [   0.089s] ( 44/503) hdd-xtask::bin/hdd-xtask profile_lint::tests::the_kv_check_walks_the_crates_and_reports_each_file
+        PASS [   0.084s] ( 45/503) hdd-xtask::bin/hdd-xtask profile_lint::tests::the_runtime_profile_is_confined_to_the_places_that_may_know_it
+        PASS [   0.080s] ( 46/503) hdd-xtask::bin/hdd-xtask rules::tests::a_first_response_with_a_missing_question_or_an_extra_section_fails
+        PASS [   0.078s] ( 47/503) hdd-xtask::bin/hdd-xtask rules::tests::a_shipped_binary_reaching_the_vuln_lab_is_a_finding_but_a_dev_dependency_is_not
+        PASS [   0.086s] ( 48/503) hdd-xtask::bin/hdd-xtask rules::tests::agents_md_over_the_cap_is_a_finding
+        PASS [   0.076s] ( 49/503) hdd-xtask::bin/hdd-xtask rules::tests::comments_may_mention_the_patterns
+        PASS [   0.080s] ( 50/503) hdd-xtask::bin/hdd-xtask rules::tests::egress_patterns_outside_the_module_are_flagged
+        PASS [   0.083s] ( 51/503) hdd-xtask::bin/hdd-xtask rules::tests::forbid_unsafe_is_required_except_for_the_ebpf_crate
+        PASS [   0.079s] ( 52/503) hdd-xtask::bin/hdd-xtask rules::tests::placeholders_are_flagged
+        PASS [   0.088s] ( 53/503) hdd-xtask::bin/hdd-xtask rules::tests::repo_state_requires_state_files_and_ignore_patterns
+        PASS [   0.088s] ( 54/503) hdd-xtask::bin/hdd-xtask rules::tests::stride_cites_only_tests_that_exist
+        PASS [   0.074s] ( 55/503) hdd-xtask::bin/hdd-xtask rules::tests::the_egress_module_tests_and_listed_exceptions_are_exempt
+        PASS [   0.077s] ( 56/503) hdd-xtask::bin/hdd-xtask rules::tests::the_shipped_first_response_satisfies_its_acceptance_checks
+        PASS [   0.072s] ( 57/503) hdd-xtask::bin/hdd-xtask rust_share::tests::caps_fail_independently_of_the_share
+        PASS [   0.070s] ( 58/503) hdd-xtask::bin/hdd-xtask rust_share::tests::empty_tree_is_one_hundred_percent
+        PASS [   0.077s] ( 59/503) hdd-xtask::bin/hdd-xtask rust_share::tests::below_ninety_percent_fails
+        PASS [   0.079s] ( 60/503) hdd-xtask::bin/hdd-xtask rust_share::tests::invalid_json_is_an_error
+        PASS [   0.085s] ( 61/503) hdd-xtask::bin/hdd-xtask rust_share::tests::exclusions_are_applied_and_listed
+        PASS [   0.080s] ( 62/503) hdd-xtask::bin/hdd-xtask secrets::tests::base64url_matches_known_vectors
+        PASS [   0.089s] ( 63/503) hdd-xtask::bin/hdd-xtask secrets::tests::allow_marker_excuses_a_line
+        PASS [   0.094s] ( 64/503) hdd-xtask::bin/hdd-xtask secrets::tests::aws_style_key_is_found
+        PASS [   0.082s] ( 65/503) hdd-xtask::bin/hdd-xtask secrets::tests::env_files_are_forbidden_except_the_example
+        PASS [   0.146s] ( 66/503) hdd-xtask::bin/hdd-xtask rules::tests::unsafe_code_is_a_compile_error_under_the_workspace_lints
+        PASS [   0.075s] ( 67/503) hdd-xtask::bin/hdd-xtask secrets::tests::the_committed_hook_equals_what_hooks_install_writes
+        PASS [   0.077s] ( 68/503) hdd-xtask::bin/hdd-xtask secrets::tests::unreadable_files_are_findings_not_silent_skips
+        PASS [   0.088s] ( 69/503) hdd-xtask::bin/hdd-xtask secrets::tests::private_key_block_is_found_and_not_echoed
+        PASS [   0.139s] ( 70/503) hdd-xtask::bin/hdd-xtask secrets::tests::credential_assignment_ignores_env_var_names_and_placeholders
+        PASS [   0.121s] ( 71/503) hdd-xtask::bin/hdd-xtask secrets::tests::gen_secrets_writes_distinct_32_byte_secrets_and_never_overwrites
+        PASS [   0.071s] ( 72/503) hdd-xtask::bin/hdd-xtask spec::tests::missing_markers_is_an_error
+        PASS [   0.133s] ( 73/503) hdd-xtask::bin/hdd-xtask secrets::tests::high_entropy_token_is_found_but_hashes_and_words_are_not
+        PASS [   0.078s] ( 74/503) hdd-xtask::bin/hdd-xtask spec::tests::golden_manifest_for_the_sample
+        PASS [   0.075s] ( 75/503) hdd-xtask::bin/hdd-xtask spec::tests::preamble_is_kept_when_text_precedes_the_first_marker
+        PASS [   0.143s] ( 76/503) hdd-xtask::bin/hdd-xtask secrets::tests::gen_secrets_leaves_an_existing_directory_alone_and_protects_a_new_one
+        PASS [   0.107s] ( 77/503) hdd-xtask::bin/hdd-xtask secrets::tests::url_credentials_are_found
+        PASS [   0.141s] ( 78/503) hdd-xtask::bin/hdd-xtask secrets::tests::placeholders_are_recognised_by_prefix_and_env_names_need_an_underscore
+        PASS [   0.068s] ( 79/503) hdd-xtask::bin/hdd-xtask spec::tests::split_is_lossless_and_cut_at_markers
+        PASS [   0.088s] ( 80/503) hdd-xtask::bin/hdd-xtask spec::tests::registry_refs_finds_ids
+        PASS [   0.053s] ( 81/503) hdd-xtask::bin/hdd-xtask tasks::tests::closure_includes_roots_and_transitive_deps
+        PASS [   0.053s] ( 82/503) hdd-xtask::bin/hdd-xtask tasks::tests::cycle_is_an_error
+        PASS [   0.123s] ( 83/503) hdd-xtask::bin/hdd-xtask secrets::tests::utf16_and_nul_padded_text_is_scanned_not_skipped
+        PASS [   0.052s] ( 84/503) hdd-xtask::bin/hdd-xtask tasks::tests::order_is_stable_topological_and_later_numbers_may_run_first
+        PASS [   0.054s] ( 85/503) hdd-xtask::bin/hdd-xtask tasks::tests::req_ids_follow_phase_prefix_and_position
+        PASS [   0.054s] ( 86/503) hdd-xtask::bin/hdd-xtask tasks::tests::state_validation
+        PASS [   0.052s] ( 87/503) hdd-xtask::bin/hdd-xtask tasks::tests::unknown_dependency_is_an_error
+        PASS [   0.057s] ( 88/503) hdd-xtask::bin/hdd-xtask util::tests::civil_round_trip
+        PASS [   0.057s] ( 89/503) hdd-xtask::bin/hdd-xtask util::tests::sha256_known_vector
+        PASS [   0.077s] ( 90/503) hdd-xtask::bin/hdd-xtask tasks::tests::parse_small_spec_fixture
+        PASS [   0.062s] ( 91/503) hdd-xtask::bin/hdd-xtask util::tests::tail_lines_takes_last
+        PASS [   0.069s] ( 92/503) hdd-xtask::bin/hdd-xtask util::tests::glob_semantics
+        PASS [   0.074s] ( 93/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_coverage_reports_a_missing_journey
+        PASS [   0.082s] ( 94/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_accepts_an_outside_the_journey_line_with_a_reason
+        PASS [   0.085s] ( 95/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_accepts_screens_not_covered_with_a_reason
+        PASS [   0.092s] ( 96/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_coverage_requires_the_doc_subsection
+        PASS [   0.092s] ( 97/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_reports_a_screen_outside_the_journey
+        PASS [   0.087s] ( 98/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_reports_an_uncovered_journey_screen
+        PASS [   0.088s] ( 99/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_requires_the_screens_line
+        PASS [   0.124s] (100/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::automated_checks_name_the_axe_oracle_and_the_named_checks
+        PASS [   0.088s] (101/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_screen_coverage_accepts_the_fixture
+        PASS [   0.088s] (102/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::criteria_file_parses_the_fixture_list
+        PASS [   0.080s] (103/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::criteria_file_rejects_malformed_toml
+        PASS [   0.091s] (104/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::criteria_file_rejects_a_bad_id_level_source_and_duplicate
+        PASS [   0.086s] (105/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::criteria_file_requires_an_unverified_provenance_marker
+        PASS [   0.165s] (106/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_has_the_required_parts
+        PASS [   0.012s] (107/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::fixtures_cover_the_files_the_lead_writes
+        PASS [   0.028s] (108/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::journey_screen_ids_read_the_steps_screen_column
+        PASS [   0.038s] (109/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::human_steps_require_the_pending_marker_and_instructions
+        PASS [   0.040s] (110/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::flows_require_twelve_real_journeys_with_exact_titles
+        PASS [   0.067s] (111/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::manual_checks_name_walkthroughs_twelve_scripts_zoom_and_reflow
+        PASS [   0.103s] (112/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::missing_documents_are_findings_not_panics
+        PASS [   0.141s] (113/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_names_the_b11_11_extension
+        PASS [   0.147s] (114/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_a_duplicate_row
+        PASS [   0.155s] (115/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_accepts_the_fixture_and_every_owner_form
+        PASS [   0.162s] (116/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_a_missing_criterion
+        PASS [   0.171s] (117/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_a_vacuous_not_applicable_reason
+        PASS [   0.135s] (118/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::page_patterns_require_a_real_component
+        PASS [   0.016s] (119/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::sections_require_all_eight_with_a_body
+        PASS [   0.183s] (120/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_an_id_not_in_the_stored_list
+        PASS [   0.027s] (121/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::screen_ids_are_whole_tokens_not_parts_of_error_codes
+        PASS [   0.185s] (122/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_an_undeclared_page_pattern
+        PASS [   0.033s] (123/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_classifier_precedence_is_a_function
+        PASS [   0.040s] (124/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_examples_are_evaluated_by_the_classifier
+        PASS [   0.042s] (125/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_examples_need_six_rows_and_all_four_severities
+        PASS [   0.205s] (126/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_a_whole_token_owner_that_is_not_a_component
+        PASS [   0.054s] (127/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::regression_names_the_artifact_directory_and_the_baseline_tasks
+        PASS [   0.055s] (128/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::strategy_cites_only_real_screens_and_journeys
+        PASS [   0.077s] (129/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_names_the_four_levels_and_the_ac40_gate_rule
+        PASS [   0.078s] (130/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::statement_rejects_an_absolute_conformance_claim
+        PASS [   0.074s] (131/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::statement_requires_known_gaps
+        PASS [   0.258s] (132/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_a_level_or_title_drift
+        PASS [   0.060s] (133/503) hdd-xtask::bin/hdd-xtask ux_docs::content::tests::a_canonical_term_may_not_be_an_avoided_term
+        PASS [   0.061s] (134/503) hdd-xtask::bin/hdd-xtask ux_docs::content::tests::a_complete_content_fixture_passes
+        PASS [   0.076s] (135/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::whole_token_matching_rejects_longer_words_and_ids
+        PASS [   0.095s] (136/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_rejects_a_moderate_row_that_names_a_criterion_failure
+        PASS [   0.067s] (137/503) hdd-xtask::bin/hdd-xtask ux_docs::content::tests::avoided_terms_are_whole_words_not_substrings
+        PASS [   0.047s] (138/503) hdd-xtask::bin/hdd-xtask ux_docs::content::tests::b13_review_lists_every_key_exactly_once
+        PASS [   0.042s] (139/503) hdd-xtask::bin/hdd-xtask ux_docs::content::tests::b13_review_result_is_pass_or_a_documented_exception
+        PASS [   0.037s] (140/503) hdd-xtask::bin/hdd-xtask ux_docs::content::tests::b13_rows_are_read_from_the_table_and_keep_empty_text
+        PASS [   0.044s] (141/503) hdd-xtask::bin/hdd-xtask ux_docs::content::tests::each_voice_rule_needs_a_good_and_a_bad_sentence
+        PASS [   0.045s] (142/503) hdd-xtask::bin/hdd-xtask ux_docs::content::tests::every_required_content_section_is_named
+        PASS [   0.062s] (143/503) hdd-xtask::bin/hdd-xtask ux_docs::content::tests::every_required_glossary_term_is_defined
+        PASS [   0.121s] (144/503) hdd-xtask::bin/hdd-xtask ux_docs::content::tests::a_glossary_definition_with_a_forbidden_claim_fails
+        PASS [   0.058s] (145/503) hdd-xtask::bin/hdd-xtask ux_docs::content::tests::message_keys_are_semantic_hyphenated_stems
+        PASS [   0.315s] (146/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::matrix_marks_jaws_as_available_only_if_available
+        PASS [   0.063s] (147/503) hdd-xtask::bin/hdd-xtask ux_docs::content::tests::message_patterns_need_ten_examples_and_all_eight_kinds
+        PASS [   0.076s] (148/503) hdd-xtask::bin/hdd-xtask ux_docs::content::tests::glossary_definitions_are_one_sentence_of_at_most_thirty_words
+        PASS [   0.067s] (149/503) hdd-xtask::bin/hdd-xtask ux_docs::content::tests::the_two_glossaries_carry_the_same_terms
+        PASS [   0.059s] (150/503) hdd-xtask::bin/hdd-xtask ux_docs::content::tests::translation_guidance_needs_fluent_plurals_and_the_no_concatenation_rule
+        PASS [   0.057s] (151/503) hdd-xtask::bin/hdd-xtask ux_docs::content::tests::vocabulary_needs_ten_rows_and_the_required_distinctions
+        PASS [   0.063s] (152/503) hdd-xtask::bin/hdd-xtask ux_docs::content::tests::visitor_errors_need_five_forbidden_disclosures
+        PASS [   0.055s] (153/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_a_byte_order_mark_or_mojibake_fails_the_document_rule
+        PASS [   0.057s] (154/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_a_ranking_definition_needs_an_argmax_aggregation
+        PASS [   0.045s] (155/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_chart_forms_are_the_b11_10_forms_and_whole_tokens
+        PASS [   0.049s] (156/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_colour_has_eight_patterned_b11_2_series
+        PASS [   0.060s] (157/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_a_spec_without_b9_or_b11_10_is_a_finding_not_a_panic
+        PASS [   0.055s] (158/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_annotations_include_mode_rule_ban_and_deployment
+        PASS [   0.053s] (159/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_comparison_defines_the_previous_period_and_the_unknown_case
+        PASS [   0.050s] (160/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_derived_kpis_state_their_formula
+        PASS [   0.054s] (161/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_dictionary_columns_and_rows_are_complete
+        PASS [   0.059s] (162/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_downsampling_methods_match_their_form_and_lttb_stays_on_the_line
+        PASS [   0.063s] (163/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_downsampling_thresholds_are_numeric
+        PASS [   0.061s] (164/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_chart_form_is_justified
+        PASS [   0.066s] (165/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_chart_form_used_has_a_numeric_downsampling_rule
+        PASS [   0.067s] (166/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_chart_has_a_text_summary_and_a_view_as_table_toggle
+        PASS [   0.583s] (167/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_set_requires_exactly_the_named_files
+        PASS [   0.069s] (168/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_screen_has_a_visual_not_only_the_table_alternative
+        PASS [   0.070s] (169/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_kpi_must_be_a_dictionary_row
+        PASS [   0.075s] (170/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_metric_ids_exist_in_b9_and_audit_ids_in_b8
+        PASS [   0.072s] (171/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_metric_type_and_labels_agree_with_b9
+        PASS [   0.087s] (172/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_required_screen_has_a_question_and_a_metric
+        PASS [   0.070s] (173/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_missing_documents_and_sections_are_findings
+        PASS [   0.068s] (174/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_placeholder_values_are_rejected
+        PASS [   0.065s] (175/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_print_layout_points_to_responsive_without_its_own_margin
+        PASS [   0.065s] (176/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_spec_gaps_are_stated_with_real_references
+        PASS [   0.066s] (177/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_table_specs_need_columns_sort_filters_and_density
+        PASS [   0.064s] (178/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_the_chart_rules_state_the_global_rules
+        PASS [   0.058s] (179/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_time_presets_are_exactly_the_six_named
+        PASS [   0.057s] (180/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_unknown_behaviour_is_defined_for_every_widget
+        PASS [   0.081s] (181/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_the_check_reads_the_fixture_tree
+        PASS [   0.077s] (182/503) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_the_fixture_documents_pass_every_rule
+        PASS [   0.492s] (183/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::matrix_requires_every_modality
+        PASS [   0.070s] (184/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_background_polls_are_bounded
+        PASS [   0.085s] (185/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d1_code_class_differs_between_tables
+        PASS [   0.085s] (186/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d2_conflict_default_must_be_reviewed
+        PASS [   0.109s] (187/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_claims_are_scanned
+        PASS [   0.084s] (188/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d4_unsafe_actions_are_listed
+        PASS [   0.092s] (189/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d4_unsafe_post_cannot_claim_a_key
+        PASS [   0.077s] (190/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_exception_table_matches
+        PASS [   0.120s] (191/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d3_one_cause_once_per_channel
+        PASS [   0.058s] (192/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_job_failure_has_three_channels
+        PASS [   0.161s] (193/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_class_table_requires_nine_classes
+        PASS [   0.065s] (194/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_logging_is_structured
+        PASS [   0.039s] (195/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_missing_documents_are_findings
+        PASS [   0.170s] (196/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d1_authentication_row_is_required
+        PASS [   0.055s] (197/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_malformed_input_gives_findings
+        PASS [   0.088s] (198/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_journey_coverage_is_exact
+        PASS [   0.034s] (199/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_required_sections_are_checked
+        PASS [   0.059s] (200/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_offline_never_silent
+        PASS [   0.054s] (201/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_retry_conventions_are_read
+        PASS [   0.178s] (202/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_each_class_example_exists
+        PASS [   0.041s] (203/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_status_rules_match_the_check
+        PASS [   0.059s] (204/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_retry_table_checks_b6_rows
+        PASS [   0.083s] (205/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_security_notes_cover_enumeration
+        PASS [   0.264s] (206/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_copy_keys_defined_once
+        PASS [   0.110s] (207/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_retry_safety_follows_method
+        PASS [   0.126s] (208/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_request_id_pattern
+        PASS [   0.050s] (209/503) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::a_complete_fixture_deck_passes
+        PASS [   0.024s] (210/503) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::an_empty_value_needs_the_empty_comment
+        PASS [   0.038s] (211/503) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::a_key_is_defined_once
+        PASS [   0.044s] (212/503) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::a_count_variable_needs_both_plural_categories
+        PASS [   0.029s] (213/503) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::an_exclamation_mark_is_only_allowed_in_a_success_key
+        PASS [   0.092s] (214/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_visitor_pages_declare_json
+        PASS [   0.029s] (215/503) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::every_b13_key_is_required_and_no_other_key_is_allowed
+        PASS [   0.023s] (216/503) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::forbidden_claims_are_checked_on_every_value
+        PASS [   0.026s] (217/503) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::keys_are_semantic_hyphenated_stems
+        PASS [   0.031s] (218/503) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::no_value_contains_an_emoji
+        PASS [   0.032s] (219/503) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::no_value_contains_angle_bracket_markup
+        PASS [   0.300s] (220/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_example_fits_class_and_family
+        PASS [   0.035s] (221/503) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::the_value_equals_the_specification_text
+        PASS [   0.041s] (222/503) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::two_keys_may_not_share_a_value
+        PASS [   0.371s] (223/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_accessibility_per_pattern
+        PASS [   0.146s] (224/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_visitor_pages_cover_nine
+        PASS [   0.037s] (225/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_a_key_defined_in_two_files_is_a_finding
+        PASS [   0.658s] (226/503) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::the_fixture_documents_pass_every_rule
+        PASS [   0.041s] (227/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_email_localization_covers_the_activation_emails
+        PASS [   0.041s] (228/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_fallback_chain_and_missing_key_behaviour_are_stated
+        PASS [   0.237s] (229/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_pattern_values_are_real_patterns
+        PASS [   0.065s] (230/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_a_complete_fixture_tree_passes_and_a_missing_document_is_named
+        PASS [   0.049s] (231/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_file_layout_lists_exactly_the_existing_files
+        PASS [   0.167s] (232/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_whole_tokens_are_used
+        PASS [   0.058s] (233/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_fluent_only_message_cells
+        PASS [   0.053s] (234/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_key_examples_are_real_keys_with_real_values
+        PASS [   0.051s] (235/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_launch_locales_equal_the_profile_locales_key
+        PASS [   0.051s] (236/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_key_naming_convention_is_stated
+        PASS [   0.069s] (237/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_formatting_agrees_with_the_content_strategy
+        PASS [   0.059s] (238/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_malformed_input_is_a_finding_not_a_panic
+        PASS [   0.055s] (239/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_negotiation_order_and_headers
+        PASS [   0.055s] (240/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_not_translated_list_matches_the_spec_formats
+        PASS [   0.056s] (241/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_pseudo_examples_are_evaluated_by_the_reference_transform
+        PASS [   0.055s] (242/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_pseudo_examples_carry_measured_expansion
+        PASS [   0.054s] (243/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_pseudo_selector_variant_text_is_transformed
+        PASS [   0.059s] (244/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_pseudo_transform_matches_the_fixture_examples
+        PASS [   0.059s] (245/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_required_sections_are_present_and_ordered
+        PASS [   0.063s] (246/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_test_strategy_covers_overflow_missing_keys_and_plurals
+        PASS [   0.065s] (247/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_translator_workflow_needs_no_external_service
+        PASS [   0.068s] (248/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_activation_emails_have_a_subject_structure_and_safe_keys
+        PASS [   0.076s] (249/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_all_pass_state_returns_the_distinct_outcome
+        PASS [   0.098s] (250/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_rtl_icon_table_is_honest_about_the_missing_inventory
+        PASS [   0.079s] (251/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_b122_mapping_has_one_row_per_phrase
+        PASS [   0.073s] (252/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_catalog_rows_have_weight_source_interval_and_real_screen
+        PASS [   0.074s] (253/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_catalog_weights_sum_to_one_hundred
+        PASS [   0.078s] (254/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_category_weights_sum_to_one_hundred
+        PASS [   0.116s] (255/503) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_rtl_readiness_lists_real_properties_and_handles_dir
+        PASS [   0.076s] (256/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_checklist_requires_persistence_and_resume
+        PASS [   0.065s] (257/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_copy_keys_are_defined_exactly_once_in_the_three_sources
+        PASS [   0.096s] (258/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_check_on_a_fixture_tree_is_green
+        PASS [   0.067s] (259/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_copy_keys_are_read_from_every_copy_key_column
+        PASS [   0.060s] (260/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_empty_states_name_real_screens_and_honest_keys
+        PASS [   0.062s] (261/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_footnote_equals_the_b13_text
+        PASS [   0.064s] (262/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_every_catalog_check_is_reachable_by_a_rule
+        PASS [   0.062s] (263/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_j25_readiness_table_agrees_with_the_model
+        PASS [   0.067s] (264/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_malformed_specification_is_findings_not_panics
+        PASS [   0.066s] (265/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_measures_use_local_counters_only
+        PASS [   0.072s] (266/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_mfa_rule_names_who_can_enrol
+        PASS [   0.069s] (267/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_missing_documents_are_findings_not_panics
+        PASS [   0.065s] (268/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_monitor_summary_keeps_the_block_decision_evidence
+        PASS [   0.063s] (269/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_no_forbidden_claims_phrase
+        PASS [   0.071s] (270/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_next_best_action_is_evaluated_against_its_examples
+        PASS [   0.066s] (271/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_nudges_have_a_numeric_cap_and_an_opt_out
+        PASS [   0.061s] (272/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_onboarding_ftl_values_pass_the_style_rules
+        PASS [   0.070s] (273/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_origin_exposure_covers_mail_records_and_headers
+        PASS [   0.083s] (274/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_scoring_example_is_evaluated
+        PASS [   0.108s] (275/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_onboarding_ftl_passes_the_claims_scanner
+        PASS [   0.083s] (276/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_stage_map_uses_the_expected_real_screen_for_each_stage
+        PASS [   0.076s] (277/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_structure_requires_the_named_sections
+        PASS [   0.094s] (278/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_six_multi_condition_examples_are_evaluated
+        PASS [   0.082s] (279/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_unknown_never_counts_as_a_pass
+        PASS [   0.084s] (280/503) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_waf_monitor_partial_is_a_design_value
+        PASS [   0.079s] (281/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_a_missing_document_is_one_finding_not_a_panic
+        PASS [   0.076s] (282/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_f21_no_table_cell_carries_a_gap_note
+        PASS [   0.146s] (283/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_an_empty_document_is_findings_not_a_panic
+        PASS [   0.097s] (284/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_every_cited_screen_exists_in_b12_1
+        PASS [   0.150s] (285/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_breakpoints_match_b11_4
+        PASS [   0.178s] (286/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_data_dense_screens_keep_real_columns
+        PASS [   0.080s] (287/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_f24_last_breakpoint_states_a_testable_card_rule
+        PASS [   0.090s] (288/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_f23_print_margin_is_canonical_and_dataviz_points_here
+        PASS [   0.065s] (289/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_sections_are_required_with_a_body
+        PASS [   0.359s] (290/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_b11_7_transformations_are_stated
+        PASS [   1.974s] (291/503) hdd-xtask::bin/hdd-xtask profile_lint::tests::the_shipped_tree_passes_both_lints
+        PASS [   0.245s] (292/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_print_rules_cover_reports_and_audit_exports
+        PASS [   0.093s] (293/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_surface_categories_are_derived_from_the_b12_1_groups
+        PASS [   0.534s] (294/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_device_matrix_has_exactly_the_seven_viewports
+        PASS [   0.131s] (295/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_testing_hooks_pin_the_viewport_helper_and_naming
+        PASS [   0.445s] (296/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_performance_budgets_are_numeric_for_every_class
+        PASS [   0.522s] (297/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_input_modalities_use_the_b11_4_targets
+        PASS [   0.156s] (298/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_a_real_audit_id_in_the_wrong_row_is_caught
+        PASS [   0.692s] (299/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_each_screen_category_has_a_small_screen_behaviour
+        PASS [   0.481s] (300/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_security_controls_are_cross_checked_against_journey_safeguards
+        PASS [   0.701s] (301/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_f22_every_never_moves_cell_names_the_same_control_set
+        PASS [   0.084s] (302/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_audit_events_must_exist_in_b8_as_whole_tokens
+        PASS [   0.096s] (303/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_abuse_categories_and_atk_citations_are_required
+        PASS [   0.227s] (304/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_abuse_cases_name_the_c5_class_and_use_the_right_generic_id
+        PASS [   0.060s] (305/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_documents_rule_accepts_existing_files
+        PASS [   0.237s] (306/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_abuse_cases_stay_inside_the_hdd_attack_range
+        PASS [   0.098s] (307/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_copy_values_are_clean_and_claim_free
+        PASS [   0.105s] (308/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_copy_keys_must_match_the_copy_file
+        PASS [   0.028s] (309/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_fixture_documents_cover_the_required_paths
+        PASS [   0.349s] (310/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_a_typed_journey_step_needs_a_typed_catalog_row_on_that_screen
+        PASS [   0.186s] (311/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_catalog_needs_twenty_rows_and_full_cells
+        PASS [   0.034s] (312/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_forbidden_claims_are_rejected
+        PASS [   0.933s] (313/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_content_priority_covers_every_breakpoint_and_never_hides_security
+        PASS [   0.092s] (314/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_every_safeguard_names_a_kind
+        PASS [   0.049s] (315/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_malformed_input_is_a_finding_not_a_panic
+        PASS [   0.039s] (316/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_missing_documents_are_findings
+        PASS [   0.082s] (317/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_permissions_must_exist_in_b4_2
+        PASS [   1.498s] (318/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_visitor_constraints_are_testable
+        PASS [   0.096s] (319/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_preview_patterns_cover_the_four_areas
+        PASS [   0.130s] (320/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_honest_limits_quote_b13_exactly
+        PASS [   0.360s] (321/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_audit_references_in_the_prose_name_the_rows_event
+        PASS [   0.149s] (322/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_self_lockout_requirements_are_numbered_and_complete
+        PASS [   0.101s] (323/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_time_box_states_the_browser_close_revert
+        PASS [   0.128s] (324/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_stride_delta_names_the_ui_abuse_threats
+        PASS [   0.116s] (325/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_typed_confirmation_rules_are_stated
+        PASS [   0.047s] (326/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_charter_over_four_printed_pages_fails_a5
+        PASS [   0.070s] (327/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_complete_charter_passes
+        PASS [   0.343s] (328/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_journey_safeguards_cross_check_the_catalog
+        PASS [   0.038s] (329/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_decision_record_needs_status_date_and_the_three_sections
+        PASS [   0.245s] (330/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_the_screen_of_a_mapped_row_is_one_of_the_step_screens
+        PASS [   0.136s] (331/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_complete_persona_passes
+        PASS [   0.043s] (332/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_file_link_with_a_line_fragment_on_a_non_markdown_file_checks_only_the_file
+        PASS [   0.039s] (333/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_link_to_a_file_that_exists_passes_and_a_missing_one_names_file_and_line
+        PASS [   0.037s] (334/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_matrix_row_must_link_a_persona_file
+        PASS [   0.348s] (335/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_step_up_matches_the_b4_2_s_cells
+        PASS [   0.030s] (336/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_matrix_row_must_not_invent_a_journey
+        PASS [   0.031s] (337/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_measure_without_source_or_privacy_treatment_fails_a2
+        PASS [   0.029s] (338/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_mojibake_sequence_in_a_persona_or_matrix_document_fails
+        PASS [   0.134s] (339/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_persona_header_must_say_it_is_a_fictional_composite
+        PASS [   0.148s] (340/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_persona_with_two_scenarios_fails_a1
+        PASS [   2.161s] (341/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_a_complete_fixture_passes_every_rule
+        PASS [   0.053s] (342/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_principle_without_an_enforcement_mechanism_fails_a1
+        PASS [   1.060s] (343/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_a_complete_fixture_passes_every_rule
+        PASS [   0.248s] (344/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_persona_needs_the_five_context_of_use_rows
+        PASS [   0.049s] (345/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::an_anchor_must_name_a_real_heading_in_the_same_or_the_target_file
+        PASS [   0.137s] (346/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_persona_without_anti_goals_fails
+        PASS [   0.280s] (347/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_persona_must_cross_link_journeys_and_screens
+        PASS [   0.037s] (348/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::complete_measures_pass
+        PASS [   0.032s] (349/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::every_journey_must_be_in_the_matrix
+        PASS [   0.027s] (350/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::every_measure_the_task_names_must_be_present
+        PASS [   0.070s] (351/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::external_mailto_and_bare_anchor_links_are_not_file_links
+        PASS [   0.079s] (352/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f10_a_public_permission_is_rejected_where_a_session_is_expected
+        PASS [   0.098s] (353/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f10_a_bad_exception_row_is_reported
+        PASS [   0.648s] (354/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_typed_rows_have_type_copy_and_are_listed_in_tc7
+        PASS [   0.096s] (355/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f10_c_the_rate_class_must_match_the_methods
+        PASS [   0.110s] (356/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f10_b_platform_permissions_stay_on_the_admin_surface
+        PASS [   0.120s] (357/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f10_rate_class_exceptions_must_match_a_real_route
+        PASS [   0.362s] (358/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_scenario_without_a_measurable_outcome_fails_a1
+        PASS [   0.100s] (359/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f11_a_bound_default_needs_a_documented_conflict_row
+        PASS [   0.061s] (360/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f11_a_mitigation_must_name_a_navigable_element
+        PASS [   0.079s] (361/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f11_a_missing_only_path_sentence_fails
+        PASS [   0.067s] (362/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f11_a_stale_conflict_row_fails
+        PASS [   0.087s] (363/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f11_a_mitigation_must_say_shortcuts_can_be_turned_off
+        PASS [   0.402s] (364/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::accessibility_must_be_present_and_mapped_to_b11_11
+        PASS [   0.083s] (365/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f11_an_empty_conflict_mitigation_fails
+        PASS [   0.974s] (366/503) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_required_actions_are_named
+        PASS [   1.950s] (367/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_f22_catalog_time_boxed_and_critical_rows_are_covered_or_excluded
+        PASS [   0.036s] (368/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f5_a_criterion_counts_only_when_the_b11_11_table_covers_it
+        PASS [   0.266s] (369/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f12_a_sentence_is_required_after_the_code
+        PASS [   0.215s] (370/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f4_identifier_digits_do_not_make_an_outcome_measurable
+        PASS [   0.290s] (371/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f12_a_fitting_sentence_passes
+        PASS [   0.236s] (372/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f12_a_sentence_unrelated_to_the_code_fails
+        PASS [   0.236s] (373/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f12_a_sentence_unrelated_to_the_step_fails
+        PASS [   0.246s] (374/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f12_a_short_sentence_fails
+        PASS [   0.184s] (375/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f5_an_uncovered_criterion_is_reported_and_does_not_count
+        PASS [   0.078s] (376/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f5_b11_11_criteria_are_read_from_the_spec_table
+        PASS [   0.027s] (377/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f9_a_complete_honesty_test_review_passes
+        PASS [   0.086s] (378/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f6_key_journeys_expand_slash_and_range_forms
+        PASS [   0.330s] (379/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f4_units_comparators_and_registry_ids_are_measurable
+        PASS [   0.133s] (380/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f5_fewer_than_two_covered_criteria_fails
+        PASS [   0.047s] (381/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f9_a_missing_honesty_test_section_fails
+        PASS [   0.040s] (382/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f9_a_no_blocks_the_document
+        PASS [   0.039s] (383/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f9_an_answer_must_be_yes_or_no
+        PASS [   0.043s] (384/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f9_an_empty_reason_fails
+        PASS [   0.059s] (385/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f9_four_rows_fail
+        PASS [   0.054s] (386/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::honesty_tests_must_be_five_questions_a3
+        PASS [   0.055s] (387/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::links_in_code_blocks_and_code_spans_are_examples_not_links
+        PASS [   0.051s] (388/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::slugs_follow_the_github_rule
+        PASS [   0.061s] (389/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_complete_patterns_document_passes
+        PASS [   0.098s] (390/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::six_principles_instead_of_seven_fail
+        PASS [   0.047s] (391/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_copied_long_sentence_fails
+        PASS [   0.261s] (392/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_complete_design_requirements_document_passes
+        PASS [   0.238s] (393/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_link_to_a_missing_pattern_anchor_fails
+        PASS [   0.234s] (394/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_repeated_design_requirement_is_reported
+        PASS [   2.328s] (395/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_security_controls_are_named_and_never_hidden
+        PASS [   0.072s] (396/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_source_outside_the_allowed_values_fails
+        PASS [   0.061s] (397/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_topic_missing_a_labeled_part_fails
+        PASS [   0.054s] (398/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_fewer_than_twelve_topics_fail
+        PASS [   0.325s] (399/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_requirement_without_a_screen_or_component_fails
+        PASS [   0.079s] (400/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_pass_is_accepted_when_a_topic_has_a_fetched_source
+        PASS [   0.253s] (401/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_an_unknown_screen_id_fails
+        PASS [   0.258s] (402/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_an_empty_rationale_fails
+        PASS [   0.064s] (403/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_pass_is_rejected_when_every_topic_is_first_principles
+        PASS [   0.042s] (404/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_screen_ids_expand_ranges_and_components_are_read
+        PASS [   0.047s] (405/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_the_status_line_must_be_valid
+        PASS [   0.268s] (406/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_missing_design_requirements_are_reported
+        PASS [   0.082s] (407/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_a_complete_routes_file_passes
+        PASS [   0.061s] (408/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_a_route_lacking_a_key_fails
+        PASS [   0.072s] (409/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_a_permission_must_exist_in_the_catalog
+        PASS [   0.036s] (410/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_a_token_parameter_must_be_listed_in_the_token_routes_section
+        PASS [   0.060s] (411/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_a_route_must_not_cite_an_unknown_screen
+        PASS [   0.044s] (412/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_an_unparseable_routes_file_fails
+        PASS [   0.052s] (413/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_ia_sections_are_required
+        PASS [   0.080s] (414/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_every_screen_must_appear_exactly_once
+        PASS [   0.054s] (415/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_pattern_rules_are_checked
+        PASS [   0.137s] (416/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_a_value_outside_its_set_fails
+        PASS [   0.052s] (417/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_spec_registries_are_read
+        PASS [   0.042s] (418/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_the_identifier_regex_and_example_are_checked
+        PASS [   0.042s] (419/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_url_rules_need_a_test_line_each
+        PASS [   0.049s] (420/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_the_same_pattern_and_method_set_must_not_repeat
+        PASS [   0.069s] (421/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_a_complete_navigation_document_passes
+        PASS [   0.094s] (422/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_a_hover_only_row_fails
+        PASS [   0.094s] (423/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_a_missing_section_fails
+        PASS [   0.097s] (424/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_a_missing_sidebar_item_tab_or_control_fails
+        PASS [   0.085s] (425/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_a_permission_that_differs_from_the_route_fails
+        PASS [   0.106s] (426/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_a_route_outside_the_route_table_fails
+        PASS [   1.217s] (427/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f8_a_component_must_be_a_whole_token
+        PASS [   0.078s] (428/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_an_empty_keyboard_or_aria_cell_fails
+        PASS [   0.079s] (429/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_the_shortcut_list_is_read_from_b23
+        PASS [   0.103s] (430/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_restricted_states_focus_and_mobile_are_required
+        PASS [   0.174s] (431/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_the_shortcut_map_must_cover_b23_and_not_conflict
+        PASS [   0.131s] (432/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_wireframes_are_required
+        PASS [   0.306s] (433/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_a_changed_persona_link_fails
+        PASS [   0.263s] (434/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_a_changed_title_fails
+        PASS [   0.306s] (435/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_a_missing_screen_must_be_proposed
+        PASS [   0.406s] (436/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_a_short_steps_table_fails
+        PASS [   0.326s] (437/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_a_spec_ac_must_appear_in_success
+        PASS [   0.307s] (438/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_a_spec_mentioned_screen_must_appear
+        PASS [   0.081s] (439/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_audit_ids_expand_the_slash_alternatives_of_b8
+        PASS [   4.768s] (440/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_a_complete_document_passes_the_whole_check
+        PASS [   0.308s] (441/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_an_empty_step_cell_fails
+        PASS [   0.289s] (442/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_cutover_needs_four_non_empty_rows
+        PASS [   0.259s] (443/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_cutover_row_is_needed_per_dns_step
+        PASS [   0.562s] (444/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_cutover_guard_and_undo_need_a_control
+        PASS [   0.265s] (445/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_cutover_safety_is_required_for_j08_and_j09
+        PASS [   0.078s] (446/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_spec_registries_are_read
+        PASS [   0.232s] (447/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_patches_rules
+        PASS [   6.162s] (448/503) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_visitor_copy_rejects_disclosures
+        PASS [   0.636s] (449/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_trust_security_and_accessibility_rules
+        PASS [   0.437s] (450/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_a_complete_safeguarded_journey_passes
+        PASS [   0.117s] (451/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_atk_family_must_match_the_step
+        PASS [   0.112s] (452/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_attack_texts_are_read_from_the_c5_rows_despite_the_heading_dot
+        PASS [   0.070s] (453/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_decision_support_needs_five_items
+        PASS [   0.117s] (454/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_j19_rule_builder_error_taxonomy_is_checked
+        PASS [   0.170s] (455/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_j22_abuse_cases_need_five_rows_with_known_atks
+        PASS [   0.110s] (456/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_j23_owner_outcomes_are_the_four_choices
+        PASS [   0.073s] (457/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_j24_stacks_are_conceptual_and_cover_every_stack
+        PASS [   0.080s] (458/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_j24_verification_probes_need_four_probes
+        PASS [   0.057s] (459/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_operator_questions_stay_open_and_are_cited
+        PASS [   1.267s] (460/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_step_value_rules_fail
+        PASS [   0.077s] (461/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_protection_journeys_need_three_atk_rows
+        PASS [   0.047s] (462/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_risky_step_matches_whole_tokens_not_substrings
+        PASS [   0.060s] (463/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_safeguard_kind_copy_length_and_claims_are_checked
+        PASS [   0.063s] (464/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_what_could_go_wrong_needs_three_rows
+        PASS [   0.089s] (465/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_safeguards_section_and_risky_rows_are_required
+        PASS [   0.997s] (466/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t18_api_key_lifecycle_needs_every_stage
+        PASS [   1.710s] (467/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t18_admin_controls_need_known_permissions_audits_and_values
+        PASS [   0.949s] (468/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t18_dependency_graph_is_a_text_graph_with_every_journey
+        PASS [   1.054s] (469/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t18_f13_alternative_journeys_have_no_edge_between_them
+        PASS [   2.013s] (470/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t18_dependency_rows_are_complete_and_acyclic
+        PASS [   6.840s] (471/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_a_complete_journey_passes
+        PASS [   0.813s] (472/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t18_f13_task_order_contradiction_needs_an_exception
+        PASS [   0.895s] (473/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t18_incident_timeline_and_retrospective_are_checked
+        PASS [   1.040s] (474/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t18_privacy_timelines_are_configurable_and_legal_neutral
+        PASS [   1.342s] (475/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t18_readiness_weights_fix_links_and_footnote_are_checked
+        PASS [  11.715s] (476/503) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_placeholder_cells_are_rejected
+        PASS [   0.055s] (477/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_adversary_needs_ten_abuse_stories_mapped_to_the_registry
+        PASS [   0.056s] (478/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_attack_registry_is_read_from_the_matrix_rows
+        PASS [   0.911s] (479/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t18_stress_cases_need_the_three_named_cases
+        PASS [   0.100s] (480/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_primary_persona_question_must_be_recorded_open_with_maya_as_default
+        PASS [   0.094s] (481/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_primary_persona_row_must_sit_in_the_named_section
+        PASS [   1.984s] (482/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t18_task_dependencies_agree_with_the_spec_task_graph
+        PASS [   0.094s] (483/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::titles_directories_parent_paths_and_escapes_are_handled
+        PASS [   0.229s] (484/503) hdd-xtask::bin/hdd-xtask verify::tests::a_failing_command_step_fails_and_a_missing_program_is_unverified
+        PASS [   0.047s] (485/503) hdd-xtask::bin/hdd-xtask verify::tests::an_executable_blocked_by_application_control_is_unverified_not_failed
+        PASS [   0.051s] (486/503) hdd-xtask::bin/hdd-xtask verify::tests::exit_codes_map_to_statuses
+        PASS [   2.039s] (487/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t18_the_extension_journeys_pass_the_extension_rules
+        PASS [   0.038s] (488/503) hdd-xtask::bin/hdd-xtask verify::tests::stubs_are_named_and_unverified
+        PASS [   0.048s] (489/503) hdd-xtask::bin/hdd-xtask verify::tests::findings_status_fails_on_any_finding
+        PASS [  15.734s] (490/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_broken_link_in_any_ux_document_or_agents_md_fails_the_tree
+        PASS [  15.527s] (491/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f6_a_declared_key_journey_missing_from_the_persona_file_fails
+        PASS [  15.786s] (492/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f6_a_persona_journey_missing_from_the_matrix_row_fails
+        PASS [  28.266s] (493/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_mojibake_sequence_in_a_shipped_persona_or_the_matrix_fails_the_tree
+        PASS [  28.208s] (494/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::f6_a_declared_key_journey_missing_from_the_matrix_row_fails
+        PASS [  29.591s] (495/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::every_persona_file_is_required_and_named
+        PASS [  27.978s] (496/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_missing_navigation_document_is_named
+        PASS [  27.255s] (497/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_missing_journey_file_is_named
+        PASS [  21.544s] (498/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_shipped_ux_documents_pass
+        PASS [  24.688s] (499/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_primary_persona_question_is_linked_from_the_matrix_or_maya
+        PASS [  37.964s] (500/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_complete_tree_passes_and_each_missing_document_is_named
+        PASS [  37.443s] (501/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_missing_patterns_or_design_documents_are_named
+        PASS [  37.688s] (502/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_missing_ia_or_routes_documents_are_named
+        PASS [  35.525s] (503/503) hdd-xtask::bin/hdd-xtask ux_docs::tests::t18_a_missing_extension_journey_or_dependency_file_is_named
+────────────
+     Summary [  43.976s] 503 tests run: 503 passed, 0 skipped
+
+## Deliverable and evidence hashes
+
+docs\UX\ERRORS.md  SHA-256 979CF861B7AFE2AE478C2B7D0DA10184E0696E3B1C699AA3422B9DF50B3383AC
+crates\hdd-xtask\src\ux_docs\errors.rs  SHA-256 91F2C68440E36E11AAC95BE9CF14CFEA56D4160C0472640613B789C013DD1663
+i18n\en\errors.ftl  SHA-256 4C0AA914FFA6C33506F386C8A8F558A286D67376F424AEB67121167C70A7FF7B
+docs\evidence\P01\T-0020-b2r1-red.txt  SHA-256 E2A630570816031225408DCFF1EFA98F80C78B5B69A0A7CD4F3CAA97729A313C
+docs\evidence\P01\T-0020-b2r1-negative-demos.txt  SHA-256 7622324A452F27DCC9404A4F8C5775C154816FD7093A117526A36F790EE95717
+
+## Encoding check (UTF-8 without a byte-order mark)
+
+docs\UX\ERRORS.md  bytes 31756  bom False
+crates\hdd-xtask\src\ux_docs\errors.rs  bytes 196504  bom False

@@ -1,0 +1,164 @@
+cargo.exe : warning: constant `COPY_DECK` is never used
+At line:1 char:136
++ ... se); $out = & cargo nextest run -p hdd-xtask ux_docs::onboarding --no ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: consta...` is never used:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  --> crates\hdd-xtask\src\ux_docs\onboarding.rs:51:11
+   |
+51 | pub const COPY_DECK: &str = "i18n/en/copy-deck.ftl";
+   |           ^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.19s
+────────────
+ Nextest run ID 684a7bde-b357-453c-9887-67c5df12d39e with nextest profile: default
+    Starting 31 tests across 1 binary (416 tests skipped)
+        PASS [   0.014s] ( 1/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_empty_states_name_real_screens_and_honest_keys
+        PASS [   0.017s] ( 2/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_activation_emails_have_a_subject_structure_and_safe_keys
+        PASS [   0.022s] ( 3/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_catalog_rows_have_weight_source_interval_and_real_screen
+        PASS [   0.029s] ( 4/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_b122_mapping_has_one_row_per_phrase
+        PASS [   0.032s] ( 5/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_all_pass_state_returns_the_distinct_outcome
+        PASS [   0.033s] ( 6/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_catalog_weights_sum_to_one_hundred
+        PASS [   0.037s] ( 7/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_checklist_requires_persistence_and_resume
+        PASS [   0.047s] ( 8/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_malformed_specification_is_findings_not_panics
+        PASS [   0.047s] ( 9/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_every_catalog_check_is_reachable_by_a_rule
+        PASS [   0.050s] (10/31) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_footnote_equals_the_b13_text
+        PASS [   0.057s] (11/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_category_weights_sum_to_one_hundred
+        PASS [   0.062s] (12/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_measures_use_local_counters_only
+        PASS [   0.065s] (13/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_check_on_a_fixture_tree_is_green
+        PASS [   0.067s] (14/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_j25_readiness_table_agrees_with_the_model
+        FAIL [   0.069s] (15/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_copy_keys_are_defined_exactly_once_in_the_three_sources
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_copy_keys_are_defined_exactly_once_in_the_three_sources ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_copy_keys_are_defined_exactly_once_in_the_three_sources
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 446 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_copy_keys_are_defined_exactly_once_in_the_three_sources' (4456) panicked 
+at crates\hdd-xtask\src\ux_docs\onboarding.rs:4256:9:
+    a copy key defined nowhere must be a finding: 
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.073s] (16/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_copy_keys_are_read_from_every_copy_key_column
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_copy_keys_are_read_from_every_copy_key_column ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_copy_keys_are_read_from_every_copy_key_column
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 446 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_copy_keys_are_read_from_every_copy_key_column' (424) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:4293:9:
+    the Empty states Copy key column must be read: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.066s] (17/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_missing_documents_are_findings_not_panics
+        PASS [   0.069s] (18/31) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_mfa_rule_names_who_can_enrol
+        PASS [   0.065s] (19/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_monitor_summary_keeps_the_block_decision_evidence
+        PASS [   0.062s] (20/31) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_no_forbidden_claims_phrase
+        PASS [   0.067s] (21/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_next_best_action_is_evaluated_against_its_examples
+        FAIL [   0.061s] (22/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_onboarding_ftl_passes_the_claims_scanner
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_onboarding_ftl_passes_the_claims_scanner ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_onboarding_ftl_passes_the_claims_scanner
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 446 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_onboarding_ftl_passes_the_claims_scanner' (26088) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:4393:9:
+    a forbidden claims phrase must be a finding: 
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.066s] (23/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_nudges_have_a_numeric_cap_and_an_opt_out
+        FAIL [   0.054s] (24/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_onboarding_ftl_values_pass_the_style_rules
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_onboarding_ftl_values_pass_the_style_rules ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_onboarding_ftl_values_pass_the_style_rules
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 446 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_onboarding_ftl_values_pass_the_style_rules' (26036) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:4325:9:
+    a key that is not a semantic hyphenated stem must be a finding: 
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.064s] (25/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_origin_exposure_covers_mail_records_and_headers
+        PASS [   0.065s] (26/31) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_scoring_example_is_evaluated
+        PASS [   0.060s] (27/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_stage_map_uses_the_expected_real_screen_for_each_stage
+        PASS [   0.067s] (28/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_six_multi_condition_examples_are_evaluated
+        PASS [   0.062s] (29/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_structure_requires_the_named_sections
+        PASS [   0.063s] (30/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_unknown_never_counts_as_a_pass
+        PASS [   0.065s] (31/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_waf_monitor_partial_is_a_design_value
+────────────
+     Summary [   0.136s] 31 tests run: 27 passed, 4 failed, 416 skipped
+        FAIL [   0.069s] (15/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_copy_keys_are_defined_exactly_once_in_the_three_sources
+        FAIL [   0.073s] (16/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_copy_keys_are_read_from_every_copy_key_column
+        FAIL [   0.061s] (22/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_onboarding_ftl_passes_the_claims_scanner
+        FAIL [   0.054s] (24/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_onboarding_ftl_values_pass_the_style_rules
+error: test run failed

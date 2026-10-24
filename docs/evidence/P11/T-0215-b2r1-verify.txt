@@ -1,0 +1,310 @@
+# T-0215 batch-B2 review round 1 - verify run
+
+Date (UTC): 2026-10-20T06:21:36Z
+Tree: fixed working tree, nothing committed (the lead commits).
+
+== cargo fmt -p hdd-acceptance -- --check ==
+
+$ cargo fmt -p hdd-acceptance -- --check
+
+exit code: 0
+
+== cargo clippy -p hdd-acceptance --all-targets -- -D warnings ==
+
+$ cargo clippy -p hdd-acceptance --all-targets -- -D warnings
+    Checking hdd-acceptance v0.0.0 (D:\Hack Dev Defence\crates\hdd-acceptance)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.25s
+exit code: 0
+
+== cargo nextest run -p hdd-acceptance --no-fail-fast ==
+
+$ cargo nextest run -p hdd-acceptance --no-fail-fast
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.21s
+────────────
+ Nextest run ID 05e4b422-b38c-4a54-9ca7-1d5725d47fdc with nextest profile: default
+    Starting 158 tests across 3 binaries
+        PASS [   0.015s] (  1/158) hdd-acceptance config::tests::an_unusable_profile_is_refused_with_its_failures
+        PASS [   0.015s] (  2/158) hdd-acceptance config::tests::a11_the_operator_approval_ticket_format_is_checked
+        PASS [   0.020s] (  3/158) hdd-acceptance config::tests::a_profile_that_does_not_parse_reports_its_key_path
+        PASS [   0.024s] (  4/158) hdd-acceptance config::tests::an_approval_must_carry_its_record_and_its_maintenance_window
+        PASS [   0.032s] (  5/158) hdd-acceptance config::tests::the_runner_ip_is_checked_before_the_run_starts
+        PASS [   0.033s] (  6/158) hdd-acceptance config::tests::a_missing_profile_file_is_an_io_error
+        PASS [   0.047s] (  7/158) hdd-acceptance config::tests::production_refuses_destructive_checks_without_this_runs_approval
+        PASS [   0.051s] (  8/158) hdd-acceptance config::tests::pilot_allows_destructive_checks_with_a_warning
+        PASS [   0.060s] (  9/158) hdd-acceptance config::tests::the_example_profile_assembles_a_run_configuration
+        PASS [   0.068s] ( 10/158) hdd-acceptance config::tests::an_invalid_dns_entry_in_the_egress_allowlist_is_refused_by_the_gate
+        PASS [   0.071s] ( 11/158) hdd-acceptance config::tests::lab_mode_requires_a_configured_lab
+        PASS [   0.082s] ( 12/158) hdd-acceptance control::tests::a_mistyped_runner_ip_is_refused
+        PASS [   0.083s] ( 13/158) hdd-acceptance config::tests::a_load_run_needs_the_profile_flag_and_the_runs_own_written_approval
+        PASS [   0.097s] ( 14/158) hdd-acceptance config::tests::the_non_load_profiles_do_not_need_the_load_approval
+        PASS [   0.116s] ( 15/158) hdd-acceptance config::tests::properties::a_truncated_profile_never_panics
+        PASS [   0.184s] ( 16/158) hdd-acceptance config::tests::properties::load_profile_text_never_panics_on_hostile_input
+        PASS [   0.815s] ( 17/158) hdd-acceptance control::tests::an_auto_runner_ip_is_unverified_stage_not_reached
+        PASS [   0.819s] ( 18/158) hdd-acceptance control::tests::a_runner_inside_admin_cidrs_is_refused
+        PASS [   0.818s] ( 19/158) hdd-acceptance control::tests::hostile_remote_arguments_stay_one_argv_element
+        PASS [   0.819s] ( 20/158) hdd-acceptance control::tests::the_runner_ip_from_the_profile_is_used_when_the_caller_supplies_none
+        PASS [   0.815s] ( 21/158) hdd-acceptance control::tests::the_runner_is_bannable_when_it_is_not_in_admin_cidrs
+        PASS [   0.819s] ( 22/158) hdd-acceptance control::tests::the_ssh_command_is_an_argv_vector_with_batch_mode_and_no_shell
+        PASS [   0.815s] ( 23/158) hdd-acceptance control::tests::the_vantage_plan_records_the_count_and_the_sequential_strategy_when_absent
+        PASS [   0.807s] ( 24/158) hdd-acceptance guard::tests::a11_an_unknown_runner_address_refuses_attack_shaped_sends
+        PASS [   0.804s] ( 25/158) hdd-acceptance guard::tests::a1_a_non_allowlisted_target_aborts_before_the_sender_is_called
+        PASS [   0.823s] ( 26/158) hdd-acceptance control::tests::wireguard_and_missing_ssh_fields_are_typed_refusals
+        PASS [   0.809s] ( 27/158) hdd-acceptance guard::tests::a1_one_prepared_request_covers_exactly_one_send_and_one_token
+        PASS [   0.801s] ( 28/158) hdd-acceptance guard::tests::a1_the_allowlisted_targets_reach_the_sender_exactly_once
+        PASS [   0.805s] ( 29/158) hdd-acceptance guard::tests::a2_twenty_tokens_spent_through_the_check_context_make_the_next_prepare_refuse
+        PASS [   0.796s] ( 30/158) hdd-acceptance guard::tests::a4_a_cname_outside_the_set_is_refused
+        PASS [   0.781s] ( 31/158) hdd-acceptance guard::tests::a4_a_rebinding_name_is_refused_on_the_second_hop
+        PASS [   0.718s] ( 32/158) hdd-acceptance guard::tests::a4_hostile_paths_are_refused_before_a_request_exists
+        PASS [   0.078s] ( 33/158) hdd-acceptance guard::tests::a4_the_planned_request_carries_the_resolved_addresses_and_never_follows_redirects
+        PASS [   0.078s] ( 34/158) hdd-acceptance guard::tests::a5_a_stale_ticket_and_a_non_enforcing_site_are_refused
+        PASS [   0.080s] ( 35/158) hdd-acceptance guard::tests::a5_a_ticket_for_another_path_method_or_site_is_refused
+        PASS [   0.080s] ( 36/158) hdd-acceptance guard::tests::a5_an_attack_shaped_request_without_an_inspect_ticket_is_refused
+        PASS [   0.082s] ( 37/158) hdd-acceptance guard::tests::a_connector_without_a_config_revision_is_refused
+        PASS [   0.082s] ( 38/158) hdd-acceptance guard::tests::a_normalised_target_reaches_the_sender_in_lower_case_without_a_trailing_dot
+        PASS [   0.074s] ( 39/158) hdd-acceptance guard::tests::an_empty_profile_yields_no_connector
+        PASS [   0.076s] ( 40/158) hdd-acceptance guard::tests::lab_mode_refuses_live_names
+        PASS [   0.077s] ( 41/158) hdd-acceptance guard::tests::no_send_function_exists_in_this_crate
+        PASS [   0.081s] ( 42/158) hdd-acceptance guard::tests::load_and_protocol_abuse_may_only_target_the_sandbox
+        PASS [   0.078s] ( 43/158) hdd-acceptance guard::tests::pilot_allows_destructive_checks_with_a_warning
+        PASS [   0.078s] ( 44/158) hdd-acceptance guard::tests::the_egress_gate_denies_by_default_and_allows_listed_infrastructure_destinations
+        PASS [   0.083s] ( 45/158) hdd-acceptance guard::tests::production_refuses_a_destructive_check_from_the_spec_flag
+        PASS [   0.079s] ( 46/158) hdd-acceptance guard::tests::the_kill_switch_and_the_abort_latch_stop_a_request_before_it_is_sent
+        PASS [   0.079s] ( 47/158) hdd-acceptance guard::tests::the_payload_class_rules_are_enforced_before_the_sender
+        PASS [   0.078s] ( 48/158) hdd-acceptance guard::tests::the_target_guard_is_derived_from_the_profile_only
+        PASS [   0.073s] ( 49/158) hdd-acceptance inspect::tests::a5_a_changed_config_revision_fails_the_gate
+        PASS [   0.073s] ( 50/158) hdd-acceptance inspect::tests::a5_a_false_would_block_fails_the_gate_without_a_ticket
+        PASS [   0.071s] ( 51/158) hdd-acceptance inspect::tests::a_malformed_answer_fails_closed
+        PASS [   0.071s] ( 52/158) hdd-acceptance inspect::tests::a_monitor_site_or_safe_mode_is_not_enforcing
+        PASS [   0.069s] ( 53/158) hdd-acceptance inspect::tests::a_transport_failure_fails_closed
+        PASS [   0.069s] ( 54/158) hdd-acceptance inspect::tests::an_empty_site_is_refused_without_calling_the_client
+        PASS [   0.073s] ( 55/158) hdd-acceptance inspect::tests::the_gate_calls_the_client_once_per_check
+        PASS [   0.070s] ( 56/158) hdd-acceptance inspect::tests::the_happy_path_issues_a_ticket_bound_to_the_request_revision_and_enforcement_state
+        PASS [   0.066s] ( 57/158) hdd-acceptance inspect::tests::the_inspect_request_uses_the_documented_endpoint
+        PASS [   0.069s] ( 58/158) hdd-acceptance limits::tests::a10_a_burst_cannot_double_the_rate_inside_one_second
+        PASS [   0.069s] ( 59/158) hdd-acceptance limits::tests::a10_the_duration_cap_is_half_open_at_exactly_three_hundred_seconds
+        PASS [   0.065s] ( 60/158) hdd-acceptance limits::tests::a2_the_check_level_ceiling_binds_below_the_shared_one
+        PASS [   0.070s] ( 61/158) hdd-acceptance limits::tests::a10_the_functional_window_allows_at_most_twenty_requests_in_any_one_second
+        PASS [   0.069s] ( 62/158) hdd-acceptance limits::tests::a2_the_shared_and_the_check_budget_are_both_enforced_and_a_shared_refusal_refunds_the_check
+        PASS [   0.070s] ( 63/158) hdd-acceptance limits::tests::a_check_cannot_raise_the_functional_ceiling_but_may_lower_it
+        PASS [   0.074s] ( 64/158) hdd-acceptance limits::tests::a_profile_rank_decides_whether_a_check_may_use_it
+        PASS [   0.073s] ( 65/158) hdd-acceptance limits::tests::a_refused_request_does_not_consume_the_window_it_was_refused_from
+        PASS [   0.074s] ( 66/158) hdd-acceptance limits::tests::a_window_refund_gives_the_grant_back
+        PASS [   0.074s] ( 67/158) hdd-acceptance limits::tests::one_limiter_is_shared_by_every_check_of_the_run
+        PASS [   0.074s] ( 68/158) hdd-acceptance limits::tests::the_burst_profile_caps_one_hundred_http_requests_and_five_hundred_dns_queries
+        PASS [   0.073s] ( 69/158) hdd-acceptance limits::tests::the_denial_messages_name_the_lane_and_the_ceiling
+        PASS [   0.073s] ( 70/158) hdd-acceptance limits::tests::the_five_profiles_are_the_spec_set_and_parse_as_whole_tokens
+        PASS [   0.076s] ( 71/158) hdd-acceptance limits::tests::the_lab_and_load_ceilings_are_five_hundred_and_one_hundred_per_second
+        PASS [   0.073s] ( 72/158) hdd-acceptance limits::tests::the_protocol_abuse_profile_caps_connections_frames_and_bytes
+        PASS [   0.074s] ( 73/158) hdd-acceptance registry::tests::a4_a_dry_run_emits_one_status_line_per_registered_id
+        PASS [   0.078s] ( 74/158) hdd-acceptance registry::tests::a4_the_master_specification_agrees_with_the_registry_whole_token
+        PASS [   0.076s] ( 75/158) hdd-acceptance registry::tests::a4_the_rendered_dry_run_report_has_one_row_per_id
+        PASS [   0.075s] ( 76/158) hdd-acceptance registry::tests::a4_the_split_specification_agrees_with_the_registry_whole_token
+        PASS [   0.071s] ( 77/158) hdd-acceptance registry::tests::a_dry_run_with_a_missing_id_is_refused
+        PASS [   0.071s] ( 78/158) hdd-acceptance registry::tests::every_registry_row_is_a_whole_token_id_with_a_title_and_a_tier
+        PASS [   0.071s] ( 79/158) hdd-acceptance registry::tests::the_ac_table_is_cross_checked_not_trusted
+        PASS [   0.073s] ( 80/158) hdd-acceptance registry::tests::the_mismatch_messages_name_the_problem
+        PASS [   0.072s] ( 81/158) hdd-acceptance registry::tests::the_parser_does_not_mistake_substrings_or_prose_for_ids
+        PASS [   0.073s] ( 82/158) hdd-acceptance registry::tests::the_registry_has_the_sixty_three_expected_ids_in_order
+        PASS [   0.074s] ( 83/158) hdd-acceptance report::tests::a11_a_log_tail_with_backticks_gets_a_longer_fence
+        PASS [   0.076s] ( 84/158) hdd-acceptance report::tests::a11_the_evidence_store_refuses_paths_that_escape_its_directory
+        PASS [   0.076s] ( 85/158) hdd-acceptance report::tests::a6_a_marker_value_in_a_free_form_field_is_redacted_and_the_json_stays_valid
+        PASS [   0.077s] ( 86/158) hdd-acceptance report::tests::a6_an_exact_secret_is_redacted_in_raw_and_json_escaped_form
+        PASS [   0.081s] ( 87/158) hdd-acceptance report::tests::a6_multiple_markers_on_one_line_are_all_redacted
+        PASS [   0.081s] ( 88/158) hdd-acceptance report::tests::a6_redaction_is_structural_by_field_name_and_does_not_need_the_secret_registered
+        PASS [   0.079s] ( 89/158) hdd-acceptance report::tests::a7_both_renderers_cap_evidence_after_redaction_on_a_utf8_boundary
+        PASS [   0.079s] ( 90/158) hdd-acceptance report::tests::a8_resume_keeps_pass_lines_and_reruns_everything_else
+        PASS [   0.080s] ( 91/158) hdd-acceptance report::tests::a8_resume_refuses_a_report_from_another_run_shape
+        PASS [   0.080s] ( 92/158) hdd-acceptance report::tests::a_pass_without_evidence_is_refused_by_both_renderers
+        PASS [   0.080s] ( 93/158) hdd-acceptance report::tests::a_planted_secret_never_appears_in_either_rendered_format
+        PASS [   0.082s] ( 94/158) hdd-acceptance report::tests::a_saved_log_is_redacted_before_it_is_written
+        PASS [   0.082s] ( 95/158) hdd-acceptance report::tests::a_saved_log_keeps_its_sha256_verifiable_and_embeds_the_tail
+        PASS [   0.080s] ( 96/158) hdd-acceptance report::tests::a_status_line_of_an_unregistered_shape_is_still_refused
+        PASS [   0.083s] ( 97/158) hdd-acceptance report::tests::an_oversized_or_unknown_json_report_is_refused_not_panicked
+        PASS [   0.081s] ( 98/158) hdd-acceptance report::tests::counts_survive_a_json_round_trip
+        PASS [   0.079s] ( 99/158) hdd-acceptance report::tests::duplicate_check_ids_are_refused
+        PASS [   0.081s] (100/158) hdd-acceptance report::tests::hostile_values_cannot_break_the_markdown_table
+        PASS [   0.076s] (101/158) hdd-acceptance report::tests::one_status_line_per_report_id_in_both_formats
+        PASS [   0.278s] (102/158) hdd-acceptance limits::tests::a2_the_measured_run_holds_twenty_per_second_for_all_three_hundred_seconds
+        PASS [   0.084s] (103/158) hdd-acceptance report::tests::properties::the_fence_is_always_longer_than_any_backtick_run
+        PASS [   0.075s] (104/158) hdd-acceptance report::tests::report_golden_json
+        PASS [   0.077s] (105/158) hdd-acceptance report::tests::report_golden_markdown
+        PASS [   0.077s] (106/158) hdd-acceptance report::tests::the_redactor_keeps_digests_and_redacts_marked_values
+        PASS [   0.075s] (107/158) hdd-acceptance report::tests::the_timestamp_is_iso8601_utc
+        PASS [   0.076s] (108/158) hdd-acceptance runner::tests::a3_a_check_profile_may_not_exceed_the_run_profile
+        PASS [   0.078s] (109/158) hdd-acceptance runner::tests::a3_a_destructive_check_is_refused_in_production_before_the_body_runs
+        PASS [   0.077s] (110/158) hdd-acceptance runner::tests::a3_a_destructive_check_runs_in_pilot_and_the_flag_reaches_the_context
+        PASS [   0.078s] (111/158) hdd-acceptance runner::tests::a3_the_check_level_limiter_uses_the_check_profile
+        PASS [   0.079s] (112/158) hdd-acceptance runner::tests::a8_a_dependent_of_a_failed_check_is_unverified_dependency_not_met
+        PASS [   0.143s] (113/158) hdd-acceptance report::tests::properties::tail_lines_never_panics
+        PASS [   0.081s] (114/158) hdd-acceptance runner::tests::a8_a_dependent_of_an_unverified_check_does_not_run
+        PASS [   0.078s] (115/158) hdd-acceptance runner::tests::a8_a_failing_ac00_stops_the_run
+        PASS [   0.066s] (116/158) hdd-acceptance runner::tests::a9_a_signal_between_two_checks_stops_the_run_before_the_next_body
+        PASS [   0.071s] (117/158) hdd-acceptance runner::tests::a_dependency_cycle_is_reported
+        PASS [   0.163s] (118/158) hdd-acceptance report::tests::properties::the_redactor_never_panics_and_never_keeps_a_registered_secret
+        PASS [   0.070s] (119/158) hdd-acceptance runner::tests::a_duplicate_id_a_bad_id_and_a_zero_timeout_are_reported
+        PASS [   0.185s] (120/158) hdd-acceptance report::tests::properties::from_json_never_panics_on_arbitrary_text
+        PASS [   0.085s] (121/158) hdd-acceptance runner::tests::a_completed_check_keeps_its_own_verdict
+        PASS [   0.069s] (122/158) hdd-acceptance runner::tests::a_kill_switch_that_is_already_set_aborts_before_the_check_body_runs
+        PASS [   0.069s] (123/158) hdd-acceptance runner::tests::a_panicking_check_is_caught_counted_and_its_cleanup_runs
+        PASS [   0.067s] (124/158) hdd-acceptance runner::tests::a_panicking_cleanup_action_does_not_stop_the_others
+        PASS [   0.067s] (125/158) hdd-acceptance runner::tests::a_pass_without_evidence_is_turned_into_a_fail
+        PASS [   0.061s] (126/158) hdd-acceptance runner::tests::an_unknown_dependency_is_reported
+        PASS [   0.065s] (127/158) hdd-acceptance runner::tests::cleanup_runs_when_a_check_fails
+        PASS [   0.063s] (128/158) hdd-acceptance runner::tests::order_runs_dependencies_first_and_is_stable
+        PASS [   0.125s] (129/158) hdd-acceptance runner::tests::a8_a_per_check_timeout_fails_only_that_check
+        PASS [   0.064s] (130/158) hdd-acceptance runner::tests::run_plan_executes_in_order
+        PASS [   0.054s] (131/158) hdd-acceptance runner::tests::the_abort_causes_display_honestly
+        PASS [   0.056s] (132/158) hdd-acceptance runner::tests::the_cleanup_stack_runs_last_in_first_out
+        PASS [   0.059s] (133/158) hdd-acceptance runner::tests::the_shared_limiter_is_one_instance_for_all_checks
+        PASS [   0.060s] (134/158) hdd-acceptance status::tests::a_bad_id_is_refused
+        PASS [   0.063s] (135/158) hdd-acceptance status::tests::a_pass_without_hashed_evidence_is_not_representable
+        PASS [   0.067s] (136/158) hdd-acceptance status::tests::check_ids_are_whole_tokens
+        PASS [   0.066s] (137/158) hdd-acceptance status::tests::counts_total_every_line
+        PASS [   0.067s] (138/158) hdd-acceptance status::tests::every_status_renders_the_taxonomy_of_e3_1
+        PASS [   0.066s] (139/158) hdd-acceptance status::tests::fail_and_unverified_need_no_evidence_but_keep_their_reason
+        PASS [   0.062s] (140/158) hdd-acceptance status::tests::the_reason_set_is_closed_and_round_trips_by_code
+        PASS [   0.061s] (141/158) hdd-acceptance status::tests::verdicts_serialise_with_their_status_tag
+        PASS [   0.080s] (142/158) hdd-acceptance::cli a_lab_run_without_a_lab_profile_is_refused
+        PASS [   0.080s] (143/158) hdd-acceptance::cli a_profile_that_does_not_parse_is_refused
+        PASS [   0.085s] (144/158) hdd-acceptance::cli a_load_run_without_the_operators_approval_is_refused
+        PASS [   0.084s] (145/158) hdd-acceptance::cli a_profile_with_missing_required_fields_is_refused
+        PASS [   0.082s] (146/158) hdd-acceptance::cli a_resume_without_a_previous_report_is_a_usage_error
+        PASS [   0.083s] (147/158) hdd-acceptance::cli a_run_without_a_profile_is_a_usage_error
+        PASS [   0.105s] (148/158) hdd-acceptance::cli a_resume_keeps_a_previous_pass_line
+        PASS [   0.085s] (149/158) hdd-acceptance::cli an_invalid_operator_approval_ticket_is_a_usage_error
+        PASS [   0.097s] (150/158) hdd-acceptance::cli a_valid_operator_approval_ticket_is_accepted
+        PASS [   0.086s] (151/158) hdd-acceptance::cli an_unknown_load_profile_is_a_usage_error
+        PASS [   0.096s] (152/158) hdd-acceptance::cli a_valid_profile_is_accepted_and_reports_the_environment_facts
+        PASS [   0.092s] (153/158) hdd-acceptance::cli no_cli_invocation_reaches_the_network
+        PASS [   0.215s] (154/158) hdd-acceptance runner::tests::a_signal_aborts_a_running_check_and_cleanup_runs
+        PASS [   0.085s] (155/158) hdd-acceptance::cli the_operator_approval_flag_is_named_as_the_spec_names_it
+        PASS [   0.094s] (156/158) hdd-acceptance::cli the_dry_run_writes_both_report_formats_and_the_log
+        PASS [   0.068s] (157/158) hdd-acceptance::cli the_registry_command_lists_all_sixty_three_checks
+        PASS [   0.348s] (158/158) hdd-acceptance runner::tests::a3_the_kill_switch_aborts_a_running_check_within_one_second_and_cleanup_runs
+────────────
+     Summary [   1.581s] 158 tests run: 158 passed, 0 skipped
+exit code: 0
+
+== cargo test -p hdd-acceptance --doc ==
+
+$ cargo test -p hdd-acceptance --doc
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.23s
+   Doc-tests hdd_acceptance
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+exit code: 0
+
+== cargo run -p hdd-acceptance -- registry ==
+
+$ cargo run -q -p hdd-acceptance -- registry
+# | ID | Tier | Built in | Title
+| AC-00 | smoke | P11 (T-0217) | Preflight and safety-envelope self-tests |
+| AC-01 | nondestructive (login checks); pilot-full | P06 gate (T-0136) | Authentication and admin isolation |
+| AC-02 | pilot-full | P08/P09 (T-0157, T-0184) | Zone import and parity |
+| AC-03 | nondestructive | P11 basic (T-0218) | Authoritative DNS (real path) |
+| AC-04 | pilot-full | P11 staging (T-0218) | Real TLS and certificates |
+| AC-05 | smoke | P11 canary subset (T-0218) | Legitimate traffic and pass-through fidelity |
+| AC-06 | pilot-full | P13 (T-0255) | False-positive baseline |
+| AC-07 | pilot-full | P13/P14 (T-0283) | Detection matrix |
+| AC-08 | pilot-full | P16 (T-0330) | Ban persistence, enforcement and unban |
+| AC-09 | pilot-full | P15 (T-0314) | Other attack classes (XSS, LFI, RCE, XXE, SSRF-parameter, CRLF, deserialization, upload, honeypots) |
+| AC-10 | pilot-full | P21 (T-0415) | Outbound leak control |
+| AC-11 | pilot-full | P17 (T-0351) | Rate limiting |
+| AC-12 | pilot-full | P12 (T-0229) | Dynamic rules and dry-run |
+| AC-13 | pilot-full | P18 (T-0374) | Modes, safe mode and automatic rollback |
+| AC-14 | pilot-full | P18 (T-0373) | Protocol hardening |
+| AC-15 | pilot-full (announced) | P18 subset (T-0362) | Resilience |
+| AC-16 | pilot-full | P18 subset | Config revisions and convergence |
+| AC-17 | pilot-full | P08 (T-0163) | SSRF and configuration safety |
+| AC-18 | pilot-full | P21 (T-0415) | Origin protection |
+| AC-19 | release | P04 (T-0093) | Dashboard and headers (frontend security) |
+| AC-20 | nondestructive | P11 (metrics) | Observability and alerting |
+| AC-21 | pilot-full | P20 (T-0402) | Secondary DNS and zone transfers |
+| AC-22 | smoke | P16 (T-0315) | Client-IP resolution live |
+| AC-23 | pilot-full | P20 (T-0403) | Cutover continuity |
+| AC-24 | release | P29 (T-0511) | Performance qualification |
+| AC-25 | pilot-full | P26 (T-0476, T-0479) | Upstream DDoS readiness (documentation and dry-run) |
+| AC-26 | lab-full | P25 (T-0471) | XDP early drop |
+| AC-27 | lab-full + pilot dry-run | P26 (T-0479) | Shield escalation and edge failover rehearsal |
+| AC-28 | lab-full | P20 (T-0398, T-0402) | DNS amplification and abuse controls |
+| AC-29 | lab-full | P25 (T-0471) | Kernel tuning and firewall baseline |
+| AC-30 | pilot-full | P27 (T-0489) | Inventory and exposure board |
+| AC-31 | pilot-full | P27 (T-0489) | Virtual patches |
+| AC-32 | pilot-full | P27 (T-0489) | Posture scan and origin hardening |
+| AC-33 | release | P29 (T-0516, T-0518) | Supply chain and signed updates |
+| AC-34 | nondestructive subset; pilot-full | P16 (T-0330) | Ban-poisoning resistance |
+| AC-35 | nondestructive (login only); release | P06 (T-0133) | Identity end to end |
+| AC-36 | release | P06 (T-0128) | Tenant isolation (RLS and BOLA) |
+| AC-37 | pilot-full | P08 (T-0175) | Onboarding in every integration mode |
+| AC-38 | lab-full | P28 (T-0497) | Vulnerable-origin proof |
+| AC-39 | lab-full | P14 (T-0283) | SQL injection ban matrix and oracle campaign |
+| AC-40 | release | P04/P07 (T-0091, T-0151) | Accessibility (WCAG 2.2 AA) |
+| AC-41 | release | P05 (T-0104) | Public pages quality |
+| AC-42 | release | P22 (T-0439) | Admin operations and tenant lifecycle |
+| AC-43 | release | P16 (T-0324) | Appeals |
+| AC-44 | lab-full | P17 (T-0351) | Challenge and bots |
+| AC-45 | pilot-full | P24 (T-0461) | Notifications, webhooks and public API |
+| AC-46 | pilot-full | P28 (T-0504) | Email security |
+| AC-47 | release | P06 (T-0131) | Audit log and data export/deletion |
+| AC-48 | lab-full | P17/P28 (T-0501) | Scanner and bot-tool detection |
+| AC-49 | pilot-full | P15 (T-0314) | Injection and other detector groups (AG-02 to AG-07) |
+| AC-50 | pilot-full | P15 (T-0302 to T-0305) | API, GraphQL and WebSocket protection |
+| AC-51 | pilot-full | P22/P16 (T-0323, T-0424) | Global jail and never-ban |
+| AC-52 | release | P23 (T-0451) | Analytics correctness |
+| AC-53 | release | P08 (T-0172, T-0175) | Protection Readiness Score correctness |
+| AC-54 | release | P30 (T-0523, T-0524, T-0529) | Backups, restore, upgrade and disaster recovery |
+| AC-55 | local; release | P33 (T-0564, T-0578) | Local runtime and profile parity |
+| AC-56 | pilot-full; release | P33 (T-0571 to T-0574) | 24/7 hosting readiness |
+| AC-57 | pilot-full; lab-full | P33 (T-0575 to T-0577) | Access gate, API discovery and business flows |
+| AC-58 | release | P33 (T-0578) | Coverage map integrity and claims wording |
+| AC-59 | pilot-full; lab-full; release | P34 (T-0581, T-0585, T-0599) | Sentinel safety, robustness and shadow evidence |
+| AC-60 | pilot-full; lab-full; release | P34 (T-0588 to T-0592, T-0599) | Bypass Guard and go-live gate |
+| AC-61 | lab-full; release | P34 (T-0594 to T-0596, T-0599) | Known-vulnerability coverage and ATK-301 to ATK-390 |
+| AC-62 | lab-full; release | P34 (T-0593, T-0597, T-0598, T-0599) | Additional hardening |
+
+63 checks registered (AC-00 to AC-62). Every check is UNVERIFIED(stage_not_reached) in this skeleton.
+exit code: 0
+
+== dry run ==
+
+$ cargo run -q -p hdd-acceptance -- run --dry-run --out acceptance-b2r1-dryrun
+report.md: acceptance-b2r1-dryrun\report.md (sha256 c21f1eab6e627b305a728a3bd4b868d21a0c916939fbb2bdee6934a124b10687)
+report.json: acceptance-b2r1-dryrun\report.json (sha256 4d596571f39d47a3af473ea7ecd92773d3931553e1635e65b009ad965f93cdb9)
+63 checks: 0 PASS, 0 FAIL, 63 UNVERIFIED; stage not loaded; mode live; load profile functional; vantages 0
+exit code: 0
+
+== resume from the dry-run report ==
+
+$ cargo run -q -p hdd-acceptance -- run --dry-run --resume acceptance-b2r1-dryrun --out acceptance-b2r1-resumed
+report.md: acceptance-b2r1-resumed\report.md (sha256 133f847039b0d9622d65d3560a5af37c316513cc9c9cd9f3369d51b383ce0385)
+report.json: acceptance-b2r1-resumed\report.json (sha256 1cb79d379a93bc6796581532b4fed089f7c191f91ca6217ec974807975cca936)
+63 checks: 0 PASS, 0 FAIL, 63 UNVERIFIED; stage not loaded; mode live; load profile functional; vantages 0
+exit code: 0
+
+== an invalid --operator-approval ticket is refused ==
+
+$ cargo run -q -p hdd-acceptance -- run --dry-run --operator-approval no-keys
+hdd-acceptance: run approval: ticket part `no-keys` is not `key=value`
+exit code: 2
+
+== a valid --operator-approval ticket is accepted for a load run ==
+
+$ cargo run -q -p hdd-acceptance -- run --profile "C:\Users\Raghu\AppData\Local\Temp\t0215-b2r1-profile\hdd.live.yaml" --load-profile load --operator-approval "run=run-20261020-01; window=2026-10-21 02:00-03:00 UTC" --out acceptance-b2r1-approval
+report.md: acceptance-b2r1-approval\report.md (sha256 c41d74f5bf0077cf70bc8edcd4708bc3f12fdf7ac5469f895ada238bacddd650)
+report.json: acceptance-b2r1-approval\report.json (sha256 0d023c69e0bde673a3a20916c7a48f47eb21a89809c5ff9bc6ea78147a9ea153)
+63 checks: 0 PASS, 0 FAIL, 63 UNVERIFIED; stage pilot; mode live; load profile load; vantages 0
+exit code: 0
+
+artifact hashes:
+  acceptance-b2r1-dryrun/report.md  SHA256=C21F1EAB6E627B305A728A3BD4B868D21A0C916939FBB2BDEE6934A124B10687  bytes=6824
+  acceptance-b2r1-dryrun/report.json  SHA256=4D596571F39D47A3AF473EA7ECD92773D3931553E1635E65B009AD965F93CDB9  bytes=15735
+  acceptance-b2r1-dryrun/run.log  SHA256=5E91D03B31678958059BE75E310352F741DC319955538E574E5D9A366D89FDA0  bytes=370
+  acceptance-b2r1-resumed/report.json  SHA256=1CB79D379A93BC6796581532B4FED089F7C191F91CA6217EC974807975CCA936  bytes=15914
+  acceptance-b2r1-approval/report.json  SHA256=0D023C69E0BDE673A3A20916C7A48F47EB21A89809C5FF9BC6EA78147A9EA153  bytes=16165
+
+Exit codes: fmt=0 clippy=0 nextest=0 doctest=0 registry=0 dry-run=0 resume=0 bad-ticket=2 good-ticket=0
+
+The two refusal checks (invalid ticket, load without approval) are also covered by cargo nextest CLI tests; the dry-run/resume
+artefacts are under git-ignored acceptance-*/ and the committed evidence is this file plus the red and demo files.

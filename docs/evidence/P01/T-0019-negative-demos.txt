@@ -1,0 +1,145 @@
+T-0019 negative demos: pass A and pass B
+Each mutation below is applied to a backed-up file, the named check is run, the file is restored, and the
+SHA-256 of the restored file is compared with the SHA-256 before the mutation.
+
+--- A1 remove the Translation guidance section ---
+file     : docs/UX/CONTENT.md
+mutation : ## Translation guidance  ->  ## Notes for translators
+command  : ux
+  [ux-docs] docs/UX/CONTENT.md: the `## Translation guidance` section is missing (T-0019 step 1 to 8)
+  [ux-docs] docs/UX/CONTENT.md: the `## Translation guidance` section is missing (T-0019 A4)
+  ux-docs: FAIL (2 finding(s))
+exit code : 1
+sha256 before   : 4F79732DD996A72D22FBAFE6FE70C0A6E2269F517E23299E68B97DD28AC461C5
+sha256 mutated  : 8C07DEA6121C88DA887FE42C298A3D627855915304C5E53AF3FD3A26AB423E2A
+sha256 restored : 4F79732DD996A72D22FBAFE6FE70C0A6E2269F517E23299E68B97DD28AC461C5
+restored identically: True
+
+--- A2 make an avoided term canonical ---
+file     : docs/UX/CONTENT.md
+mutation : | Traffic through HDD | proxied | orange cloud, on cloud | The state describes the record, not another product's icon. |  ->  | Traffic through HDD | site | orange cloud, on cloud | The state describes the record, not another product's icon. |
+command  : ux
+  [ux-docs] docs/UX/CONTENT.md: the canonical term "site" of the row at line 35 is also an avoided term in the `Avoid` cell at line 34; each concept has one term (T-0019 step 1)
+  ux-docs: FAIL (2 finding(s))
+exit code : 1
+sha256 before   : 4F79732DD996A72D22FBAFE6FE70C0A6E2269F517E23299E68B97DD28AC461C5
+sha256 mutated  : FE45C6310AC4650170478DC79FBB568C5DAAE3BCC6DACD147E41BFE2D0065F7A
+sha256 restored : 4F79732DD996A72D22FBAFE6FE70C0A6E2269F517E23299E68B97DD28AC461C5
+restored identically: True
+
+--- A3 drop a B13 key from the review table ---
+file     : docs/UX/CONTENT.md
+mutation : | `readiness-footnote` | pass | The required footnote; readiness is not a security measure. |  ->  
+command  : ux
+  [ux-docs] docs/UX/CONTENT.md: the B13 review is missing the key stem "readiness-footnote" (T-0019 step 8)
+  ux-docs: FAIL (1 finding(s))
+exit code : 1
+sha256 before   : 4F79732DD996A72D22FBAFE6FE70C0A6E2269F517E23299E68B97DD28AC461C5
+sha256 mutated  : 26CA5FA0BA67DCFA578ABE2577007777D2B46C965E06546F567C420E824ECE04
+sha256 restored : 4F79732DD996A72D22FBAFE6FE70C0A6E2269F517E23299E68B97DD28AC461C5
+restored identically: True
+
+--- A4 split a glossary definition into two sentences ---
+file     : docs/UX/glossary.md
+mutation : A filter that inspects web requests and blocks those that match a rule.  ->  A filter that inspects web requests. It blocks matching requests.
+command  : ux
+  [ux-docs] docs/UX/glossary.md: the definition of "WAF" at line 11 must be exactly one sentence (T-0019 A1)
+  ux-docs: FAIL (1 finding(s))
+exit code : 1
+sha256 before   : 891A3D1331E3EAC878995A533C90C828626469C36E06B92926070463D7D69444
+sha256 mutated  : 280DA6BE99F9CBE9CCE20635B927693AB9CB0E254CAAE580BDA7F71620FDF56E
+sha256 restored : 891A3D1331E3EAC878995A533C90C828626469C36E06B92926070463D7D69444
+restored identically: True
+
+--- A5 drop a term from the translator glossary ---
+file     : i18n/glossary.md
+mutation : | XSS | An attack that puts script into a page so it runs in a visitor's browser. | yes |\n  ->  
+command  : ux
+  [ux-docs] i18n/glossary.md: the translator glossary does not carry the term "xss"
+  ux-docs: FAIL (1 finding(s))
+exit code : 1
+sha256 before   : 661409839EF8AB897AB5DA61A74EB705CD3B49037910FA5B7EE4C414971D3273
+sha256 mutated  : CDF6D16CBC1537554933E9F9C9C7576C5602C3C20ACBCEC0AEBB38C1F860EE0A
+sha256 restored : 661409839EF8AB897AB5DA61A74EB705CD3B49037910FA5B7EE4C414971D3273
+restored identically: True
+
+--- B1 put an emoji in a copy-deck value ---
+file     : i18n/en/copy-deck.ftl
+mutation : admin-banner = Platform admin  ->  admin-banner = Platform admin 🚀
+command  : ux
+  [ux-docs] i18n/en/copy-deck.ftl: the value of "admin-banner" at line 44 contains an emoji
+  [ux-docs] i18n/en/copy-deck.ftl: the value of "admin-banner" at line 44 differs from the B13 text in the master specification
+  ux-docs: FAIL (2 finding(s))
+exit code : 1
+sha256 before   : 66C7C94298DB4B02F3F93C3F13502135A395221B74D494DC8120ED76190EA8BF
+sha256 mutated  : BE123378D9617F9B27C93133ED355EFE6D575A1FB901A5968CC1962F2E6F852F
+sha256 restored : 66C7C94298DB4B02F3F93C3F13502135A395221B74D494DC8120ED76190EA8BF
+restored identically: True
+
+--- B2 change a copy-deck value away from the B13 text ---
+file     : i18n/en/copy-deck.ftl
+mutation : tagline = Put a firewall in front of your website. See what it blocks. Undo anything.  ->  tagline = Put a shield in front of your website. See what it stops.
+command  : ux
+  [ux-docs] i18n/en/copy-deck.ftl: the value of "tagline" at line 7 differs from the B13 text in the master specification
+  ux-docs: FAIL (1 finding(s))
+exit code : 1
+sha256 before   : 66C7C94298DB4B02F3F93C3F13502135A395221B74D494DC8120ED76190EA8BF
+sha256 mutated  : FE540F0E9AF2229C8756D2EC068EA313FECD49B3398F62DD7BE8DC4280DA4CE8
+sha256 restored : 66C7C94298DB4B02F3F93C3F13502135A395221B74D494DC8120ED76190EA8BF
+restored identically: True
+
+--- B3 drop a B13 key from the copy deck ---
+file     : i18n/en/copy-deck.ftl
+mutation : admin-banner = Platform admin\n  ->  
+command  : ux
+  [ux-docs] i18n/en/copy-deck.ftl: the copy deck is missing the B13 key "admin-banner"
+  ux-docs: FAIL (1 finding(s))
+exit code : 1
+sha256 before   : 66C7C94298DB4B02F3F93C3F13502135A395221B74D494DC8120ED76190EA8BF
+sha256 mutated  : F16711B2BFF6AD00637560DE6DC18C1574191125B34BC6DA06B6E3765CE5DC7E
+sha256 restored : 66C7C94298DB4B02F3F93C3F13502135A395221B74D494DC8120ED76190EA8BF
+restored identically: True
+
+--- B4 give two keys the same value ---
+file     : i18n/en/copy-deck.ftl
+mutation : admin-banner = Platform admin  ->  admin-banner = Create your account
+command  : ux
+  [ux-docs] i18n/en/copy-deck.ftl: the keys signup-title, admin-banner share the same value "Create your account", so a translator cannot tell them apart
+  [ux-docs] i18n/en/copy-deck.ftl: the value of "admin-banner" at line 44 differs from the B13 text in the master specification
+  ux-docs: FAIL (2 finding(s))
+exit code : 1
+sha256 before   : 66C7C94298DB4B02F3F93C3F13502135A395221B74D494DC8120ED76190EA8BF
+sha256 mutated  : 16A327762C944A24268B8DA447F45C05F98E31AB5CCFE726EAAA0154DBE9F525
+sha256 restored : 66C7C94298DB4B02F3F93C3F13502135A395221B74D494DC8120ED76190EA8BF
+restored identically: True
+
+--- B5 unscoped claim word in a public-copy path ---
+file     : i18n/en/copy-deck.ftl
+mutation : admin-banner = Platform admin  ->  admin-banner = Platform admin\n# We protect your site.
+command  : claims
+  [claims] i18n/en/copy-deck.ftl:45: the claim word "protect" has no scope term within 12 words on this line; say what was tested, measured, scoped or is a known limitation, or remove the claim (claims context rule)
+  claims-lint: FAIL (1 finding(s))
+exit code : 1
+sha256 before   : 66C7C94298DB4B02F3F93C3F13502135A395221B74D494DC8120ED76190EA8BF
+sha256 mutated  : E21A26850C116D4A812CB183DF42EC766F3C23BB5FFF0E0EAF95491157180AF2
+sha256 restored : 66C7C94298DB4B02F3F93C3F13502135A395221B74D494DC8120ED76190EA8BF
+restored identically: True
+
+--- B6 claims window at 13 words (fixture expects pass) ---
+file     : docs/claims-fixtures.toml
+mutation : sentence = "The protection is measured on our reference lab."  ->  sentence = "protection word word word word word word word word word word word word measured"
+command  : fixture
+  FAIL [   0.021s] (1/1) hdd-xtask::bin/hdd-xtask
+  test claims::tests::context_fixtures_hold_under_the_shipped_configuration ... FAILED
+  failures:
+  failures:
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 287 filtered out; finished in 0.01s
+exit code : 100
+sha256 before   : 06B97EE53867FF9447ADDFDDD80FD1640DFF453E3B82100EC26EA0DC2C0EE23D
+sha256 mutated  : DDBA3E9EC7416CC7AD882579943CB413E0E40415ED22F237C2E231967EDD759F
+sha256 restored : 06B97EE53867FF9447ADDFDDD80FD1640DFF453E3B82100EC26EA0DC2C0EE23D
+restored identically: True
+
+===== restored tree =====
+cargo xtask ux-docs -> exit 0: ux-docs: PASS
+cargo xtask claims-lint -> exit 0: claims-lint: scanned 213 files with 34 phrases and 1 context rules claims-lint: PASS

@@ -1,0 +1,74 @@
+# T-0215 batch-B2 round 3 - final state note (COMPLETE)
+
+Status: **round 3 (S-1..S-10) is finished and the tree is green.** Nothing is committed (no commit was allowed) and no
+lead-owned/shared file and no other teammate's crate was edited; the changes are confined to `crates/hdd-acceptance/**`,
+`docs/ACCEPTANCE.md` and the new `docs/evidence/P11/T-0215-b2r3-*` files.
+
+## Scope note carried through
+
+The round-3 threat model is **a check written by us that makes a mistake, not a hostile check**. Every hole that needs no
+hostile intent is closed; the doc comments (crate root and `docs/ACCEPTANCE.md`) say plainly that the crate-private
+constructors are a **compile-time convention**, not a security boundary, and that the resume binding fields are self-asserted
+JSON without a MAC (a guarantee against stale/accidentally edited reports, not against forgery).
+
+## What changed
+
+* **S-1** The executor holds the validated `RunnerConfig.profile`; `CheckContext::connector()` takes **no** profile argument
+  (the check cannot widen the allowlist). Tests: `runner::tests::s1_a_check_cannot_widen_the_allowlist` plus a compile_fail
+  doc-test for the old two-argument signature.
+* **S-2** The executor owns the one inspect gate; `InspectGate::new`/`check` are `pub(crate)` and
+  `CheckContext::inspect(&InspectRequest)` is the only way to a ticket. A scripted client lives behind `cfg(test)`
+  (`test_support::ScriptedInspectClient`); a compile_fail doc-test proves a check cannot build a gate.
+* **S-3** `PlannedRequest` carries verb, body and headers and the sender is handed exactly those; `GET`/`HEAD` require an empty
+  body and the matching verb; header names/values are validated (CTLs refused); the header digest is length-prefixed so two
+  different header lists cannot collide. Tests: `guard::tests::s3_*`.
+* **S-4** The AC-00 rule is evaluated **before** the unmet-dependency skip: AC-00 with an unmet dependency stops the run, as
+  does an `UNVERIFIED` AC-00. Test: `runner::tests::s4_ac00_with_an_unmet_dependency_stops_the_run`.
+* **S-5** One resume path: the executor calls the same `validate_resume` as the report path (binding, invalid run, future
+  timestamp, max age); a resumed AC-00 PASS never satisfies the self-test (AC-00 always re-runs); resumed lines carry the
+  **verified** path; the no-MAC limit is documented. Tests: `report::tests::s5_*`, `runner::tests::s5_*`.
+* **S-6** `EvidenceRef` fields are private; `EvidenceStore::save_for` records `(check id, run id, name, hash)` and the executor
+  requires that record (another check's file or a leftover from another run is refused); a non-empty `--out` is refused
+  without `--resume`; `Default` is removed from `AbortLatch`/`RunInvalidLatch`; the doc-tests' over-claiming comments are fixed.
+  Tests: `runner::tests::s6_*`, `report::tests::s6_*`, `cli::s6_*`, two new compile_fail doc-tests.
+* **S-7** Markers are matched inside quoted JSON keys, after `_`/`-` suffixes, in camelCase, at every occurrence and in the
+  `--flag value` form; exact secrets are replaced longest first; `add_secret` returns `SecretError::TooShort` for a value under
+  four bytes. The exact review inputs are tested, and the `r12` test now asserts the evidence hash survives (it fails under
+  wholesale document replacement).
+* **S-8** Every safety-envelope denial (`Target`, `Stage`, `ClassCNeverSent`, `ClassBNotSandbox`, `ClassAWithBody`,
+  `ProfileOnlySandbox`, `InspectRequired`, `RunnerNotBannable`) latches `run_invalid` with an audit line, and `run_plan` stops
+  the run after the latch (`AbortCause::RunInvalid`). Tests: `guard::tests::s8_*`, `runner::tests::r8_*`.
+* **S-9** A refund no longer resets the duration clock; the rate window is **closed** (`now - grant <= 1000 ms`, documented in
+  code and `docs/ACCEPTANCE.md`), so no closed 1000 ms interval contains more than N; `with_requested` refuses a zero rate on a
+  profile rate lane (`LimitDenial::ZeroRateOnRateLane`). Tests: `limits::tests::s9_*`; the A-10/A-2/r10 tests were updated to the
+  closed-window boundary.
+* **S-10** `md_inline`/`md_cell` escape a lone `\r` (CommonMark line break) and a log path is rendered in a longer code span for
+  backticks; `safe_evidence_name` covers `CONIN$`, `CONOUT$` and the superscript COM/LPT device numbers; the ticket is consumed
+  at the **end** of `prepare` (after revision/enforcement/resolution/abort checks); `take_cleanup` releases the mutex before
+  running actions; `spec()` is read inside `catch_unwind` (both in `run_one` and in the plan builder, with
+  `PlanError::SpecPanicked`); the unreachable `check_ticket` early return is removed. Tests: `report::tests::s10_*`,
+  `runner::tests::s10_*`, `guard::tests::s10_*`.
+
+## Green state
+
+`cargo nextest run -p hdd-acceptance --no-fail-fast` -> `Summary [...] 218 tests run: 218 passed, 0 skipped`; `cargo fmt -p
+hdd-acceptance -- --check` exit 0; `cargo clippy -p hdd-acceptance --all-targets -- -D warnings` clean; `cargo test -p
+hdd-acceptance --doc` 8 compile-fail doc-tests pass; `cargo check --workspace` green. The full transcript, the CLI refusals
+(including the S-6 non-empty `--out` refusal) and the deliverable SHA-256 values are in
+`docs/evidence/P11/T-0215-b2r3-verify.txt`.
+
+## Evidence
+
+* `docs/evidence/P11/T-0215-b2r3-red.txt` - one re-created red section per finding S-1..S-10: the exact seam is reverted, the
+  named regression test is run, the real failure is captured, and the file is restored byte-identically.
+* `docs/evidence/P11/T-0215-b2r3-negative-demos.txt` - the mutation demo for every finding with the SHA-256 before = after.
+* `docs/evidence/P11/T-0215-b2r3-verify.txt` - the green transcript above.
+
+## For the lead
+
+* `task-12` is complete. The tree compiles, the tests are green and the workspace check is green.
+* No `STATUS.md`, `HANDOFF.md`, matrix/INDEX, `docs/COLLAB.md`, `docs/DEVIATIONS.md`, `OPERATIONS.md`, `ARCHITECTURE.md`,
+  `docs/STRIDE.md`, `docs/OPERATOR-QUESTIONS.md`, `supply-chain/` or workspace `Cargo.toml`/`Cargo.lock` edit was made.
+* Behaviour changes worth noting in the review: the rate window is now **closed** (a request at exactly 1.0 s after a full
+  allowance is refused; the next is allowed at 1.000001 s); `--out` must be new or `--resume`-backed; `add_secret` returns an
+  error for short secrets; `CheckContext::connector` takes one argument; `InspectGate::new`/`check` are crate-internal.

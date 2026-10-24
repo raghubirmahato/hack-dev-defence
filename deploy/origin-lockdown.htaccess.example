@@ -1,0 +1,43 @@
+# deploy/origin-lockdown.htaccess.example - make an Apache ORIGIN refuse direct
+# requests, allowing only the HDD proxy host (R-34 origin lockdown).
+#
+# Place the lines below in the origin application's .htaccess (or, preferred, in the
+# Apache vhost). Requirements: Apache 2.4 (mod_authz_core); .htaccess must be enabled
+# (AllowOverride AuthConfig Limit) for the document root.
+#
+# Steps:
+#   1. Replace 203.0.113.10 with the HDD host's public (egress) IP address.
+#   2. Reload Apache.
+#   3. From a machine that is NOT the HDD host, run:
+#        curl -sS -o /dev/null -w '%{http_code}\n' https://origin.example.com/login
+#      Expected: 403. If the login page loads, the origin is NOT locked down.
+#   4. Only after step 3 passes may the site be described as protected in block mode.
+#
+# For a serverless origin (Vercel/Netlify/Render) there is no fixed IP to allow-list:
+# use deploy/vercel-middleware.ts.example (shared secret header) instead.
+
+# Apache 2.4: allow the HDD proxy host only, deny everything else.
+<RequireAll>
+    Require ip 203.0.113.10
+</RequireAll>
+
+# If the site also needs a health endpoint for the operator, allowlist it separately
+# with a <Location "/healthz"> block - do not open the login page to the world.
+
+# Apache 2.2 fallback (only if the server really is 2.2; 2.2 is end-of-life):
+# <IfModule !mod_authz_core.c>
+#     Order deny,allow
+#     Deny from all
+#     Allow from 203.0.113.10
+# </IfModule>
+
+# Optional shared-secret belt and braces (mod_headers + mod_setenvif): reject direct
+# requests that lack the header the HDD proxy injects. Do not rely on this alone.
+# <IfModule mod_headers.c>
+#     SetEnvIf X-HDD-Origin-Secret "^(.*)$" HDD_ORIGIN_SECRET_MATCH=$1
+#     SetEnvIf X-HDD-Origin-Secret "^$" HDD_MISSING_SECRET
+#     # Compare against the value injected in the vhost:
+#     # SetEnv HDD_ORIGIN_SECRET_EXPECTED ...
+#     # (a per-request string compare belongs in the app or a small module; the IP
+#     #  allow-list above is the primary lockdown mechanism)
+# </IfModule>

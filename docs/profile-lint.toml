@@ -1,0 +1,69 @@
+# Configuration of `cargo xtask profile-lint` and `kv-lint` (T-0561, R-31, C18.3).
+#
+# Profile-dependent code lives only in hdd-local, hdd-common::kv, hdd-common::profile and the Enforcer factory. These paths must
+# not look at the runtime profile: detection (hdd-waf-core), pipeline (hdd-proxy, hdd-challenge), authentication (hdd-auth) and
+# the egress and network modules of hdd-common. Tenancy has no crate of its own (it lives in the API and the migrations): add
+# those paths here when they exist, so that tenant isolation can never depend on the profile.
+profile_free_paths = [
+    "crates/hdd-waf-core/**",
+    "crates/hdd-proxy/**",
+    "crates/hdd-challenge/**",
+    "crates/hdd-auth/**",
+    "crates/hdd-common/src/egress/**",
+    "crates/hdd-common/src/net.rs",
+]
+# A line of non-test code containing one of these fails (comments are ignored).
+profile_patterns = [
+    "RuntimeProfile",
+    "HostingProfile",
+    "runtime.profile",
+    "Profile::",
+    "HDD_RUNTIME_PROFILE",
+    "HDD_HOSTING_PROFILE",
+    "HDD_LOCAL_",
+    "HDD_KV_BACKEND",
+    "feature = \"local\"",
+    "feature = \"hosted\"",
+    "cfg(local",
+    "cfg(hosted",
+    ".capabilities()",
+    ".availability(",
+    "Capability::",
+]
+
+# Confinement (C18.3, review finding of 2026-10-19): these patterns mean "decides by the runtime profile". They may appear only in
+# the places below; everywhere else (hdd-api, hdd-web, hdd-worker, hdd-dns, hdd-firewall, ...) the answer comes from
+# `Profile::availability` / `Profile::refusals`, which need none of them.
+profile_confined_patterns = [
+    "RuntimeProfile",
+    "runtime.profile",
+    "HDD_RUNTIME_PROFILE",
+    "HDD_HOSTING_PROFILE",
+    "HDD_LOCAL_",
+    "HDD_KV_BACKEND",
+]
+profile_allowed_paths = [
+    "crates/hdd-local/**",
+    "crates/hdd-common/src/profile/**",
+    "crates/hdd-common/src/kv/**",
+    "crates/hdd-common/src/buildplan/**",
+    "crates/hddctl/**",
+    "crates/hdd-xtask/**",
+    "crates/hdd-firewall/src/factory.rs",
+]
+
+# Only hdd-common::kv talks to Redis (T-0562 builds it).
+kv_patterns = [
+    "fred::",
+    "redis::",
+    "deadpool_redis",
+    "bb8_redis",
+    "r2d2_redis",
+    "mobc_redis",
+    "extern crate redis",
+    "extern crate fred",
+]
+kv_crates = ["fred", "redis", "deadpool-redis", "bb8-redis", "r2d2_redis", "mobc-redis"]
+# The lint's own tests contain the forbidden patterns as data (injected violations).
+kv_allowed_paths = ["crates/hdd-common/src/kv/**", "crates/hdd-common/src/kv.rs", "crates/hdd-xtask/src/profile_lint/tests.rs"]
+kv_allowed_manifests = ["crates/hdd-common/Cargo.toml"]

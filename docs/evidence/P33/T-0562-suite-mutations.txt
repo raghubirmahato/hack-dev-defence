@@ -1,0 +1,28 @@
+# T-0562: the conformance suite fails when the implementation is wrong (mutation demonstrations, 2026-10-19)
+
+## mutation: gcra emission interval one microsecond too long
+   let t = (w / limit).max(1);  ->  let t = (w / limit).max(1) + 1;
+thread 'kv::tests::the_conformance_suite_passes_on_memory_kv_with_ten_thousand_sequences' (32108) panicked at crates\hdd-common\src\kv\conformance.rs:526:13:
+assertion `left == right` failed: sequence 238 step 40: Gcra limit 15 window 9000us cost 1 delay 75us
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 236 filtered out; finished in 1.18s
+
+## mutation: exact log keeps an entry that is exactly one window old
+   if ts.saturating_add(w) <= now {  ->  if ts.saturating_add(w) < now {
+thread 'kv::tests::the_conformance_suite_passes_on_memory_kv_with_ten_thousand_sequences' (32488) panicked at crates\hdd-common\src\kv\conformance.rs:526:13:
+assertion `left == right` failed: sequence 7442 step 23: Exact limit 10 window 230000us cost 2 delay 2668us
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 236 filtered out; finished in 2.04s
+
+## mutation: counter weights the previous window by the elapsed part instead of the remaining part
+   u128::from(*prev) * u128::from(w - off)  ->  u128::from(*prev) * u128::from(off)
+thread 'kv::tests::the_conformance_suite_passes_on_memory_kv_with_ten_thousand_sequences' (33232) panicked at crates\hdd-common\src\kv\conformance.rs:526:13:
+assertion `left == right` failed: sequence 1 step 12: Counter limit 12 window 2973000us cost 1 delay 1267963us
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 236 filtered out; finished in 1.16s
+
+## mutation: retry-after is one millisecond too short
+   reset_ms: ceil_ms(wait_us),  ->  reset_ms: ceil_ms(wait_us).saturating_sub(1),
+thread 'kv::tests::the_conformance_suite_passes_on_memory_kv_with_ten_thousand_sequences' (31892) panicked at crates\hdd-common\src\kv\conformance.rs:575:13:
+assertion `left == right` failed: sequence 2: Counter limit 7 window 2141000us, retry-after 2065 ms, waited 2065 ms
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 236 filtered out; finished in 2.34s
+
+## restored
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 236 filtered out; finished in 2.87s

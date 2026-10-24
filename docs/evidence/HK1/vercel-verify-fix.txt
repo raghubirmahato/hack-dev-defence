@@ -1,0 +1,8 @@
+ "status_code": 403
+}
+protected: True
+protection verified: the origin refused a direct bypass, the inert payload was blocked and normal requests still reach the site
+PASS origin_lockdown - the last origin lock-down check saw the origin refuse a direct request
+PASS benign_probe - a benign GET got HTTP 200 through the public URL
+PASS block_probe - the inert M1 payload in a GET query value was refused with HTTP 403 (Ray ID a3990b79558e24e7-HDD1)
+bans: []

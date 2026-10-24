@@ -1,0 +1,13 @@
+    Checking ring v0.17.14
+    Checking tokio v1.53.3
+    Checking hdd-dns v0.0.0 (D:\Hack Dev Defence\crates\hdd-dns)
+    Checking rustls-webpki v0.103.15
+    Checking rustls v0.23.46
+    Checking hyper v1.12.0
+    Checking hyper-util v0.1.21
+    Checking tokio-rustls v0.26.6
+    Checking hdd-common v0.0.0 (D:\Hack Dev Defence\crates\hdd-common)
+    Checking hddctl v0.0.0 (D:\Hack Dev Defence\crates\hddctl)
+    Checking hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 6.81s
+cargo check exit 0

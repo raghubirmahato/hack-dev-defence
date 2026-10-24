@@ -1,0 +1,10 @@
+[package]
+name = "hdd-worker"
+description = "job runner: mail outbox, webhooks, rollups, ACME scheduling, feeds, verification polling, reports, retention"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true

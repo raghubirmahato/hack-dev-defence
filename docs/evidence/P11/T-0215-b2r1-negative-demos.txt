@@ -1,0 +1,735 @@
+# T-0215 batch-B2 review round 1 - mutation demos (negative evidence)
+
+Date (UTC): 2026-10-20T06:18:54Z
+Post-fix mutation demos: for each finding one seam of the fixed tree is mutated, the finding's test is run and must
+FAIL, then the original bytes are restored and the SHA-256 is compared with the value before the mutation. A demo that
+passes or whose restore hash differs stops this script.
+
+== A-1 single-use request / one token per send ==
+Defect the demo reintroduces: a prepared request is sent without spending its rate-budget token
+File: crates/hdd-acceptance/src/guard.rs
+Mutation:
+            Ok(_budget) => {}
+Command: cargo nextest run -p hdd-acceptance a1_one_prepared_request_covers_exactly_one_send_and_one_token
+
+cargo.exe :    Compiling hdd-acceptance v0.0.0 (D:\Hack Dev Defence\crates\hdd-acceptance)
+At C:\Users\Raghu\AppData\Local\Temp\t0215-b2r1-demos.ps1:36 char:10
++   $raw = & cargo nextest run -p hdd-acceptance $Filter 2>&1 | Out-Str ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...hdd-acceptance):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: unused variable: `lane`
+   --> crates\hdd-acceptance\src\guard.rs:701:13
+    |
+701 |         let lane = if self.load_profile == LoadProfile::ProtocolAbuse {
+    |             ^^^^ help: if this is intentional, prefix it with an underscore: `_lane`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `hdd-acceptance` (lib) generated 1 warning (run `cargo fix --lib -p hdd-acceptance` to apply 1 suggestion)
+warning: `hdd-acceptance` (lib test) generated 1 warning (1 duplicate)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.25s
+────────────
+ Nextest run ID c2da6595-578f-4e2e-8162-edbbb0209d48 with nextest profile: default
+    Starting 1 test across 3 binaries (157 tests skipped)
+        FAIL [   0.016s] (1/1) hdd-acceptance 
+guard::tests::a1_one_prepared_request_covers_exactly_one_send_and_one_token
+  stdout ───
+
+    running 1 test
+    test guard::tests::a1_one_prepared_request_covers_exactly_one_send_and_one_token ... FAILED
+
+    failures:
+
+    failures:
+        guard::tests::a1_one_prepared_request_covers_exactly_one_send_and_one_token
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 142 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'guard::tests::a1_one_prepared_request_covers_exactly_one_send_and_one_token' (13252) panicked at 
+crates\hdd-acceptance\src\guard\tests.rs:182:5:
+    Ok(Sent { target: "hddtest.example.com", path: "/?probe=1" })
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+  Cancelling due to test failure
+────────────
+     Summary [   0.017s] 1 test run: 0 passed, 1 failed, 157 skipped
+        FAIL [   0.016s] (1/1) hdd-acceptance 
+guard::tests::a1_one_prepared_request_covers_exactly_one_send_and_one_token
+error: test run failed
+
+Exit code with the mutation: 100 (expected non-zero: the test must FAIL)
+SHA-256 before: AFE2F0C17FCB4E2901C5AB0B6EB0533CD5FBDB554DC5691887D96C16098889E0
+SHA-256 restored: AFE2F0C17FCB4E2901C5AB0B6EB0533CD5FBDB554DC5691887D96C16098889E0 (byte-identical: True)
+
+== A-2 the connector spends from the run shared budget ==
+Defect the demo reintroduces: the shared limiter is not consulted, so a check and a connector get separate rate budgets
+File: crates/hdd-acceptance/src/limits.rs
+Mutation:
+        self.own.probe(lane, cost, now)?;
+        self.own.commit(lane, cost, now)?;
+        drop(shared);
+        Ok(())
+Command: cargo nextest run -p hdd-acceptance a2_twenty_tokens_spent_through_the_check_context
+
+cargo.exe :    Compiling hdd-acceptance v0.0.0 (D:\Hack Dev Defence\crates\hdd-acceptance)
+At C:\Users\Raghu\AppData\Local\Temp\t0215-b2r1-demos.ps1:36 char:10
++   $raw = & cargo nextest run -p hdd-acceptance $Filter 2>&1 | Out-Str ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...hdd-acceptance):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: variable does not need to be mutable
+   --> crates\hdd-acceptance\src\limits.rs:711:13
+    |
+711 |         let mut shared = match self.shared.lock() {
+    |             ----^^^^^^
+    |             |
+    |             help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `refund` is never used
+   --> crates\hdd-acceptance\src\limits.rs:527:8
+    |
+429 | impl Bucket {
+    | ----------- method in this implementation
+...
+527 |     fn refund(&mut self, cost: u64) {
+    |        ^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `refund` is never used
+   --> crates\hdd-acceptance\src\limits.rs:665:8
+    |
+560 | impl Limiter {
+    | ------------ method in this implementation
+...
+665 |     fn refund(&mut self, lane: Lane, cost: u64) {
+    |        ^^^^^^
+
+warning: `hdd-acceptance` (lib) generated 3 warnings (run `cargo fix --lib -p hdd-acceptance` to apply 1 suggestion)
+warning: `hdd-acceptance` (lib test) generated 1 warning (1 duplicate)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.22s
+────────────
+ Nextest run ID f966ab9f-13b7-428f-b88d-7bc6172aec97 with nextest profile: default
+    Starting 1 test across 3 binaries (157 tests skipped)
+        FAIL [   0.017s] (1/1) hdd-acceptance 
+guard::tests::a2_twenty_tokens_spent_through_the_check_context_make_the_next_prepare_refuse
+  stdout ───
+
+    running 1 test
+    test guard::tests::a2_twenty_tokens_spent_through_the_check_context_make_the_next_prepare_refuse ... FAILED
+
+    failures:
+
+    failures:
+        guard::tests::a2_twenty_tokens_spent_through_the_check_context_make_the_next_prepare_refuse
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 142 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'guard::tests::a2_twenty_tokens_spent_through_the_check_context_make_the_next_prepare_refuse' (34684) 
+panicked at crates\hdd-acceptance\src\guard\tests.rs:231:5:
+    a connector with its own limiter would have allowed this: Ok(PlannedRequest { target: "hddtest.example.com", path: 
+"/?probe=1", class: A, method: Get, resolved: [198.51.100.20], config_revision: "rev-1" })
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+  Cancelling due to test failure
+────────────
+     Summary [   0.018s] 1 test run: 0 passed, 1 failed, 157 skipped
+        FAIL [   0.017s] (1/1) hdd-acceptance 
+guard::tests::a2_twenty_tokens_spent_through_the_check_context_make_the_next_prepare_refuse
+error: test run failed
+
+Exit code with the mutation: 100 (expected non-zero: the test must FAIL)
+SHA-256 before: E12615DC9BB07E3AD3296E186C540D4F8762313A4FD37373353C607CDA91A97C
+SHA-256 restored: E12615DC9BB07E3AD3296E186C540D4F8762313A4FD37373353C607CDA91A97C (byte-identical: True)
+
+== A-3 the destructive flag comes from the CheckSpec ==
+Defect the demo reintroduces: the executor hands the check context a hard-coded false destructive flag
+File: crates/hdd-acceptance/src/runner.rs
+Mutation:
+            false,
+            Arc::clone(&budget),
+Command: cargo nextest run -p hdd-acceptance a3_a_destructive_check_runs_in_pilot
+
+cargo.exe :    Compiling hdd-acceptance v0.0.0 (D:\Hack Dev Defence\crates\hdd-acceptance)
+At C:\Users\Raghu\AppData\Local\Temp\t0215-b2r1-demos.ps1:36 char:10
++   $raw = & cargo nextest run -p hdd-acceptance $Filter 2>&1 | Out-Str ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...hdd-acceptance):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.39s
+────────────
+ Nextest run ID e8751a85-c3e8-42e9-968d-2a13970c75e7 with nextest profile: default
+    Starting 1 test across 3 binaries (157 tests skipped)
+        FAIL [   0.011s] (1/1) hdd-acceptance 
+runner::tests::a3_a_destructive_check_runs_in_pilot_and_the_flag_reaches_the_context
+  stdout ───
+
+    running 1 test
+    test runner::tests::a3_a_destructive_check_runs_in_pilot_and_the_flag_reaches_the_context ... FAILED
+
+    failures:
+
+    failures:
+        runner::tests::a3_a_destructive_check_runs_in_pilot_and_the_flag_reaches_the_context
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 142 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'runner::tests::a3_a_destructive_check_runs_in_pilot_and_the_flag_reaches_the_context' (26488) panicked at 
+crates\hdd-acceptance\src\runner\tests.rs:676:5:
+    the executor passes CheckSpec.destructive, not the attempt, to the check context
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+  Cancelling due to test failure
+────────────
+     Summary [   0.012s] 1 test run: 0 passed, 1 failed, 157 skipped
+        FAIL [   0.011s] (1/1) hdd-acceptance 
+runner::tests::a3_a_destructive_check_runs_in_pilot_and_the_flag_reaches_the_context
+error: test run failed
+
+Exit code with the mutation: 100 (expected non-zero: the test must FAIL)
+SHA-256 before: 580AEB3B6953465E6731C07048BAF1DFAD13370973B0740C8D0DB8CE1CDC32FB
+SHA-256 restored: 580AEB3B6953465E6731C07048BAF1DFAD13370973B0740C8D0DB8CE1CDC32FB (byte-identical: True)
+
+== A-4 the planned request carries the resolved addresses ==
+Defect the demo reintroduces: the resolved address set is dropped from the single-use request, so rebinding is not visible to the sender
+File: crates/hdd-acceptance/src/guard.rs
+Mutation:
+            resolved: Vec::new(),
+            config_revision: self.expected_revision.clone(),
+Command: cargo nextest run -p hdd-acceptance a4_the_planned_request_carries_the_resolved_addresses
+
+cargo.exe :    Compiling hdd-acceptance v0.0.0 (D:\Hack Dev Defence\crates\hdd-acceptance)
+At C:\Users\Raghu\AppData\Local\Temp\t0215-b2r1-demos.ps1:36 char:10
++   $raw = & cargo nextest run -p hdd-acceptance $Filter 2>&1 | Out-Str ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...hdd-acceptance):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: unused variable: `resolved`
+   --> crates\hdd-acceptance\src\guard.rs:695:13
+    |
+695 |         let resolved = self
+    |             ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_resolved`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `hdd-acceptance` (lib) generated 1 warning (run `cargo fix --lib -p hdd-acceptance` to apply 1 suggestion)
+warning: `hdd-acceptance` (lib test) generated 1 warning (1 duplicate)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.31s
+────────────
+ Nextest run ID 6e51d00a-30dc-41dd-b2ce-0351c405e323 with nextest profile: default
+    Starting 1 test across 3 binaries (157 tests skipped)
+        FAIL [   0.016s] (1/1) hdd-acceptance 
+guard::tests::a4_the_planned_request_carries_the_resolved_addresses_and_never_follows_redirects
+  stdout ───
+
+    running 1 test
+    test guard::tests::a4_the_planned_request_carries_the_resolved_addresses_and_never_follows_redirects ... FAILED
+
+    failures:
+
+    failures:
+        guard::tests::a4_the_planned_request_carries_the_resolved_addresses_and_never_follows_redirects
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 142 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'guard::tests::a4_the_planned_request_carries_the_resolved_addresses_and_never_follows_redirects' (34100) 
+panicked at crates\hdd-acceptance\src\guard\tests.rs:286:5:
+    assertion `left == right` failed
+      left: []
+     right: [198.51.100.20]
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+  Cancelling due to test failure
+────────────
+     Summary [   0.017s] 1 test run: 0 passed, 1 failed, 157 skipped
+        FAIL [   0.016s] (1/1) hdd-acceptance 
+guard::tests::a4_the_planned_request_carries_the_resolved_addresses_and_never_follows_redirects
+error: test run failed
+
+Exit code with the mutation: 100 (expected non-zero: the test must FAIL)
+SHA-256 before: AFE2F0C17FCB4E2901C5AB0B6EB0533CD5FBDB554DC5691887D96C16098889E0
+SHA-256 restored: AFE2F0C17FCB4E2901C5AB0B6EB0533CD5FBDB554DC5691887D96C16098889E0 (byte-identical: True)
+
+== A-5 the ticket is bound to the request ==
+Defect the demo reintroduces: the ticket match is skipped, so a ticket for another path/method/site authorises a send
+File: crates/hdd-acceptance/src/guard.rs
+Mutation:
+        if false && !ticket.covers(target, attempt.method, &attempt.path, attempt.class) {
+Command: cargo nextest run -p hdd-acceptance a5_a_ticket_for_another_path_method_or_site_is_refused
+
+cargo.exe :    Compiling hdd-acceptance v0.0.0 (D:\Hack Dev Defence\crates\hdd-acceptance)
+At C:\Users\Raghu\AppData\Local\Temp\t0215-b2r1-demos.ps1:36 char:10
++   $raw = & cargo nextest run -p hdd-acceptance $Filter 2>&1 | Out-Str ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...hdd-acceptance):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.26s
+────────────
+ Nextest run ID 33fa34a9-f24c-4f11-a059-9f14c0bf9090 with nextest profile: default
+    Starting 1 test across 3 binaries (157 tests skipped)
+        FAIL [   0.018s] (1/1) hdd-acceptance guard::tests::a5_a_ticket_for_another_path_method_or_site_is_refused
+  stdout ───
+
+    running 1 test
+    test guard::tests::a5_a_ticket_for_another_path_method_or_site_is_refused ... FAILED
+
+    failures:
+
+    failures:
+        guard::tests::a5_a_ticket_for_another_path_method_or_site_is_refused
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 142 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'guard::tests::a5_a_ticket_for_another_path_method_or_site_is_refused' (10260) panicked at 
+crates\hdd-acceptance\src\guard\tests.rs:400:9:
+    hddtest.example.com Get /other: Ok(Sent { target: "hddtest.example.com", path: "/?probe=1" })
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+  Cancelling due to test failure
+────────────
+     Summary [   0.019s] 1 test run: 0 passed, 1 failed, 157 skipped
+        FAIL [   0.018s] (1/1) hdd-acceptance guard::tests::a5_a_ticket_for_another_path_method_or_site_is_refused
+error: test run failed
+
+Exit code with the mutation: 100 (expected non-zero: the test must FAIL)
+SHA-256 before: AFE2F0C17FCB4E2901C5AB0B6EB0533CD5FBDB554DC5691887D96C16098889E0
+SHA-256 restored: AFE2F0C17FCB4E2901C5AB0B6EB0533CD5FBDB554DC5691887D96C16098889E0 (byte-identical: True)
+
+== A-6 several markers on one line are all redacted ==
+Defect the demo reintroduces: the marker redaction truncates the line at the first marker (the reviewed behaviour), so a later value survives
+File: crates/hdd-acceptance/src/report.rs
+Mutation:
+                current = format!("{}[REDACTED]", &current[..value_start]);
+Command: cargo nextest run -p hdd-acceptance a6_multiple_markers_on_one_line
+
+cargo.exe :    Compiling hdd-acceptance v0.0.0 (D:\Hack Dev Defence\crates\hdd-acceptance)
+At C:\Users\Raghu\AppData\Local\Temp\t0215-b2r1-demos.ps1:36 char:10
++   $raw = & cargo nextest run -p hdd-acceptance $Filter 2>&1 | Out-Str ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...hdd-acceptance):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: unused variable: `end`
+   --> crates\hdd-acceptance\src\report.rs:344:21
+    |
+344 |                 let end = if separator == Some('=') || separator == Some(' ') {
+    |                     ^^^ help: if this is intentional, prefix it with an underscore: `_end`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `hdd-acceptance` (lib) generated 1 warning (run `cargo fix --lib -p hdd-acceptance` to apply 1 suggestion)
+warning: `hdd-acceptance` (lib test) generated 1 warning (1 duplicate)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.28s
+────────────
+ Nextest run ID 4d171081-59f5-4fd4-b00b-9809aafa4678 with nextest profile: default
+    Starting 1 test across 3 binaries (157 tests skipped)
+        FAIL [   0.011s] (1/1) hdd-acceptance report::tests::a6_multiple_markers_on_one_line_are_all_redacted
+  stdout ───
+
+    running 1 test
+    test report::tests::a6_multiple_markers_on_one_line_are_all_redacted ... FAILED
+
+    failures:
+
+    failures:
+        report::tests::a6_multiple_markers_on_one_line_are_all_redacted
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 142 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'report::tests::a6_multiple_markers_on_one_line_are_all_redacted' (10472) panicked at 
+crates\hdd-acceptance\src\report\tests.rs:173:5:
+    assertion `left == right` failed: x token=[REDACTED]
+      left: 1
+     right: 2
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+  Cancelling due to test failure
+────────────
+     Summary [   0.012s] 1 test run: 0 passed, 1 failed, 157 skipped
+        FAIL [   0.011s] (1/1) hdd-acceptance report::tests::a6_multiple_markers_on_one_line_are_all_redacted
+error: test run failed
+
+Exit code with the mutation: 100 (expected non-zero: the test must FAIL)
+SHA-256 before: 0339D56B53FA9E642C87F3F0E37E52EDBE79EF18833FE1E2BB82FE7A769DB50F
+SHA-256 restored: 0339D56B53FA9E642C87F3F0E37E52EDBE79EF18833FE1E2BB82FE7A769DB50F (byte-identical: True)
+
+== A-7 the 512-byte cap in both renderers after redaction ==
+Defect the demo reintroduces: the evidence value is not capped at 512 bytes
+File: crates/hdd-acceptance/src/report.rs
+Mutation:
+                    *value = truncate_utf8(&redacted, 4_096);
+Command: cargo nextest run -p hdd-acceptance a7_both_renderers_cap_evidence_after_redaction
+
+cargo.exe :    Compiling hdd-acceptance v0.0.0 (D:\Hack Dev Defence\crates\hdd-acceptance)
+At C:\Users\Raghu\AppData\Local\Temp\t0215-b2r1-demos.ps1:36 char:10
++   $raw = & cargo nextest run -p hdd-acceptance $Filter 2>&1 | Out-Str ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...hdd-acceptance):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.96s
+────────────
+ Nextest run ID cc9593cd-26c0-46e8-ad74-20c7c32cfa46 with nextest profile: default
+    Starting 1 test across 3 binaries (157 tests skipped)
+        FAIL [   0.096s] (1/1) hdd-acceptance 
+report::tests::a7_both_renderers_cap_evidence_after_redaction_on_a_utf8_boundary
+  stdout ───
+
+    running 1 test
+    test report::tests::a7_both_renderers_cap_evidence_after_redaction_on_a_utf8_boundary ... FAILED
+
+    failures:
+
+    failures:
+        report::tests::a7_both_renderers_cap_evidence_after_redaction_on_a_utf8_boundary
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 142 filtered out; finished in 0.03s
+
+  stderr ───
+
+    thread 'report::tests::a7_both_renderers_cap_evidence_after_redaction_on_a_utf8_boundary' (35388) panicked at 
+crates\hdd-acceptance\src\report\tests.rs:241:9:
+    the cap must be visible in the report
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+  Cancelling due to test failure
+────────────
+     Summary [   0.133s] 1 test run: 0 passed, 1 failed, 157 skipped
+        FAIL [   0.096s] (1/1) hdd-acceptance 
+report::tests::a7_both_renderers_cap_evidence_after_redaction_on_a_utf8_boundary
+error: test run failed
+
+Exit code with the mutation: 100 (expected non-zero: the test must FAIL)
+SHA-256 before: 0339D56B53FA9E642C87F3F0E37E52EDBE79EF18833FE1E2BB82FE7A769DB50F
+SHA-256 restored: 0339D56B53FA9E642C87F3F0E37E52EDBE79EF18833FE1E2BB82FE7A769DB50F (byte-identical: True)
+
+== A-8 a timeout fails only that check ==
+Defect the demo reintroduces: a per-check timeout is reported as an operator skip, so the run looks aborted instead of failing one check
+File: crates/hdd-acceptance/src/runner.rs
+Mutation:
+            CheckOutcome::TimedOut { .. } => Verdict::Unverified {
+                reason: ReasonCode::SkippedByOperator,
+            },
+Command: cargo nextest run -p hdd-acceptance a8_a_per_check_timeout_fails_only_that_check
+
+cargo.exe :    Compiling hdd-acceptance v0.0.0 (D:\Hack Dev Defence\crates\hdd-acceptance)
+At C:\Users\Raghu\AppData\Local\Temp\t0215-b2r1-demos.ps1:36 char:10
++   $raw = & cargo nextest run -p hdd-acceptance $Filter 2>&1 | Out-Str ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...hdd-acceptance):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 8.89s
+────────────
+ Nextest run ID 62f31bdf-85e9-4893-bccf-80911deb85ff with nextest profile: default
+    Starting 1 test across 3 binaries (157 tests skipped)
+        FAIL [   0.080s] (1/1) hdd-acceptance runner::tests::a8_a_per_check_timeout_fails_only_that_check
+  stdout ───
+
+    running 1 test
+    test runner::tests::a8_a_per_check_timeout_fails_only_that_check ... FAILED
+
+    failures:
+
+    failures:
+        runner::tests::a8_a_per_check_timeout_fails_only_that_check
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 142 filtered out; finished in 0.07s
+
+  stderr ───
+
+    thread 'runner::tests::a8_a_per_check_timeout_fails_only_that_check' (29144) panicked at 
+crates\hdd-acceptance\src\runner\tests.rs:496:5:
+    UNVERIFIED(skipped_by_operator)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+  Cancelling due to test failure
+────────────
+     Summary [   0.081s] 1 test run: 0 passed, 1 failed, 157 skipped
+        FAIL [   0.080s] (1/1) hdd-acceptance runner::tests::a8_a_per_check_timeout_fails_only_that_check
+error: test run failed
+
+Exit code with the mutation: 100 (expected non-zero: the test must FAIL)
+SHA-256 before: 580AEB3B6953465E6731C07048BAF1DFAD13370973B0740C8D0DB8CE1CDC32FB
+SHA-256 restored: 580AEB3B6953465E6731C07048BAF1DFAD13370973B0740C8D0DB8CE1CDC32FB (byte-identical: True)
+
+== A-9 one latched signal listener between checks ==
+Defect the demo reintroduces: a signal observed by the persistent listener is not latched, so the next check starts anyway
+File: crates/hdd-acceptance/src/runner.rs
+Mutation:
+                self.signal_latched = None;
+Command: cargo nextest run -p hdd-acceptance a9_a_signal_between_two_checks
+
+cargo.exe :    Compiling hdd-acceptance v0.0.0 (D:\Hack Dev Defence\crates\hdd-acceptance)
+At C:\Users\Raghu\AppData\Local\Temp\t0215-b2r1-demos.ps1:36 char:10
++   $raw = & cargo nextest run -p hdd-acceptance $Filter 2>&1 | Out-Str ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...hdd-acceptance):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: unused variable: `signal`
+   --> crates\hdd-acceptance\src\runner.rs:666:18
+    |
+666 |             Some(signal) => {
+    |                  ^^^^^^ help: if this is intentional, prefix it with an underscore: `_signal`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `hdd-acceptance` (lib) generated 1 warning (run `cargo fix --lib -p hdd-acceptance` to apply 1 suggestion)
+warning: `hdd-acceptance` (lib test) generated 1 warning (1 duplicate)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.20s
+────────────
+ Nextest run ID 6c449969-7787-4805-95a1-e9442c55a476 with nextest profile: default
+    Starting 1 test across 3 binaries (157 tests skipped)
+        FAIL [   0.015s] (1/1) hdd-acceptance 
+runner::tests::a9_a_signal_between_two_checks_stops_the_run_before_the_next_body
+  stdout ───
+
+    running 1 test
+    test runner::tests::a9_a_signal_between_two_checks_stops_the_run_before_the_next_body ... FAILED
+
+    failures:
+
+    failures:
+        runner::tests::a9_a_signal_between_two_checks_stops_the_run_before_the_next_body
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 142 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'runner::tests::a9_a_signal_between_two_checks_stops_the_run_before_the_next_body' (28520) panicked at 
+crates\hdd-acceptance\src\runner\tests.rs:460:5:
+    assertion `left == right` failed
+      left: None
+     right: Some(Signal(Interrupt))
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+  Cancelling due to test failure
+────────────
+     Summary [   0.017s] 1 test run: 0 passed, 1 failed, 157 skipped
+        FAIL [   0.015s] (1/1) hdd-acceptance 
+runner::tests::a9_a_signal_between_two_checks_stops_the_run_before_the_next_body
+error: test run failed
+
+Exit code with the mutation: 100 (expected non-zero: the test must FAIL)
+SHA-256 before: 580AEB3B6953465E6731C07048BAF1DFAD13370973B0740C8D0DB8CE1CDC32FB
+SHA-256 restored: 580AEB3B6953465E6731C07048BAF1DFAD13370973B0740C8D0DB8CE1CDC32FB (byte-identical: True)
+
+== A-10 at most N requests in any 1000 ms window ==
+Defect the demo reintroduces: the window boundary comparison keeps grants at exactly 1000 ms, so the next second starts late
+File: crates/hdd-acceptance/src/limits.rs
+Mutation:
+                    .filter(|grant| now_us.saturating_sub(**grant) <= RATE_WINDOW_US)
+Command: cargo nextest run -p hdd-acceptance a10_the_functional_window
+
+cargo.exe :    Compiling hdd-acceptance v0.0.0 (D:\Hack Dev Defence\crates\hdd-acceptance)
+At C:\Users\Raghu\AppData\Local\Temp\t0215-b2r1-demos.ps1:36 char:10
++   $raw = & cargo nextest run -p hdd-acceptance $Filter 2>&1 | Out-Str ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...hdd-acceptance):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.89s
+────────────
+ Nextest run ID 5467cebb-ba3a-45e7-86d6-a19eb5e2c0d6 with nextest profile: default
+    Starting 1 test across 3 binaries (157 tests skipped)
+        FAIL [   0.009s] (1/1) hdd-acceptance 
+limits::tests::a10_the_functional_window_allows_at_most_twenty_requests_in_any_one_second
+  stdout ───
+
+    running 1 test
+    test limits::tests::a10_the_functional_window_allows_at_most_twenty_requests_in_any_one_second ... FAILED
+
+    failures:
+
+    failures:
+        limits::tests::a10_the_functional_window_allows_at_most_twenty_requests_in_any_one_second
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 142 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'limits::tests::a10_the_functional_window_allows_at_most_twenty_requests_in_any_one_second' (34744) 
+panicked at crates\hdd-acceptance\src\limits\tests.rs:102:9:
+    assertion `left == right` failed
+      left: Err(RateExceeded { lane: Http, retry_after_ms: 1 })
+     right: Ok(())
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+  Cancelling due to test failure
+────────────
+     Summary [   0.010s] 1 test run: 0 passed, 1 failed, 157 skipped
+        FAIL [   0.009s] (1/1) hdd-acceptance 
+limits::tests::a10_the_functional_window_allows_at_most_twenty_requests_in_any_one_second
+error: test run failed
+
+Exit code with the mutation: 100 (expected non-zero: the test must FAIL)
+SHA-256 before: E12615DC9BB07E3AD3296E186C540D4F8762313A4FD37373353C607CDA91A97C
+SHA-256 restored: E12615DC9BB07E3AD3296E186C540D4F8762313A4FD37373353C607CDA91A97C (byte-identical: True)
+
+== A-11 the Markdown fence is longer than any backtick run in the tail ==
+Defect the demo reintroduces: the fence is fixed at three backticks, so a tail with a longer run breaks the report structure
+File: crates/hdd-acceptance/src/report.rs
+Mutation:
+                let fence = "```".to_owned();
+Command: cargo nextest run -p hdd-acceptance a11_a_log_tail_with_backticks
+
+cargo.exe :    Compiling hdd-acceptance v0.0.0 (D:\Hack Dev Defence\crates\hdd-acceptance)
+At C:\Users\Raghu\AppData\Local\Temp\t0215-b2r1-demos.ps1:36 char:10
++   $raw = & cargo nextest run -p hdd-acceptance $Filter 2>&1 | Out-Str ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...hdd-acceptance):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.08s
+────────────
+ Nextest run ID 1b90f4f0-4b42-4ed1-83c6-5c47f0dd89cd with nextest profile: default
+    Starting 1 test across 3 binaries (157 tests skipped)
+        FAIL [   0.010s] (1/1) hdd-acceptance report::tests::a11_a_log_tail_with_backticks_gets_a_longer_fence
+  stdout ───
+
+    running 1 test
+    test report::tests::a11_a_log_tail_with_backticks_gets_a_longer_fence ... FAILED
+
+    failures:
+
+    failures:
+        report::tests::a11_a_log_tail_with_backticks_gets_a_longer_fence
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 142 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'report::tests::a11_a_log_tail_with_backticks_gets_a_longer_fence' (34440) panicked at 
+crates\hdd-acceptance\src\report\tests.rs:274:5:
+    # Acceptance report
+
+    | Field | Value |
+    | --- | --- |
+    | Generated | 2026-10-20T09:00:00Z |
+    | Mode | live |
+    | Stage | pilot |
+    | Load profile | functional |
+    | Vantages | 0 |
+
+    ## Summary
+
+    3 checks: 1 PASS, 1 FAIL, 1 UNVERIFIED
+
+    ## Checks
+
+    | ID | Tier | Status | Title |
+    | --- | --- | --- | --- |
+    | AC-00 | smoke | PASS | Preflight and safety-envelope self-tests |
+    | AC-01 | nondestructive | FAIL(a would not block) | Authentication and admin isolation |
+    | AC-02 | pilot-full | UNVERIFIED(stage_not_reached) | Zone import and parity |
+
+    ## Evidence
+
+    ### AC-00 / http_response
+
+    - status: 403
+    - header.content-type: text/html
+
+    ## Logs
+
+    - `acceptance-x/run.log` (30 bytes, sha256 `bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb`)
+
+    ```text
+    before
+    ```
+    code
+    ````
+    after
+    ```
+
+    ## Notes
+
+    - a note
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+  Cancelling due to test failure
+────────────
+     Summary [   0.011s] 1 test run: 0 passed, 1 failed, 157 skipped
+        FAIL [   0.010s] (1/1) hdd-acceptance report::tests::a11_a_log_tail_with_backticks_gets_a_longer_fence
+error: test run failed
+
+Exit code with the mutation: 100 (expected non-zero: the test must FAIL)
+SHA-256 before: 0339D56B53FA9E642C87F3F0E37E52EDBE79EF18833FE1E2BB82FE7A769DB50F
+SHA-256 restored: 0339D56B53FA9E642C87F3F0E37E52EDBE79EF18833FE1E2BB82FE7A769DB50F (byte-identical: True)
+
+== A-11 evidence file names cannot escape the run directory ==
+Defect the demo reintroduces: the name sanitiser is bypassed, so ../ or an absolute path writes outside acceptance-*/
+File: crates/hdd-acceptance/src/report.rs
+Mutation:
+        let path = self.dir.join(name);
+        std::fs::write(&path, bytes)?;
+Command: cargo nextest run -p hdd-acceptance a11_the_evidence_store_refuses
+
+cargo.exe :    Compiling hdd-acceptance v0.0.0 (D:\Hack Dev Defence\crates\hdd-acceptance)
+At C:\Users\Raghu\AppData\Local\Temp\t0215-b2r1-demos.ps1:36 char:10
++   $raw = & cargo nextest run -p hdd-acceptance $Filter 2>&1 | Out-Str ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...hdd-acceptance):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.94s
+────────────
+ Nextest run ID 3a1a44b4-b6d5-48a3-87a7-1be608f8b203 with nextest profile: default
+    Starting 1 test across 3 binaries (157 tests skipped)
+        FAIL [   0.011s] (1/1) hdd-acceptance 
+report::tests::a11_the_evidence_store_refuses_paths_that_escape_its_directory
+  stdout ───
+
+    running 1 test
+    test report::tests::a11_the_evidence_store_refuses_paths_that_escape_its_directory ... FAILED
+
+    failures:
+
+    failures:
+        report::tests::a11_the_evidence_store_refuses_paths_that_escape_its_directory
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 142 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'report::tests::a11_the_evidence_store_refuses_paths_that_escape_its_directory' (11784) panicked at 
+crates\hdd-acceptance\src\report\tests.rs:363:14:
+    "../escape-33800.txt" must be refused: EvidenceRef { path: 
+"C:\\Users\\Raghu\\AppData\\Local\\Temp\\hdd-acceptance-test-33800-report-store-escape\\../escape-33800.txt", sha256: 
+"2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881", bytes: 1 }
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+  Cancelling due to test failure
+────────────
+     Summary [   0.013s] 1 test run: 0 passed, 1 failed, 157 skipped
+        FAIL [   0.011s] (1/1) hdd-acceptance 
+report::tests::a11_the_evidence_store_refuses_paths_that_escape_its_directory
+error: test run failed
+
+Exit code with the mutation: 100 (expected non-zero: the test must FAIL)
+SHA-256 before: 0339D56B53FA9E642C87F3F0E37E52EDBE79EF18833FE1E2BB82FE7A769DB50F
+SHA-256 restored: 0339D56B53FA9E642C87F3F0E37E52EDBE79EF18833FE1E2BB82FE7A769DB50F (byte-identical: True)
+
+All demos failed as expected and every file was restored byte-identically.

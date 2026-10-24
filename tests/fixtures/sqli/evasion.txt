@@ -1,0 +1,102 @@
+# hdd-waf-core SQL-injection fixtures: encoding/evasion variants (C4.8, HK1 demo track).
+# Format: one payload per line; lines starting with '#' and blank lines are ignored.
+# Every line must be a hard hit (Block, category "sqli") for the default Balanced settings in every vector and
+# every field kind except the documented password-field H2 exception.
+#
+# --- C4.8.1 case ---
+' UnIoN SeLeCt 1,2--
+' uNiOn aLl sElEcT null --
+' Or 1=1--
+admin' Or 1=1--
+#
+# --- C4.8.2 whitespace: tabs, newlines, comments, encodings, non-breaking space ---
+'	OR	1=1--
+'%09OR%091=1--
+'%0aOR%0a1=1--
+'%0bOR%0b1=1--
+'%0cOR%0c1=1--
+'%0dOR%0d1=1--
+' OR 1=1-- 
+' or 1=1 --
+' or  1  =  1--
+' OR 1=1--
+#
+# --- C4.8.3 comments: --, -- -, #, /* */, /*!versioned*/, nested ---
+' OR 1=1-- -
+' OR 1=1# 
+' OR 1=1/* 
+'/**/OR/**/1=1--
+' OR/**/1=1--
+'/**//**/OR/**//**/1=1--
+/*!50000union*//*!50000select*/1,2--
+'/*!50000OR*/1=1--
+' UNION/**/SELECT/**/NULL,NULL--
+#
+# --- C4.8.4 encoding: single, double, triple URL, %uXXXX, HTML entities, JSON escapes, mixed ---
+%27%20OR%201=1--
+%2527%2520OR%25201=1--
+%252527%252520OR%2525201=1--
+%252527%252520OR%2525201=1--
+%u0027%20OR%201=1--
+&#39;%20OR%201=1--
+&#x27; OR 1=1--
+&apos; OR 1=1--
+&#039 OR 1=1--
+&amp;#39; OR 1=1--
+\u0027 OR 1=1--
+\x27 OR 1=1--
+\' OR 1=1--
+%26%2339%3BOR%201=1--
+# 
+# --- C4.8.5 unicode: fullwidth and lookalike quotes ---
+＇ OR 1=1--
+＇ OR １＝１--
+’ OR 1=1--
+‘ OR 1=1--
+ʼ OR 1=1--
+＇ OR 1=1 %23
+#
+# --- C4.8.6 wide-byte quote sequences ---
+%bf%27 OR 1=1--
+%df%27 OR 1=1--
+%a1%27 OR 1=1--
+%bf%27%20or%201=1--
+%df%27%23
+#
+# --- C4.8.7 numeric: scientific notation, hex literals ---
+1 or 1e0=1e0--
+1e0union select 1,2--
+0x31 or 0x31=0x31--
+0x27 or 1=1--
+#
+# --- C4.8.8 concatenation: adjacent literals, plus, CONCAT, || ---
+'sel' 'ect' from users--
+'sel'+'ect' from users--
+'sel'||'ect' from users--
+CONCAT('un','ion') select 1,2--
+' un/**/ion sel/**/ect 1,2--
+'un'+'ion'+' '+'sel'+'ect'--
+#
+# --- C4.8.9 hex and CHAR construction of quotes and keywords ---
+1 and char(39)=char(39)--
+1 and concat(char(39),char(39))='--
+0x756e696f6e/**/select/**/1,2--
+1 and chr(39)=chr(39)--
+#
+# --- C4.8.10 parameter pollution split across duplicate parameters is covered by the extractor tests ---
+#
+# --- C4.8.13 payload after a padded body / NUL inside keywords ---
+' un%00ion select 1,2--
+' un%00ion select 1,2--
+' un%00ion sel%00ect 1,2--
+#
+# --- C4.8.16/17/18 path-, cookie- and header-borne variants (same value, different vectors) ---
+'/**/or/**/1=1--
+admin'%20--
+admin'%23
+admin'%2F*
+#
+# --- C4.8.20 out-of-band exit shapes ---
+' || pg_sleep(5)--
+'; WAITFOR DELAY '0:0:5'--
+1 AND utl_http.request('http://x')--

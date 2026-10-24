@@ -1,0 +1,6 @@
+$ cargo-machete .
+cargo-machete didn't find any unused dependencies in this directory. Good job!
+Analyzing dependencies of crates in ....
+Done!
+
+(exit 0)

@@ -1,0 +1,473 @@
+cargo :    Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+At line:1 char:129
++ ... ew($false); cargo nextest run -p hdd-xtask "claims::" --no-fail-fast  ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...ates\hdd-xtask):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: function `line_tokens` is never used
+   --> crates\hdd-xtask\src\claims.rs:147:4
+    |
+147 | fn line_tokens(line: &str) -> Vec<String> {
+    |    ^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `phrase_matches` is never used
+   --> crates\hdd-xtask\src\claims.rs:155:4
+    |
+155 | fn phrase_matches(words: &[String], start: usize, phrase: &[String]) -> bool {
+    |    ^^^^^^^^^^^^^^
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 2 warnings
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.10s
+────────────
+ Nextest run ID 78a28ff9-e7b5-498d-93ba-3b0572e4deeb with nextest profile: default
+    Starting 13 tests across 1 binary (263 tests skipped)
+        PASS [   0.012s] ( 1/13) hdd-xtask::bin/hdd-xtask claims::tests::approved_patterns_of_section_4_3_pass
+        FAIL [   0.019s] ( 2/13) hdd-xtask::bin/hdd-xtask claims::tests::context_scope_terms_are_whole_phrases
+  stdout ───
+
+    running 1 test
+    test claims::tests::context_scope_terms_are_whole_phrases ... FAILED
+
+    failures:
+
+    failures:
+        claims::tests::context_scope_terms_are_whole_phrases
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 275 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'claims::tests::context_scope_terms_are_whole_phrases' (28276) panicked at 
+crates\hdd-xtask\src\claims.rs:504:9:
+    assertion `left == right` failed
+      left: 0
+     right: 1
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.023s] ( 3/13) hdd-xtask::bin/hdd-xtask claims::tests::seeded_forbidden_phrase_in_a_template_fails
+        PASS [   0.027s] ( 4/13) hdd-xtask::bin/hdd-xtask 
+claims::tests::the_shipped_configuration_declares_a_context_rule_with_its_paths
+        FAIL [   0.034s] ( 5/13) hdd-xtask::bin/hdd-xtask claims::tests::context_window_is_twelve_words_not_thirteen
+  stdout ───
+
+    running 1 test
+    test claims::tests::context_window_is_twelve_words_not_thirteen ... FAILED
+
+    failures:
+
+    failures:
+        claims::tests::context_window_is_twelve_words_not_thirteen
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 275 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'claims::tests::context_window_is_twelve_words_not_thirteen' (30632) panicked at 
+crates\hdd-xtask\src\claims.rs:448:9:
+    assertion `left == right` failed: distance 13 must fail: []
+      left: 0
+     right: 1
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.044s] ( 6/13) hdd-xtask::bin/hdd-xtask 
+claims::tests::allow_block_excuses_quotations_and_unbalanced_blocks_fail
+        PASS [   0.044s] ( 7/13) hdd-xtask::bin/hdd-xtask claims::tests::scope_follows_include_exclude_and_extension
+        FAIL [   0.058s] ( 8/13) hdd-xtask::bin/hdd-xtask 
+claims::tests::context_rules_keep_the_phrase_rules_and_the_markers
+  stdout ───
+
+    running 1 test
+    test claims::tests::context_rules_keep_the_phrase_rules_and_the_markers ... FAILED
+
+    failures:
+
+    failures:
+        claims::tests::context_rules_keep_the_phrase_rules_and_the_markers
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 275 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'claims::tests::context_rules_keep_the_phrase_rules_and_the_markers' (21768) panicked at 
+crates\hdd-xtask\src\claims.rs:476:9:
+    assertion `left == right` failed: []
+      left: 0
+     right: 1
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.063s] ( 9/13) hdd-xtask::bin/hdd-xtask claims::tests::a_context_rule_never_fires_outside_its_paths
+  stdout ───
+
+    running 1 test
+    test claims::tests::a_context_rule_never_fires_outside_its_paths ... FAILED
+
+    failures:
+
+    failures:
+        claims::tests::a_context_rule_never_fires_outside_its_paths
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 275 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'claims::tests::a_context_rule_never_fires_outside_its_paths' (33368) panicked at 
+crates\hdd-xtask\src\claims.rs:456:9:
+    assertion `left == right` failed
+      left: 0
+     right: 1
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.065s] (10/13) hdd-xtask::bin/hdd-xtask 
+claims::tests::context_fixtures_hold_under_the_shipped_configuration
+  stdout ───
+
+    running 1 test
+    test claims::tests::context_fixtures_hold_under_the_shipped_configuration ... FAILED
+
+    failures:
+
+    failures:
+        claims::tests::context_fixtures_hold_under_the_shipped_configuration
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 275 filtered out; finished in 0.02s
+
+  stderr ───
+
+    thread 'claims::tests::context_fixtures_hold_under_the_shipped_configuration' (17592) panicked at 
+crates\hdd-xtask\src\claims.rs:419:21:
+    "We protect your site." at docs/site/index.md should fail
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.072s] (11/13) hdd-xtask::bin/hdd-xtask 
+claims::tests::a_line_that_merely_mentions_the_marker_does_not_open_a_block
+        PASS [   0.078s] (12/13) hdd-xtask::bin/hdd-xtask 
+claims::tests::qualified_ddos_protection_passes_and_unqualified_fails
+        PASS [   0.091s] (13/13) hdd-xtask::bin/hdd-xtask 
+claims::tests::the_shipped_configuration_does_not_excuse_the_phrase_by_a_mere_upstream_mention
+────────────
+     Summary [   0.092s] 13 tests run: 8 passed, 5 failed, 263 skipped
+        FAIL [   0.019s] ( 2/13) hdd-xtask::bin/hdd-xtask claims::tests::context_scope_terms_are_whole_phrases
+        FAIL [   0.034s] ( 5/13) hdd-xtask::bin/hdd-xtask claims::tests::context_window_is_twelve_words_not_thirteen
+        FAIL [   0.058s] ( 8/13) hdd-xtask::bin/hdd-xtask 
+claims::tests::context_rules_keep_the_phrase_rules_and_the_markers
+        FAIL [   0.063s] ( 9/13) hdd-xtask::bin/hdd-xtask claims::tests::a_context_rule_never_fires_outside_its_paths
+        FAIL [   0.065s] (10/13) hdd-xtask::bin/hdd-xtask 
+claims::tests::context_fixtures_hold_under_the_shipped_configuration
+error: test run failed
+
+===== ftl_style red run (same session, before the rules existed) =====
+
+cargo :    Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+At line:1 char:129
++ ... ew($false); cargo nextest run -p hdd-xtask "ux_docs::ftl_style" --no- ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...ates\hdd-xtask):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: unused imports: `BTreeMap` and `BTreeSet`
+  --> crates\hdd-xtask\src\ux_docs\ftl_style.rs:17:24
+   |
+17 | use std::collections::{BTreeMap, BTreeSet};
+   |                        ^^^^^^^^  ^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `regex::Regex`
+  --> crates\hdd-xtask\src\ux_docs\ftl_style.rs:20:5
+   |
+20 | use regex::Regex;
+   |     ^^^^^^^^^^^^
+
+warning: constant `EMPTY_COMMENT` is never used
+  --> crates\hdd-xtask\src\ux_docs\ftl_style.rs:30:11
+   |
+30 | pub const EMPTY_COMMENT: &str = "empty: needs text";
+   |           ^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `KEY_SHAPE` is never used
+  --> crates\hdd-xtask\src\ux_docs\ftl_style.rs:33:7
+   |
+33 | const KEY_SHAPE: &str = r"^[a-z0-9]+(-[a-z0-9]+)*$";
+   |       ^^^^^^^^^
+
+warning: fields `line`, `key`, and `value` are never read
+  --> crates\hdd-xtask\src\ux_docs\ftl_style.rs:38:5
+   |
+36 | struct Message {
+   |        ------- fields in this struct
+37 |     /// 1-based line number.
+38 |     line: usize,
+   |     ^^^^
+39 |     /// The key on the left of `=`.
+40 |     key: String,
+   |     ^^^
+41 |     /// The value on the right of `=`, trimmed.
+42 |     value: String,
+   |     ^^^^^
+
+warning: function `has_emoji` is never used
+  --> crates\hdd-xtask\src\ux_docs\ftl_style.rs:75:4
+   |
+75 | fn has_emoji(text: &str) -> bool {
+   |    ^^^^^^^^^
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 6 warnings (run `cargo fix --bin "hdd-xtask" -p hdd-xtask 
+--tests` to apply 2 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.21s
+────────────
+ Nextest run ID d9f80cb7-5c9f-4ae8-ab2b-83ea44f7312e with nextest profile: default
+    Starting 12 tests across 1 binary (276 tests skipped)
+        FAIL [   0.009s] ( 1/12) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::two_keys_may_not_share_a_value
+  stdout ───
+
+    running 1 test
+    test ux_docs::ftl_style::tests::two_keys_may_not_share_a_value ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::ftl_style::tests::two_keys_may_not_share_a_value
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 287 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::ftl_style::tests::two_keys_may_not_share_a_value' (14324) panicked at 
+crates\hdd-xtask\src\ux_docs\ftl_style.rs:219:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.013s] ( 2/12) hdd-xtask::bin/hdd-xtask 
+ux_docs::ftl_style::tests::a_count_variable_needs_both_plural_categories
+  stdout ───
+
+    running 1 test
+    test ux_docs::ftl_style::tests::a_count_variable_needs_both_plural_categories ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::ftl_style::tests::a_count_variable_needs_both_plural_categories
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 287 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::ftl_style::tests::a_count_variable_needs_both_plural_categories' (5172) panicked at 
+crates\hdd-xtask\src\ux_docs\ftl_style.rs:209:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.017s] ( 3/12) hdd-xtask::bin/hdd-xtask 
+ux_docs::ftl_style::tests::no_value_contains_angle_bracket_markup
+  stdout ───
+
+    running 1 test
+    test ux_docs::ftl_style::tests::no_value_contains_angle_bracket_markup ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::ftl_style::tests::no_value_contains_angle_bracket_markup
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 287 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::ftl_style::tests::no_value_contains_angle_bracket_markup' (33084) panicked at 
+crates\hdd-xtask\src\ux_docs\ftl_style.rs:197:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.022s] ( 4/12) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::a_key_is_defined_once
+  stdout ───
+
+    running 1 test
+    test ux_docs::ftl_style::tests::a_key_is_defined_once ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::ftl_style::tests::a_key_is_defined_once
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 287 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::ftl_style::tests::a_key_is_defined_once' (26976) panicked at 
+crates\hdd-xtask\src\ux_docs\ftl_style.rs:172:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.027s] ( 5/12) hdd-xtask::bin/hdd-xtask 
+ux_docs::ftl_style::tests::forbidden_claims_are_checked_on_every_value
+  stdout ───
+
+    running 1 test
+    test ux_docs::ftl_style::tests::forbidden_claims_are_checked_on_every_value ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::ftl_style::tests::forbidden_claims_are_checked_on_every_value
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 287 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::ftl_style::tests::forbidden_claims_are_checked_on_every_value' (33280) panicked at 
+crates\hdd-xtask\src\ux_docs\ftl_style.rs:261:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.031s] ( 6/12) hdd-xtask::bin/hdd-xtask 
+ux_docs::ftl_style::tests::an_exclamation_mark_is_only_allowed_in_a_success_key
+  stdout ───
+
+    running 1 test
+    test ux_docs::ftl_style::tests::an_exclamation_mark_is_only_allowed_in_a_success_key ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::ftl_style::tests::an_exclamation_mark_is_only_allowed_in_a_success_key
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 287 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::ftl_style::tests::an_exclamation_mark_is_only_allowed_in_a_success_key' (24740) panicked at 
+crates\hdd-xtask\src\ux_docs\ftl_style.rs:186:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.037s] ( 7/12) hdd-xtask::bin/hdd-xtask 
+ux_docs::ftl_style::tests::every_b13_key_is_required_and_no_other_key_is_allowed
+  stdout ───
+
+    running 1 test
+    test ux_docs::ftl_style::tests::every_b13_key_is_required_and_no_other_key_is_allowed ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::ftl_style::tests::every_b13_key_is_required_and_no_other_key_is_allowed
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 287 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::ftl_style::tests::every_b13_key_is_required_and_no_other_key_is_allowed' (32672) panicked at 
+crates\hdd-xtask\src\ux_docs\ftl_style.rs:225:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.040s] ( 8/12) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::no_value_contains_an_emoji
+  stdout ───
+
+    running 1 test
+    test ux_docs::ftl_style::tests::no_value_contains_an_emoji ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::ftl_style::tests::no_value_contains_an_emoji
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 287 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::ftl_style::tests::no_value_contains_an_emoji' (8564) panicked at 
+crates\hdd-xtask\src\ux_docs\ftl_style.rs:179:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.044s] ( 9/12) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::keys_are_semantic_hyphenated_stems
+  stdout ───
+
+    running 1 test
+    test ux_docs::ftl_style::tests::keys_are_semantic_hyphenated_stems ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::ftl_style::tests::keys_are_semantic_hyphenated_stems
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 287 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::ftl_style::tests::keys_are_semantic_hyphenated_stems' (31396) panicked at 
+crates\hdd-xtask\src\ux_docs\ftl_style.rs:163:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.048s] (10/12) hdd-xtask::bin/hdd-xtask 
+ux_docs::ftl_style::tests::an_empty_value_needs_the_empty_comment
+  stdout ───
+
+    running 1 test
+    test ux_docs::ftl_style::tests::an_empty_value_needs_the_empty_comment ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::ftl_style::tests::an_empty_value_needs_the_empty_comment
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 287 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::ftl_style::tests::an_empty_value_needs_the_empty_comment' (9564) panicked at 
+crates\hdd-xtask\src\ux_docs\ftl_style.rs:244:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.053s] (11/12) hdd-xtask::bin/hdd-xtask 
+ux_docs::ftl_style::tests::the_value_equals_the_specification_text
+  stdout ───
+
+    running 1 test
+    test ux_docs::ftl_style::tests::the_value_equals_the_specification_text ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::ftl_style::tests::the_value_equals_the_specification_text
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 287 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::ftl_style::tests::the_value_equals_the_specification_text' (18416) panicked at 
+crates\hdd-xtask\src\ux_docs\ftl_style.rs:237:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.057s] (12/12) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::a_complete_fixture_deck_passes
+────────────
+     Summary [   0.058s] 12 tests run: 1 passed, 11 failed, 276 skipped
+        FAIL [   0.009s] ( 1/12) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::two_keys_may_not_share_a_value
+        FAIL [   0.013s] ( 2/12) hdd-xtask::bin/hdd-xtask 
+ux_docs::ftl_style::tests::a_count_variable_needs_both_plural_categories
+        FAIL [   0.017s] ( 3/12) hdd-xtask::bin/hdd-xtask 
+ux_docs::ftl_style::tests::no_value_contains_angle_bracket_markup
+        FAIL [   0.022s] ( 4/12) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::a_key_is_defined_once
+        FAIL [   0.027s] ( 5/12) hdd-xtask::bin/hdd-xtask 
+ux_docs::ftl_style::tests::forbidden_claims_are_checked_on_every_value
+        FAIL [   0.031s] ( 6/12) hdd-xtask::bin/hdd-xtask 
+ux_docs::ftl_style::tests::an_exclamation_mark_is_only_allowed_in_a_success_key
+        FAIL [   0.037s] ( 7/12) hdd-xtask::bin/hdd-xtask 
+ux_docs::ftl_style::tests::every_b13_key_is_required_and_no_other_key_is_allowed
+        FAIL [   0.040s] ( 8/12) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::no_value_contains_an_emoji
+        FAIL [   0.044s] ( 9/12) hdd-xtask::bin/hdd-xtask ux_docs::ftl_style::tests::keys_are_semantic_hyphenated_stems
+        FAIL [   0.048s] (10/12) hdd-xtask::bin/hdd-xtask 
+ux_docs::ftl_style::tests::an_empty_value_needs_the_empty_comment
+        FAIL [   0.053s] (11/12) hdd-xtask::bin/hdd-xtask 
+ux_docs::ftl_style::tests::the_value_equals_the_specification_text
+error: test run failed

@@ -1,0 +1,572 @@
+# Capability matrix links (R-07, T-0010). Read by `cargo xtask matrix generate|check`.
+#
+# tests    = ["path::test_fn", "path"]   a test function that exists in that file (or a file, for suites that are not Rust tests)
+# evidence = ["path@sha256"]             hash-checked files; an entry that is a verify summary (`*.json` with `steps`) is a run record
+# deferred = "reason"                    explicit deferral instead of a test (R-07)
+#
+# A row advances only as far as these links allow (see the header of crates/hdd-xtask/src/matrix.rs). Nothing here is
+# written by hand without the artifact existing: `matrix check` verifies every reference.
+
+[[task]]
+id = "T-0001"
+evidence = ["docs/gates/evidence/G00/pre-promotion/summary.json@9cb7d2958ad14865e7aa79635382a3cb40553ab30759ef59eaee2d77bc4fb36a"]
+tests = [
+    "crates/hdd-xtask/src/spec.rs::split_is_lossless_and_cut_at_markers",
+    "crates/hdd-xtask/src/spec.rs::golden_manifest_for_the_sample",
+    "crates/hdd-xtask/src/spec.rs::missing_markers_is_an_error",
+    "crates/hdd-xtask/src/tasks.rs::parse_small_spec_fixture",
+    "crates/hdd-xtask/src/tasks.rs::req_ids_follow_phase_prefix_and_position",
+]
+
+[[task]]
+id = "T-0002"
+evidence = ["docs/gates/evidence/G00/pre-promotion/summary.json@9cb7d2958ad14865e7aa79635382a3cb40553ab30759ef59eaee2d77bc4fb36a"]
+tests = [
+    "crates/hdd-xtask/src/rules.rs::repo_state_requires_state_files_and_ignore_patterns",
+    "crates/hdd-xtask/src/rules.rs::agents_md_over_the_cap_is_a_finding",
+]
+
+[[task]]
+id = "T-0003"
+# The discovery tool was removed with tools/bootstrap (DEV-V5-000); its recorded double run is in the G00 progress notes.
+evidence = [
+    "docs/gates/evidence/G00/t0003-rerun/run1-vs-run2.txt@fc7e4e797e86ae19f11407cced62bd9479ca095006998a95a96bf79738870ddf",
+    "docs/gates/evidence/G00/t0003-rerun/run2-ENV.md@84efe9be0f869ae898e8cab227fcceda2be5f8670620f3d66d8ae1abf8406662",
+    "docs/gates/evidence/G00/pre-promotion-done/summary.json@15105d190a304a8fa7c405b66724e1c93b31438b0c6dd9dd13e9d16a35f9bdac",
+]
+tests = ["docs/gates/G00-progress.md", "docs/gates/evidence/G00/t0003-rerun/README.md"]
+
+[[task]]
+id = "T-0004"
+evidence = ["docs/gates/evidence/G00/pre-promotion/summary.json@9cb7d2958ad14865e7aa79635382a3cb40553ab30759ef59eaee2d77bc4fb36a"]
+tests = [
+    "crates/hdd-xtask/src/rules.rs::unsafe_code_is_a_compile_error_under_the_workspace_lints",
+    "crates/hdd-xtask/src/rules.rs::forbid_unsafe_is_required_except_for_the_ebpf_crate",
+    "crates/hdd-xtask/src/rules.rs::a_shipped_binary_reaching_the_vuln_lab_is_a_finding_but_a_dev_dependency_is_not",
+]
+
+[[task]]
+id = "T-0005"
+evidence = ["docs/gates/evidence/G00/pre-promotion/summary.json@9cb7d2958ad14865e7aa79635382a3cb40553ab30759ef59eaee2d77bc4fb36a"]
+tests = [
+    "crates/hdd-xtask/src/spec.rs::split_is_lossless_and_cut_at_markers",
+    "crates/hdd-xtask/src/tasks.rs::order_is_stable_topological_and_later_numbers_may_run_first",
+    "crates/hdd-xtask/src/tasks.rs::cycle_is_an_error",
+    "crates/hdd-xtask/src/claims.rs::seeded_forbidden_phrase_in_a_template_fails",
+    "crates/hdd-xtask/src/claims.rs::approved_patterns_of_section_4_3_pass",
+    "crates/hdd-xtask/src/claims.rs::a_line_that_merely_mentions_the_marker_does_not_open_a_block",
+    "crates/hdd-xtask/src/rust_share.rs::exclusions_are_applied_and_listed",
+    "crates/hdd-xtask/src/rust_share.rs::below_ninety_percent_fails",
+    "crates/hdd-xtask/src/rust_share.rs::caps_fail_independently_of_the_share",
+    "crates/hdd-xtask/src/secrets.rs::private_key_block_is_found_and_not_echoed",
+    "crates/hdd-xtask/src/secrets.rs::gen_secrets_writes_distinct_32_byte_secrets_and_never_overwrites",
+    "crates/hdd-xtask/src/verify.rs::exit_codes_map_to_statuses",
+    "crates/hdd-xtask/src/verify.rs::a_failing_command_step_fails_and_a_missing_program_is_unverified",
+    "crates/hdd-xtask/src/verify.rs::stubs_are_named_and_unverified",
+]
+
+[[task]]
+id = "T-0006"
+evidence = ["docs/gates/evidence/G00/pre-promotion/summary.json@9cb7d2958ad14865e7aa79635382a3cb40553ab30759ef59eaee2d77bc4fb36a"]
+tests = [
+    "crates/hdd-common/src/profile/tests.rs::a1_the_example_file_validates_with_only_the_expected_required_field_failures",
+    "crates/hdd-common/src/profile/tests.rs::a2_runner_ip_in_admin_cidrs_fails_with_the_documented_message",
+    "crates/hdd-common/src/profile/tests.rs::a3_unknown_keys_are_rejected_with_the_full_key_path",
+    "crates/hdd-common/src/profile/tests.rs::a4_no_secret_value_can_be_parsed_only_environment_variable_names",
+    "crates/hdd-common/src/profile/tests.rs::a5_the_generated_schema_is_stable_and_matches_the_committed_file",
+    "crates/hdd-common/src/profile/tests.rs::hostile_yaml_is_rejected_by_the_budget_not_by_the_schema",
+    "crates/hdd-common/src/profile/validate/tests.rs::runner_ip_inside_admin_cidrs_fails_with_the_documented_message",
+    "crates/hdd-common/src/net.rs::cidr_parsing_never_panics",
+    "crates/hddctl/tests/preflight.rs::a1_the_example_file_fails_only_on_the_empty_required_fields_with_remediation",
+]
+
+[[task]]
+id = "T-0007"
+evidence = ["docs/gates/evidence/G00/pre-promotion-t0007/summary.json@5962dfa7873a907594b3dcebe1fb6ef57fda66f74bec723b2896d957bf66893b"]
+tests = [
+    "crates/hdd-xtask/src/rules.rs::the_shipped_first_response_satisfies_its_acceptance_checks",
+    "crates/hdd-xtask/src/rules.rs::a_first_response_with_a_missing_question_or_an_extra_section_fails",
+]
+
+[[task]]
+id = "T-0008"
+evidence = ["docs/gates/evidence/G00/pre-promotion/summary.json@9cb7d2958ad14865e7aa79635382a3cb40553ab30759ef59eaee2d77bc4fb36a"]
+tests = [
+    "crates/hdd-xtask/src/deps.rs::adding_a_crate_without_vetting_is_flagged",
+    "crates/hdd-xtask/src/deps.rs::ffi_and_unmaintained_crates_need_an_existing_adr",
+    "crates/hdd-xtask/src/deps.rs::fully_vetted_manifest_passes",
+]
+
+[[task]]
+id = "T-0009"
+evidence = ["docs/gates/evidence/G00/pre-promotion/summary.json@9cb7d2958ad14865e7aa79635382a3cb40553ab30759ef59eaee2d77bc4fb36a"]
+tests = [
+    "crates/hdd-common/src/egress/tests.rs::a1_a_host_not_on_the_allowlist_is_denied_before_any_socket_is_opened",
+    "crates/hdd-common/src/egress/tests.rs::a2_a_name_that_resolves_public_then_loopback_is_rejected_at_connect_time",
+    "crates/hdd-common/src/egress/tests.rs::a3_a_redirect_to_the_metadata_address_is_not_followed",
+    "crates/hdd-common/src/egress/target.rs::a4_a_cname_to_another_host_is_rejected_using_a_real_dns_responder",
+    "crates/hdd-common/src/egress/killswitch.rs::a_blocking_tool_aborts_within_one_second_of_the_file_appearing",
+    "crates/hdd-common/src/egress/tests.rs::the_kill_switch_aborts_a_request_in_flight_within_one_second",
+    "crates/hdd-common/src/egress/ssrf.rs::classification_table",
+    "crates/hdd-common/src/egress/ssrf.rs::classification_is_invariant_under_textual_representation",
+    "crates/hdd-common/src/egress/mod.rs::fuzz_entry_never_panics_on_arbitrary_bytes",
+    "crates/hdd-common/src/egress/tests.rs::tls_verification_rejects_a_certificate_for_another_name",
+    "crates/hdd-common/src/egress/tests.rs::the_response_size_cap_applies_to_content_length_and_chunked_bodies",
+]
+
+[[task]]
+id = "T-0010"
+evidence = [
+    "docs/gates/evidence/G00/pre-promotion-done/summary.json@15105d190a304a8fa7c405b66724e1c93b31438b0c6dd9dd13e9d16a35f9bdac",
+    "docs/gates/evidence/G00/pre-promotion-done/20-matrix-check.log@8845ac955c5e6e82ac12dfa286d303ab3b728beb35aa8889d408f6f884587c03",
+]
+tests = [
+    "crates/hdd-xtask/src/matrix.rs::generated_matrix_has_one_row_per_task_with_req_ids",
+    "crates/hdd-xtask/src/matrix.rs::a_done_row_without_evidence_fails",
+    "crates/hdd-xtask/src/matrix.rs::a_done_row_with_hash_checked_passing_evidence_passes_and_tampering_fails",
+    "crates/hdd-xtask/src/tasks.rs::req_ids_follow_phase_prefix_and_position",
+    "crates/hdd-xtask/src/gate.rs::criteria_are_parsed_from_the_acceptance_list",
+    "crates/hdd-xtask/src/gate.rs::the_gate_report_is_deterministic_follows_the_template_and_flags_unrecorded_criteria",
+]
+
+[[task]]
+id = "T-0561"
+evidence = [
+    "docs/evidence/P33/T-0561-verify/summary.json@4d8f24a8907a790a170b79eb28c22f78150a2ef23848ff3ce17e58a48a909f57",
+    "docs/evidence/P33/T-0561-negative-demos.txt@bd01a741c5499b12e99c53177ccceffe7893d88dd51caec4b26f062f20edb329",
+    "docs/evidence/P33/T-0561-red-capability.txt@68e87c419784f2e2236ef7ac6829f76c7a2ccd48db9496386b9e1195a4356133",
+]
+tests = [
+    "crates/hdd-common/src/profile/capability/tests.rs::local_refuses_what_needs_a_server_with_err_local_001",
+    "crates/hdd-common/src/profile/capability/tests.rs::hosted_allows_the_server_features_and_open_signup_needs_the_operator",
+    "crates/hdd-common/src/profile/capability/tests.rs::lan_exposure_in_local_needs_the_exact_acknowledgement",
+    "crates/hdd-common/src/profile/capability/tests.rs::stores_follow_the_comparison_table",
+    "crates/hdd-common/src/profile/capability/tests.rs::refusals_lists_every_requested_capability_that_is_unavailable",
+    "crates/hdd-common/src/profile/env/tests.rs::every_variable_is_applied_to_the_profile",
+    "crates/hdd-common/src/profile/env/tests.rs::every_bad_variable_is_reported_and_none_is_echoed_in_full",
+    "crates/hdd-common/src/profile/env/tests.rs::the_schema_documents_every_variable",
+    "crates/hdd-common/src/profile/validate/tests.rs::t0561_a1_local_refuses_saas_and_open_signup_with_err_local_001_at_config_load",
+    "crates/hdd-xtask/src/profile_lint/tests.rs::a2_a_profile_check_added_to_the_detection_crate_fails_and_the_clean_tree_passes",
+    "crates/hdd-xtask/src/profile_lint/tests.rs::a3_a_redis_client_call_outside_the_kv_module_fails",
+    "crates/hdd-xtask/src/profile_lint/tests.rs::a_capability_missing_from_the_matrix_list_fails",
+    "crates/hdd-xtask/src/profile_lint/tests.rs::the_shipped_tree_passes_both_lints",
+    "crates/hdd-common/src/parity/tests.rs::every_compared_field_is_detected",
+    "crates/hdd-common/src/parity/tests.rs::nothing_to_compare_is_unverified_never_clean",
+    "crates/hdd-common/src/buildplan/tests.rs::local_on_a_bare_windows_builder_gets_an_honest_plan",
+    "crates/hddctl/tests/preflight.rs::t0561_a5_a_machine_without_docker_postgres_redis_nft_and_dig_gets_track_l_and_exit_zero",
+]
+
+[[task]]
+id = "T-0562"
+evidence = [
+    "docs/evidence/P33/T-0562-verify/summary.json@11692890b98b70600e52d1b63ffd8a77fd5c225cf7946bd2bcfde4f6c7265d1c",
+    "docs/evidence/P33/T-0562-suite-mutations.txt@1cb404c51e8e51ae6b756b8a188747e1dbca5b3ea07c036c53d90c71177e8c9d",
+    "docs/evidence/P33/T-0562-bench.txt@7f1d88e8d8bd2d27642adcdfec1910d82f22300370648d04826596453d17bc0b",
+]
+tests = [
+    "crates/hdd-common/src/kv/tests.rs::the_conformance_suite_passes_on_memory_kv_with_ten_thousand_sequences",
+    "crates/hdd-common/src/kv/tests.rs::bus_ordering_gap_and_lag_detection_on_the_memory_bus",
+    "crates/hdd-common/src/kv/tests.rs::a3_rehydration_rebuilds_bans_offences_and_sessions_and_reports_rows_and_time",
+    "crates/hdd-common/src/kv/tests.rs::a_key_flood_is_bounded_and_the_evictions_are_counted",
+    "crates/hdd-common/src/kv/tests.rs::pinned_namespaces_are_never_evicted",
+    "crates/hdd-common/src/kv/tests.rs::the_pinned_cap_is_a_clear_error_that_writes_nothing",
+    "crates/hdd-common/src/kv/tests.rs::memory_with_hosted_and_several_service_processes_is_refused",
+    "crates/hdd-common/src/kv/tests.rs::operations_are_counted_and_timed_by_backend_op_and_result",
+    "crates/hdd-common/src/kv/rate/tests.rs::burst_of_one_hundred_against_sixty_per_ten_seconds",
+    "crates/hdd-common/src/kv/redis/tests.rs::only_tls_urls_with_a_password_are_accepted",
+    "crates/hdd-common/src/kv/redis/tests.rs::the_breaker_opens_after_the_threshold_probes_once_and_closes_on_success",
+    "crates/hdd-common/benches/kv_limiter.rs",
+    "crates/hdd-common/tests/kv_redis.rs",
+]
+
+[[task]]
+id = "T-0563"
+evidence = [
+    "docs/evidence/P33/T-0563-verify/summary.json@28a2489df57653a7c0d55c79197e93a19aaca0be7725cf24fe7c4d5e81845f92",
+    "docs/evidence/P33/T-0563-a2-real-archive.txt@cbcce4f9356f15ebed520b533c3b5a8eff630bec340ec5577d5617dc78b243c4",
+    "docs/evidence/P33/T-0563-e2e.txt@443d1dbc342489f331741bb65c2a22643ea5841068f8a06caf4260d8458b1007",
+    "docs/evidence/P33/T-0563-real-run.txt@89825dfb9b2e5787a5f66eff24436b6d4f6447c40629c7f29c6e9eb1ca725d7b",
+    "docs/evidence/P33/hostile-review.md@685225f4e245d309dae6267e643e612796fd029f0b8568296c16d5e88f04ed89",
+]
+tests = [
+    "crates/hdd-local/src/pg/tests.rs::the_embedded_manifest_is_valid_and_pins_five_targets",
+    "crates/hdd-local/src/pg/tests.rs::a2_a_binary_with_a_wrong_checksum_is_refused_and_nothing_is_installed_or_started",
+    "crates/hdd-local/src/pg/tests.rs::extraction_refuses_traversal_absolute_paths_escaping_links_and_special_files",
+    "crates/hdd-local/src/pg/tests.rs::generated_secrets_are_long_unique_and_owner_only",
+    "crates/hdd-local/src/pg/tests.rs::the_backup_cipher_round_trips_every_size_class",
+    "crates/hdd-local/src/pg/tests.rs::a_wrong_key_a_flipped_bit_truncation_and_appended_data_all_fail",
+    "crates/hdd-local/src/pg/tests.rs::the_free_port_search_skips_ports_in_use_and_reports_exhaustion",
+    "crates/hdd-local/src/pg/cluster/tests.rs::a3_pg_hba_allows_scram_on_loopback_and_nothing_else",
+    "crates/hdd-local/src/pg/cluster/tests.rs::the_managed_configuration_listens_on_loopback_only_and_keeps_durability_on",
+    "crates/hdd-local/src/pg/cluster/tests.rs::a_data_directory_of_another_major_version_is_refused_not_upgraded_in_place",
+    "crates/hdd-local/src/pg/cluster/tests.rs::reset_keeps_the_backup_key_the_binaries_and_the_backups",
+    "crates/hdd-local/tests/cli.rs::a_download_to_a_host_that_is_not_allowlisted_is_denied_before_any_connection",
+    "crates/hdd-local/tests/cli.rs::a_bundle_that_is_not_the_pinned_archive_is_refused",
+    "crates/hdd-local/tests/e2e_embedded.rs::the_embedded_database_installs_listens_on_loopback_only_and_restores_its_backups",
+]
+
+[[task]]
+id = "T-0011"
+evidence = [
+    "docs/evidence/P01/T-0011-verify/summary.json@6470fc9ad00476324da6ee79270c40927e12f0b7b5750d78aca6cdd6f53e8029",
+    "docs/evidence/P01/T-0011-negative-demos.txt@db8ba5793c243d0a7a5e27bed4572876a770b3c542cb3ad3e54969b9fd48594a",
+    "docs/evidence/P01/T-0011-red.txt@525d45f906a4694dc7d098082dd900014e6c0d379ef757567e0891ff592d39cc",
+]
+tests = [
+    "crates/hdd-xtask/src/ux_docs/tests.rs::a_principle_without_an_enforcement_mechanism_fails_a1",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::a_measure_without_source_or_privacy_treatment_fails_a2",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::honesty_tests_must_be_five_questions_a3",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::a_charter_over_four_printed_pages_fails_a5",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::a_link_to_a_file_that_exists_passes_and_a_missing_one_names_file_and_line",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::an_anchor_must_name_a_real_heading_in_the_same_or_the_target_file",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::a_complete_tree_passes_and_each_missing_document_is_named",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::a_broken_link_in_any_ux_document_or_agents_md_fails_the_tree",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::the_shipped_ux_documents_pass",
+]
+
+[[task]]
+id = "T-0012"
+evidence = [
+    "docs/evidence/P01/T-0012-verify/summary.json@af6ff15d02a0a7734dea6369cbb3dbd8b28bc6c92905f09e4bdb3e267c895ccb",
+    "docs/evidence/P01/T-0012-red.txt@aefad2ce06b6d8f43b925387c622ee17bf5216383355df2b9ec6d7a55354bc12",
+    "docs/evidence/P01/T-0012-negative-demos.txt@b16dae923ba39ff721131d5dc7922e85cfc45cc1e583afd26838498c52c64f66",
+    "docs/evidence/P01/T-0012-f3-red.txt@c665dd1eb2c043dcecccda23e2dcefc9d39eef7a5a7ebd1a8da51f9469503a1b",
+    "docs/evidence/P01/T-0012-f4-red.txt@8ada37dbf05a5c16e11eeb74b0876bc36c03daf1a38ec4f1936bec923a206e97",
+    "docs/evidence/P01/T-0012-f5-red.txt@2b6fb474b94e86f3dfe644b2ebae75fbde8e5032d353dd4368eccfa60841f96a",
+    "docs/evidence/P01/T-0012-f4-f5-demos.txt@41df9b3172cbaab15177356139c3e23ddac2858b4a0b756474819a3d94fe6514",
+    "docs/evidence/P01/T-0012-minor-red.txt@a84468af249d523b9dc3063d2e9c380c6ac98fc3fd89680f40603c8a93e9e4f0",
+    "docs/evidence/P01/T-0012-f6-red.txt@073be2ec73c7c79c361e32b3d37032ddbc52d90476995daabe5c46d1e8198d22",
+    "docs/evidence/P01/T-0012-f6-demos.txt@6aa3c45b7499d2ec3085da6982847900e4117b1b81544102ec53fa004220edef",
+]
+tests = [
+    "crates/hdd-xtask/src/ux_docs/tests.rs::a_persona_with_two_scenarios_fails_a1",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::a_scenario_without_a_measurable_outcome_fails_a1",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::accessibility_must_be_present_and_mapped_to_b11_11",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::the_adversary_needs_ten_abuse_stories_mapped_to_the_registry",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::every_journey_must_be_in_the_matrix",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::the_primary_persona_question_must_be_recorded_open_with_maya_as_default",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::a_mojibake_sequence_in_a_shipped_persona_or_the_matrix_fails_the_tree",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::f4_identifier_digits_do_not_make_an_outcome_measurable",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::f5_an_uncovered_criterion_is_reported_and_does_not_count",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::the_shipped_ux_documents_pass",
+]
+[[task]]
+id = "T-0013"
+evidence = [
+    "docs/evidence/P01/T-0013-verify/summary.json@524af9c5d1505032cc94990793cb53544c57015e34ac3ec0a76a6193611a1dee",
+    "docs/evidence/P01/T-0013-red.txt@580de9f437e730b16b3c9c8dd8cc0c871b09d970d835936f54ce4d8919fc48ce",
+    "docs/evidence/P01/T-0013-negative-demos.txt@c7fa55906509910e59e7a326b665b8872081b9514dad254e933ba4ebcc72cd76",
+    "docs/evidence/P01/T-0013-f8-red.txt@c7fe4b01d59e2ad1dcb2393a31c0829be04e1dea1f103865ad16e9fa952c139c",
+    "docs/evidence/P01/T-0013-f9-red.txt@d24ccf57807160616ae8a260d1d1d59709ed0e298ff568a79ca5bfd49af2d40d",
+    "docs/evidence/P01/T-0013-negative-demos-round2.txt@01581517a936a0fb46debbe11e73bcbda5225fa5979581f28aa6645a2eeaa4d2",
+]
+tests = [
+    "crates/hdd-xtask/src/ux_docs/tests.rs::honesty_tests_must_be_five_questions_a3",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::a_decision_record_needs_status_date_and_the_three_sections",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t13_a_complete_patterns_document_passes",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t13_fewer_than_twelve_topics_fail",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t13_a_topic_missing_a_labeled_part_fails",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t13_the_status_line_must_be_valid",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t13_pass_is_rejected_when_every_topic_is_first_principles",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t13_pass_is_accepted_when_a_topic_has_a_fetched_source",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t13_screen_ids_expand_ranges_and_components_are_read",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t13_a_complete_design_requirements_document_passes",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t13_missing_design_requirements_are_reported",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t13_a_repeated_design_requirement_is_reported",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::the_shipped_ux_documents_pass",
+]
+
+[[task]]
+id = "T-0014"
+evidence = [
+    "docs/evidence/P01/T-0014-verify/summary.json@ab5a0e0c6a10aa5f288db0ebdb79273169ddd227cca494c79b741d6a8386445c",
+    "docs/evidence/P01/T-0014-red.txt@b94d461ad77fe0d4a13785d12aa2a7281b58e09fcbca122bce6732ffef4cc036",
+    "docs/evidence/P01/T-0014-negative-demos.txt@02158751bdead24a816f9c3512e20a16dac46a63dca2df8eb9a4e060a7921285",
+    "docs/evidence/P01/T-0014-f10-red.txt@2a14e04f933f26559f1dedf1e51c88e9e43a3f41e283335abfde3ead329f0323",
+    "docs/evidence/P01/T-0014-negative-demos-round2.txt@25a13b9e0c8ababa3b1ee35a5f9c3bddd62da87d1fd94d221b92215daff56a3b",
+]
+tests = [
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t14_a_complete_routes_file_passes",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t14_a_permission_must_exist_in_the_catalog",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t14_a_route_must_not_cite_an_unknown_screen",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t14_a_token_parameter_must_be_listed_in_the_token_routes_section",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t14_the_identifier_regex_and_example_are_checked",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::f10_a_public_permission_is_rejected_where_a_session_is_expected",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::f10_b_platform_permissions_stay_on_the_admin_surface",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::f10_c_the_rate_class_must_match_the_methods",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::the_shipped_ux_documents_pass",
+]
+
+[[task]]
+id = "T-0015"
+evidence = [
+    "docs/evidence/P01/T-0015-verify/summary.json@5d97777c90506577230e4aff9b4485f69d3c862d3d4af9b85d1ac1fa82b5f861",
+    "docs/evidence/P01/T-0015-red.txt@0e3448153576257b967371842c5186f02e0f9e0ff940d0c498f3fe6630476758",
+    "docs/evidence/P01/T-0015-negative-demos.txt@0ee222ae7c6adbbecf0df19075f452315a3238218c06fab14651da4d246036a6",
+    "docs/evidence/P01/T-0015-f11-red.txt@abdb1bcbde6f75a0502ea096abacafdecf4d18cfe782fbad11e1213fe0f20546",
+    "docs/evidence/P01/T-0015-negative-demos-round2.txt@c91c230b92263be17c180764628a47891d4031c22de9f460d3c1dfd0a8673971",
+]
+tests = [
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t15_a_route_outside_the_route_table_fails",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t15_a_permission_that_differs_from_the_route_fails",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t15_a_missing_sidebar_item_tab_or_control_fails",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t15_the_shortcut_map_must_cover_b23_and_not_conflict",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t15_restricted_states_focus_and_mobile_are_required",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t15_a_hover_only_row_fails",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::f11_a_bound_default_needs_a_documented_conflict_row",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::f11_a_mitigation_must_name_a_navigable_element",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::the_shipped_ux_documents_pass",
+]
+
+[[task]]
+id = "T-0016"
+evidence = [
+    "docs/evidence/P01/T-0016-verify/summary.json@74ef0c4b823cf52716c98155f1622ed5432251c7d8fe6b3a6752f7a0843d0b1b",
+    "docs/evidence/P01/T-0016-red.txt@4ebba79f5d3b74f96c1c58fabf16b2d722f04c575bf62b3723400a731fd1fbb2",
+    "docs/evidence/P01/T-0016-negative-demos.txt@a800d2081de51e5aa83e8506d46820d7543f6ca97d711bd9bac639dcf92874d2",
+    "docs/evidence/P01/T-0016-f12-red.txt@df81b66a5c0a71079cca7dc25aacbaefbb90993211ec7f0d53c2be45e695ab75",
+    "docs/evidence/P01/T-0016-negative-demos-round2.txt@27f9ef9aa06a70a8b10cc977748547d85e9c4714f27939911d197f9f3d2800b8",
+    "docs/evidence/P01/T-0016-cutover-red.txt@474bb6f41b937f9266d175dc91d538111d77e36c5b3d6eb099dc7b516d9fc28f",
+    "docs/evidence/P01/T-0016-negative-demos-round3.txt@b16ce8e6e9ac80c33144a5356c880c519e9a85eedce14909fff0e01ce50672ea",
+]
+tests = [
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t16_a_complete_journey_passes",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t16_a_changed_title_fails",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t16_a_short_steps_table_fails",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t16_step_value_rules_fail",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t16_a_spec_mentioned_screen_must_appear",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t16_a_spec_ac_must_appear_in_success",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t16_trust_security_and_accessibility_rules",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t16_a_missing_screen_must_be_proposed",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::f12_a_sentence_unrelated_to_the_step_fails",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::f12_a_sentence_unrelated_to_the_code_fails",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::the_shipped_ux_documents_pass",
+]
+
+[[task]]
+id = "T-0017"
+evidence = [
+    "docs/evidence/P01/T-0017-verify/summary.json@98e36119159dc3bb90bf05c9593b5843b80cd843448c3853743258812bbfe6da",
+    "docs/evidence/P01/T-0017-red.txt@8458d9b470939cfac4a54cea1d7ab3479df9b15ad67eb9f56eceb27114a47818",
+    "docs/evidence/P01/T-0017-negative-demos.txt@740e690330c7f62e145ea1e34f3c4bb87914dee6b774c935004610a9a5d3ba34",
+    "docs/evidence/P01/T-0017-pass2-red.txt@d2bf51bec0d451e37d40efa70c88635593028686c169095da7a5c71a3de059dd",
+    "docs/evidence/P01/T-0017-negative-demos-pass2.txt@51f80f7c781e56a2bc6b36ff7fefcb0f36c97d03d9d0d78a303f51c8a85ca2d0",
+]
+tests = [
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t17_a_complete_safeguarded_journey_passes",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t17_safeguards_section_and_risky_rows_are_required",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t17_safeguard_kind_copy_length_and_claims_are_checked",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t17_what_could_go_wrong_needs_three_rows",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t17_protection_journeys_need_three_atk_rows",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t17_decision_support_needs_five_items",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t17_atk_family_must_match_the_step",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t17_risky_step_matches_whole_tokens_not_substrings",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t17_j22_abuse_cases_need_five_rows_with_known_atks",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::the_shipped_ux_documents_pass",
+]
+
+[[task]]
+id = "T-0018"
+evidence = [
+    "docs/evidence/P01/T-0018-verify/summary.json@10ebdf4bb11677c1baee077b641d43b76bdefe90232938d8f43bb29bc2616c4f",
+    "docs/evidence/P01/T-0018-red.txt@6b3d8022ca34b8e1c5a5e9ba6be0b794869d4d5f00c6a68073cba2db264afb4e",
+    "docs/evidence/P01/T-0018-negative-demos.txt@53aa69c6ffe9dfddfe38649e5902231cae9f4f05aa4224a4a66fb9303a421e5f",
+    "docs/evidence/P01/T-0018-f13-red.txt@534365df6adc16cf332dd8d17b9b7fa2f5eed87ed6e265b830638d190bd56a1c",
+    "docs/evidence/P01/T-0018-negative-demos-round2.txt@40cf89643cd2a2a949b0ea068128b489208b648afd0c1b01655f383230dd9c23",
+]
+tests = [
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t18_stress_cases_need_the_three_named_cases",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t18_readiness_weights_fix_links_and_footnote_are_checked",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t18_api_key_lifecycle_needs_every_stage",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t18_admin_controls_need_known_permissions_audits_and_values",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t18_privacy_timelines_are_configurable_and_legal_neutral",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t18_incident_timeline_and_retrospective_are_checked",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t18_dependency_rows_are_complete_and_acyclic",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t18_task_dependencies_agree_with_the_spec_task_graph",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::t18_f13_task_order_contradiction_needs_an_exception",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::the_shipped_ux_documents_pass",
+]
+
+[[task]]
+id = "T-0019"
+evidence = [
+    "docs/evidence/P01/T-0019-verify/summary.json@d1340280dc6a87237e5ef118dee097a0d928acacd9debb84b101a0191abc12aa",
+    "docs/evidence/P01/T-0019-red.txt@c4399d0a1319116f70fa414168bd7708ad88d72e5179508c5c246f54b884b97d",
+    "docs/evidence/P01/T-0019-pass-b-red.txt@92440cfd2d441abe701a35d5a74ae21bb6f74c70ccee5c7d6e59629cec266a6e",
+    "docs/evidence/P01/T-0019-negative-demos.txt@c7bbac9321d7719ab6bdb813b571489f508216be3dbe2c92d1e6edb7db556569",
+]
+tests = [
+    "crates/hdd-xtask/src/ux_docs/content.rs::vocabulary_needs_ten_rows_and_the_required_distinctions",
+    "crates/hdd-xtask/src/ux_docs/content.rs::message_patterns_need_ten_examples_and_all_eight_kinds",
+    "crates/hdd-xtask/src/ux_docs/content.rs::b13_review_lists_every_key_exactly_once",
+    "crates/hdd-xtask/src/ux_docs/content.rs::glossary_definitions_are_one_sentence_of_at_most_thirty_words",
+    "crates/hdd-xtask/src/ux_docs/content.rs::translation_guidance_needs_fluent_plurals_and_the_no_concatenation_rule",
+    "crates/hdd-xtask/src/ux_docs/ftl_style.rs::the_value_equals_the_specification_text",
+    "crates/hdd-xtask/src/ux_docs/ftl_style.rs::an_exclamation_mark_is_only_allowed_in_a_success_key",
+    "crates/hdd-xtask/src/claims.rs::context_fixtures_hold_under_the_shipped_configuration",
+    "crates/hdd-xtask/src/claims.rs::context_window_is_twelve_words_not_thirteen",
+    "crates/hdd-xtask/src/claims.rs::a_context_rule_never_fires_outside_its_paths",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::the_shipped_ux_documents_pass",
+]
+
+[[task]]
+id = "T-0022"
+evidence = [
+    "docs/evidence/P01/T-0022-verify/summary.json@9608a0467ab9b9046b3f8d4ec0b4f425c2189e666e7d85b84c8e76af6b948f55",
+    "docs/evidence/P01/T-0022-red.txt@5bd847109cfe7d6b3f6461a94d9dd7a2f9b7881815854859cef189f204d7e37a",
+    "docs/evidence/P01/T-0022-b1r1-red.txt@c2dd19c8095677249146934a50a7711b3eb8e90a8384613d9de71e0d10bb4f5c",
+    "docs/evidence/P01/T-0022-negative-demos.txt@9f231a19c002118208d1ff9bd89cb61f225c9b5623aa74f9580e12de85f47c5a",
+    "docs/evidence/P01/T-0022-negative-demos-round2.txt@ed539b09ea9a2df014455f21fce09c031dda8d4d36f0ef52bb7b86b7b0a6a67c",
+    "docs/evidence/P01/T-0022-27-b1r1-verify.txt@02c873c552b516394b51874c041b7588f8e508b55ccd1a33605651447b548743",
+]
+tests = [
+    "crates/hdd-xtask/src/ux_docs/a11y.rs::sections_require_all_eight_with_a_body",
+    "crates/hdd-xtask/src/ux_docs/a11y.rs::mapping_accepts_the_fixture_and_every_owner_form",
+    "crates/hdd-xtask/src/ux_docs/a11y.rs::mapping_reports_an_undeclared_page_pattern",
+    "crates/hdd-xtask/src/ux_docs/a11y.rs::severity_classifier_precedence_is_a_function",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::the_shipped_ux_documents_pass",
+]
+
+[[task]]
+id = "T-0024"
+evidence = [
+    "docs/evidence/P01/T-0024-verify/summary.json@9608a0467ab9b9046b3f8d4ec0b4f425c2189e666e7d85b84c8e76af6b948f55",
+    "docs/evidence/P01/T-0024-red.txt@d9f9168778933a01da5907788c83b69ea9589f35c64ce92676b11ea623f7adfe",
+    "docs/evidence/P01/T-0024-b1r1-red.txt@bedf7d5222284706252a31dedad7bef6ee4aa1588a216ca91e81ebb11a02b8e5",
+    "docs/evidence/P01/T-0024-negative-demos.txt@53be54736974717660b1dbd876a4ce17cf29573669846c3679e6584856e7713e",
+    "docs/evidence/P01/T-0024-negative-demos-round2.txt@8423042999c49c0d51808d45d23aa1aacff6ee54d66908f9370f61982b24a216",
+    "docs/evidence/P01/T-0022-27-b1r1-verify.txt@02c873c552b516394b51874c041b7588f8e508b55ccd1a33605651447b548743",
+]
+tests = [
+    "crates/hdd-xtask/src/ux_docs/responsive.rs::t24_b11_7_transformations_are_stated",
+    "crates/hdd-xtask/src/ux_docs/responsive.rs::t24_f23_print_margin_is_canonical_and_dataviz_points_here",
+    "crates/hdd-xtask/src/ux_docs/responsive.rs::t24_content_priority_covers_every_breakpoint_and_never_hides_security",
+    "crates/hdd-xtask/src/ux_docs/responsive.rs::t24_surface_categories_are_derived_from_the_b12_1_groups",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::the_shipped_ux_documents_pass",
+]
+
+[[task]]
+id = "T-0025"
+evidence = [
+    "docs/evidence/P01/T-0025-verify/summary.json@9608a0467ab9b9046b3f8d4ec0b4f425c2189e666e7d85b84c8e76af6b948f55",
+    "docs/evidence/P01/T-0025-red.txt@02647a19b8dd2bcfe12db50b60acfa82aff269f45b39bf125a055ed5ba7aa486",
+    "docs/evidence/P01/T-0025-b1r1-red.txt@efbd1fc893b7e082f2e6f82bf1fe21036a1e4c03b342eb429bf772e75112dc7a",
+    "docs/evidence/P01/T-0025-negative-demos.txt@1a5dbea9034050613a813a1816040a42f84a2aa146713613d2f4f979985e857c",
+    "docs/evidence/P01/T-0025-negative-demos-round2.txt@f887057cbc684c0ac1f78c58d89425097bd85214ec03f1c51a60e861d57fe033",
+    "docs/evidence/P01/T-0022-27-b1r1-verify.txt@02c873c552b516394b51874c041b7588f8e508b55ccd1a33605651447b548743",
+]
+tests = [
+    "crates/hdd-xtask/src/ux_docs/security_ux.rs::t25_required_actions_are_named",
+    "crates/hdd-xtask/src/ux_docs/security_ux.rs::t25_abuse_cases_stay_inside_the_hdd_attack_range",
+    "crates/hdd-xtask/src/ux_docs/security_ux.rs::t25_audit_references_in_the_prose_name_the_rows_event",
+    "crates/hdd-xtask/src/ux_docs/security_ux.rs::t25_audit_events_must_exist_in_b8_as_whole_tokens",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::the_shipped_ux_documents_pass",
+]
+
+[[task]]
+id = "T-0026"
+evidence = [
+    "docs/evidence/P01/T-0026-verify/summary.json@9608a0467ab9b9046b3f8d4ec0b4f425c2189e666e7d85b84c8e76af6b948f55",
+    "docs/evidence/P01/T-0026-red.txt@0c71162f642949216fbe27c005e517f09129089cca45e967d0cde2a1d74859be",
+    "docs/evidence/P01/T-0026-b1r1-red.txt@8a7e8b9df6be7e7b8a628308cc4b9cd595e78b59db18d44f3d5d091b7306492c",
+    "docs/evidence/P01/T-0026-b1r2-red.txt@8d558c18051223852976dd245098fcc382c1a678d9da3d6319c9d76630532687",
+    "docs/evidence/P01/T-0026-negative-demos.txt@9b18abdb00f510d195e135691760915c5a4dfbf0f433c4b727c199cff7fcfd63",
+    "docs/evidence/P01/T-0026-negative-demos-round2.txt@db7a4440b94420cd8e0490b37eb6b46e2a769c78dc1b102826441bf4a10e096c",
+    "docs/evidence/P01/T-0026-b1r2-negative-demos.txt@9a363deaf8b42e5087de4d3c80f4133d42f06f65adf6ef1d70e27b32cbebb238",
+    "docs/evidence/P01/T-0026-27-b1r2-verify.txt@94c137873cff66fdc57db166f3ecd2dec4f0663707cc0f3df735b88299df8b20",
+]
+tests = [
+    "crates/hdd-xtask/src/ux_docs/onboarding.rs::t26_next_best_action_is_evaluated_against_its_examples",
+    "crates/hdd-xtask/src/ux_docs/onboarding.rs::t26_scoring_example_is_evaluated",
+    "crates/hdd-xtask/src/ux_docs/onboarding.rs::t26_waf_monitor_partial_is_a_design_value",
+    "crates/hdd-xtask/src/ux_docs/onboarding.rs::t26_empty_states_name_real_screens_and_honest_keys",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::the_shipped_ux_documents_pass",
+]
+
+[[task]]
+id = "T-0027"
+evidence = [
+    "docs/evidence/P01/T-0027-verify/summary.json@9608a0467ab9b9046b3f8d4ec0b4f425c2189e666e7d85b84c8e76af6b948f55",
+    "docs/evidence/P01/T-0027-red.txt@e19700d50d428f28811af5a8c3a3553fac266f9140fbe4490015928d7f6cdf2a",
+    "docs/evidence/P01/T-0027-b1r1-red.txt@d58443c36a63798e165dd4781dcfcca8bea6ae4766c9ec8f883d5704220f1669",
+    "docs/evidence/P01/T-0027-b1r2-red.txt@569f68aa34dda2f2b4b015d6e6e01cde3b1f2da62aeb850bfc65f65413875718",
+    "docs/evidence/P01/T-0027-negative-demos.txt@f366ef076581484a27dcef263e5aef74cbdcadab03efd00f872263efd7889b96",
+    "docs/evidence/P01/T-0027-negative-demos-round2.txt@e32e016f5a64868899a06b813bf96519d5603865b5ec6aca5b8f326d689f0316",
+    "docs/evidence/P01/T-0027-b1r2-negative-demos.txt@29516be84e43d3c52fbb58d8b2bd831f9f860739e051cde8fcb62e2b01e32ce7",
+    "docs/evidence/P01/T-0026-27-b1r2-verify.txt@94c137873cff66fdc57db166f3ecd2dec4f0663707cc0f3df735b88299df8b20",
+]
+tests = [
+    "crates/hdd-xtask/src/ux_docs/dataviz.rs::t27_every_required_screen_has_a_question_and_a_metric",
+    "crates/hdd-xtask/src/ux_docs/dataviz.rs::t27_every_chart_has_a_text_summary_and_a_view_as_table_toggle",
+    "crates/hdd-xtask/src/ux_docs/dataviz.rs::t27_kpi_must_be_a_dictionary_row",
+    "crates/hdd-xtask/src/ux_docs/dataviz.rs::t27_every_chart_form_is_justified",
+    "crates/hdd-xtask/src/ux_docs/tests.rs::the_shipped_ux_documents_pass",
+]
+
+[[task]]
+id = "T-0020"
+evidence = [
+    "docs/evidence/P01/T-0020-verify/summary.json@e2d19fc974d492d84370a5d09a0ffd88740a61f592bc89eed2330ca71ee883d4",
+    "docs/evidence/P01/T-0020-red.txt@5076aee9f7b9794d88251eb74d5af84bc7ec7884110299c8bdca45a9de958992",
+    "docs/evidence/P01/T-0020-negative-demos.txt@6d0d6589241bc246fae18391180ef6bc7b2fb27cacf4a7fd2ffc0d1d77261684",
+    "docs/evidence/P01/T-0020-b2r1-red.txt@e2a630570816031225408dcff1efa98f80c78b5b69a0a7cd4f3caa97729a313c",
+    "docs/evidence/P01/T-0020-b2r1-negative-demos.txt@7622324a452f27dcc9404a4f8c5775c154816fd7093a117526a36f790ee95717",
+    "docs/evidence/P01/T-0020-23-b2r1-verify.txt@d56e4679527ffaca329b71effbf48118f6cceb47290bf86ba4ef846b7552d381",
+]
+tests = [
+    "crates/hdd-xtask/src/ux_docs/errors.rs::t20_a_complete_fixture_passes_every_rule",
+    "crates/hdd-xtask/src/ux_docs/errors.rs::t20_missing_documents_are_findings",
+    "crates/hdd-xtask/src/ux_docs/errors.rs::t20_required_sections_are_checked",
+    "crates/hdd-xtask/src/ux_docs/errors.rs::t20_class_table_requires_nine_classes",
+]
+
+[[task]]
+id = "T-0023"
+evidence = [
+    "docs/evidence/P01/T-0023-verify/summary.json@e2d19fc974d492d84370a5d09a0ffd88740a61f592bc89eed2330ca71ee883d4",
+    "docs/evidence/P01/T-0023-red.txt@009f0933873894a0b9b4234a20d3f984bb1404f1e52f558c5ff4f1053cf4be36",
+    "docs/evidence/P01/T-0023-negative-demos.txt@121141e66e38f3137fd05e50a0566f5fed78447842cc0b6ebff8186dcbf567d7",
+    "docs/evidence/P01/T-0023-b2r1-red.txt@b7c5024f1dfa3ce075e4c65cc25bf9155438a922320c2cb9b0ccb14211d0216b",
+    "docs/evidence/P01/T-0023-b2r1-negative-demos.txt@86a68d85e8217e5c515cde1e88104ea4e3dffb5c2cf43e6c91bea59009d355aa",
+    "docs/evidence/P01/T-0020-23-b2r1-verify.txt@d56e4679527ffaca329b71effbf48118f6cceb47290bf86ba4ef846b7552d381",
+]
+tests = [
+    "crates/hdd-xtask/src/ux_docs/i18n_plan.rs::t23_required_sections_are_present_and_ordered",
+    "crates/hdd-xtask/src/ux_docs/i18n_plan.rs::t23_key_examples_are_real_keys_with_real_values",
+]
+
+[[task]]
+id = "T-0210"
+evidence = [
+    "docs/evidence/P11/T-0210-verify/summary.json@e2d19fc974d492d84370a5d09a0ffd88740a61f592bc89eed2330ca71ee883d4",
+    "docs/evidence/P11/T-0210-red.txt@1618ac01af9af49a8d11a16f6948ce687ca27e72155c957d7c10e398c0d1c027",
+    "docs/evidence/P11/T-0210-negative-demos.txt@fdffd5fed0e547e39cbdabca7f479c2dbe809f1e6e3881b53d2fa5d94bb4837c",
+    "docs/evidence/P11/T-0210-b2r4-red.txt@b7fbb209c401cf70e33c382d17dd351073df9491f928001a70ac049f54baeab7",
+    "docs/evidence/P11/T-0210-b2r4-negative-demos.txt@a7bd521b004006f9b1526f37f0affe99537b15fe1f8c833ad284ffb1231b46ed",
+    "docs/evidence/P11/T-0210-b2r4-verify.txt@26eba74e92f31def3ed02de54c2a0a12f830426ae2021635e323f922645decc7",
+    "docs/evidence/P11/T-0210-T-0215-b2r4-verify.txt@9f34d625841bc7728d12fad89d6b21acd34303bdfa200d78297c245be422fa0d",
+]
+tests = [
+    "crates/hdd-canary/tests/hostile.rs::a_worker_panic_is_counted_and_the_service_continues",
+    "crates/hdd-canary/tests/hostile.rs::a_full_accept_queue_sheds_with_the_fixed_503",
+    "crates/hdd-canary/tests/hostile.rs::non_closing_clients_do_not_delay_a_fifth",
+    "crates/hddctl/tests/canary.rs::t0210_verify_checks_the_through_path_and_query_invariance_when_overridden",
+]
+
+[[task]]
+id = "T-0215"
+evidence = [
+    "docs/evidence/P11/T-0215-verify/summary.json@e2d19fc974d492d84370a5d09a0ffd88740a61f592bc89eed2330ca71ee883d4",
+    "docs/evidence/P11/T-0215-red.txt@979f561ff0f0f41da0fc1dd419172f6fc0a055f1e790ed190c0b66d665c42372",
+    "docs/evidence/P11/T-0215-negative-demos.txt@1154668ac38621ba0b4e586fc11c72b9783a2bea1c4b2b8ea79e001b023c0e8e",
+    "docs/evidence/P11/T-0215-b2r4-red.txt@139ae3169fdfe0b570af011543c1eebba137f5fe6a2b8989bd3c24e8c2e2db54",
+    "docs/evidence/P11/T-0215-b2r4-negative-demos.txt@7d5db45cce895f72bb24858511c5d0b294b50944140826756a4598632c63c932",
+    "docs/evidence/P11/T-0215-b2r4-verify.txt@7710b8c2bbefc6059afba2f003e1a7d35e971aad7052c9dafe75668cb1109a0f",
+    "docs/evidence/P11/T-0215-b2r4-state.txt@69cbc2abc551bbfdf1eb3b9db151ee419852157db26288e5ddf4e21b32e855fb",
+    "docs/evidence/P11/T-0210-T-0215-b2r4-verify.txt@9f34d625841bc7728d12fad89d6b21acd34303bdfa200d78297c245be422fa0d",
+]
+tests = [
+    "crates/hdd-acceptance/src/guard/tests.rs::n1_the_run_invalid_latch_stops_prepare_and_send",
+    "crates/hdd-acceptance/src/runner/tests.rs::n7_from_config_refuses_mismatches",
+    "crates/hdd-acceptance/src/report/tests.rs::n4_resume_copies_evidence_and_resume_twice_keeps_the_line_age",
+]

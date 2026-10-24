@@ -1,0 +1,50 @@
+# cargo-deny policy (T-0004 step 5). Checked by `cargo deny check` and, later, `cargo xtask verify`.
+# Exceptions need a comment with reason and an expiry date (A3 of T-0004). None yet.
+
+[graph]
+all-features = true
+
+[advisories]
+version = 2
+yanked = "deny"
+ignore = []
+
+[licenses]
+version = 2
+# Permissive licences only for now. MPL-2.0 / OpenSSL-style exceptions are decided per crate in an ADR (R-08);
+# FFI crypto (aws-lc-rs, OpenSSL via webauthn-rs) needs ADR-0001 / ADR-0009 first.
+allow = [
+    "MIT",
+    "Apache-2.0",
+    "Apache-2.0 WITH LLVM-exception",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "ISC",
+    "Unicode-3.0",
+    "Zlib",
+    "CC0-1.0",
+]
+confidence-threshold = 0.93
+
+# Per-crate exceptions: a reason and an expiry date each (A3 of T-0004).
+# xxhash-rust 0.8.19 (a dependency of the redis client, ADR-0028) is under the Boost Software License 1.0: permissive, OSI
+# approved, FSF free. Allowed for this crate only. Expires 2027-04-19: re-check whether it is still in the graph and whether
+# BSL-1.0 should join the global allow list.
+[[licenses.exceptions]]
+name = "xxhash-rust"
+allow = ["BSL-1.0"]
+
+# Our own crates are `publish = false`; their licence is the operator's decision (open question, not yet asked).
+[licenses.private]
+ignore = true
+
+[bans]
+multiple-versions = "warn"
+wildcards = "deny"
+allow-wildcard-paths = true
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+allow-git = []

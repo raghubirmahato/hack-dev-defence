@@ -1,0 +1,22 @@
+T-0018 F-13 round-2 negative demos: each mutation must make cargo xtask ux-docs FAIL, and the restored file
+must have the same SHA-256. Run from D:\Hack Dev Defence on 2026-10-19T22:56:28.7464294+05:45.
+
+== Demo 1: restore J-09 needs J-08 (an edge between alternative journeys) ==
+file: docs/UX/journey-dependencies.md
+sha256 before: 274B8CCF13615B21CCB69162966A2AF6EA099932A59D3A07B6D6A8E91273755C
+exit code: 1
+[ux-docs] docs/UX/journey-dependencies.md: `J-08` and `J-09` are alternatives in the specification (docs/spec/B1.md line 248: J-09 is "as J-08 but step 3 chooses" the CNAME mode, while line 245 makes full nameserver delegation the J-08 choice; the two are alternative integration choices of the same add-domain wizard), so neither may depend on the other (T-0018 F-13)
+sha256 after restore: 274B8CCF13615B21CCB69162966A2AF6EA099932A59D3A07B6D6A8E91273755C
+identical: True
+
+== Demo 2: restore J-25 needs J-24 with basis none and the order contradiction ==
+file: docs/UX/journey-dependencies.md
+sha256 before: 274B8CCF13615B21CCB69162966A2AF6EA099932A59D3A07B6D6A8E91273755C
+exit code: 1
+[ux-docs] docs/UX/journey-dependencies.md:166: the prerequisite task `T-0406` comes after the dependent task `T-0172` in the stable order; the `Why the order agrees` cell must say exception (T-0018 F-13)
+sha256 after restore: 274B8CCF13615B21CCB69162966A2AF6EA099932A59D3A07B6D6A8E91273755C
+identical: True
+
+== Restored tree ==
+cargo xtask ux-docs exit code: 0
+ux-docs: PASS

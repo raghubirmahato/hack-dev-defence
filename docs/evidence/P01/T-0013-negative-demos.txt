@@ -1,0 +1,98 @@
+# T-0013 negative demonstrations: each mutation of the shipped documents must make 'cargo xtask ux-docs' FAIL; the documents are restored after each step
+# Date: 2026-10-19. Files under test: docs/UX/PATTERNS.md and docs/UX/design-requirements.md.
+
+## 1. fewer than twelve topics
+[ux-docs] docs/UX/PATTERNS.md: 11 topic entries; at least 12 are required (T-0013 A1)
+[ux-docs] docs/UX/design-requirements.md:9: DR-01 links `PATTERNS.md#topic-onboarding`, which is not a heading of PATTERNS.md (T-0013 A4)
+[ux-docs] docs/UX/design-requirements.md:10: DR-02 links `PATTERNS.md#topic-onboarding`, which is not a heading of PATTERNS.md (T-0013 A4)
+[ux-docs] docs/UX/design-requirements.md:11: DR-03 links `PATTERNS.md#topic-dns-import`, which is not a heading of PATTERNS.md (T-0013 A4)
+[ux-docs] docs/UX/design-requirements.md:12: DR-04 links `PATTERNS.md#topic-dns-import`, which is not a heading of PATTERNS.md (T-0013 A4)
+[ux-docs] docs/UX/design-requirements.md:13: DR-05 links `PATTERNS.md#topic-proxy-toggles`, which is not a heading of PATTERNS.md (T-0013 A4)
+[ux-docs] docs/UX/design-requirements.md:9: `PATTERNS.md#topic-onboarding`: `#topic-onboarding` is not a heading of docs/UX/PATTERNS.md
+[ux-docs] docs/UX/design-requirements.md:10: `PATTERNS.md#topic-onboarding`: `#topic-onboarding` is not a heading of docs/UX/PATTERNS.md
+[ux-docs] docs/UX/design-requirements.md:11: `PATTERNS.md#topic-dns-import`: `#topic-dns-import` is not a heading of docs/UX/PATTERNS.md
+[ux-docs] docs/UX/design-requirements.md:12: `PATTERNS.md#topic-dns-import`: `#topic-dns-import` is not a heading of docs/UX/PATTERNS.md
+[ux-docs] docs/UX/design-requirements.md:13: `PATTERNS.md#topic-proxy-toggles`: `#topic-proxy-toggles` is not a heading of docs/UX/PATTERNS.md
+ux-docs: FAIL (11 finding(s))
+(exit 1)
+
+## 2. a topic without its Pitfalls part
+[ux-docs] docs/UX/PATTERNS.md:25: topic `Onboarding` has no `Pitfalls:` part (T-0013 steps 3 and 4)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 3. a Source outside the allowed values
+[ux-docs] docs/UX/PATTERNS.md:27: topic `Onboarding` has Source `a vendor blog`, not one of first principles / operator-supplied / allowlisted public documentation (T-0013 A2)
+[ux-docs] docs/UX/PATTERNS.md:42: topic `DNS import` has Source `a vendor blog`, not one of first principles / operator-supplied / allowlisted public documentation (T-0013 A2)
+[ux-docs] docs/UX/PATTERNS.md:58: topic `Proxy toggles` has Source `a vendor blog`, not one of first principles / operator-supplied / allowlisted public documentation (T-0013 A2)
+[ux-docs] docs/UX/PATTERNS.md:73: topic `WAF modes` has Source `a vendor blog`, not one of first principles / operator-supplied / allowlisted public documentation (T-0013 A2)
+[ux-docs] docs/UX/PATTERNS.md:89: topic `Event logs` has Source `a vendor blog`, not one of first principles / operator-supplied / allowlisted public documentation (T-0013 A2)
+[ux-docs] docs/UX/PATTERNS.md:104: topic `Rule builders` has Source `a vendor blog`, not one of first principles / operator-supplied / allowlisted public documentation (T-0013 A2)
+[ux-docs] docs/UX/PATTERNS.md:119: topic `Bans` has Source `a vendor blog`, not one of first principles / operator-supplied / allowlisted public documentation (T-0013 A2)
+[ux-docs] docs/UX/PATTERNS.md:134: topic `Analytics` has Source `a vendor blog`, not one of first principles / operator-supplied / allowlisted public documentation (T-0013 A2)
+[ux-docs] docs/UX/PATTERNS.md:149: topic `API keys` has Source `a vendor blog`, not one of first principles / operator-supplied / allowlisted public documentation (T-0013 A2)
+[ux-docs] docs/UX/PATTERNS.md:164: topic `Team management` has Source `a vendor blog`, not one of first principles / operator-supplied / allowlisted public documentation (T-0013 A2)
+[ux-docs] docs/UX/PATTERNS.md:179: topic `Appeals` has Source `a vendor blog`, not one of first principles / operator-supplied / allowlisted public documentation (T-0013 A2)
+[ux-docs] docs/UX/PATTERNS.md:194: topic `Notifications` has Source `a vendor blog`, not one of first principles / operator-supplied / allowlisted public documentation (T-0013 A2)
+[ux-docs] docs/UX/PATTERNS.md:209: topic `Protection readiness` has Source `a vendor blog`, not one of first principles / operator-supplied / allowlisted public documentation (T-0013 A2)
+[ux-docs] docs/UX/PATTERNS.md:224: topic `Origin lockdown` has Source `a vendor blog`, not one of first principles / operator-supplied / allowlisted public documentation (T-0013 A2)
+ux-docs: FAIL (14 finding(s))
+(exit 1)
+
+## 4. a status line that is neither PASS nor UNVERIFIED
+[ux-docs] docs/UX/PATTERNS.md:3: the `Status:` value `DRAFT - a draft review` is neither `PASS` nor `UNVERIFIED(<reason>)` (T-0013 A5)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 5. status PASS while every topic is first principles
+[ux-docs] docs/UX/PATTERNS.md: the status is PASS but every topic cites first principles and no source was fetched; the review must be UNVERIFIED(capability_not_supplied) (T-0013 A5)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 6. a missing design requirement (DR-07)
+[ux-docs] docs/UX/design-requirements.md: DR-07 is missing (T-0013 A4)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 7. a repeated design requirement (DR-08 relabelled as DR-07)
+[ux-docs] docs/UX/design-requirements.md:16: DR-07 appears more than once (T-0013 A4)
+[ux-docs] docs/UX/design-requirements.md: DR-08 is missing (T-0013 A4)
+ux-docs: FAIL (2 finding(s))
+(exit 1)
+
+## 8. a requirement that names no screen or component
+[ux-docs] docs/UX/design-requirements.md:9: DR-01 names no screen (S-nnn) or component from the spec (T-0013 A4)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 9. a screen id that is not in the B12.1 table
+[ux-docs] docs/UX/design-requirements.md:9: `S-999` is not a screen of the spec B12.1 screen table (T-0013 A4)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 10. a link to a PATTERNS.md anchor that does not exist
+[ux-docs] docs/UX/design-requirements.md:9: DR-01 links `PATTERNS.md#topic-missing`, which is not a heading of PATTERNS.md (T-0013 A4)
+[ux-docs] docs/UX/design-requirements.md:10: DR-02 links `PATTERNS.md#topic-missing`, which is not a heading of PATTERNS.md (T-0013 A4)
+[ux-docs] docs/UX/design-requirements.md:9: `PATTERNS.md#topic-missing`: `#topic-missing` is not a heading of docs/UX/PATTERNS.md
+[ux-docs] docs/UX/design-requirements.md:10: `PATTERNS.md#topic-missing`: `#topic-missing` is not a heading of docs/UX/PATTERNS.md
+ux-docs: FAIL (4 finding(s))
+(exit 1)
+
+## 11. an empty rationale
+[ux-docs] docs/UX/design-requirements.md:9: DR-01 has an empty rationale (T-0013 step 5)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 12. a long sentence copied from another UX document
+[ux-docs] docs/UX: a sentence of more than 12 words appears verbatim in 2 documents (docs/UX/MEASURES.md, docs/UX/PATTERNS.md): "We do not measure how long a person looks at a page, where the pointer goes, or which links are clicked"
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## restored files
+ux-docs: PASS
+(exit 0)
+PATTERNS.md SHA-256 before: 4A8B7BF5D85598DF763746DBD134BAC406EBBD843C116EB9A1F5378E17E8C41E
+PATTERNS.md SHA-256 after:  4A8B7BF5D85598DF763746DBD134BAC406EBBD843C116EB9A1F5378E17E8C41E
+design-requirements.md SHA-256 before: 947D3126D8F2C3734CE79A020CF7663D416F050D41654AEC83645DA2740EA24C
+design-requirements.md SHA-256 after:  947D3126D8F2C3734CE79A020CF7663D416F050D41654AEC83645DA2740EA24C
+hashes equal: True

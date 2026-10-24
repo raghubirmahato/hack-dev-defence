@@ -1,0 +1,158 @@
+   Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+warning: function `risky_step` is never used
+  --> crates\hdd-xtask\src\ux_docs\journeys_ops.rs:15:8
+   |
+15 | pub fn risky_step(action: &str, system: &str) -> bool {
+   |        ^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.09s
+────────────
+ Nextest run ID 8048e957-7673-40c1-aafe-27ed023c0687 with nextest profile: default
+    Starting 8 tests across 1 binary (224 tests skipped)
+        FAIL [   0.017s] (1/8) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_safeguards_section_and_risky_rows_are_required
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t17_safeguards_section_and_risky_rows_are_required ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t17_safeguards_section_and_risky_rows_are_required
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 231 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t17_safeguards_section_and_risky_rows_are_required' (19492) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:3190:5:
+    assertion failed: ops_messages(&no_section, "J-13").contains("Safeguards")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.025s] (2/8) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_a_complete_safeguarded_journey_passes
+        FAIL [   0.027s] (3/8) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_decision_support_needs_five_items
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t17_decision_support_needs_five_items ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t17_decision_support_needs_five_items
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 231 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t17_decision_support_needs_five_items' (18092) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:3254:5:
+    assertion failed: ops_messages(&text, "J-16").contains("Decision support")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.032s] (4/8) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_protection_journeys_need_three_atk_rows
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t17_protection_journeys_need_three_atk_rows ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t17_protection_journeys_need_three_atk_rows
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 231 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t17_protection_journeys_need_three_atk_rows' (14912) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:3243:5:
+    assertion failed: ops_messages(&text, "J-16").to_lowercase().contains("three atk")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.038s] (5/8) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_safeguard_kind_copy_length_and_claims_are_checked
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t17_safeguard_kind_copy_length_and_claims_are_checked ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t17_safeguard_kind_copy_length_and_claims_are_checked
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 231 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t17_safeguard_kind_copy_length_and_claims_are_checked' (32184) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:3206:5:
+    assertion failed: ops_messages(&bad_kind, "J-13").contains("Kind")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.044s] (6/8) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_operator_questions_stay_open_and_are_cited
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t17_operator_questions_stay_open_and_are_cited ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t17_operator_questions_stay_open_and_are_cited
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 231 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t17_operator_questions_stay_open_and_are_cited' (11696) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:3287:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.050s] (7/8) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_atk_family_must_match_the_step
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t17_atk_family_must_match_the_step ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t17_atk_family_must_match_the_step
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 231 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t17_atk_family_must_match_the_step' (13784) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:3269:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.054s] (8/8) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_what_could_go_wrong_needs_three_rows
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t17_what_could_go_wrong_needs_three_rows ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t17_what_could_go_wrong_needs_three_rows
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 231 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t17_what_could_go_wrong_needs_three_rows' (29660) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:3233:5:
+    assertion failed: ops_messages(&text, "J-13").to_lowercase().contains("three")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   0.056s] 8 tests run: 1 passed, 7 failed, 224 skipped
+        FAIL [   0.017s] (1/8) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_safeguards_section_and_risky_rows_are_required
+        FAIL [   0.027s] (3/8) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_decision_support_needs_five_items
+        FAIL [   0.032s] (4/8) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_protection_journeys_need_three_atk_rows
+        FAIL [   0.038s] (5/8) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_safeguard_kind_copy_length_and_claims_are_checked
+        FAIL [   0.044s] (6/8) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_operator_questions_stay_open_and_are_cited
+        FAIL [   0.050s] (7/8) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_atk_family_must_match_the_step
+        FAIL [   0.054s] (8/8) hdd-xtask::bin/hdd-xtask ux_docs::tests::t17_what_could_go_wrong_needs_three_rows
+error: test run failed

@@ -1,0 +1,10 @@
+=== T-0025 mutation demo ===
+file: docs/UX/dangerous-actions.md
+sha256 before: F8EB2D3203F2A2F2AF16BC8F951C775F5CFDB82072701ED7C6783CD1E2A12CB0
+sha256 while mutated: 976A337B586DC714E613BD855B6B5435D1B0AA3229FCDE08EC2A9A5187424300
+sha256 restored: F8EB2D3203F2A2F2AF16BC8F951C775F5CFDB82072701ED7C6783CD1E2A12CB0
+mutation: replace [AUD-domain.decommissioned] with [AUD-domain.decommissioned_extra]
+ux-docs exit during mutation: 1
+[ux-docs] docs/UX/dangerous-actions.md: `AUD-domain.decommissioned_extra` is not a B8 audit event of the master specification (T-0025 step 2)
+ux-docs after byte-identical restore: exit 0 - ux-docs: PASS
+restored byte-identical: True

@@ -1,0 +1,179 @@
+# T-0020 batch B2 review round 1: red run for findings D-1 to D-4
+# The six tests below were written before the fixes. They reproduce the reported defects:
+# the current module has no authentication row/rule, no cross-table class check, no reviewed
+# conflict scope, no per-channel wording check and no minimum unsafe-action set.
+
+COMMAND
+cargo nextest run -p hdd-xtask -E 'test(/t20_d[1-4]_/)' --no-fail-fast
+
+DATE
+2026-10-20 11:42:31 +05:45
+
+EXIT CODE
+100
+
+OUTPUT
+(capture note: the first lines are PowerShell's wrapper around cargo's native stderr; the nextest
+output below them is verbatim)
+cargo.exe :     Blocking waiting for file lock on package cache
+At line:1 char:136
++ ... se); $out = & cargo nextest run -p hdd-xtask -E 'test(/t20_d[1-4]_/)' ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Blocking wa...n package cache:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on build directory
+   Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+warning: methods `expansion_percent` and `expansion_cell` are never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:368:19
+    |
+366 | impl PseudoMetrics {
+    | ------------------ methods in this implementation
+367 |     /// The measured expansion in whole percent, rounded half up; `None` when the message has no letters.
+368 |     pub(crate) fn expansion_percent(&self) -> Option<usize> {
+    |                   ^^^^^^^^^^^^^^^^^
+...
+376 |     pub(crate) fn expansion_cell(&self) -> String {
+    |                   ^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 9.12s
+────────────
+ Nextest run ID 3180c3b1-28cc-47e3-95c8-cf212c7127e3 with nextest profile: default
+    Starting 6 tests across 1 binary (497 tests skipped)
+        FAIL [   0.012s] (1/6) hdd-xtask::bin/hdd-xtask 
+ux_docs::errors::tests::t20_d1_code_class_differs_between_tables
+  stdout ───
+
+    running 1 test
+    test ux_docs::errors::tests::t20_d1_code_class_differs_between_tables ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::errors::tests::t20_d1_code_class_differs_between_tables
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 502 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::errors::tests::t20_d1_code_class_differs_between_tables' (26328) panicked at 
+crates\hdd-xtask\src\ux_docs\errors.rs:4125:9:
+    a code listed under two classes passed (D-1): 
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.017s] (2/6) hdd-xtask::bin/hdd-xtask 
+ux_docs::errors::tests::t20_d2_conflict_default_must_be_reviewed
+  stdout ───
+
+    running 1 test
+    test ux_docs::errors::tests::t20_d2_conflict_default_must_be_reviewed ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::errors::tests::t20_d2_conflict_default_must_be_reviewed
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 502 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::errors::tests::t20_d2_conflict_default_must_be_reviewed' (34940) panicked at 
+crates\hdd-xtask\src\ux_docs\errors.rs:4139:9:
+    a 409 code without a reviewed exception passed (D-2): 
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.022s] (3/6) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d3_one_cause_once_per_channel
+  stdout ───
+
+    running 1 test
+    test ux_docs::errors::tests::t20_d3_one_cause_once_per_channel ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::errors::tests::t20_d3_one_cause_once_per_channel
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 502 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::errors::tests::t20_d3_one_cause_once_per_channel' (25336) panicked at 
+crates\hdd-xtask\src\ux_docs\errors.rs:4153:9:
+    the old one-cause-shown-once wording passed (D-3): 
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.044s] (4/6) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d4_unsafe_post_cannot_claim_a_key
+  stdout ───
+
+    running 1 test
+    test ux_docs::errors::tests::t20_d4_unsafe_post_cannot_claim_a_key ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::errors::tests::t20_d4_unsafe_post_cannot_claim_a_key
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 502 filtered out; finished in 0.02s
+
+  stderr ───
+
+    thread 'ux_docs::errors::tests::t20_d4_unsafe_post_cannot_claim_a_key' (35532) panicked at 
+crates\hdd-xtask\src\ux_docs\errors.rs:4196:9:
+    an unsafe POST that claims an idempotency key passed (D-4)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.064s] (5/6) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d4_unsafe_actions_are_listed
+  stdout ───
+
+    running 1 test
+    test ux_docs::errors::tests::t20_d4_unsafe_actions_are_listed ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::errors::tests::t20_d4_unsafe_actions_are_listed
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 502 filtered out; finished in 0.02s
+
+  stderr ───
+
+    thread 'ux_docs::errors::tests::t20_d4_unsafe_actions_are_listed' (29972) panicked at 
+crates\hdd-xtask\src\ux_docs\errors.rs:4179:9:
+    a thin unsafe list passed (D-4): 
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.109s] (6/6) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d1_authentication_row_is_required
+  stdout ───
+
+    running 1 test
+    test ux_docs::errors::tests::t20_d1_authentication_row_is_required ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::errors::tests::t20_d1_authentication_row_is_required
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 502 filtered out; finished in 0.07s
+
+  stderr ───
+
+    thread 'ux_docs::errors::tests::t20_d1_authentication_row_is_required' (11820) panicked at 
+crates\hdd-xtask\src\ux_docs\errors.rs:4107:9:
+    the matrix has no required authentication row (D-1): 
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   0.111s] 6 tests run: 0 passed, 6 failed, 497 skipped
+        FAIL [   0.012s] (1/6) hdd-xtask::bin/hdd-xtask 
+ux_docs::errors::tests::t20_d1_code_class_differs_between_tables
+        FAIL [   0.017s] (2/6) hdd-xtask::bin/hdd-xtask 
+ux_docs::errors::tests::t20_d2_conflict_default_must_be_reviewed
+        FAIL [   0.022s] (3/6) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d3_one_cause_once_per_channel
+        FAIL [   0.044s] (4/6) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d4_unsafe_post_cannot_claim_a_key
+        FAIL [   0.064s] (5/6) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d4_unsafe_actions_are_listed
+        FAIL [   0.109s] (6/6) hdd-xtask::bin/hdd-xtask ux_docs::errors::tests::t20_d1_authentication_row_is_required
+error: test run failed

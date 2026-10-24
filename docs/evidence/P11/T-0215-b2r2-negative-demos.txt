@@ -1,0 +1,346 @@
+# T-0215 batch B2 round 2 - negative (mutation) demos
+
+For each finding: mutate the seam, run the named test, record the failure, restore the file byte-identically, record
+the SHA-256 before and after. A restore line with equal hashes means the seam was the only change and the workspace
+was left as it was found.
+
+## correction-A-closed-eight-code-set
+
+Mutation: `crates\hdd-acceptance\src\status.rs`; the named test is `the_reason_set_is_closed_and_round_trips_by_code`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(the_reason_set_is_closed_and_round_trips_by_code)"   # with the seam mutated
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.009s] (1/1) hdd-acceptance status::tests::the_reason_set_is_closed_and_round_trips_by_code
+    test status::tests::the_reason_set_is_closed_and_round_trips_by_code ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'status::tests::the_reason_set_is_closed_and_round_trips_by_code' (23796) panicked at
+    assertion `left == right` failed
+      left: 9
+     right: 8
+     Summary [   0.010s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.009s] (1/1) hdd-acceptance status::tests::the_reason_set_is_closed_and_round_trips_by_code
+error: test run failed
+restore: sha256 before = 04bbe5192180a9a25a7bb605311dea3d6fe6dba900f3e63db78b686a22aa4ec2
+restore: sha256 after  = 04bbe5192180a9a25a7bb605311dea3d6fe6dba900f3e63db78b686a22aa4ec2
+restore: byte-identical = yes
+```
+
+## correction-B-dependency-is-stage-not-reached
+
+Mutation: `crates\hdd-acceptance\src\runner.rs`; the named test is `a8_a_dependent_of_a_failed_check_is_unverified_stage_not_reached`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(a8_a_dependent_of_a_failed_check_is_unverified_stage_not_reached)"   # with the seam mutated
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   2.016s] (1/1) hdd-acceptance
+runner::tests::a8_a_dependent_of_a_failed_check_is_unverified_stage_not_reached_naming_the_dependency
+    test runner::tests::a8_a_dependent_of_a_failed_check_is_unverified_stage_not_reached_naming_the_dependency ...
+FAILED
+    failures:
+    failures:
+        runner::tests::a8_a_dependent_of_a_failed_check_is_unverified_stage_not_reached_naming_the_dependency
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'runner::tests::a8_a_dependent_of_a_failed_check_is_unverified_stage_not_reached_naming_the_dependency'
+(8188) panicked at crates\hdd-acceptance\src\runner\tests.rs:566:5:
+    assertion `left == right` failed
+      left: Unverified { reason: StageForbids }
+     right: Unverified { reason: StageNotReached }
+     Summary [   2.018s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   2.016s] (1/1) hdd-acceptance
+runner::tests::a8_a_dependent_of_a_failed_check_is_unverified_stage_not_reached_naming_the_dependency
+error: test run failed
+restore: sha256 before = 03fa97492bcb99312fd4468ce4e0e8ab76ebbff4ffce2c1a2f491abfc1d7378d
+restore: sha256 after  = 03fa97492bcb99312fd4468ce4e0e8ab76ebbff4ffce2c1a2f491abfc1d7378d
+restore: byte-identical = yes
+```
+
+## R-1-profile-mode-matrix
+
+Mutation: `crates\hdd-acceptance\src\config.rs`; the named test is `r1_every_profile_mode_pair_is_refused_or_accepted`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r1_every_profile_mode_pair_is_refused_or_accepted)"   # with the seam mutated
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.031s] (1/1) hdd-acceptance
+    test config::tests::r1_every_profile_mode_pair_is_refused_or_accepted_by_the_specification_table ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.02s
+    thread 'config::tests::r1_every_profile_mode_pair_is_refused_or_accepted_by_the_specification_table' (30708)
+panicked at crates\hdd-acceptance\src\config\tests.rs:253:26:
+    protocol-abuse in Lab must be refused with ProfileModeMismatch, got Ok(RunnerConfig { profile: Profile {
+     Summary [   0.032s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.031s] (1/1) hdd-acceptance
+error: test run failed
+restore: sha256 before = bf7f744ac7363245c11d1ceef6de60c172a193573e2988042e45302cc3e6b82c
+restore: sha256 after  = bf7f744ac7363245c11d1ceef6de60c172a193573e2988042e45302cc3e6b82c
+restore: byte-identical = yes
+```
+
+## R-2-resume-re-hashes-evidence
+
+Mutation: `crates\hdd-acceptance\src\report.rs`; the named test is `r2_resume_refuses_a_hand_edited_pass_line`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r2_resume_refuses_a_hand_edited_pass_line)"   # with the seam mutated
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.011s] (1/1) hdd-acceptance report::tests::r2_resume_refuses_a_hand_edited_pass_line_with_a_fake_hash
+    test report::tests::r2_resume_refuses_a_hand_edited_pass_line_with_a_fake_hash ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'report::tests::r2_resume_refuses_a_hand_edited_pass_line_with_a_fake_hash' (34024) panicked at
+    assertion failed: matches!(fresh_bound().resume_with(&previous, &dir),
+     Summary [   0.012s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.011s] (1/1) hdd-acceptance report::tests::r2_resume_refuses_a_hand_edited_pass_line_with_a_fake_hash
+error: test run failed
+restore: sha256 before = 2a629e45b8f6920bf8c9cd99eafc3849c9737ef66bdda830a6e9b5d7e2b75cda
+restore: sha256 after  = 2a629e45b8f6920bf8c9cd99eafc3849c9737ef66bdda830a6e9b5d7e2b75cda
+restore: byte-identical = yes
+```
+
+## R-3-constructors-are-sealed
+
+Mutation: `crates\hdd-acceptance\src\guard.rs`; the named test is `compile_fail`.
+
+```text
+$ cargo test -p hdd-acceptance --doc   # with the seam mutated
+command exit code 101
+test crates\hdd-acceptance\src\lib.rs - (line 39) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 49) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 44) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 34) - compile fail ... FAILED
+failures:
+Test compiled successfully, but it's marked `compile_fail`.
+failures:
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.33s
+error: doctest failed, to rerun pass `-p hdd-acceptance --doc`
+restore: sha256 before = 03e997c316598ef330b081505815a330047fb5ca5a7d1da93d78263c54f1b9f1
+restore: sha256 after  = 03e997c316598ef330b081505815a330047fb5ca5a7d1da93d78263c54f1b9f1
+restore: byte-identical = yes
+```
+
+## R-4-executor-re-verifies-evidence
+
+Mutation: `crates\hdd-acceptance\src\runner.rs`; the named test is `r4_a_fabricated_evidence_hash`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r4_a_fabricated_evidence_hash)"   # with the seam mutated
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.011s] (1/1) hdd-acceptance runner::tests::r4_a_fabricated_evidence_hash_is_turned_into_a_fail
+    test runner::tests::r4_a_fabricated_evidence_hash_is_turned_into_a_fail ... FAILED
+    failures:
+    failures:
+        runner::tests::r4_a_fabricated_evidence_hash_is_turned_into_a_fail
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'runner::tests::r4_a_fabricated_evidence_hash_is_turned_into_a_fail' (26376) panicked at
+     Summary [   0.012s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.011s] (1/1) hdd-acceptance runner::tests::r4_a_fabricated_evidence_hash_is_turned_into_a_fail
+error: test run failed
+restore: sha256 before = 03fa97492bcb99312fd4468ce4e0e8ab76ebbff4ffce2c1a2f491abfc1d7378d
+restore: sha256 after  = 03fa97492bcb99312fd4468ce4e0e8ab76ebbff4ffce2c1a2f491abfc1d7378d
+restore: byte-identical = yes
+```
+
+## R-5-inspect-ticket-single-use
+
+Mutation: `crates\hdd-acceptance\src\guard.rs`; the named test is `r5_a_reused_inspect_ticket_is_refused`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r5_a_reused_inspect_ticket_is_refused)"   # with the seam mutated
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.015s] (1/1) hdd-acceptance guard::tests::r5_a_reused_inspect_ticket_is_refused
+    test guard::tests::r5_a_reused_inspect_ticket_is_refused ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.01s
+    thread 'guard::tests::r5_a_reused_inspect_ticket_is_refused' (28728) panicked at
+    assertion `left == right` failed
+      left: Ok(PlannedRequest { target: "hddtest.example.com", path: "/?probe=1", class: A, method: Get, resolved:
+     right: Err(InspectTicket(Reused))
+     Summary [   0.016s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.015s] (1/1) hdd-acceptance guard::tests::r5_a_reused_inspect_ticket_is_refused
+error: test run failed
+restore: sha256 before = 03e997c316598ef330b081505815a330047fb5ca5a7d1da93d78263c54f1b9f1
+restore: sha256 after  = 03e997c316598ef330b081505815a330047fb5ca5a7d1da93d78263c54f1b9f1
+restore: byte-identical = yes
+```
+
+## R-6-redaction-spaces-quotes-tabs
+
+Mutation: `crates\hdd-acceptance\src\report.rs`; the named test is `r6_redaction_handles_spaces_quotes_and_tabs`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r6_redaction_handles_spaces_quotes_and_tabs)"   # with the seam mutated
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.010s] (1/1) hdd-acceptance report::tests::r6_redaction_handles_spaces_quotes_and_tabs
+    test report::tests::r6_redaction_handles_spaces_quotes_and_tabs ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'report::tests::r6_redaction_handles_spaces_quotes_and_tabs' (32760) panicked at
+    assertion `left == right` failed: input "token = abc def"
+      left: "token = [REDACTED] def"
+     right: "token = [REDACTED]"
+     Summary [   0.011s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.010s] (1/1) hdd-acceptance report::tests::r6_redaction_handles_spaces_quotes_and_tabs
+error: test run failed
+restore: sha256 before = 2a629e45b8f6920bf8c9cd99eafc3849c9737ef66bdda830a6e9b5d7e2b75cda
+restore: sha256 after  = 2a629e45b8f6920bf8c9cd99eafc3849c9737ef66bdda830a6e9b5d7e2b75cda
+restore: byte-identical = yes
+```
+
+## R-7-planned-request-expiry
+
+Mutation: `crates\hdd-acceptance\src\guard.rs`; the named test is `r7_a_stale_prepared_request_is_refused_at_send`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r7_a_stale_prepared_request_is_refused_at_send)"   # with the seam mutated
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.050s] (1/1) hdd-acceptance guard::tests::r7_a_stale_prepared_request_is_refused_at_send
+    test guard::tests::r7_a_stale_prepared_request_is_refused_at_send ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.04s
+    thread 'guard::tests::r7_a_stale_prepared_request_is_refused_at_send' (3252) panicked at
+    assertion failed: matches!(connector.send(planned, &mut sender),
+     Summary [   0.051s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.050s] (1/1) hdd-acceptance guard::tests::r7_a_stale_prepared_request_is_refused_at_send
+error: test run failed
+restore: sha256 before = 03e997c316598ef330b081505815a330047fb5ca5a7d1da93d78263c54f1b9f1
+restore: sha256 after  = 03e997c316598ef330b081505815a330047fb5ca5a7d1da93d78263c54f1b9f1
+restore: byte-identical = yes
+```
+
+## R-8-ac00-must-be-planned-and-pass
+
+Mutation: `crates\hdd-acceptance\src\runner.rs`; the named test is `r8_a_plan_without_ac00_is_refused`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r8_a_plan_without_ac00_is_refused)"   # with the seam mutated
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.011s] (1/1) hdd-acceptance runner::tests::r8_a_plan_without_ac00_is_refused
+    test runner::tests::r8_a_plan_without_ac00_is_refused ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'runner::tests::r8_a_plan_without_ac00_is_refused' (27856) panicked at
+    assertion `left == right` failed
+      left: None
+     right: Some(MissingSelfTest)
+     Summary [   0.012s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.011s] (1/1) hdd-acceptance runner::tests::r8_a_plan_without_ac00_is_refused
+error: test run failed
+restore: sha256 before = 03fa97492bcb99312fd4468ce4e0e8ab76ebbff4ffce2c1a2f491abfc1d7378d
+restore: sha256 after  = 03fa97492bcb99312fd4468ce4e0e8ab76ebbff4ffce2c1a2f491abfc1d7378d
+restore: byte-identical = yes
+```
+
+## R-9-eager-signal-listener
+
+Mutation: `crates\hdd-acceptance\src\runner.rs`; the named test is `r9_the_signal_listener_is_primed_in_the_constructor`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r9_the_signal_listener_is_primed_in_the_constructor)"   # with the seam mutated
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.010s] (1/1) hdd-acceptance runner::tests::r9_the_signal_listener_is_primed_in_the_constructor
+    test runner::tests::r9_the_signal_listener_is_primed_in_the_constructor ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'runner::tests::r9_the_signal_listener_is_primed_in_the_constructor' (33264) panicked at
+    the listener must be polled (and the OS handler registered) before the first check
+     Summary [   0.011s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.010s] (1/1) hdd-acceptance runner::tests::r9_the_signal_listener_is_primed_in_the_constructor
+error: test run failed
+restore: sha256 before = 03fa97492bcb99312fd4468ce4e0e8ab76ebbff4ffce2c1a2f491abfc1d7378d
+restore: sha256 after  = 03fa97492bcb99312fd4468ce4e0e8ab76ebbff4ffce2c1a2f491abfc1d7378d
+restore: byte-identical = yes
+```
+
+## R-10-limiter-pops-expired-grants
+
+Mutation: `crates\hdd-acceptance\src\limits.rs`; the named test is `r10_the_limiter_pops_expired_grants`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r10_the_limiter_pops_expired_grants)"   # with the seam mutated
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.010s] (1/1) hdd-acceptance
+    test limits::tests::r10_the_limiter_pops_expired_grants_and_300k_lab_grants_finish_quickly ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'limits::tests::r10_the_limiter_pops_expired_grants_and_300k_lab_grants_finish_quickly' (30228) panicked at
+    assertion `left == right` failed
+      left: Err(RateExceeded { lane: Http, retry_after_ms: 1 })
+     right: Ok(())
+     Summary [   0.011s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.010s] (1/1) hdd-acceptance
+error: test run failed
+restore: sha256 before = 44f240e102276b5dee500d5ea5ab7d64159e2b8fab09877ede55090ed73846bf
+restore: sha256 after  = 44f240e102276b5dee500d5ea5ab7d64159e2b8fab09877ede55090ed73846bf
+restore: byte-identical = yes
+```
+
+## R-11-cap-exactly-512-including-marker
+
+Mutation: `crates\hdd-acceptance\src\report.rs`; the named test is `r11_truncate_utf8_never_exceeds_the_cap`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r11_truncate_utf8_never_exceeds_the_cap)"   # with the seam mutated
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.009s] (1/1) hdd-acceptance
+    test report::tests::r11_truncate_utf8_never_exceeds_the_cap_and_counts_the_marker ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'report::tests::r11_truncate_utf8_never_exceeds_the_cap_and_counts_the_marker' (5628) panicked at
+    assertion `left == right` failed
+      left: 523
+     right: 512
+     Summary [   0.010s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.009s] (1/1) hdd-acceptance
+error: test run failed
+restore: sha256 before = 2a629e45b8f6920bf8c9cd99eafc3849c9737ef66bdda830a6e9b5d7e2b75cda
+restore: sha256 after  = 2a629e45b8f6920bf8c9cd99eafc3849c9737ef66bdda830a6e9b5d7e2b75cda
+restore: byte-identical = yes
+```
+
+## R-12-redaction-before-serialisation
+
+Mutation: `crates\hdd-acceptance\src\report.rs`; the named test is `r12_short_secrets_do_not_corrupt_the_json_document`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r12_short_secrets_do_not_corrupt_the_json_document)"   # with the seam mutated
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.010s] (1/1) hdd-acceptance report::tests::r12_short_secrets_do_not_corrupt_the_json_document
+    test report::tests::r12_short_secrets_do_not_corrupt_the_json_document ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'report::tests::r12_short_secrets_do_not_corrupt_the_json_document' (8596) panicked at
+    the document must stay valid JSON: Parse { message: "unknown variant `[REDACTED]`, expected one of `pass`, `fail`,
+     Summary [   0.011s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.010s] (1/1) hdd-acceptance report::tests::r12_short_secrets_do_not_corrupt_the_json_document
+error: test run failed
+restore: sha256 before = 2a629e45b8f6920bf8c9cd99eafc3849c9737ef66bdda830a6e9b5d7e2b75cda
+restore: sha256 after  = 2a629e45b8f6920bf8c9cd99eafc3849c9737ef66bdda830a6e9b5d7e2b75cda
+restore: byte-identical = yes
+```
+

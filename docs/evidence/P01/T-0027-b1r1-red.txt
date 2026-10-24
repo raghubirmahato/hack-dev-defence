@@ -1,0 +1,232 @@
+T-0027 data visualization: RED evidence for the batch B1 round-1 review findings F-27 (per-form downsampling) and
+F-23 (print-margin alignment)
+Captured: 2026-10-20 (Asia/Katmandu)
+Command: cargo nextest run -p hdd-xtask ux_docs::dataviz --no-fail-fast
+State of the module at capture: the three new rule tests and their fixtures are final; the two new rule functions
+(downsampling_findings, print_alignment_findings) are documented scaffolds that return no finding yet, as the task
+protocol requires before the implementation. The 25 earlier tests stay green; the three new tests fail because no rule
+can fire yet. The implementation follows this run and is recorded in docs/evidence/P01/T-0027-b1r1-verify.txt.
+Exit code: 100
+Result line: Summary [   0.127s] 28 tests run: 25 passed, 3 failed, 389 skipped
+The full captured output follows verbatim.
+cargo :    Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+At line:1 char:166
++ ... 1-red.log"; cargo nextest run -p hdd-xtask ux_docs::dataviz --no-fail ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...ates\hdd-xtask):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: constant `FORM_PARSE_ORDER` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:214:7
+    |
+214 | const FORM_PARSE_ORDER: [&str; 8] = [
+    |       ^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `DOWNSAMPLING_METHODS` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:228:7
+    |
+228 | const DOWNSAMPLING_METHODS: [(&str, &[&str]); 8] = [
+    |       ^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `WAF_MONITOR_RATIO` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:409:7
+    |
+409 | const WAF_MONITOR_RATIO: f64 = 0.5;
+    |       ^^^^^^^^^^^^^^^^^
+
+warning: constant `ALL_PASS_OUTCOME` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:413:11
+    |
+413 | pub const ALL_PASS_OUTCOME: &str = "Nothing to do now.";
+    |           ^^^^^^^^^^^^^^^^
+
+warning: constant `CATALOG` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:121:11
+    |
+121 | pub const CATALOG: &str = "docs/UX/dangerous-actions.md";
+    |           ^^^^^^^
+
+warning: constant `DATAVIZ` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:124:11
+    |
+124 | pub const DATAVIZ: &str = "docs/UX/DATAVIZ.md";
+    |           ^^^^^^^
+
+warning: constant `PRINT_MARGIN_MM` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:127:7
+    |
+127 | const PRINT_MARGIN_MM: u32 = 12;
+    |       ^^^^^^^^^^^^^^^
+
+warning: constant `CATALOG_ACTION_TERMS` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:152:7
+    |
+152 | const CATALOG_ACTION_TERMS: [(&str, &[&str]); 12] = [
+    |       ^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `GENERIC_ACTION_WORDS` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:171:7
+    |
+171 | const GENERIC_ACTION_WORDS: [&str; 6] = ["mode", "action", "change", "domain", "value", "release"];
+    |       ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `word_count` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:465:4
+    |
+465 | fn word_count(text: &str) -> usize {
+    |    ^^^^^^^^^^
+
+warning: function `excluded_reason` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:485:4
+    |
+485 | fn excluded_reason(control: &str) -> Option<String> {
+    |    ^^^^^^^^^^^^^^^
+
+warning: function `distinctive_words` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:494:4
+    |
+494 | fn distinctive_words(text: &str) -> BTreeSet<String> {
+    |    ^^^^^^^^^^^^^^^^^
+
+warning: function `shares_distinctive_word` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:502:4
+    |
+502 | fn shares_distinctive_word(left: &str, right: &str) -> bool {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `margin_values` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:510:4
+    |
+510 | fn margin_values(text: &str) -> BTreeSet<u32> {
+    |    ^^^^^^^^^^^^^
+
+warning: function `catalog_names_self_lockout_preview` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:528:4
+    |
+528 | fn catalog_names_self_lockout_preview(catalog: &str, screens: &[String]) -> bool {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 15 warnings
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.92s
+────────────
+ Nextest run ID e54f78b7-0e85-492d-a697-430798f24781 with nextest profile: default
+    Starting 28 tests across 1 binary (389 tests skipped)
+        PASS [   0.012s] ( 1/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_annotations_include_mode_rule_ban_and_deployment
+        PASS [   0.015s] ( 2/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_dictionary_columns_and_rows_are_complete
+        PASS [   0.017s] ( 3/28) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_derived_kpis_state_their_formula
+        PASS [   0.026s] ( 4/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_chart_forms_are_the_b11_10_forms_and_whole_tokens
+        PASS [   0.032s] ( 5/28) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_chart_form_is_justified
+        PASS [   0.034s] ( 6/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_a_spec_without_b9_or_b11_10_is_a_finding_not_a_panic
+        PASS [   0.036s] ( 7/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_every_chart_has_a_text_summary_and_a_view_as_table_toggle
+        PASS [   0.040s] ( 8/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_colour_has_eight_patterned_b11_2_series
+        PASS [   0.048s] ( 9/28) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_kpi_must_be_a_dictionary_row
+        PASS [   0.048s] (10/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_comparison_defines_the_previous_period_and_the_unknown_case
+        PASS [   0.053s] (11/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_downsampling_thresholds_are_numeric
+        FAIL [   0.056s] (12/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_every_chart_form_used_has_a_numeric_downsampling_rule
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_every_chart_form_used_has_a_numeric_downsampling_rule ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_every_chart_form_used_has_a_numeric_downsampling_rule
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 416 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_every_chart_form_used_has_a_numeric_downsampling_rule' (7944) panicked at 
+crates\hdd-xtask\src\ux_docs\dataviz.rs:2859:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.067s] (13/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_a_byte_order_mark_or_mojibake_fails_the_document_rule
+        FAIL [   0.073s] (14/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_downsampling_methods_match_their_form_and_lttb_stays_on_the_line
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_downsampling_methods_match_their_form_and_lttb_stays_on_the_line ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_downsampling_methods_match_their_form_and_lttb_stays_on_the_line
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 416 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_downsampling_methods_match_their_form_and_lttb_stays_on_the_line' (26312) 
+panicked at crates\hdd-xtask\src\ux_docs\dataviz.rs:2880:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.074s] (15/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_every_screen_has_a_visual_not_only_the_table_alternative
+        PASS [   0.078s] (16/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_every_required_screen_has_a_question_and_a_metric
+        PASS [   0.067s] (17/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_metric_type_and_labels_agree_with_b9
+        PASS [   0.071s] (18/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_metric_ids_exist_in_b9_and_audit_ids_in_b8
+        PASS [   0.070s] (19/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_missing_documents_and_sections_are_findings
+        PASS [   0.066s] (20/28) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_placeholder_values_are_rejected
+        FAIL [   0.062s] (21/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_print_layout_points_to_responsive_without_its_own_margin
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_print_layout_points_to_responsive_without_its_own_margin ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_print_layout_points_to_responsive_without_its_own_margin
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 416 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_print_layout_points_to_responsive_without_its_own_margin' (30564) panicked at 
+crates\hdd-xtask\src\ux_docs\dataviz.rs:2908:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.065s] (22/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_spec_gaps_are_stated_with_real_references
+        PASS [   0.068s] (23/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_table_specs_need_columns_sort_filters_and_density
+        PASS [   0.068s] (24/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_the_chart_rules_state_the_global_rules
+        PASS [   0.068s] (25/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_time_presets_are_exactly_the_six_named
+        PASS [   0.076s] (26/28) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_the_check_reads_the_fixture_tree
+        PASS [   0.068s] (27/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_unknown_behaviour_is_defined_for_every_widget
+        PASS [   0.078s] (28/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_the_fixture_documents_pass_every_rule
+────────────
+     Summary [   0.127s] 28 tests run: 25 passed, 3 failed, 389 skipped
+        FAIL [   0.056s] (12/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_every_chart_form_used_has_a_numeric_downsampling_rule
+        FAIL [   0.073s] (14/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_downsampling_methods_match_their_form_and_lttb_stays_on_the_line
+        FAIL [   0.062s] (21/28) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_print_layout_points_to_responsive_without_its_own_margin
+error: test run failed

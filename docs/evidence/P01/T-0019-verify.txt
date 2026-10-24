@@ -1,0 +1,55 @@
+===== cargo fmt --all --check =====
+exit code: 0
+
+===== cargo clippy --workspace --all-targets -- -D warnings =====
+cargo :     Checking hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+At line:14 char:67
++ ... D warnings' { cargo clippy --workspace --all-targets -- -D warnings }
++                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Checking hd...ates\hdd-xtask):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.37s
+exit code: 0
+
+===== cargo nextest run -p hdd-xtask --no-fail-fast =====
+(last 20 lines of 451)
+ux_docs::tests::a_mojibake_sequence_in_a_shipped_persona_or_the_matrix_fails_the_tree
+        PASS [   6.816s] (278/288) hdd-xtask::bin/hdd-xtask 
+ux_docs::tests::f6_a_declared_key_journey_missing_from_the_matrix_row_fails
+        PASS [   6.288s] (279/288) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_a_complete_journey_passes
+        PASS [   7.487s] (280/288) hdd-xtask::bin/hdd-xtask ux_docs::tests::every_persona_file_is_required_and_named
+        PASS [   6.762s] (281/288) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_missing_navigation_document_is_named
+        PASS [   6.399s] (282/288) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_missing_journey_file_is_named
+        PASS [   9.438s] (283/288) hdd-xtask::bin/hdd-xtask 
+ux_docs::tests::a_complete_tree_passes_and_each_missing_document_is_named
+        PASS [   8.900s] (284/288) hdd-xtask::bin/hdd-xtask 
+ux_docs::tests::t13_missing_patterns_or_design_documents_are_named
+        PASS [   8.936s] (285/288) hdd-xtask::bin/hdd-xtask 
+ux_docs::tests::t14_missing_ia_or_routes_documents_are_named
+        PASS [   5.173s] (286/288) hdd-xtask::bin/hdd-xtask 
+ux_docs::tests::the_primary_persona_question_is_linked_from_the_matrix_or_maya
+        PASS [   8.010s] (287/288) hdd-xtask::bin/hdd-xtask 
+ux_docs::tests::t18_a_missing_extension_journey_or_dependency_file_is_named
+        PASS [   6.095s] (288/288) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_shipped_ux_documents_pass
+────────────
+     Summary [  12.134s] 288 tests run: 288 passed, 0 skipped
+exit code: 0
+
+===== cargo xtask ux-docs =====
+ux-docs: PASS
+exit code: 0
+
+===== cargo xtask claims-lint =====
+claims-lint: scanned 214 files with 34 phrases and 1 context rules
+claims-lint: PASS
+exit code: 0
+
+===== cargo xtask verify --only rules spec-check tasks-check ux-docs claims-lint =====
+[10] rules                PASS  (log 10-rules.log, sha256 01d11d9954525512)
+[12] spec-check           PASS  (log 12-spec-check.log, sha256 fb33a6d05a743d9c)
+[13] tasks-check          PASS  (log 13-tasks-check.log, sha256 1c5f85d1da1a4a1a)
+[18] claims-lint          PASS  (log 18-claims-lint.log, sha256 2f3a33159dbadd77)
+[23] ux-docs              PASS  (log 23-ux-docs.log, sha256 9e17f83923e21b07)
+verify: 5 PASS, 0 FAIL, 0 UNVERIFIED; logs in D:\Hack Dev Defence\acceptance-verify\20261019T182236Z-verify
+exit code: 0
+

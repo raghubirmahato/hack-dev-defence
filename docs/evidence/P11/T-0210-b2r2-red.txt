@@ -1,0 +1,69 @@
+# T-0210 batch B2 review round 2: red evidence (failing tests written before the fixes)
+# Date: 2026-10-20 (Asia/Katmandu); host: Windows 11, Track L
+# Command: cargo nextest run -p hdd-canary -p hddctl --no-fail-fast
+# Result before the fixes: 91 tests run, 71 passed, 20 failed, 0 skipped (exit 100).
+# The deterministic per-finding reproduction is the mutation demo (T-0210-b2r2-negative-demos.txt): each demo reverts
+# exactly the fixed seam and the same test fails with the same message; the pre-fix full run showed these failures:
+
+## Reason-code correction
+- t0210_verify_checks_the_through_path_and_query_invariance_when_overridden FAIL
+  (expected UNVERIFIED(capability_not_supplied); the pre-fix code printed UNVERIFIED(no_hdd_evidence), outside the spec's
+  closed reason set)
+- t0210_verify_uses_only_the_closed_reason_set was added with the closed eight-code list; the mutation demo maps
+  capability_not_supplied to "no_hdd_evidence" and the test FAILS "reason `no_hdd_evidence` is outside the closed set".
+
+## K-1 (HIGH): echo-headers leaked the secret origin header
+- hdd-canary tests::t0210_echo_headers_never_leaks_secret_bearing_headers FAIL
+- hdd-canary::hostile a_echo_headers_never_leaks_secret_bearing_request_headers FAIL
+  Pre-fix: only cookie/authorization/proxy-authorization were redacted; HDD-Origin-Auth, X-Api-Key and any header whose
+  name contains secret/token/auth/key/signature were returned verbatim.
+
+## K-2 (HIGH) / K-5 (MEDIUM): a through-HDD PASS that needs no HDD
+- t0210_parsing_verify_a_different_host_is_not_hdd_evidence FAIL
+- t0210_parsing_verify_profile_hosts_that_differ_are_not_hdd_evidence FAIL
+  Pre-fix: a through host that merely differed from the direct host returned PASS (always true with a profile).
+- t0210_parsing_verify_through_hdd_passes_on_a_server_header / ..._ray_id_header / ..._correlated_connecting_ip FAIL
+  before the response-header/HDD-Connecting-IP evidence rules existed.
+- t0210_parsing_verify_static_install_passes_through_hdd_on_a_server_header FAIL (K-5: no echo under a static install).
+
+## K-3 (MEDIUM): the write path ignored the absolute connection deadline
+- hdd-canary tests::t0210_write_with_deadline_abandons_a_slow_reader_at_the_deadline FAIL
+  Pre-fix: one write with a timeout computed once; a reader making a little progress resets the OS timeout, so the
+  single-threaded server can outlive the deadline.
+- Host note: an end-to-end slow-reader reproduction is not reliable on loopback because the socket buffers absorb the
+  largest body the sidecar can produce (<64 KiB); the library unit test above is the deterministic check, and
+  a_slow_reader_does_not_hold_the_single_connection_forever is the bounded-behaviour integration test.
+
+## K-4 (MEDIUM): the sidecar exited 0 when the listener thread died
+- hdd-canary tests::t0210_wait_reports_a_dead_listener_thread FAIL
+  Pre-fix: Running::wait discarded the join result and returned Ok, so systemd Restart=on-failure never fired.
+
+## K-6 (LOW-MEDIUM): transport error classes
+- t0210_verify_through_transport_fails_when_delegation_is_recorded_as_done FAIL
+  Pre-fix: a through-HDD connect/timeout/HTTP/resolve error was always UNVERIFIED(human_step_pending), even after
+  origin.lockdown_state: applied recorded delegation as done.
+- t0210_verify_kill_switch_abort_is_skipped_by_operator FAIL (exit 2: no --kill-switch option; a kill-switch stop was
+  mapped to a generic FAIL rather than UNVERIFIED(skipped_by_operator)).
+- t0210_verify_response_too_large_is_its_own_failure: the pre-fix remedy line was "Fix the origin/reverse proxy", which the
+  test rejects for the TooLarge class.
+
+## K-7 (LOW): symlink handling was inconsistent between generate/check_manifest and start
+- hdd-canary tests::t0210_ensure_regular_decision_table FAIL (new pure decision function; fake NodeKind)
+  The unix-only symlink test stays UNVERIFIED(environment_unsupported) on this Windows host; the fake-kind logic test runs
+  here. check_manifest/generate now use symlink_metadata + the same regular-file decision + a bounded take() read.
+
+## K-8 (LOW): parser looseness and normalisation
+- hdd-canary tests::t0210_address_tokens_are_case_insensitive_and_canonical FAIL (for= case, ::ffff equality)
+- hdd-canary tests::t0210_normalise_host_token_strips_trailing_dot FAIL
+- hdd-canary tests::t0210_parse_echo_json_requires_boolean_literals FAIL ("truncated":txxx was accepted)
+- hdd-canary tests::t0210_parse_request_accepts_content_length_zero FAIL (Content-Length: 0 was answered with the 404)
+- hdd-canary::hostile a_rejected_client_sees_the_response_close_before_the_deadline FAIL (no shutdown(Write) after a reject)
+
+## K-9 (TESTS): vacuous assertions / mislabeled tests
+- Removed assert in check_parsed that checked `?` in a path the parser never stores a query in (can never fail).
+- Removed the hostile test assertion comparing bytes that cannot appear in a response head (can never fail).
+- Renamed the fake-origin echo/evidence tests to t0210_parsing_* and documented in-file that they prove parsing/evidence
+  rules, not real HDD handling.
+- Deleted t0210_verify_through_hdd_passes_when_the_echo_shows_hdd_evidence: it asserted PASS from an X-Forwarded-For the
+  origin's own TLS terminator can add, which K-2 forbids; it is superseded by the correlated HDD-Connecting-IP and
+  Server/HDD-Ray-ID tests (reason recorded here).

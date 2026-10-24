@@ -1,0 +1,228 @@
+# T-0215 batch B2 round 4 - negative (mutation) demos
+
+For each finding: the fix seam is mutated back to its pre-fix form, the named test is run, the failure is recorded,
+and the file is restored by `Copy-Item` from the external backup with the SHA-256 before = after. Equal hashes prove
+the seam was the only change. The local prep helper (build + test signing + Smart App Control repair, see the red
+file) runs between mutation and test only.
+
+## N-1-run-invalid-latch-refuses-prepare-and-send
+
+Mutation: `crates\hdd-acceptance\src\guard.rs`; named test: `n1_the_run_invalid_latch_stops_prepare_and_send`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(n1_the_run_invalid_latch_stops_prepare_and_send)"   # mutated
+command exit code 100
++ ...     $out = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.013s] (1/1) hdd-acceptance guard::tests::n1_the_run_invalid_latch_stops_prepare_and_send
+    test guard::tests::n1_the_run_invalid_latch_stops_prepare_and_send ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 211 filtered out; finished in 0.01s
+    thread 'guard::tests::n1_the_run_invalid_latch_stops_prepare_and_send' (33840) panicked at
+    assertion failed: matches!(built.connector.prepare(&allowed, Some(&ticket(&allowed))).await,
+     Summary [   0.014s] 1 test run: 0 passed, 1 failed, 232 skipped
+        FAIL [   0.013s] (1/1) hdd-acceptance guard::tests::n1_the_run_invalid_latch_stops_prepare_and_send
+error: test run failed
+restore: sha256 before = f869cef29a3d2bbb6c010f58cff99c46527844a14e346f672740ccdf056800b3
+restore: sha256 after  = f869cef29a3d2bbb6c010f58cff99c46527844a14e346f672740ccdf056800b3
+restore: byte-identical = yes
+```
+
+## N-2-inspect-body-cap-refused-before-send
+
+Mutation: `crates\hdd-acceptance\src\guard.rs`; named test: `n2_the_inspect_request_carries_content_and_the_body_cap_is_refused`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(n2_the_inspect_request_carries_content_and_the_body_cap_is_refused)"   # mutated
+command exit code 100
++ ...     $out = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.016s] (1/1) hdd-acceptance
+    test guard::tests::n2_the_inspect_request_carries_content_and_the_body_cap_is_refused ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 211 filtered out; finished in 0.01s
+    thread 'guard::tests::n2_the_inspect_request_carries_content_and_the_body_cap_is_refused' (4180) panicked at
+    assertion `left == right` failed
+      left: Ok(PlannedRequest { target: "hddsbx.example.com", path: "/x", class: B, method: Other, verb: "POST", body:
+     right: Err(RequestPart(BodyTooLarge { bytes: 65537, max: 65536 }))
+     Summary [   0.023s] 1 test run: 0 passed, 1 failed, 232 skipped
+        FAIL [   0.016s] (1/1) hdd-acceptance
+error: test run failed
+restore: sha256 before = f869cef29a3d2bbb6c010f58cff99c46527844a14e346f672740ccdf056800b3
+restore: sha256 after  = f869cef29a3d2bbb6c010f58cff99c46527844a14e346f672740ccdf056800b3
+restore: byte-identical = yes
+```
+
+## N-3-shared-resume-selection-excludes-AC-00
+
+Mutation: `crates\hdd-acceptance\src\report.rs`; named test: `a_resume_keeps_a_previous_pass_line_with_matching_binding_and_evidence`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(a_resume_keeps_a_previous_pass_line_with_matching_binding_and_evidence)"   # mutated
+command exit code 100
++ ...     $out = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.043s] (1/1) hdd-acceptance::cli
+    test a_resume_keeps_a_previous_pass_line_with_matching_binding_and_evidence ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 19 filtered out; finished in 0.04s
+    thread 'a_resume_keeps_a_previous_pass_line_with_matching_binding_and_evidence' (19224) panicked at
+    ## Summary
+    63 checks: 2 PASS, 0 FAIL, 61 UNVERIFIED
+    | AC-27 | lab-full + pilot dry-run | UNVERIFIED(stage_not_reached) | Shield escalation and edge failover rehearsal
+     Summary [   0.044s] 1 test run: 0 passed, 1 failed, 232 skipped
+        FAIL [   0.043s] (1/1) hdd-acceptance::cli
+error: test run failed
+restore: sha256 before = ed29c8fb07b1e2f3e53776c233b0e01008b9612f4911fff97c216a9d994d47c1
+restore: sha256 after  = ed29c8fb07b1e2f3e53776c233b0e01008b9612f4911fff97c216a9d994d47c1
+restore: byte-identical = yes
+```
+
+## N-4-resumed-evidence-is-copied-into-the-new-run
+
+Mutation: `crates\hdd-acceptance\src\report.rs`; named test: `n4_resume_copies_evidence_and_resume_twice_keeps_the_line_age`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(n4_resume_copies_evidence_and_resume_twice_keeps_the_line_age)"   # mutated
+command exit code 100
++ ...     $out = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.009s] (1/1) hdd-acceptance
+    test report::tests::n4_resume_copies_evidence_and_resume_twice_keeps_the_line_age ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 211 filtered out; finished in 0.00s
+    thread 'report::tests::n4_resume_copies_evidence_and_resume_twice_keeps_the_line_age' (17896) panicked at
+     Summary [   0.010s] 1 test run: 0 passed, 1 failed, 232 skipped
+        FAIL [   0.009s] (1/1) hdd-acceptance
+error: test run failed
+restore: sha256 before = ed29c8fb07b1e2f3e53776c233b0e01008b9612f4911fff97c216a9d994d47c1
+restore: sha256 after  = ed29c8fb07b1e2f3e53776c233b0e01008b9612f4911fff97c216a9d994d47c1
+restore: byte-identical = yes
+```
+
+## N-5-encoded-and-escaped-secret-forms
+
+Mutation: `crates\hdd-acceptance\src\report.rs`; named test: `n5_escaped_uppercase_and_encoded_secret_forms_are_redacted`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(n5_escaped_uppercase_and_encoded_secret_forms_are_redacted)"   # mutated
+command exit code 100
++ ...     $out = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.006s] (1/1) hdd-acceptance report::tests::n5_escaped_uppercase_and_encoded_secret_forms_are_redacted
+    test report::tests::n5_escaped_uppercase_and_encoded_secret_forms_are_redacted ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 211 filtered out; finished in 0.00s
+    thread 'report::tests::n5_escaped_uppercase_and_encoded_secret_forms_are_redacted' (22468) panicked at
+     Summary [   0.007s] 1 test run: 0 passed, 1 failed, 232 skipped
+        FAIL [   0.006s] (1/1) hdd-acceptance report::tests::n5_escaped_uppercase_and_encoded_secret_forms_are_redacted
+error: test run failed
+restore: sha256 before = ed29c8fb07b1e2f3e53776c233b0e01008b9612f4911fff97c216a9d994d47c1
+restore: sha256 after  = ed29c8fb07b1e2f3e53776c233b0e01008b9612f4911fff97c216a9d994d47c1
+restore: byte-identical = yes
+```
+
+## N-6-unquoted-value-ends-at-a-delimiter
+
+Mutation: `crates\hdd-acceptance\src\report.rs`; named test: `n6_delimiters_bearer_and_valid_json`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(n6_delimiters_bearer_and_valid_json)"   # mutated
+command exit code 100
++ ...     $out = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.006s] (1/1) hdd-acceptance report::tests::n6_delimiters_bearer_and_valid_json
+    test report::tests::n6_delimiters_bearer_and_valid_json ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 211 filtered out; finished in 0.00s
+    thread 'report::tests::n6_delimiters_bearer_and_valid_json' (16352) panicked at
+     Summary [   0.007s] 1 test run: 0 passed, 1 failed, 232 skipped
+        FAIL [   0.006s] (1/1) hdd-acceptance report::tests::n6_delimiters_bearer_and_valid_json
+error: test run failed
+restore: sha256 before = ed29c8fb07b1e2f3e53776c233b0e01008b9612f4911fff97c216a9d994d47c1
+restore: sha256 after  = ed29c8fb07b1e2f3e53776c233b0e01008b9612f4911fff97c216a9d994d47c1
+restore: byte-identical = yes
+```
+
+## N-7-from-config-refuses-a-limiter-profile-mismatch
+
+Mutation: `crates\hdd-acceptance\src\runner.rs`; named test: `n7_from_config_refuses_mismatches`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(n7_from_config_refuses_mismatches)"   # mutated
+command exit code 100
++ ...     $out = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.013s] (1/1) hdd-acceptance runner::tests::n7_from_config_refuses_mismatches
+    test runner::tests::n7_from_config_refuses_mismatches ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 211 filtered out; finished in 0.01s
+    thread 'runner::tests::n7_from_config_refuses_mismatches' (14444) panicked at
+     Summary [   0.014s] 1 test run: 0 passed, 1 failed, 232 skipped
+        FAIL [   0.013s] (1/1) hdd-acceptance runner::tests::n7_from_config_refuses_mismatches
+error: test run failed
+restore: sha256 before = 711c66374f77a86b659b0ce60cbb8ba6812a1b92c92fce01bb0b3ca58b78843c
+restore: sha256 after  = 711c66374f77a86b659b0ce60cbb8ba6812a1b92c92fce01bb0b3ca58b78843c
+restore: byte-identical = yes
+```
+
+## N-8-sender-owned-headers-are-denied
+
+Mutation: `crates\hdd-acceptance\src\guard.rs`; named test: `n8_sender_owned_headers_and_header_caps_are_refused`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(n8_sender_owned_headers_and_header_caps_are_refused)"   # mutated
+command exit code 100
++ ...     $out = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.012s] (1/1) hdd-acceptance guard::tests::n8_sender_owned_headers_and_header_caps_are_refused
+    test guard::tests::n8_sender_owned_headers_and_header_caps_are_refused ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 211 filtered out; finished in 0.01s
+    thread 'guard::tests::n8_sender_owned_headers_and_header_caps_are_refused' (6956) panicked at
+    assertion `left == right` failed: Content-Length
+      left: Ok(PlannedRequest { target: "hddtest.example.com", path: "/", class: A, method: Get, verb: "GET", body:
+     right: Err(RequestPart(DeniedHeader { name: "Content-Length" }))
+     Summary [   0.013s] 1 test run: 0 passed, 1 failed, 232 skipped
+        FAIL [   0.012s] (1/1) hdd-acceptance guard::tests::n8_sender_owned_headers_and_header_caps_are_refused
+error: test run failed
+restore: sha256 before = f869cef29a3d2bbb6c010f58cff99c46527844a14e346f672740ccdf056800b3
+restore: sha256 after  = f869cef29a3d2bbb6c010f58cff99c46527844a14e346f672740ccdf056800b3
+restore: byte-identical = yes
+```
+
+## N-9-compile-fail-test-asserts-the-exact-error-code
+
+Mutation: `crates\hdd-acceptance\tests\compile_fail_codes.rs`; named test: `the_compile_fail_doctests_fail_for_their_exact_error_code`.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(the_compile_fail_doctests_fail_for_their_exact_error_code)"   # mutated
+command exit code 100
++ ...     $out = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.745s] (1/1) hdd-acceptance::compile_fail_codes
+the_compile_fail_doctests_fail_for_their_exact_error_code
+    test the_compile_fail_doctests_fail_for_their_exact_error_code ... FAILED
+    failures:
+    failures:
+        the_compile_fail_doctests_fail_for_their_exact_error_code
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.74s
+    thread 'the_compile_fail_doctests_fail_for_their_exact_error_code' (1268) panicked at
+crates\hdd-acceptance\tests\compile_fail_codes.rs:143:9:
+    snippet 6 must fail with error[E0308] and no other reason, got:
+     --> C:\Users\Raghu\AppData\Local\Temp\hdd-acceptance-compile-fail-3588\case-6.rs:1:4
+    error[E0451]: fields `path`, `sha256` and `bytes` of struct `EvidenceRef` are private
+     --> C:\Users\Raghu\AppData\Local\Temp\hdd-acceptance-compile-fail-3588\case-6.rs:4:1
+     Summary [   0.746s] 1 test run: 0 passed, 1 failed, 232 skipped
+        FAIL [   0.745s] (1/1) hdd-acceptance::compile_fail_codes
+the_compile_fail_doctests_fail_for_their_exact_error_code
+error: test run failed
+restore: sha256 before = 6803f41f33ddbfe4eff6bf3d418df48c85c41301de0b2bfd3231bae796e7723c
+restore: sha256 after  = 6803f41f33ddbfe4eff6bf3d418df48c85c41301de0b2bfd3231bae796e7723c
+restore: byte-identical = yes
+```
+
+## N-10-known-limits-documented
+
+Documentation item; no mutation is possible. The known-limits table and the threat-model statement are required by
+the review and are present in `docs/ACCEPTANCE.md` (checked in the red file).
+

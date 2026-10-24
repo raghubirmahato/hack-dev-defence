@@ -1,0 +1,185 @@
+# hdd-waf-core benign fixtures: realistic general-purpose values (C4.9, HK1 demo track).
+# Format: one value per line; lines starting with '#' and blank lines are ignored.
+# None of these values may produce a Block verdict under the default Balanced settings: zero false positives.
+# The values are names, emails, addresses, prose, URLs, JSON, code samples and identifiers.
+O'Brien
+D'Arcy O'Connor
+Seán O'Brien
+Anne-Marie Smith
+rock 'n' roll
+It's a lovely day, isn't it?
+Don't forget to bring your umbrella.
+We're going to the beach later.
+The team's results were better this quarter.
+'Hello' -- he said
+it's -- fine
+Apt #4, 221B Baker Street, London
+Suite #12, Floor 3
+Order #A10234 has shipped.
+Invoice #INV-2026-0042 is attached.
+C# is a programming language.
+The meeting starts at 9:30 or 10:00 a.m.
+You can pick tea or coffee.
+Choose option A or option B.
+The ratio is 3:1 or 4:1.
+Either 1 or 0 will work.
+The value is 5% or 10% depending on volume.
+It costs $5 or $6 in the shop.
+The conference will be held on 2026-10-23.
+Delivery estimate: 3-5 business days.
+Phone: +44 20 7946 0958
+Email: d'arcy@example.com
+Contact o.brien@example.org for details.
+URL: https://example.com/search?q=coffee&page=2
+Link: https://docs.example.net/guide/intro#getting-started
+Path: /items/42/details
+User ID: 123456789
+Tracking number: 1Z999AA10123456784
+ISBN: 978-3-16-148410-0
+IPv4 address: 192.168.1.104
+MAC address: 00:1A:2B:3C:4D:5E
+UUID: 550e8400-e29b-41d4-a716-446655440000
+SHA-256: 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
+{"name":"O'Brien","email":"d'arcy@example.com"}
+{"q":"coffee beans","page":2,"tags":["organic","fair-trade"]}
+{"order_id":1042,"status":"shipped","total":59.95}
+{"user":{"name":"Anne-Marie","id":7}}
+[1,2,3,4,5]
+let total = price * 1.2; // tax
+console.log('hello world');
+print("it's fine")
+const message = "Don't panic";
+if (count > 0 && total >= 10) { return true; }
+for (let i = 0; i < items.length; i++) { sum += items[i]; }
+SELECT * FROM users WHERE id = 1;
+UPDATE users SET name = 'O''Brien' WHERE id = 1;
+INSERT INTO audit_log(message) VALUES('it''s ok');
+SELECT name, email FROM customers ORDER BY name;
+The SELECT statement is explained in chapter 4.
+How to select a database in MySQL
+Please order by date.
+The union representative will call you.
+Delete this message after reading.
+Drop me a line when you can.
+Update your password every 90 days.
+Insert your card into the reader.
+The update is available now.
+Create an account to continue.
+Alter your settings from the profile page.
+The grant was approved by the committee.
+Executives met to discuss the budget.
+Execute the plan carefully.
+Call the helpdesk if you need assistance.
+Declare your income before the deadline.
+Shutdown the laptop before packing it.
+Copy the folder to your desktop.
+Paste the code into the editor.
+The drop in temperature was sudden.
+Truncate the paragraph before printing.
+Grant permission to the new user.
+Revoke access immediately.
+replace the battery every two years
+rename the file to report-2026.pdf
+merge the two branches with git merge
+vacuum the office on Fridays
+attach the document to the email
+pragma is a compiler directive
+xp_cmdshell is a Windows command shell feature
+the command is shutdown -h now
+Use the flag --verbose for more output
+Run the command with --help to see options
+curl -X POST https://example.com/login -d "user=admin&pass=secret"
+git commit -m "fix: handle O'Brien names"
+docker run -p 8080:80 nginx:latest
+The file path is C:\Users\Raghu\Documents
+The database is called information_schema_backup
+information_schema is a system schema in MySQL
+pg_catalog stores system catalog information
+More details at https://example.com/a?b=1&c=2&d=3
+The search query returned 42 results.
+Search for "coffee near me" on the map.
+Query parameters are listed in the docs.
+Keyword: newsletter, monthly digest
+Filter by colour and size.
+Sort by price, then by rating.
+Page 2 of 10
+Limit: 25 results per page
+Offset 50 showed the next batch.
+Quantity: 3
+Count: 128
+Amount: 1,299.00
+Total: $1,291.50
+id: 4821
+uid: 7734
+user_id: 2291
+product_id: 55980
+session token is short-lived
+Bearer token must not be logged
+password: correct horse battery staple
+The password hint is your first pet's name.
+O'Brien & Sons Ltd.
+d'Arcy's Bakery, 12 Main St.
+It's 21°C outside.
+The café's menu is online.
+He said "don't worry".
+She replied: 'no problem at all'.
+The '=' sign means equality in many languages.
+Use the AND and OR boolean operators.
+The 'not equal' operator is '!=' in most languages.
+A quoted option flag starts with two dashes, e.g. --flag.
+A semicolon; a comma, and a period.
+End of sentence; new sentence begins.
+Note; this is prose, not SQL.
+first; second; third
+Steps: 1) open; 2) edit; 3) save
+The list is empty.
+No results found.
+Please try another search term.
+Your comment was submitted.
+Message: Thanks for your help!
+Description: blue cotton t-shirt, size M
+Bio: coffee, books, and long walks
+Note: deliver after 5 pm
+Address: 42 Wallaby Way, Sydney
+Country: Australia
+City: Kathmandu
+Currency: USD
+Language: en-GB
+Timezone: Asia/Kathmandu
+Rating: 4.5/5
+Status: active
+Priority: high
+Category: electronics > phones > accessories
+Tags: sale, new, featured
+Price: €19,99
+Discount: -10%
+Stock: 12 units
+SKU: ABC-123-XYZ
+Barcode: 4006381333931
+VAT ID: DE123456789
+Registration: 2026-01-15T10:30:00Z
+Duration: 00:02:35
+Version: 2.3.1
+Build: 2026.10.23
+Branch: feature/hk1-demo
+Commit: 1ec43bd
+Hash: a3f5c9e
+Port: 8080
+Host: 127.0.0.1
+Protocol: HTTP/1.1
+Content-Type: application/json
+Accept: text/html,application/xhtml+xml
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
+Referer: https://example.com/login
+X-Forwarded-For: 203.0.113.7, 10.0.0.1
+Cookie: session=abc123; theme=dark; lang=en
+Set-Cookie: session=xyz; HttpOnly; SameSite=Strict
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.abc.def
+The token expires in 3600 seconds.
+Error code: 4551
+Warning: battery low
+Info: 5 items in cart
+Success: payment received
+123 Main Street, Springfield
++1 (555) 013-4567
+© 2026 Example Corp. All rights reserved.

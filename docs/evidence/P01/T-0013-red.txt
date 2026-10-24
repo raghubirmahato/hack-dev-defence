@@ -1,0 +1,319 @@
+   Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+warning: constant `MIN_PATTERN_TOPICS` is never used
+   --> crates\hdd-xtask\src\ux_docs.rs:106:11
+    |
+106 | pub const MIN_PATTERN_TOPICS: usize = 12;
+    |           ^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `TOPIC_PARTS` is never used
+   --> crates\hdd-xtask\src\ux_docs.rs:108:11
+    |
+108 | pub const TOPIC_PARTS: [&str; 5] = [
+    |           ^^^^^^^^^^^
+
+warning: constant `SOURCE_VALUES` is never used
+   --> crates\hdd-xtask\src\ux_docs.rs:116:11
+    |
+116 | pub const SOURCE_VALUES: [&str; 3] = [
+    |           ^^^^^^^^^^^^^
+
+warning: constant `COPY_GUARD_WORDS` is never used
+   --> crates\hdd-xtask\src\ux_docs.rs:124:11
+    |
+124 | pub const COPY_GUARD_WORDS: usize = 12;
+    |           ^^^^^^^^^^^^^^^^
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 4 warnings
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.99s
+────────────
+ Nextest run ID 3b42fbe7-1b8a-43a3-b6bc-6d5355571cdd with nextest profile: default
+    Starting 17 tests across 1 binary (140 tests skipped)
+        FAIL [   0.013s] ( 1/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_an_empty_rationale_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t13_an_empty_rationale_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t13_an_empty_rationale_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 156 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t13_an_empty_rationale_fails' (23696) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1302:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.009s] ( 2/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_requirement_without_a_screen_or_component_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t13_a_requirement_without_a_screen_or_component_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t13_a_requirement_without_a_screen_or_component_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 156 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t13_a_requirement_without_a_screen_or_component_fails' (32648) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1274:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.018s] ( 3/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_repeated_design_requirement_is_reported
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t13_a_repeated_design_requirement_is_reported ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t13_a_repeated_design_requirement_is_reported
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 156 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t13_a_repeated_design_requirement_is_reported' (28980) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1267:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.022s] ( 4/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_copied_long_sentence_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t13_a_copied_long_sentence_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t13_a_copied_long_sentence_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 156 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t13_a_copied_long_sentence_fails' (25688) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1315:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.026s] ( 5/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_screen_ids_expand_ranges_and_components_are_read
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t13_screen_ids_expand_ranges_and_components_are_read ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t13_screen_ids_expand_ranges_and_components_are_read
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 156 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t13_screen_ids_expand_ranges_and_components_are_read' (24376) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1222:9:
+    `S-010` missing: {}
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.034s] ( 6/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_link_to_a_missing_pattern_anchor_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t13_a_link_to_a_missing_pattern_anchor_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t13_a_link_to_a_missing_pattern_anchor_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 156 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t13_a_link_to_a_missing_pattern_anchor_fails' (29172) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1291:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.039s] ( 7/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_complete_design_requirements_document_passes
+        FAIL [   0.043s] ( 8/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_pass_is_rejected_when_every_topic_is_first_principles
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t13_pass_is_rejected_when_every_topic_is_first_principles ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t13_pass_is_rejected_when_every_topic_is_first_principles
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 156 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t13_pass_is_rejected_when_every_topic_is_first_principles' (32844) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1198:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.047s] ( 9/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_fewer_than_twelve_topics_fail
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t13_fewer_than_twelve_topics_fail ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t13_fewer_than_twelve_topics_fail
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 156 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t13_fewer_than_twelve_topics_fail' (33444) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1155:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.051s] (10/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_an_unknown_screen_id_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t13_an_unknown_screen_id_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t13_an_unknown_screen_id_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 156 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t13_an_unknown_screen_id_fails' (33008) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1281:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.056s] (11/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_complete_patterns_document_passes
+        PASS [   0.060s] (12/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_pass_is_accepted_when_a_topic_has_a_fetched_source
+        FAIL [   0.063s] (13/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_topic_missing_a_labeled_part_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t13_a_topic_missing_a_labeled_part_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t13_a_topic_missing_a_labeled_part_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 156 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t13_a_topic_missing_a_labeled_part_fails' (26836) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1162:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.068s] (14/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_source_outside_the_allowed_values_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t13_a_source_outside_the_allowed_values_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t13_a_source_outside_the_allowed_values_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 156 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t13_a_source_outside_the_allowed_values_fails' (12980) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1169:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.073s] (15/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_missing_design_requirements_are_reported
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t13_missing_design_requirements_are_reported ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t13_missing_design_requirements_are_reported
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 156 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t13_missing_design_requirements_are_reported' (23840) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1260:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.058s] (16/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_the_status_line_must_be_valid
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t13_the_status_line_must_be_valid ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t13_the_status_line_must_be_valid
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 156 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t13_the_status_line_must_be_valid' (30916) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1178:5:
+    assertion failed: messages(&patterns_findings(&missing)).contains("Status")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.928s] (17/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_missing_patterns_or_design_documents_are_named
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t13_missing_patterns_or_design_documents_are_named ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t13_missing_patterns_or_design_documents_are_named
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 156 filtered out; finished in 0.90s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t13_missing_patterns_or_design_documents_are_named' (7872) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1325:5:
+    [ux-docs] docs/SPEC.md: the B12.1 screen table has no screen rows, so design requirements cannot be checked
+    [ux-docs] docs/SPEC.md: the B11.8 component inventory has no component rows, so design requirements cannot be checked
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   0.928s] 17 tests run: 3 passed, 14 failed, 140 skipped
+        FAIL [   0.013s] ( 1/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_an_empty_rationale_fails
+        FAIL [   0.009s] ( 2/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_requirement_without_a_screen_or_component_fails
+        FAIL [   0.018s] ( 3/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_repeated_design_requirement_is_reported
+        FAIL [   0.022s] ( 4/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_copied_long_sentence_fails
+        FAIL [   0.026s] ( 5/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_screen_ids_expand_ranges_and_components_are_read
+        FAIL [   0.034s] ( 6/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_link_to_a_missing_pattern_anchor_fails
+        FAIL [   0.043s] ( 8/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_pass_is_rejected_when_every_topic_is_first_principles
+        FAIL [   0.047s] ( 9/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_fewer_than_twelve_topics_fail
+        FAIL [   0.051s] (10/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_an_unknown_screen_id_fails
+        FAIL [   0.063s] (13/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_topic_missing_a_labeled_part_fails
+        FAIL [   0.068s] (14/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_a_source_outside_the_allowed_values_fails
+        FAIL [   0.073s] (15/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_missing_design_requirements_are_reported
+        FAIL [   0.058s] (16/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_the_status_line_must_be_valid
+        FAIL [   0.928s] (17/17) hdd-xtask::bin/hdd-xtask ux_docs::tests::t13_missing_patterns_or_design_documents_are_named
+error: test run failed

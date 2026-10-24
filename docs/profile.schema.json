@@ -1,0 +1,2093 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Profile",
+  "description": "The whole Live Target Profile.",
+  "type": "object",
+  "properties": {
+    "acme": {
+      "description": "ACME.",
+      "$ref": "#/$defs/Acme",
+      "default": {
+        "directory": "staging",
+        "email": ""
+      }
+    },
+    "admin_cidrs": {
+      "description": "Never-ban and admin-hostname allowlist; must NOT contain the runner IP.",
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "alerts": {
+      "description": "Alerts.",
+      "$ref": "#/$defs/Alerts",
+      "default": {
+        "heartbeat_url_env": "",
+        "webhook_env": ""
+      }
+    },
+    "app_inventory": {
+      "description": "Origin inventory.",
+      "$ref": "#/$defs/AppInventory",
+      "default": {
+        "components": [],
+        "origin_owner_contact": "",
+        "patch_sla_days": {
+          "critical": 7,
+          "high": 30,
+          "kev": 2,
+          "medium": 90
+        },
+        "sbom_path": "",
+        "vuln_feed_mode": "online"
+      }
+    },
+    "branding": {
+      "description": "Branding.",
+      "$ref": "#/$defs/Branding",
+      "default": {
+        "legal_entity": "",
+        "logo_path": "",
+        "privacy_url": "",
+        "product_name": "Hack Dev Defence",
+        "support_email": "",
+        "terms_url": ""
+      }
+    },
+    "deployment_mode": {
+      "description": "`owner_only` or `saas`.",
+      "$ref": "#/$defs/DeploymentMode",
+      "default": "owner_only"
+    },
+    "dns": {
+      "description": "DNS settings.",
+      "$ref": "#/$defs/Dns",
+      "default": {
+        "public_ns": [],
+        "topology": "self_authoritative"
+      }
+    },
+    "domain": {
+      "description": "Apex zone the operator owns and will protect first.",
+      "type": "string",
+      "default": ""
+    },
+    "egress_allowlist": {
+      "description": "Outbound destinations (section 2.1): `[scheme://]host[:port][/path-prefix]`, `*.suffix` for a suffix match.",
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "existing_dns": {
+      "description": "Existing DNS.",
+      "$ref": "#/$defs/ExistingDns",
+      "default": {
+        "export_method": "zonefile",
+        "provider": "",
+        "zonefile_path": ""
+      }
+    },
+    "geoip": {
+      "description": "GeoIP.",
+      "$ref": "#/$defs/Geoip",
+      "default": {
+        "asn_db_path": "",
+        "db_path": "",
+        "source": ""
+      }
+    },
+    "lab": {
+      "description": "Closed lab.",
+      "$ref": "#/$defs/Lab",
+      "default": {
+        "cidr": "",
+        "enabled": false,
+        "host": "",
+        "vulnlab_enabled": false
+      }
+    },
+    "lifecycle_stage": {
+      "description": "`pilot` or `production`.",
+      "$ref": "#/$defs/LifecycleStage",
+      "default": "pilot"
+    },
+    "load_profile_approved": {
+      "description": "True only after the operator's written approval for a `load` run.",
+      "type": "boolean",
+      "default": false
+    },
+    "locales": {
+      "description": "UI languages shipped.",
+      "type": "array",
+      "default": [
+        "en"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "operator_email": {
+      "description": "Receives test mail and alerts; the only address the agent may mail.",
+      "type": "string",
+      "default": ""
+    },
+    "origin": {
+      "description": "The origin.",
+      "$ref": "#/$defs/Origin",
+      "default": {
+        "canary": {
+          "base_path": "/__hdd_canary/",
+          "use_hdd_canary_agent": true
+        },
+        "host_header": "",
+        "lockdown_state": "pending",
+        "tls_server_name": "",
+        "tls_verify": {
+          "mode": "webpki",
+          "pin": ""
+        },
+        "url": ""
+      }
+    },
+    "origin_access_log": {
+      "description": "Origin access log.",
+      "$ref": "#/$defs/OriginAccessLog",
+      "default": {
+        "path": "",
+        "ssh_host": ""
+      }
+    },
+    "plans": {
+      "description": "Plans.",
+      "$ref": "#/$defs/Plans",
+      "default": {
+        "mode": "unlimited"
+      }
+    },
+    "platform": {
+      "description": "The server(s) running HDD.",
+      "$ref": "#/$defs/Platform",
+      "default": {
+        "acme_cname_zone": "",
+        "deploy_mode": "on-vps",
+        "edge_cname_zone": "",
+        "min_resources": {
+          "disk_gb": 40,
+          "ram_mb": 4096,
+          "vcpu": 2
+        },
+        "ns_hostnames": [],
+        "public_ipv4": [],
+        "public_ipv6": [],
+        "ssh": {
+          "host": "",
+          "key_path": "",
+          "user": ""
+        },
+        "uplink_mbps": 0
+      }
+    },
+    "platform_domain": {
+      "description": "Operator-owned apex hosting www/app/admin/api/ns/status.",
+      "type": "string",
+      "default": ""
+    },
+    "registrar": {
+      "description": "Registrar.",
+      "$ref": "#/$defs/Registrar",
+      "default": {
+        "api_token_env": "",
+        "provider": ""
+      }
+    },
+    "retention": {
+      "description": "Retention.",
+      "$ref": "#/$defs/Retention",
+      "default": {
+        "audit_days": 400,
+        "events_days": 30
+      }
+    },
+    "runtime": {
+      "description": "Runtime selection.",
+      "$ref": "#/$defs/Runtime",
+      "default": {
+        "hosting": {
+          "backups": {
+            "remote_env": "",
+            "schedule": "0 3 * * *",
+            "target": "local"
+          },
+          "last_known_good_snapshot": true,
+          "profile": "H1",
+          "watchdog": true
+        },
+        "local": {
+          "data_dir": "",
+          "database": "embedded",
+          "dogfood": false,
+          "kv": "memory",
+          "lan_exposure": false,
+          "local_domain_suffix": "hdd.localhost",
+          "loopback_client_identity": "ua_keyed",
+          "ports": {
+            "api": 8000,
+            "dns": 5300,
+            "proxy_http": 8080,
+            "proxy_https": 8444,
+            "web": 8443
+          },
+          "test_client_header": false,
+          "tls": "local_ca",
+          "tunnel": {
+            "provider": "none",
+            "trusted_cidrs": []
+          }
+        },
+        "profile": "hosted"
+      }
+    },
+    "sandbox_hostname": {
+      "description": "Sandbox route; forwards only exact canary paths.",
+      "type": "string",
+      "default": ""
+    },
+    "schema_version": {
+      "description": "Schema version; must be 5.",
+      "type": "integer",
+      "format": "uint32",
+      "default": 5,
+      "minimum": 0
+    },
+    "secondary_dns": {
+      "description": "Secondary DNS.",
+      "$ref": "#/$defs/SecondaryDns",
+      "default": {
+        "addresses": [],
+        "provider": "",
+        "tsig_key_env": ""
+      }
+    },
+    "secondary_dns_required_for_cutover": {
+      "description": "Secondary DNS is required for cutover.",
+      "type": "boolean",
+      "default": true
+    },
+    "signup": {
+      "description": "Signup policy.",
+      "$ref": "#/$defs/Signup",
+      "default": {
+        "allowed_email_domains": [],
+        "disposable_email_policy": "challenge",
+        "email_verification": "required",
+        "min_password_length": 12,
+        "mode": "invite_only",
+        "password_breach_check": "offline_list",
+        "require_mfa_for": [
+          "platform_admin"
+        ]
+      }
+    },
+    "site": {
+      "description": "The protected site.",
+      "$ref": "#/$defs/Site",
+      "default": {
+        "auth_paths": [
+          "/login",
+          "/wp-login.php",
+          "/signin",
+          "/api/auth/login"
+        ],
+        "crawl_start_url": "",
+        "extra_proxied_ports": [],
+        "har_file": "",
+        "non_http_services": [
+          "smtp",
+          "imap",
+          "ssh"
+        ],
+        "platform": "custom",
+        "replay_methods": [
+          "GET",
+          "HEAD"
+        ]
+      }
+    },
+    "smtp": {
+      "description": "SMTP relay.",
+      "$ref": "#/$defs/Smtp",
+      "default": {
+        "from_address": "",
+        "from_name": "Hack Dev Defence",
+        "host": "",
+        "password_env": "",
+        "port": 587,
+        "reply_to": "",
+        "tls": "starttls",
+        "username_env": ""
+      }
+    },
+    "ssh_allow_cidrs": {
+      "description": "Port 22 allowlist; may contain the runner IP.",
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "surfaces": {
+      "description": "Product surfaces.",
+      "$ref": "#/$defs/Surfaces",
+      "default": {
+        "admin_exposure": "tunnel_only",
+        "admin_host": "",
+        "api_host": "",
+        "app_host": "",
+        "public_host": "",
+        "status_host": ""
+      }
+    },
+    "test_hostname": {
+      "description": "Real-site mirror for benign traffic and GET/HEAD attack shapes.",
+      "type": "string",
+      "default": ""
+    },
+    "test_runner": {
+      "description": "Acceptance runner.",
+      "$ref": "#/$defs/TestRunner",
+      "default": {
+        "control_plane_access": "ssh-tunnel",
+        "public_ip": "auto"
+      }
+    },
+    "upstream_cdn": {
+      "description": "Upstream CDN.",
+      "$ref": "#/$defs/UpstreamCdn",
+      "default": {
+        "enabled": false,
+        "trusted_cidrs": []
+      }
+    },
+    "upstream_ddos": {
+      "description": "Upstream DDoS mitigation (section 8.1).",
+      "$ref": "#/$defs/UpstreamDdos",
+      "default": {
+        "advertised_capacity_gbps": 0.0,
+        "lab": {
+          "host": "",
+          "private_link": ""
+        },
+        "mitigation_api": {
+          "kind": "",
+          "token_env": ""
+        },
+        "mode": "none",
+        "over_capacity_behavior": "",
+        "provider": "",
+        "provider_contact": "",
+        "risk_acceptance_volumetric": false,
+        "standby_edge_ips": []
+      }
+    },
+    "vantage_points": {
+      "description": "Vantage points.",
+      "type": "array",
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/VantagePoint"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "Acme": {
+      "description": "ACME settings.",
+      "type": "object",
+      "properties": {
+        "directory": {
+          "description": "Directory; staging first.",
+          "$ref": "#/$defs/AcmeDirectory",
+          "default": "staging"
+        },
+        "email": {
+          "description": "Account email.",
+          "type": "string",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+    "AcmeDirectory": {
+      "description": "ACME directory.",
+      "oneOf": [
+        {
+          "description": "The CA's staging directory (default).",
+          "type": "string",
+          "const": "staging"
+        },
+        {
+          "description": "The CA's production directory (needs the operator's approval).",
+          "type": "string",
+          "const": "production"
+        }
+      ]
+    },
+    "AdminExposure": {
+      "description": "Admin surface exposure.",
+      "oneOf": [
+        {
+          "description": "Reachable only through an SSH or WireGuard tunnel.",
+          "type": "string",
+          "const": "tunnel_only"
+        },
+        {
+          "description": "Routed, restricted by `admin_cidrs` and MFA.",
+          "type": "string",
+          "const": "routed_with_cidr"
+        }
+      ]
+    },
+    "Alerts": {
+      "description": "Alert channels.",
+      "type": "object",
+      "properties": {
+        "heartbeat_url_env": {
+          "description": "Environment variable NAME holding the external heartbeat URL.",
+          "$ref": "#/$defs/EnvVarName",
+          "default": ""
+        },
+        "webhook_env": {
+          "description": "Environment variable NAME holding the webhook URL.",
+          "$ref": "#/$defs/EnvVarName",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+    "AppInventory": {
+      "description": "Origin application inventory (section 8.1).",
+      "type": "object",
+      "properties": {
+        "components": {
+          "description": "Components.",
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Component"
+          }
+        },
+        "origin_owner_contact": {
+          "description": "Contact that receives patch-SLA alerts.",
+          "type": "string",
+          "default": ""
+        },
+        "patch_sla_days": {
+          "description": "Patch SLAs.",
+          "$ref": "#/$defs/PatchSla",
+          "default": {
+            "critical": 7,
+            "high": 30,
+            "kev": 2,
+            "medium": 90
+          }
+        },
+        "sbom_path": {
+          "description": "SBOM path (CycloneDX or SPDX).",
+          "type": "string",
+          "default": ""
+        },
+        "vuln_feed_mode": {
+          "description": "Feed mode.",
+          "$ref": "#/$defs/FeedMode",
+          "default": "online"
+        }
+      },
+      "additionalProperties": false
+    },
+    "BackupTarget": {
+      "description": "Backup target.",
+      "oneOf": [
+        {
+          "description": "A local directory.",
+          "type": "string",
+          "const": "local"
+        },
+        {
+          "description": "SFTP.",
+          "type": "string",
+          "const": "sftp"
+        },
+        {
+          "description": "S3-compatible storage.",
+          "type": "string",
+          "const": "s3"
+        }
+      ]
+    },
+    "Backups": {
+      "description": "Backup settings of the hosted profile.",
+      "type": "object",
+      "properties": {
+        "remote_env": {
+          "description": "Name of the environment variable that holds the remote credentials (never the credentials).",
+          "$ref": "#/$defs/EnvVarName",
+          "default": ""
+        },
+        "schedule": {
+          "description": "Cron schedule.",
+          "type": "string",
+          "default": "0 3 * * *"
+        },
+        "target": {
+          "description": "Backup destination.",
+          "$ref": "#/$defs/BackupTarget",
+          "default": "local"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Branding": {
+      "description": "Branding.",
+      "type": "object",
+      "properties": {
+        "legal_entity": {
+          "description": "Legal entity.",
+          "type": "string",
+          "default": ""
+        },
+        "logo_path": {
+          "description": "Logo file path.",
+          "type": "string",
+          "default": ""
+        },
+        "privacy_url": {
+          "description": "Privacy URL.",
+          "type": "string",
+          "default": ""
+        },
+        "product_name": {
+          "description": "Product name.",
+          "type": "string",
+          "default": "Hack Dev Defence"
+        },
+        "support_email": {
+          "description": "Support email.",
+          "type": "string",
+          "default": ""
+        },
+        "terms_url": {
+          "description": "Terms URL.",
+          "type": "string",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+    "BreachCheck": {
+      "description": "Password breach check mode.",
+      "oneOf": [
+        {
+          "description": "An offline list.",
+          "type": "string",
+          "const": "offline_list"
+        },
+        {
+          "description": "The k-anonymity range API (needs an egress entry).",
+          "type": "string",
+          "const": "hibp_range"
+        },
+        {
+          "description": "Off.",
+          "type": "string",
+          "const": "off"
+        }
+      ]
+    },
+    "Canary": {
+      "description": "Canary files on the origin.",
+      "type": "object",
+      "properties": {
+        "base_path": {
+          "description": "Base path of the canary files.",
+          "type": "string",
+          "default": "/__hdd_canary/"
+        },
+        "use_hdd_canary_agent": {
+          "description": "Use the `hdd-canary` agent on the origin.",
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "Component": {
+      "description": "One application component of the origin inventory.",
+      "type": "object",
+      "properties": {
+        "cpe": {
+          "description": "CPE.",
+          "type": "string",
+          "default": ""
+        },
+        "ecosystem": {
+          "description": "Package ecosystem.",
+          "type": "string",
+          "default": ""
+        },
+        "internet_facing": {
+          "description": "Reachable from the internet.",
+          "type": "boolean",
+          "default": false
+        },
+        "name": {
+          "description": "Name.",
+          "type": "string",
+          "default": ""
+        },
+        "notes": {
+          "description": "Notes.",
+          "type": "string",
+          "default": ""
+        },
+        "purl": {
+          "description": "Package URL.",
+          "type": "string",
+          "default": ""
+        },
+        "version": {
+          "description": "Version.",
+          "type": "string",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+    "ControlPlaneAccess": {
+      "description": "How the acceptance runner reaches the control plane.",
+      "oneOf": [
+        {
+          "description": "SSH tunnel.",
+          "type": "string",
+          "const": "ssh-tunnel"
+        },
+        {
+          "description": "WireGuard.",
+          "type": "string",
+          "const": "wireguard"
+        }
+      ]
+    },
+    "DdosLab": {
+      "description": "Lab details for volumetric tests.",
+      "type": "object",
+      "properties": {
+        "host": {
+          "description": "Lab host.",
+          "type": "string",
+          "default": ""
+        },
+        "private_link": {
+          "description": "Private link description.",
+          "type": "string",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+    "DdosMode": {
+      "description": "Upstream DDoS mitigation mode.",
+      "oneOf": [
+        {
+          "description": "Always-on scrubbing.",
+          "type": "string",
+          "const": "always_on"
+        },
+        {
+          "description": "On demand.",
+          "type": "string",
+          "const": "on_demand"
+        },
+        {
+          "description": "None (pilot only; DDoS readiness is then NOT READY).",
+          "type": "string",
+          "const": "none"
+        }
+      ]
+    },
+    "DeployMode": {
+      "description": "How HDD is deployed to the server.",
+      "oneOf": [
+        {
+          "description": "HDD runs on the machine that executes `hddctl`.",
+          "type": "string",
+          "const": "on-vps"
+        },
+        {
+          "description": "`hddctl` deploys over SSH (needs `platform.ssh`).",
+          "type": "string",
+          "const": "ssh"
+        }
+      ]
+    },
+    "DeploymentMode": {
+      "description": "Who the installation serves.",
+      "oneOf": [
+        {
+          "description": "The operator's own domains only.",
+          "type": "string",
+          "const": "owner_only"
+        },
+        {
+          "description": "A service for other people (refused when `runtime.profile` is `local`).",
+          "type": "string",
+          "const": "saas"
+        }
+      ]
+    },
+    "DisposablePolicy": {
+      "description": "Disposable-address policy.",
+      "oneOf": [
+        {
+          "description": "Reject.",
+          "type": "string",
+          "const": "block"
+        },
+        {
+          "description": "Extra friction.",
+          "type": "string",
+          "const": "challenge"
+        },
+        {
+          "description": "Allow.",
+          "type": "string",
+          "const": "allow"
+        }
+      ]
+    },
+    "Dns": {
+      "description": "DNS settings.",
+      "type": "object",
+      "properties": {
+        "public_ns": {
+          "description": "Public nameserver names served by the external secondary (hidden primary).",
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "topology": {
+          "description": "Topology.",
+          "$ref": "#/$defs/DnsTopology",
+          "default": "self_authoritative"
+        }
+      },
+      "additionalProperties": false
+    },
+    "DnsTopology": {
+      "description": "DNS topology.",
+      "oneOf": [
+        {
+          "description": "HDD serves the zone itself.",
+          "type": "string",
+          "const": "self_authoritative"
+        },
+        {
+          "description": "An external secondary serves the zone publicly (needs `dns.public_ns`).",
+          "type": "string",
+          "const": "hidden_primary"
+        }
+      ]
+    },
+    "EmailVerification": {
+      "description": "Email verification policy.",
+      "oneOf": [
+        {
+          "description": "Always required.",
+          "type": "string",
+          "const": "required"
+        }
+      ]
+    },
+    "EnvVarName": {
+      "description": "The NAME of an environment variable (never its value). Empty means not configured.",
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^([A-Z][A-Z0-9]*(_[A-Z0-9]+)*)?$"
+    },
+    "ExistingDns": {
+      "description": "Where the current DNS zone comes from.",
+      "type": "object",
+      "properties": {
+        "export_method": {
+          "description": "Export method.",
+          "$ref": "#/$defs/ExportMethod",
+          "default": "zonefile"
+        },
+        "provider": {
+          "description": "Current provider.",
+          "type": "string",
+          "default": ""
+        },
+        "zonefile_path": {
+          "description": "Zone file path (for `zonefile`).",
+          "type": "string",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+    "ExportMethod": {
+      "description": "How the existing DNS zone is obtained.",
+      "oneOf": [
+        {
+          "description": "A zone file.",
+          "type": "string",
+          "const": "zonefile"
+        },
+        {
+          "description": "Zone transfer.",
+          "type": "string",
+          "const": "axfr"
+        },
+        {
+          "description": "Provider API.",
+          "type": "string",
+          "const": "api"
+        },
+        {
+          "description": "Entered by hand.",
+          "type": "string",
+          "const": "manual"
+        }
+      ]
+    },
+    "FeedMode": {
+      "description": "Vulnerability feed mode.",
+      "oneOf": [
+        {
+          "description": "Online feeds.",
+          "type": "string",
+          "const": "online"
+        },
+        {
+          "description": "File import.",
+          "type": "string",
+          "const": "offline"
+        }
+      ]
+    },
+    "Geoip": {
+      "description": "GeoIP databases.",
+      "type": "object",
+      "properties": {
+        "asn_db_path": {
+          "description": "ASN database path.",
+          "type": "string",
+          "default": ""
+        },
+        "db_path": {
+          "description": "Country database path (`HDD_GEOIP_DB`).",
+          "type": "string",
+          "default": ""
+        },
+        "source": {
+          "description": "Licence or provenance of the databases.",
+          "type": "string",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+    "Hosting": {
+      "description": "Settings read only when `runtime.profile` is `hosted`.",
+      "type": "object",
+      "properties": {
+        "backups": {
+          "description": "Backups.",
+          "$ref": "#/$defs/Backups",
+          "default": {
+            "remote_env": "",
+            "schedule": "0 3 * * *",
+            "target": "local"
+          }
+        },
+        "last_known_good_snapshot": {
+          "description": "Keep a last-known-good snapshot.",
+          "type": "boolean",
+          "default": true
+        },
+        "profile": {
+          "description": "Hosting profile H1 to H5.",
+          "$ref": "#/$defs/HostingProfile",
+          "default": "H1"
+        },
+        "watchdog": {
+          "description": "Run the watchdog.",
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "HostingProfile": {
+      "description": "Hosting profile (C18.10).",
+      "oneOf": [
+        {
+          "description": "Single VPS.",
+          "type": "string",
+          "const": "H1"
+        },
+        {
+          "description": "Two servers or providers.",
+          "type": "string",
+          "const": "H2"
+        },
+        {
+          "description": "Third hosting profile (see C18.10).",
+          "type": "string",
+          "const": "H3"
+        },
+        {
+          "description": "Fourth hosting profile (see C18.10).",
+          "type": "string",
+          "const": "H4"
+        },
+        {
+          "description": "Fifth hosting profile (see C18.10).",
+          "type": "string",
+          "const": "H5"
+        }
+      ]
+    },
+    "Lab": {
+      "description": "Closed lab.",
+      "type": "object",
+      "properties": {
+        "cidr": {
+          "description": "Lab CIDR.",
+          "type": "string",
+          "default": ""
+        },
+        "enabled": {
+          "description": "Lab enabled.",
+          "type": "boolean",
+          "default": false
+        },
+        "host": {
+          "description": "Lab host.",
+          "type": "string",
+          "default": ""
+        },
+        "vulnlab_enabled": {
+          "description": "Vuln-Lab enabled.",
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "LifecycleStage": {
+      "description": "Whether production traffic crosses HDD (section 2.7).",
+      "oneOf": [
+        {
+          "description": "Only the pilot subzones are delegated; destructive checks are allowed with warning.",
+          "type": "string",
+          "const": "pilot"
+        },
+        {
+          "description": "The apex is delegated; the runner refuses destructive checks without a per-run approval.",
+          "type": "string",
+          "const": "production"
+        }
+      ]
+    },
+    "LocalDatabase": {
+      "description": "Database used by the local profile.",
+      "oneOf": [
+        {
+          "description": "A private PostgreSQL managed by `hdd-local`.",
+          "type": "string",
+          "const": "embedded"
+        },
+        {
+          "description": "An external server given by `HDD_DATABASE_URL`.",
+          "type": "string",
+          "const": "external"
+        },
+        {
+          "description": "Docker Compose services.",
+          "type": "string",
+          "const": "compose"
+        }
+      ]
+    },
+    "LocalKv": {
+      "description": "Key-value store used by the local profile.",
+      "oneOf": [
+        {
+          "description": "In-process stores.",
+          "type": "string",
+          "const": "memory"
+        },
+        {
+          "description": "Redis or Valkey.",
+          "type": "string",
+          "const": "redis"
+        }
+      ]
+    },
+    "LocalPorts": {
+      "description": "Unprivileged default ports of the local profile.",
+      "type": "object",
+      "properties": {
+        "api": {
+          "description": "Control-plane API.",
+          "type": "integer",
+          "format": "uint16",
+          "default": 8000,
+          "maximum": 65535,
+          "minimum": 0
+        },
+        "dns": {
+          "description": "DNS listener.",
+          "type": "integer",
+          "format": "uint16",
+          "default": 5300,
+          "maximum": 65535,
+          "minimum": 0
+        },
+        "proxy_http": {
+          "description": "Protected-site HTTP listener.",
+          "type": "integer",
+          "format": "uint16",
+          "default": 8080,
+          "maximum": 65535,
+          "minimum": 0
+        },
+        "proxy_https": {
+          "description": "Protected-site HTTPS listener.",
+          "type": "integer",
+          "format": "uint16",
+          "default": 8444,
+          "maximum": 65535,
+          "minimum": 0
+        },
+        "web": {
+          "description": "Product web surfaces.",
+          "type": "integer",
+          "format": "uint16",
+          "default": 8443,
+          "maximum": 65535,
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "LocalRuntime": {
+      "description": "Settings read only when `runtime.profile` is `local`.",
+      "type": "object",
+      "properties": {
+        "data_dir": {
+          "description": "Data directory; empty means the per-OS user data directory.",
+          "type": "string",
+          "default": ""
+        },
+        "database": {
+          "description": "Database kind.",
+          "$ref": "#/$defs/LocalDatabase",
+          "default": "embedded"
+        },
+        "dogfood": {
+          "description": "Route the product surfaces through the HDD proxy like hosted.",
+          "type": "boolean",
+          "default": false
+        },
+        "kv": {
+          "description": "Key-value store kind.",
+          "$ref": "#/$defs/LocalKv",
+          "default": "memory"
+        },
+        "lan_exposure": {
+          "description": "Bind protected-site listeners to the LAN (needs the acknowledgement of section 2.11).",
+          "type": "boolean",
+          "default": false
+        },
+        "local_domain_suffix": {
+          "description": "Suffix of local site names (browsers resolve `*.localhost` to loopback).",
+          "type": "string",
+          "default": "hdd.localhost"
+        },
+        "loopback_client_identity": {
+          "description": "Loopback client identity mode.",
+          "$ref": "#/$defs/LoopbackIdentity",
+          "default": "ua_keyed"
+        },
+        "ports": {
+          "description": "Listener ports.",
+          "$ref": "#/$defs/LocalPorts",
+          "default": {
+            "api": 8000,
+            "dns": 5300,
+            "proxy_http": 8080,
+            "proxy_https": 8444,
+            "web": 8443
+          }
+        },
+        "test_client_header": {
+          "description": "Accept `X-HDD-Test-Client` on loopback (self-test and acceptance runs).",
+          "type": "boolean",
+          "default": false
+        },
+        "tls": {
+          "description": "TLS mode.",
+          "$ref": "#/$defs/LocalTls",
+          "default": "local_ca"
+        },
+        "tunnel": {
+          "description": "Operator-run tunnel.",
+          "$ref": "#/$defs/Tunnel",
+          "default": {
+            "provider": "none",
+            "trusted_cidrs": []
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "LocalTls": {
+      "description": "TLS mode of the local profile.",
+      "oneOf": [
+        {
+          "description": "A name-constrained local certificate authority (needs the operator's consent to install).",
+          "type": "string",
+          "const": "local_ca"
+        },
+        {
+          "description": "Plain HTTP on loopback only.",
+          "type": "string",
+          "const": "http_only"
+        }
+      ]
+    },
+    "LockdownState": {
+      "description": "Origin lockdown state, set by the operator.",
+      "oneOf": [
+        {
+          "description": "The origin firewall and secret header are not applied yet.",
+          "type": "string",
+          "const": "pending"
+        },
+        {
+          "description": "Applied by the operator.",
+          "type": "string",
+          "const": "applied"
+        }
+      ]
+    },
+    "LoopbackIdentity": {
+      "description": "How loopback clients are told apart (C18.5).",
+      "oneOf": [
+        {
+          "description": "Keyed by the user agent.",
+          "type": "string",
+          "const": "ua_keyed"
+        },
+        {
+          "description": "One identity for every loopback client (refused while any site is in `block` mode).",
+          "type": "string",
+          "const": "single"
+        }
+      ]
+    },
+    "MinResources": {
+      "description": "Minimum server resources.",
+      "type": "object",
+      "properties": {
+        "disk_gb": {
+          "description": "Disk in GiB.",
+          "type": "integer",
+          "format": "uint32",
+          "default": 40,
+          "minimum": 0
+        },
+        "ram_mb": {
+          "description": "RAM in MiB.",
+          "type": "integer",
+          "format": "uint32",
+          "default": 4096,
+          "minimum": 0
+        },
+        "vcpu": {
+          "description": "Virtual CPUs.",
+          "type": "integer",
+          "format": "uint32",
+          "default": 2,
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "MitigationApi": {
+      "description": "Mitigation API of the upstream provider.",
+      "type": "object",
+      "properties": {
+        "kind": {
+          "description": "Kind of API.",
+          "type": "string",
+          "default": ""
+        },
+        "token_env": {
+          "description": "Environment variable NAME holding the token.",
+          "$ref": "#/$defs/EnvVarName",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+    "Origin": {
+      "description": "The operator's real site host.",
+      "type": "object",
+      "properties": {
+        "canary": {
+          "description": "Canary settings.",
+          "$ref": "#/$defs/Canary",
+          "default": {
+            "base_path": "/__hdd_canary/",
+            "use_hdd_canary_agent": true
+          }
+        },
+        "host_header": {
+          "description": "`Host` header to send.",
+          "type": "string",
+          "default": ""
+        },
+        "lockdown_state": {
+          "description": "Lockdown state.",
+          "$ref": "#/$defs/LockdownState",
+          "default": "pending"
+        },
+        "tls_server_name": {
+          "description": "TLS server name to verify.",
+          "type": "string",
+          "default": ""
+        },
+        "tls_verify": {
+          "description": "TLS verification.",
+          "$ref": "#/$defs/TlsVerify",
+          "default": {
+            "mode": "webpki",
+            "pin": ""
+          }
+        },
+        "url": {
+          "description": "Origin URL including the scheme.",
+          "type": "string",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+    "OriginAccessLog": {
+      "description": "Origin access log for header verification.",
+      "type": "object",
+      "properties": {
+        "path": {
+          "description": "Log path.",
+          "type": "string",
+          "default": ""
+        },
+        "ssh_host": {
+          "description": "SSH host.",
+          "type": "string",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+    "PatchSla": {
+      "description": "Patch SLAs in days.",
+      "type": "object",
+      "properties": {
+        "critical": {
+          "description": "Critical.",
+          "type": "integer",
+          "format": "uint32",
+          "default": 7,
+          "minimum": 0
+        },
+        "high": {
+          "description": "High.",
+          "type": "integer",
+          "format": "uint32",
+          "default": 30,
+          "minimum": 0
+        },
+        "kev": {
+          "description": "Known-exploited vulnerabilities.",
+          "type": "integer",
+          "format": "uint32",
+          "default": 2,
+          "minimum": 0
+        },
+        "medium": {
+          "description": "Medium.",
+          "type": "integer",
+          "format": "uint32",
+          "default": 90,
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "Plans": {
+      "description": "Plans.",
+      "type": "object",
+      "properties": {
+        "mode": {
+          "description": "Plan mode.",
+          "$ref": "#/$defs/PlansMode",
+          "default": "unlimited"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PlansMode": {
+      "description": "Plan mode.",
+      "oneOf": [
+        {
+          "description": "No quotas.",
+          "type": "string",
+          "const": "unlimited"
+        },
+        {
+          "description": "Quotas editable in the admin panel.",
+          "type": "string",
+          "const": "tiered"
+        }
+      ]
+    },
+    "Platform": {
+      "description": "The server(s) running HDD.",
+      "type": "object",
+      "properties": {
+        "acme_cname_zone": {
+          "description": "DNS-01 delegation zone `<zone-id>.acme.<platform_domain>`.",
+          "type": "string",
+          "default": ""
+        },
+        "deploy_mode": {
+          "description": "Deployment mode.",
+          "$ref": "#/$defs/DeployMode",
+          "default": "on-vps"
+        },
+        "edge_cname_zone": {
+          "description": "Zone for `<site-id>.edge.<platform_domain>` (CNAME modes).",
+          "type": "string",
+          "default": ""
+        },
+        "min_resources": {
+          "description": "Minimum resources.",
+          "$ref": "#/$defs/MinResources",
+          "default": {
+            "disk_gb": 40,
+            "ram_mb": 4096,
+            "vcpu": 2
+          }
+        },
+        "ns_hostnames": {
+          "description": "Nameserver host names.",
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "public_ipv4": {
+          "description": "Public IPv4 addresses.",
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "public_ipv6": {
+          "description": "Public IPv6 addresses.",
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "ssh": {
+          "description": "SSH access for `deploy_mode: ssh`.",
+          "$ref": "#/$defs/Ssh",
+          "default": {
+            "host": "",
+            "key_path": "",
+            "user": ""
+          }
+        },
+        "uplink_mbps": {
+          "description": "Contracted or measured uplink in Mbit/s; 0 means unknown (capacity then UNVERIFIED).",
+          "type": "integer",
+          "format": "uint32",
+          "default": 0,
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "Registrar": {
+      "description": "Registrar access.",
+      "type": "object",
+      "properties": {
+        "api_token_env": {
+          "description": "Environment variable NAME holding the API token (never the token).",
+          "$ref": "#/$defs/EnvVarName",
+          "default": ""
+        },
+        "provider": {
+          "description": "Provider name.",
+          "type": "string",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+    "Retention": {
+      "description": "Retention.",
+      "type": "object",
+      "properties": {
+        "audit_days": {
+          "description": "Audit retention in days (floor 180).",
+          "type": "integer",
+          "format": "uint32",
+          "default": 400,
+          "minimum": 0
+        },
+        "events_days": {
+          "description": "Event retention in days (plan caps may lower it).",
+          "type": "integer",
+          "format": "uint32",
+          "default": 30,
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "Runtime": {
+      "description": "Runtime selection (R-31, section 8.2).",
+      "type": "object",
+      "properties": {
+        "hosting": {
+          "description": "Hosted-profile settings.",
+          "$ref": "#/$defs/Hosting",
+          "default": {
+            "backups": {
+              "remote_env": "",
+              "schedule": "0 3 * * *",
+              "target": "local"
+            },
+            "last_known_good_snapshot": true,
+            "profile": "H1",
+            "watchdog": true
+          }
+        },
+        "local": {
+          "description": "Local-profile settings.",
+          "$ref": "#/$defs/LocalRuntime",
+          "default": {
+            "data_dir": "",
+            "database": "embedded",
+            "dogfood": false,
+            "kv": "memory",
+            "lan_exposure": false,
+            "local_domain_suffix": "hdd.localhost",
+            "loopback_client_identity": "ua_keyed",
+            "ports": {
+              "api": 8000,
+              "dns": 5300,
+              "proxy_http": 8080,
+              "proxy_https": 8444,
+              "web": 8443
+            },
+            "test_client_header": false,
+            "tls": "local_ca",
+            "tunnel": {
+              "provider": "none",
+              "trusted_cidrs": []
+            }
+          }
+        },
+        "profile": {
+          "description": "`hosted` or `local`.",
+          "$ref": "#/$defs/RuntimeProfile",
+          "default": "hosted"
+        }
+      },
+      "additionalProperties": false
+    },
+    "RuntimeProfile": {
+      "description": "Runtime profile (R-31).",
+      "oneOf": [
+        {
+          "description": "A server running 24/7.",
+          "type": "string",
+          "const": "hosted"
+        },
+        {
+          "description": "A personal computer; protection exists only while HDD runs (section 2.11).",
+          "type": "string",
+          "const": "local"
+        }
+      ]
+    },
+    "SecondaryDns": {
+      "description": "External secondary DNS.",
+      "type": "object",
+      "properties": {
+        "addresses": {
+          "description": "Secondary addresses.",
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "provider": {
+          "description": "Provider.",
+          "type": "string",
+          "default": ""
+        },
+        "tsig_key_env": {
+          "description": "Environment variable NAME holding the TSIG key (never the key).",
+          "$ref": "#/$defs/EnvVarName",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+    "SecretPath": {
+      "description": "Path of a secret file. Printed and logged as its file name only.",
+      "type": "string"
+    },
+    "Signup": {
+      "description": "Signup policy.",
+      "type": "object",
+      "properties": {
+        "allowed_email_domains": {
+          "description": "Allowed email domains; empty means any (subject to policy).",
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "disposable_email_policy": {
+          "description": "Disposable-address policy.",
+          "$ref": "#/$defs/DisposablePolicy",
+          "default": "challenge"
+        },
+        "email_verification": {
+          "description": "Email verification (always required).",
+          "$ref": "#/$defs/EmailVerification",
+          "default": "required"
+        },
+        "min_password_length": {
+          "description": "Minimum password length.",
+          "type": "integer",
+          "format": "uint32",
+          "default": 12,
+          "minimum": 0
+        },
+        "mode": {
+          "description": "Mode.",
+          "$ref": "#/$defs/SignupMode",
+          "default": "invite_only"
+        },
+        "password_breach_check": {
+          "description": "Password breach check.",
+          "$ref": "#/$defs/BreachCheck",
+          "default": "offline_list"
+        },
+        "require_mfa_for": {
+          "description": "Roles for which MFA enrollment is forced.",
+          "type": "array",
+          "default": [
+            "platform_admin"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "SignupMode": {
+      "description": "Signup mode.",
+      "oneOf": [
+        {
+          "description": "No signup.",
+          "type": "string",
+          "const": "disabled"
+        },
+        {
+          "description": "Invitations only.",
+          "type": "string",
+          "const": "invite_only"
+        },
+        {
+          "description": "Open signup (needs the operator's approval in chat; refused in `local`).",
+          "type": "string",
+          "const": "open"
+        }
+      ]
+    },
+    "Site": {
+      "description": "Facts about the protected site.",
+      "type": "object",
+      "properties": {
+        "auth_paths": {
+          "description": "Authentication paths (auth-endpoint hardening).",
+          "type": "array",
+          "default": [
+            "/login",
+            "/wp-login.php",
+            "/signin",
+            "/api/auth/login"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "crawl_start_url": {
+          "description": "Crawl start URL.",
+          "type": "string",
+          "default": ""
+        },
+        "extra_proxied_ports": {
+          "description": "Extra proxied ports.",
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "integer",
+            "format": "uint16",
+            "maximum": 65535,
+            "minimum": 0
+          }
+        },
+        "har_file": {
+          "description": "HAR file path (scrubbed before use).",
+          "type": "string",
+          "default": ""
+        },
+        "non_http_services": {
+          "description": "Non-HTTP services forced grey-cloud.",
+          "type": "array",
+          "default": [
+            "smtp",
+            "imap",
+            "ssh"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "platform": {
+          "description": "Site platform (drives honeypot defaults).",
+          "$ref": "#/$defs/SitePlatform",
+          "default": "custom"
+        },
+        "replay_methods": {
+          "description": "Methods the replay may use (state-changing methods need per-path allowlisting).",
+          "type": "array",
+          "default": [
+            "GET",
+            "HEAD"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "SitePlatform": {
+      "description": "Kind of the protected site (drives honeypot defaults).",
+      "oneOf": [
+        {
+          "description": "WordPress.",
+          "type": "string",
+          "const": "wordpress"
+        },
+        {
+          "description": "Static site.",
+          "type": "string",
+          "const": "static"
+        },
+        {
+          "description": "Custom application.",
+          "type": "string",
+          "const": "custom"
+        },
+        {
+          "description": "Something else.",
+          "type": "string",
+          "const": "other"
+        }
+      ]
+    },
+    "Smtp": {
+      "description": "SMTP relay.",
+      "type": "object",
+      "properties": {
+        "from_address": {
+          "description": "Sender address.",
+          "type": "string",
+          "default": ""
+        },
+        "from_name": {
+          "description": "Sender display name.",
+          "type": "string",
+          "default": "Hack Dev Defence"
+        },
+        "host": {
+          "description": "Relay host; empty means a local SMTP sink only.",
+          "type": "string",
+          "default": ""
+        },
+        "password_env": {
+          "description": "Environment variable NAME holding the password.",
+          "$ref": "#/$defs/EnvVarName",
+          "default": ""
+        },
+        "port": {
+          "description": "Port.",
+          "type": "integer",
+          "format": "uint16",
+          "default": 587,
+          "maximum": 65535,
+          "minimum": 0
+        },
+        "reply_to": {
+          "description": "Reply-to address.",
+          "type": "string",
+          "default": ""
+        },
+        "tls": {
+          "description": "Transport security.",
+          "$ref": "#/$defs/SmtpTls",
+          "default": "starttls"
+        },
+        "username_env": {
+          "description": "Environment variable NAME holding the username.",
+          "$ref": "#/$defs/EnvVarName",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+    "SmtpTls": {
+      "description": "SMTP transport security.",
+      "oneOf": [
+        {
+          "description": "STARTTLS.",
+          "type": "string",
+          "const": "starttls"
+        },
+        {
+          "description": "Implicit TLS.",
+          "type": "string",
+          "const": "tls"
+        },
+        {
+          "description": "No TLS (only for a local sink).",
+          "type": "string",
+          "const": "none"
+        }
+      ]
+    },
+    "Ssh": {
+      "description": "SSH access for deployment.",
+      "type": "object",
+      "properties": {
+        "host": {
+          "description": "Host.",
+          "type": "string",
+          "default": ""
+        },
+        "key_path": {
+          "description": "Path of the private key file (printed as its file name only).",
+          "$ref": "#/$defs/SecretPath",
+          "default": ""
+        },
+        "user": {
+          "description": "User.",
+          "type": "string",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+    "Surfaces": {
+      "description": "Hostnames of the product surfaces.",
+      "type": "object",
+      "properties": {
+        "admin_exposure": {
+          "description": "Admin exposure.",
+          "$ref": "#/$defs/AdminExposure",
+          "default": "tunnel_only"
+        },
+        "admin_host": {
+          "description": "Admin host.",
+          "type": "string",
+          "default": ""
+        },
+        "api_host": {
+          "description": "API host.",
+          "type": "string",
+          "default": ""
+        },
+        "app_host": {
+          "description": "Customer app host.",
+          "type": "string",
+          "default": ""
+        },
+        "public_host": {
+          "description": "Public site host.",
+          "type": "string",
+          "default": ""
+        },
+        "status_host": {
+          "description": "Status page host (ideally served from outside this server).",
+          "type": "string",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+    "TestRunner": {
+      "description": "Acceptance runner.",
+      "type": "object",
+      "properties": {
+        "control_plane_access": {
+          "description": "Control-plane access method.",
+          "$ref": "#/$defs/ControlPlaneAccess",
+          "default": "ssh-tunnel"
+        },
+        "public_ip": {
+          "description": "Runner public IP, or `auto` (discovered through the canary echo; bannable by design).",
+          "type": "string",
+          "default": "auto"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TlsVerify": {
+      "description": "Origin TLS verification.",
+      "type": "object",
+      "properties": {
+        "mode": {
+          "description": "Verification mode.",
+          "$ref": "#/$defs/TlsVerifyMode",
+          "default": "webpki"
+        },
+        "pin": {
+          "description": "Pin value for the pinned modes (a certificate or key hash, not a secret).",
+          "type": "string",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    },
+    "TlsVerifyMode": {
+      "description": "Origin TLS verification mode. Verification can never be disabled.",
+      "oneOf": [
+        {
+          "description": "Web PKI roots.",
+          "type": "string",
+          "const": "webpki"
+        },
+        {
+          "description": "A pinned CA (needs `pin`).",
+          "type": "string",
+          "const": "pinned_ca"
+        },
+        {
+          "description": "A pinned SPKI hash (needs `pin`).",
+          "type": "string",
+          "const": "pinned_spki"
+        }
+      ]
+    },
+    "Tunnel": {
+      "description": "Operator-run tunnel.",
+      "type": "object",
+      "properties": {
+        "provider": {
+          "description": "Tunnel provider.",
+          "$ref": "#/$defs/TunnelProvider",
+          "default": "none"
+        },
+        "trusted_cidrs": {
+          "description": "CIDRs whose `X-Forwarded-For` is trusted.",
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "TunnelProvider": {
+      "description": "Operator-run tunnel provider.",
+      "oneOf": [
+        {
+          "description": "No tunnel; nothing is exposed beyond this computer.",
+          "type": "string",
+          "const": "none"
+        },
+        {
+          "description": "`cloudflared`.",
+          "type": "string",
+          "const": "cloudflared"
+        },
+        {
+          "description": "`ngrok`.",
+          "type": "string",
+          "const": "ngrok"
+        },
+        {
+          "description": "WireGuard.",
+          "type": "string",
+          "const": "wireguard"
+        },
+        {
+          "description": "Another operator-run tunnel.",
+          "type": "string",
+          "const": "other"
+        }
+      ]
+    },
+    "UpstreamCdn": {
+      "description": "An upstream CDN in front of HDD.",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "description": "Enabled.",
+          "type": "boolean",
+          "default": false
+        },
+        "trusted_cidrs": {
+          "description": "CIDRs of the CDN whose forwarding headers are trusted.",
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "UpstreamDdos": {
+      "description": "Upstream DDoS mitigation (section 8.1).",
+      "type": "object",
+      "properties": {
+        "advertised_capacity_gbps": {
+          "description": "Advertised capacity in Gbit/s, copied from the contract; never assumed.",
+          "type": "number",
+          "format": "double",
+          "default": 0.0
+        },
+        "lab": {
+          "description": "Closed lab for L3/L4 tests.",
+          "$ref": "#/$defs/DdosLab",
+          "default": {
+            "host": "",
+            "private_link": ""
+          }
+        },
+        "mitigation_api": {
+          "description": "Mitigation API.",
+          "$ref": "#/$defs/MitigationApi",
+          "default": {
+            "kind": "",
+            "token_env": ""
+          }
+        },
+        "mode": {
+          "description": "Mode.",
+          "$ref": "#/$defs/DdosMode",
+          "default": "none"
+        },
+        "over_capacity_behavior": {
+          "description": "Behavior when capacity is exceeded, from the contract.",
+          "type": "string",
+          "default": ""
+        },
+        "provider": {
+          "description": "Provider.",
+          "type": "string",
+          "default": ""
+        },
+        "provider_contact": {
+          "description": "Provider contact.",
+          "type": "string",
+          "default": ""
+        },
+        "risk_acceptance_volumetric": {
+          "description": "True only after the operator's written confirmation in chat (date recorded).",
+          "type": "boolean",
+          "default": false
+        },
+        "standby_edge_ips": {
+          "description": "Pre-provisioned standby or scrubbed edge IPs.",
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "VantagePoint": {
+      "description": "A vantage point for propagation checks.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name.",
+          "type": "string",
+          "default": ""
+        },
+        "socks_proxy": {
+          "description": "SOCKS proxy `host:port` instead of SSH.",
+          "type": "string",
+          "default": ""
+        },
+        "ssh_host": {
+          "description": "SSH host.",
+          "type": "string",
+          "default": ""
+        },
+        "ssh_key_path": {
+          "description": "Private key file (printed as its file name only).",
+          "$ref": "#/$defs/SecretPath",
+          "default": ""
+        },
+        "ssh_user": {
+          "description": "SSH user.",
+          "type": "string",
+          "default": ""
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

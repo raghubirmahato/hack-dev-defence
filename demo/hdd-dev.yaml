@@ -1,0 +1,52 @@
+# HK1 local rehearsal profile (git-committed; no secret values).
+# The deliberately vulnerable demo origin is the lab shop (lab/demo/shop, Node, 127.0.0.1:8082) and the proxy listens
+# on 8080; the admin listener and the embedded web UI run on 9090 (loopback only). This is a configuration file, not a
+# code mode: the binary is the same one the hosted profile uses (R-31: one code path, two runtime profiles).
+#
+# `admin_token_env` names the environment variable that holds the bootstrap/break-glass admin token. There is no
+# default and no value in this file: the process refuses to start when the variable is missing (R-03).
+#
+# `data_dir` holds the account store (owner-only files) and is git-ignored.
+listen: "127.0.0.1:8080"
+admin_listen: "127.0.0.1:9090"
+data_dir: "hdd-data"
+log_path: "hdd-data/events.jsonl"
+admin_token_env: HDD_ADMIN_TOKEN
+# Empty: a TLS terminator in front of the proxy is the only trusted source of X-Forwarded-For. On loopback the
+# socket address is used.
+trusted_proxies: []
+
+# Optional AI explanation of a finding (Addendum 6). The API key is read ONLY from the named environment variable at
+# call time: no value is ever stored in this file, the repository, a log, a test or an API response. Without the
+# variable the UI says AI is off and the deterministic text stays. The egress allowlist is exactly this base_url host;
+# model calls never decide a block or a ban (R-33).
+ai:
+  provider: deepseek
+  base_url: "https://api.deepseek.com"
+  model: deepseek-flash
+  api_key_env: DEEPSEEK_API_KEY
+  timeout_s: 20
+  max_calls_per_hour: 30
+
+sites:
+  - host: "127.0.0.1"
+    origin: "http://127.0.0.1:8082"
+    # The per-site stack hint picks the remediation code example (Addendum 6).
+    stack: node
+    # The one site of the rehearsal: inspect and block, so the demo can show the block page and the ban, then flip
+    # the mode to `off` to show the contrast and back to `block`.
+    mode: block
+    strictness: balanced
+    # The URL the "verify protection" button sends its two labelled probe requests to. For the rehearsal it is the
+    # proxy itself; on the operator's live site it is the public https URL of the registered domain.
+    public_url: "http://127.0.0.1:8080"
+    preserve_host: true
+    ban:
+      enabled: true
+      ttl_ladder_seconds: [60, 600, 3600]
+    field_hints:
+      - field: "username"
+        kind: username
+      - field: "password"
+        kind: password
+    extra_rules: []

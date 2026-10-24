@@ -1,0 +1,72 @@
+# T-0023 verify evidence (green run on the final working tree)
+
+Date: 2026-10-20
+Task: T-0023 (docs/UX/I18N.md and crates/hdd-xtask/src/ux_docs/i18n_plan.rs)
+Host: Windows 11, Rust 1.98.1, Track L (no Docker)
+
+Note: `cargo fmt --all` is the Lead gate and is not run by a task owner; only
+`rustfmt --edition 2024` was applied to this task file, and the check below verifies it.
+
+## rustfmt check of the task file
+
+$ rustfmt --edition 2024 --check crates/hdd-xtask/src/ux_docs/i18n_plan.rs
+
+exit=0
+
+```text
+(no output: command succeeded silently)
+```
+
+## clippy
+
+$ cargo clippy -p hdd-xtask --all-targets -- -D warnings
+
+exit=0
+
+```text
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.84s
+```
+
+## T-0023 tests
+
+$ cargo nextest run -p hdd-xtask --no-fail-fast -E test(/t23_/)
+
+exit=0
+
+```text
+     Summary [   0.166s] 19 tests run: 19 passed, 475 skipped
+```
+
+## whole hdd-xtask suite
+
+$ cargo nextest run -p hdd-xtask --no-fail-fast
+
+exit=0
+
+```text
+        PASS [   0.087s] ( 23/494) hdd-xtask::bin/hdd-xtask gate::tests::nextest_summary_is_extracted_from_the_tail
+        PASS [   0.090s] (166/494) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_chart_has_a_text_summary_and_a_view_as_table_toggle
+        PASS [   0.075s] (258/494) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_monitor_summary_keeps_the_block_decision_evidence
+     Summary [  72.483s] 494 tests run: 494 passed (4 slow), 0 skipped
+```
+
+## ux-docs
+
+$ cargo xtask ux-docs
+
+exit=0
+
+```text
+ux-docs: PASS
+```
+
+## claims-lint
+
+$ cargo xtask claims-lint
+
+exit=0
+
+```text
+claims-lint: scanned 295 files with 34 phrases and 1 context rules
+claims-lint: PASS
+```

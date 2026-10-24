@@ -1,0 +1,10 @@
+[package]
+name = "hdd-vulnlab"
+description = "Vuln-Lab: intentionally vulnerable applications, lab only, never shipped (section 2.8)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true

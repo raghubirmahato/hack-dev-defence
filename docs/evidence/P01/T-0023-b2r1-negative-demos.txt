@@ -1,0 +1,63 @@
+# T-0023 batch B2 round 1 mutation demos (D-5..D-7)
+
+Date: 2026-10-20
+Task: T-0023 review round 1 (D-5, D-6, D-7)
+Host: Windows 11, Rust 1.98.1, Track L (no Docker)
+
+Backup directory: C:\Users\Raghu\AppData\Local\Temp\t0023-b2r1-demo-e0276d0319444d91a20065e054bd3ae4
+SHA-256 of docs/UX/I18N.md before the demos: 3231312FE3E70A4DE20A112FFD7B2CBC77D92B0EE7D66574728BDB3EA42653DD
+SHA-256 of docs/UX/CONTENT.md before the demos: D4DDC663634C160CE174F84774ADE9A40E0AED53A0E2B6C543DAF0F1D28843A7
+
+Each demo mutates the shipped file, runs `cargo xtask ux-docs`, records the exact finding
+and exit code, restores the backup and compares the SHA-256 with the value above.
+
+## D-5 ICU syntax in a Fluent message cell (I18N.md)
+- file: I18N.md
+- change: ``{ $count -> [one] { $count } second *[other] { $count } seconds }`` -> ``{ $count, plural, one {# second} other {# seconds} }``
+- mutated SHA-256: BEDCC13DABC621F3128A859EB58446A6D8DFDEDBE0EB11F6D6F4DB6E939063FF
+- cargo xtask ux-docs exit 1; ux-docs: FAIL (3 finding(s))
+- expected finding: [ux-docs] docs/UX/I18N.md:280: the `Duration` message contains the ICU syntax `, plural,`; the Fluent column may only use Fluent, for example `{ $count -> [one] … *[other] … }` (D-5) / [ux-docs] docs/UX/I18N.md:280: the `Duration` message contains the ICU syntax `{#`; the Fluent column may only use Fluent, for example `{ $count -> [one] … *[other] … }` (D-5)
+- restored SHA-256: 3231312FE3E70A4DE20A112FFD7B2CBC77D92B0EE7D66574728BDB3EA42653DD
+- restored byte-identical (SHA-256 before = after)
+
+## D-5 ICU syntax in the CONTENT.md format table
+- file: CONTENT.md
+- change: `| Counted messages | a Fluent `$count` selector with `[one]` and `*[other]`, one message and never concatenated fragments |` -> `| Counted messages | count with `, plural,` |`
+- mutated SHA-256: ABD4FFE3FB9A2AFBB56A177BCD67635132E79D6EAF5DE54A3D0E0ABF09AF2998
+- cargo xtask ux-docs exit 1; ux-docs: FAIL (1 finding(s))
+- expected finding: [ux-docs] docs/UX/CONTENT.md:68: the content-strategy format table column 1 contains the ICU syntax `, plural,`; counted messages use the Fluent selector (D-5)
+- restored SHA-256: D4DDC663634C160CE174F84774ADE9A40E0AED53A0E2B6C543DAF0F1D28843A7
+- restored byte-identical (SHA-256 before = after)
+
+## D-6 selector example is evaluated (input drift)
+- file: I18N.md
+- change: `| `{ $count -> [one] { $count } event *[other]` -> `| `{ $count -> [one] { $count } item *[other]`
+- mutated SHA-256: 1DCA29F64FE2981442ECDC218249DC821F5ECC5B1CF0A8657FB6B7931CB91E47
+- cargo xtask ux-docs exit 1; ux-docs: FAIL (2 finding(s))
+- expected finding: [ux-docs] docs/UX/I18N.md:137: the pseudo-locale example `{ $count -> [one] { $count } item *[other] { $count } events }` evaluates to `[[{ $count -> [one] { $count } íţéɱ·· *[other] { $count } éṽéñţš··· }]]`, not `[[{ $count -> [one] { $count } éṽéñţ·· *[other] { $count } éṽéñţš··· }]]` (T-0023 step 1)
+- restored SHA-256: 3231312FE3E70A4DE20A112FFD7B2CBC77D92B0EE7D66574728BDB3EA42653DD
+- restored byte-identical (SHA-256 before = after)
+
+## D-7 measured expansion column is verified
+- file: I18N.md
+- change: `8/30 = 27%` -> `8/30 = 40%`
+- mutated SHA-256: 6E21B388E2A64F4A28070F7D0847572B650BA0FCA9492984D2B114279651874F
+- cargo xtask ux-docs exit 1; ux-docs: FAIL (1 finding(s))
+- expected finding: [ux-docs] docs/UX/I18N.md:135: the measured expansion of `abcdefghijklmnopqrstuvwxyzabcd` is `8/30 = 27%`, not `8/30 = 40%` (T-0023 D-7): the check computes fillers/letters and the rounded percentage
+- restored SHA-256: 3231312FE3E70A4DE20A112FFD7B2CBC77D92B0EE7D66574728BDB3EA42653DD
+- restored byte-identical (SHA-256 before = after)
+
+## D-7 the cap must be stated as a deliberate limit
+- file: I18N.md
+- change: `deliberate limit` -> `accident`
+- mutated SHA-256: 5AFB15CF15A3B514BAA12D5C954232B0F2F45A1C80F7CD893DD6498DCA3D40E5
+- cargo xtask ux-docs exit 1; ux-docs: FAIL (1 finding(s))
+- expected finding: [ux-docs] docs/UX/I18N.md: the pseudo-locale section must state that the filler cap is stated as a deliberate limit (D-7) (T-0023 step 1)
+- restored SHA-256: 3231312FE3E70A4DE20A112FFD7B2CBC77D92B0EE7D66574728BDB3EA42653DD
+- restored byte-identical (SHA-256 before = after)
+
+## Restored tree
+- cargo xtask ux-docs exit 0; ux-docs: PASS
+- docs/UX/I18N.md SHA-256 restored: 3231312FE3E70A4DE20A112FFD7B2CBC77D92B0EE7D66574728BDB3EA42653DD
+- docs/UX/CONTENT.md SHA-256 restored: D4DDC663634C160CE174F84774ADE9A40E0AED53A0E2B6C543DAF0F1D28843A7
+- ux-docs: PASS on the restored tree

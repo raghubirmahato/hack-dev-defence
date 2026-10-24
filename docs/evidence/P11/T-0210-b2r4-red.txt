@@ -1,0 +1,133 @@
+# T-0210 batch B2 review round 4 (P-1..P-10): red evidence (captured failing runs)
+# Date: 2026-10-20; Windows 11, Track L.
+# Method: the named test is run against a scratch copy of the tree in which only the fixed seam is reverted to the
+# pre-fix expression; the real FAIL/assertion lines and exit code are pasted below, then the file is restored
+# byte-identically (SHA-256 before = after) and the test passes again (exit 0). P-1, P-4 and P-9 were captured the same
+# way in T-0210-b2r4-negative-demos.txt (sections "## P-1", "## P-4", "## P-9"); their saved lines are quoted below.
+
+## 
+
+Seam reverted: the per-connection `catch_unwind` and the `worker_panics` bump are removed, so the injected panic kills the worker. Captured in T-0210-b2r4-negative-demos.txt under "## P-1": command `cargo nextest run -p hdd-canary -E "test(a_worker_panic_is_counted_and_the_service_continues)"`, exit 100 while mutated, restore byte-identical (`SHA-256 before = after = CBE5A5D746ADFE58557F79EEC39392207676978A49AD29515097F6187440BD9F`), exit 0 after restore.
+
+## 
+
+Seam reverted: the 503 shed path is replaced by the old silent drop that only bumped `accept_errors`. The named test expects the fixed opaque 503, so it FAILs.
+
+Command: cargo nextest run -p hdd-canary -E "test(a_full_accept_queue_sheds_with_the_fixed_503)"
+SHA-256 before mutation: CBE5A5D746ADFE58557F79EEC39392207676978A49AD29515097F6187440BD9F
+SHA-256 while mutated: 0EEE02D832C4F9A64FF6693F835226BE4EA6C817D5D369E3ED40CA79C6800E6F
+Exit code while mutated: 100 (expected non-zero)
+  FAIL [   0.244s] (1/1) hdd-canary::hostile a_full_accept_queue_sheds_with_the_fixed_503
+  thread 'a_full_accept_queue_sheds_with_the_fixed_503' (30944) panicked at crates\hdd-canary\tests\hostile.rs:814:5:
+  FAIL [   0.244s] (1/1) hdd-canary::hostile a_full_accept_queue_sheds_with_the_fixed_503
+SHA-256 after restore: CBE5A5D746ADFE58557F79EEC39392207676978A49AD29515097F6187440BD9F
+Restore byte-identical: True
+Exit code after restore: 0 (expected 0)
+
+## 
+
+Seam reverted: `deadline = accepted_at + read_timeout` (with the expired-at-dequeue close) is replaced by the old `deadline = Instant::now() + read_timeout`, so a request queued behind 19 idle clients is served late instead of being closed.
+
+Command: cargo nextest run -p hdd-canary -E "test(a_connection_past_its_accept_deadline_is_closed_without_work)"
+SHA-256 before mutation: CBE5A5D746ADFE58557F79EEC39392207676978A49AD29515097F6187440BD9F
+SHA-256 while mutated: 8CEF85F089577BB048FD6834F038D26065B8F84217DB9CCCB0949F3FB33E00CD
+Exit code while mutated: 100 (expected non-zero)
+  FAIL [   0.859s] (1/1) hdd-canary::hostile a_connection_past_its_accept_deadline_is_closed_without_work
+  thread 'a_connection_past_its_accept_deadline_is_closed_without_work' (1536) panicked at
+  FAIL [   0.859s] (1/1) hdd-canary::hostile a_connection_past_its_accept_deadline_is_closed_without_work
+SHA-256 after restore: CBE5A5D746ADFE58557F79EEC39392207676978A49AD29515097F6187440BD9F
+Restore byte-identical: True
+Exit code after restore: 0 (expected 0)
+
+## P-5 (shutdown could block ~25 s)
+
+NOT REPRODUCED end-to-end on this host, stated explicitly: the old worst case needs four workers each holding a full 5 s
+connection deadline while the listener stays open, i.e. a multi-client in-flight/queued pattern whose exact 25 s timing
+the test harness cannot hold deterministically on a loopback host with a 300 ms test deadline. The new behaviour is
+demonstrated by the tests that exercise the stop path: `non_closing_clients_do_not_delay_a_fifth` (the 200 ms drain cap
+frees a worker instead of holding it for the whole deadline) and every test whose `Running` is dropped/stopped (the
+suite has no hanging stop). The structural fix is visible in `serve_loop`: it closes the listener first, then drops the
+queue, then joins the workers.
+
+## 
+
+Two seams reverted: `classify_override_provenance` returns `OverrideNamed` regardless of the host identity (old flag-based classification), and `resolver_negative_answer` returns false for every message (old all-Resolve-is-delegation behaviour). The two new pure tests fail respectively.
+
+Command: cargo nextest run -p hdd-canary -E "test(t0210_override_provenance_follows_the_host_identity)"
+SHA-256 before mutation: CBE5A5D746ADFE58557F79EEC39392207676978A49AD29515097F6187440BD9F
+SHA-256 while mutated: 2F45BBFEC5834653E71BD6A142CE15EC3834924D660FD6DD3C6ECAE2BEA5F262
+Exit code while mutated: 100 (expected non-zero)
+  FAIL [   0.010s] (1/1) hdd-canary tests::t0210_override_provenance_follows_the_host_identity
+  thread 'tests::t0210_override_provenance_follows_the_host_identity' (27308) panicked at
+  FAIL [   0.010s] (1/1) hdd-canary tests::t0210_override_provenance_follows_the_host_identity
+SHA-256 after restore: CBE5A5D746ADFE58557F79EEC39392207676978A49AD29515097F6187440BD9F
+Restore byte-identical: True
+Exit code after restore: 0 (expected 0)
+
+Command: cargo nextest run -p hdd-canary -E "test(t0210_resolver_negative_answer_distinguishes_delegation_from_environment_failure)"
+SHA-256 before mutation: CBE5A5D746ADFE58557F79EEC39392207676978A49AD29515097F6187440BD9F
+SHA-256 while mutated: 246BFAEA0254DB5B77BA685A11B818E739219558181065C3BDD05133C8C30E3D
+Exit code while mutated: 100 (expected non-zero)
+  FAIL [   0.027s] (1/1) hdd-canary
+  FAIL [   0.027s] (1/1) hdd-canary
+SHA-256 after restore: CBE5A5D746ADFE58557F79EEC39392207676978A49AD29515097F6187440BD9F
+Restore byte-identical: True
+Exit code after restore: 0 (expected 0)
+
+## 
+
+Seam reverted: a rewritten/spoof-stripped echo claim is mapped back to `CanaryStatus::Pass` instead of `UNVERIFIED(capability_not_supplied)`. The named test expects UNVERIFIED without a response-header proof and FAILs.
+
+Command: cargo nextest run -p hddctl -E "test(t0210_parsing_spoof_probe_requires_a_hdd_rebuilt_forwarded_chain)"
+SHA-256 before mutation: 4D80E7EABE867A89B18A0D6D4EC3870587AF8C44F72B6DAD9955FDFB8EA4AE10
+SHA-256 while mutated: 9FB0A9473F402747B4443968A2D598C88A4D06B65DE3F1EACED59C831D376515
+Exit code while mutated: 100 (expected non-zero)
+  FAIL [   3.172s] (1/1) hddctl::canary t0210_parsing_spoof_probe_requires_a_hdd_rebuilt_forwarded_chain
+  thread 't0210_parsing_spoof_probe_requires_a_hdd_rebuilt_forwarded_chain' (21512) panicked at
+  FAIL [   3.172s] (1/1) hddctl::canary t0210_parsing_spoof_probe_requires_a_hdd_rebuilt_forwarded_chain
+SHA-256 after restore: 4D80E7EABE867A89B18A0D6D4EC3870587AF8C44F72B6DAD9955FDFB8EA4AE10
+Restore byte-identical: True
+Exit code after restore: 0 (expected 0)
+
+## 
+
+Seam reverted: the printed decision is forced to "enabled" even when `--with-spoof-probe` was not given. The named test asserts the disabled default line and FAILs.
+
+Command: cargo nextest run -p hddctl -E "test(t0210_parsing_echo_and_hdd_agree_on_the_runner_claim)"
+SHA-256 before mutation: 4D80E7EABE867A89B18A0D6D4EC3870587AF8C44F72B6DAD9955FDFB8EA4AE10
+SHA-256 while mutated: C71648B48524380363DAC56EBE04E6E53E2E530E766D88D69756FBF4C1DD7E54
+Exit code while mutated: 100 (expected non-zero)
+  FAIL [   3.765s] (1/1) hddctl::canary t0210_parsing_echo_and_hdd_agree_on_the_runner_claim
+  thread 't0210_parsing_echo_and_hdd_agree_on_the_runner_claim' (15792) panicked at
+  FAIL [   3.765s] (1/1) hddctl::canary t0210_parsing_echo_and_hdd_agree_on_the_runner_claim
+SHA-256 after restore: 4D80E7EABE867A89B18A0D6D4EC3870587AF8C44F72B6DAD9955FDFB8EA4AE10
+Restore byte-identical: True
+Exit code after restore: 0 (expected 0)
+
+## 
+
+Seam reverted: an unknown header falls back to echoing its raw value instead of the `[not-echoed-name]` count. Captured in T-0210-b2r4-negative-demos.txt under "## P-9": exit 100 while mutated, restore byte-identical (`SHA-256 before = after = CBE5A5D746ADFE58557F79EEC39392207676978A49AD29515097F6187440BD9F`), exit 0 after restore.
+
+## 
+
+Seam reverted: `ACCEPT_QUEUE` is set to 1 again, so a 32-probe burst is shed instead of served. The new burst test FAILs.
+
+Command: cargo nextest run -p hdd-canary -E "test(a_32_probe_burst_is_served)"
+SHA-256 before mutation: CBE5A5D746ADFE58557F79EEC39392207676978A49AD29515097F6187440BD9F
+SHA-256 while mutated: 512B7A9F5FB88159B95503E049632B5A420E15ED04326D21EB5C5E04F4FB646B
+Exit code while mutated: 100 (expected non-zero)
+  FAIL [   0.032s] (1/1) hdd-canary::hostile a_32_probe_burst_is_served
+  thread 'a_32_probe_burst_is_served' (5332) panicked at crates\hdd-canary\tests\hostile.rs:794:9:
+  FAIL [   0.032s] (1/1) hdd-canary::hostile a_32_probe_burst_is_served
+SHA-256 after restore: CBE5A5D746ADFE58557F79EEC39392207676978A49AD29515097F6187440BD9F
+Restore byte-identical: True
+Exit code after restore: 0 (expected 0)
+
+## Notes
+
+- The P-6 tests are new pure unit tests added with this evidence round (they test the two decision functions the fix
+  introduced); the production behaviour is unchanged by adding them.
+- P-1/P-4/P-9 transcripts live in the demo file, not repeated here, because they were already captured as byte-identical
+  seam reversions; their commands, SHAs, exit codes and restore state are quoted above.
+- Every capture above restored the file byte-identically (SHA-256 before = after in the pasted transcript) and the named
+  test passes again after the restore.

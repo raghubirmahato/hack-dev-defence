@@ -1,0 +1,928 @@
+cargo :    Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+At line:1 char:129
++ ... ew($false); cargo nextest run -p hdd-xtask ux_docs::accessibility --n ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...ates\hdd-xtask):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: unused imports: `column`, `section_body`, `section_table`, `subsection_body`, `table_rows`, and `tokens_in`
+  --> crates\hdd-xtask\src\ux_docs\accessibility.rs:49:13
+   |
+49 | use super::{column, section_body, section_table, subsection_body, table_rows, tokens_in};
+   |             ^^^^^^  ^^^^^^^^^^^^  ^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^  ^^^^^^^^^^  ^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `BTreeMap`
+  --> crates\hdd-xtask\src\ux_docs\onboarding.rs:34:24
+   |
+34 | use std::collections::{BTreeMap, BTreeSet};
+   |                        ^^^^^^^^
+
+warning: unused import: `regex::Regex`
+  --> crates\hdd-xtask\src\ux_docs\onboarding.rs:37:5
+   |
+37 | use regex::Regex;
+   |     ^^^^^^^^^^^^
+
+warning: unused import: `read_text`
+  --> crates\hdd-xtask\src\ux_docs\onboarding.rs:39:28
+   |
+39 | use crate::util::{Finding, read_text};
+   |                            ^^^^^^^^^
+
+warning: unused import: `super::content::b13_rows`
+  --> crates\hdd-xtask\src\ux_docs\onboarding.rs:41:5
+   |
+41 | use super::content::b13_rows;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `cells`, `column`, `finding`, `screen_ids`, `section_body`, and `section_table`
+  --> crates\hdd-xtask\src\ux_docs\onboarding.rs:42:13
+   |
+42 | use super::{cells, column, finding, section_body, section_table, screen_ids};
+   |             ^^^^^  ^^^^^^  ^^^^^^^  ^^^^^^^^^^^^  ^^^^^^^^^^^^^  ^^^^^^^^^^
+
+warning: constant `SECTIONS` is never used
+  --> crates\hdd-xtask\src\ux_docs\accessibility.rs:59:11
+   |
+59 | pub const SECTIONS: [&str; 8] = [
+   |           ^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `FLOWS` is never used
+  --> crates\hdd-xtask\src\ux_docs\accessibility.rs:71:11
+   |
+71 | pub const FLOWS: &str = "Critical flows";
+   |           ^^^^^
+
+warning: constant `MATRIX_MODALITIES` is never used
+  --> crates\hdd-xtask\src\ux_docs\accessibility.rs:76:11
+   |
+76 | pub const MATRIX_MODALITIES: [&str; 13] = [
+   |           ^^^^^^^^^^^^^^^^^
+
+warning: constant `SEVERITIES` is never used
+  --> crates\hdd-xtask\src\ux_docs\accessibility.rs:93:11
+   |
+93 | pub const SEVERITIES: [&str; 4] = ["Critical", "Serious", "Moderate", "Minor"];
+   |           ^^^^^^^^^^
+
+warning: constant `ABSOLUTE_CLAIMS` is never used
+  --> crates\hdd-xtask\src\ux_docs\accessibility.rs:96:11
+   |
+96 | pub const ABSOLUTE_CLAIMS: [&str; 9] = [
+   |           ^^^^^^^^^^^^^^^
+
+warning: struct `CriteriaFile` is never constructed
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:130:8
+    |
+130 | struct CriteriaFile {
+    |        ^^^^^^^^^^^^
+
+warning: struct `CriterionRow` is never constructed
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:141:8
+    |
+141 | struct CriterionRow {
+    |        ^^^^^^^^^^^^
+
+warning: function `has_any` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:178:4
+    |
+178 | fn has_any(text: &str, tokens: &[&str]) -> bool {
+    |    ^^^^^^^
+
+warning: function `plain` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:183:4
+    |
+183 | fn plain(cell: &str) -> String {
+    |    ^^^^^
+
+warning: function `body_text` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:188:4
+    |
+188 | fn body_text(lines: &[(usize, String)]) -> String {
+    |    ^^^^^^^^^
+
+warning: function `is_numbered` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:198:4
+    |
+198 | fn is_numbered(line: &str) -> bool {
+    |    ^^^^^^^^^^^
+
+warning: function `numbered_items` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:205:4
+    |
+205 | fn numbered_items(lines: &[(usize, String)]) -> usize {
+    |    ^^^^^^^^^^^^^^
+
+warning: function `is_bullet` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:213:4
+    |
+213 | fn is_bullet(line: &str) -> bool {
+    |    ^^^^^^^^^
+
+warning: function `bullets` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:218:4
+    |
+218 | fn bullets(lines: &[(usize, String)]) -> usize {
+    |    ^^^^^^^
+
+warning: function `criterion_id` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:223:4
+    |
+223 | fn criterion_id(cell: &str) -> Option<String> {
+    |    ^^^^^^^^^^^^
+
+warning: function `slug_shape` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:239:4
+    |
+239 | fn slug_shape(slug: &str) -> bool {
+    |    ^^^^^^^^^^
+
+warning: function `not_applicable_reason` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:244:4
+    |
+244 | fn not_applicable_reason(cell: &str) -> Option<String> {
+    |    ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `page_pattern_name` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:253:4
+    |
+253 | fn page_pattern_name(cell: &str) -> Option<String> {
+    |    ^^^^^^^^^^^^^^^^^
+
+warning: function `documents` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:773:19
+    |
+773 |     pub(crate) fn documents() -> Vec<(String, String)> {
+    |                   ^^^^^^^^^
+
+warning: function `spec_section` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:788:19
+    |
+788 |     pub(crate) fn spec_section() -> String {
+    |                   ^^^^^^^^^^^^
+
+warning: constant `TABLES` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:329:7
+    |
+329 | const TABLES: [&str; 44] = [
+    |       ^^^^^^
+
+warning: constant `FORBIDDEN_CLAIMS` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:379:7
+    |
+379 | const FORBIDDEN_CLAIMS: [&str; 14] = [
+    |       ^^^^^^^^^^^^^^^^
+
+warning: constant `THIRD_PARTY` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:397:7
+    |
+397 | const THIRD_PARTY: [&str; 10] = [
+    |       ^^^^^^^^^^^
+
+warning: constant `EMAILS` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:411:11
+    |
+411 | pub const EMAILS: [&str; 4] = ["welcome", "verify", "first domain", "weekly summary"];
+    |           ^^^^^^
+
+warning: struct `DecisionRule` is never constructed
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:415:8
+    |
+415 | struct DecisionRule {
+    |        ^^^^^^^^^^^^
+
+warning: enum `Status` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:426:6
+    |
+426 | enum Status {
+    |      ^^^^^^
+
+warning: constant `SECTIONS` is never used
+  --> crates\hdd-xtask\src\ux_docs\responsive.rs:57:7
+   |
+57 | const SECTIONS: [(&str, &str); 11] = [
+   |       ^^^^^^^^
+
+warning: constant `VIEWPORTS` is never used
+  --> crates\hdd-xtask\src\ux_docs\responsive.rs:72:7
+   |
+72 | const VIEWPORTS: [&str; 7] = [
+   |       ^^^^^^^^^
+
+warning: constant `MIN_TARGET_CSS_PX` is never used
+  --> crates\hdd-xtask\src\ux_docs\responsive.rs:83:7
+   |
+83 | const MIN_TARGET_CSS_PX: u32 = 24;
+   |       ^^^^^^^^^^^^^^^^^
+
+warning: constant `SCREEN_CATEGORIES` is never used
+  --> crates\hdd-xtask\src\ux_docs\responsive.rs:87:7
+   |
+87 | const SCREEN_CATEGORIES: [(&str, &[&str]); 8] = [
+   |       ^^^^^^^^^^^^^^^^^
+
+warning: constant `REQUIRED_CATEGORY_SCREENS` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:100:7
+    |
+100 | const REQUIRED_CATEGORY_SCREENS: [(&str, &[&str]); 2] = [
+    |       ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `SECURITY_CONTROLS` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:106:7
+    |
+106 | const SECURITY_CONTROLS: [(&str, &[&str]); 5] = [
+    |       ^^^^^^^^^^^^^^^^^
+
+warning: constant `BUDGET_CLASSES` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:115:7
+    |
+115 | const BUDGET_CLASSES: [(&str, &[&str]); 4] = [
+    |       ^^^^^^^^^^^^^^
+
+warning: constant `PLACEHOLDERS` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:124:7
+    |
+124 | const PLACEHOLDERS: [&str; 8] = [
+    |       ^^^^^^^^^^^^
+
+warning: function `line` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:134:4
+    |
+134 | fn line(n: usize, message: impl Into<String>) -> Finding {
+    |    ^^^^
+
+warning: function `word` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:139:4
+    |
+139 | fn word(haystack: &str, needle: &str) -> bool {
+    |    ^^^^
+
+warning: function `numbers` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:148:4
+    |
+148 | fn numbers(text: &str) -> Vec<u32> {
+    |    ^^^^^^^
+
+warning: function `viewport_key` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:170:4
+    |
+170 | fn viewport_key(cell: &str) -> Option<String> {
+    |    ^^^^^^^^^^^^
+
+warning: function `is_landscape` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:221:4
+    |
+221 | fn is_landscape(viewport: &str) -> bool {
+    |    ^^^^^^^^^^^^
+
+warning: function `cell` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:233:4
+    |
+233 | fn cell<'a>(row: &'a [String], index: Option<usize>) -> &'a str {
+    |    ^^^^
+
+warning: function `table_or` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:241:4
+    |
+241 | fn table_or(text: &str, title: &str, step: &str) -> Result<(Vec<String>, Vec<(usize, Vec<String>)>), 
+Vec<Finding>> {
+    |    ^^^^^^^^
+
+warning: function `required_column` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:255:4
+    |
+255 | fn required_column(header: &[String], name: &str, title: &str) -> Result<usize, Finding> {
+    |    ^^^^^^^^^^^^^^^
+
+warning: function `spec_row` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:264:4
+    |
+264 | fn spec_row(spec: &str, heading: &str, first: &str) -> Option<Vec<String>> {
+    |    ^^^^^^^^
+
+warning: function `spec_breakpoints` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:280:4
+    |
+280 | fn spec_breakpoints(spec: &str) -> Option<(Vec<u32>, Vec<u32>)> {
+    |    ^^^^^^^^^^^^^^^^
+
+warning: function `spec_targets` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:297:4
+    |
+297 | fn spec_targets(spec: &str) -> Option<(u32, u32)> {
+    |    ^^^^^^^^^^^^
+
+warning: function `spec_layout` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:319:4
+    |
+319 | fn spec_layout(spec: &str) -> Option<(u32, u32)> {
+    |    ^^^^^^^^^^^
+
+warning: function `spec_screen_text` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:337:4
+    |
+337 | fn spec_screen_text(spec: &str, id: &str) -> Option<String> {
+    |    ^^^^^^^^^^^^^^^^
+
+warning: function `screen_refs` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:365:4
+    |
+365 | fn screen_refs(cell: &str, re: &Regex) -> Vec<String> {
+    |    ^^^^^^^^^^^
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 54 warnings (run `cargo fix --bin "hdd-xtask" -p hdd-xtask 
+--tests` to apply 6 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.76s
+────────────
+ Nextest run ID 1ebfc94c-5f86-413b-b016-e7acf098b6a2 with nextest profile: default
+    Starting 29 tests across 1 binary (324 tests skipped)
+        FAIL [   0.009s] ( 1/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::criteria_file_parses_the_fixture_list
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::criteria_file_parses_the_fixture_list ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::criteria_file_parses_the_fixture_list
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::criteria_file_parses_the_fixture_list' (7944) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:905:9:
+    assertion `left == right` failed
+      left: 0
+     right: 8
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.014s] ( 2/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_a_vacuous_not_applicable_reason
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::mapping_reports_a_vacuous_not_applicable_reason ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::mapping_reports_a_vacuous_not_applicable_reason
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::mapping_reports_a_vacuous_not_applicable_reason' (13288) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:998:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.019s] ( 3/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_a_whole_token_owner_that_is_not_a_component
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::mapping_reports_a_whole_token_owner_that_is_not_a_component ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::mapping_reports_a_whole_token_owner_that_is_not_a_component
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::mapping_reports_a_whole_token_owner_that_is_not_a_component' (30164) 
+panicked at crates\hdd-xtask\src\ux_docs\accessibility.rs:987:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.024s] ( 4/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::checklist_set_requires_exactly_the_named_files
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::checklist_set_requires_exactly_the_named_files ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::checklist_set_requires_exactly_the_named_files
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::checklist_set_requires_exactly_the_named_files' (30772) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:1157:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.028s] ( 5/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::criteria_file_rejects_a_bad_id_level_source_and_duplicate
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::criteria_file_rejects_a_bad_id_level_source_and_duplicate ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::criteria_file_rejects_a_bad_id_level_source_and_duplicate
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::criteria_file_rejects_a_bad_id_level_source_and_duplicate' (32892) panicked 
+at crates\hdd-xtask\src\ux_docs\accessibility.rs:925:9:
+    assertion failed: parse_criteria(&bad_id).is_err()
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.033s] ( 6/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_a_level_or_title_drift
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::mapping_reports_a_level_or_title_drift ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::mapping_reports_a_level_or_title_drift
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::mapping_reports_a_level_or_title_drift' (32936) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:1013:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.037s] ( 7/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_a_missing_criterion
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::mapping_reports_a_missing_criterion ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::mapping_reports_a_missing_criterion
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::mapping_reports_a_missing_criterion' (22332) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:955:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.042s] ( 8/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_an_id_not_in_the_stored_list
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::mapping_reports_an_id_not_in_the_stored_list ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::mapping_reports_an_id_not_in_the_stored_list
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::mapping_reports_an_id_not_in_the_stored_list' (13280) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:976:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.048s] ( 9/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::automated_checks_name_the_axe_oracle_and_the_named_checks
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::automated_checks_name_the_axe_oracle_and_the_named_checks ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::automated_checks_name_the_axe_oracle_and_the_named_checks
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::automated_checks_name_the_axe_oracle_and_the_named_checks' (29464) panicked 
+at crates\hdd-xtask\src\ux_docs\accessibility.rs:1053:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.052s] (10/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::human_steps_require_the_pending_marker_and_instructions
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::human_steps_require_the_pending_marker_and_instructions ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::human_steps_require_the_pending_marker_and_instructions
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::human_steps_require_the_pending_marker_and_instructions' (11060) panicked 
+at crates\hdd-xtask\src\ux_docs\accessibility.rs:1103:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.057s] (11/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::criteria_file_rejects_malformed_toml
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::criteria_file_rejects_malformed_toml ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::criteria_file_rejects_malformed_toml
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::criteria_file_rejects_malformed_toml' (32704) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:919:9:
+    assertion failed: parse_criteria(&bad).is_err()
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.063s] (12/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::flows_require_twelve_real_journeys_with_exact_titles
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::flows_require_twelve_real_journeys_with_exact_titles ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::flows_require_twelve_real_journeys_with_exact_titles
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::flows_require_twelve_real_journeys_with_exact_titles' (30380) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:1124:9:
+    assertion `left == right` failed
+      left: 0
+     right: 12
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.067s] (13/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::checklist_has_the_required_parts
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::checklist_has_the_required_parts ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::checklist_has_the_required_parts
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::checklist_has_the_required_parts' (31596) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:1168:34:
+    a fixture flow
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.078s] (14/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::manual_checks_name_walkthroughs_twelve_scripts_zoom_and_reflow
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::manual_checks_name_walkthroughs_twelve_scripts_zoom_and_reflow ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::manual_checks_name_walkthroughs_twelve_scripts_zoom_and_reflow
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::manual_checks_name_walkthroughs_twelve_scripts_zoom_and_reflow' (20656) 
+panicked at crates\hdd-xtask\src\ux_docs\accessibility.rs:1064:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.080s] (15/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_accepts_the_fixture_and_every_owner_form
+        FAIL [   0.082s] (16/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_a_duplicate_row
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::mapping_reports_a_duplicate_row ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::mapping_reports_a_duplicate_row
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::mapping_reports_a_duplicate_row' (3992) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:966:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.077s] (17/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_an_undeclared_page_pattern
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::mapping_reports_an_undeclared_page_pattern ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::mapping_reports_an_undeclared_page_pattern
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::mapping_reports_an_undeclared_page_pattern' (28364) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:1005:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.077s] (18/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::matrix_marks_jaws_as_available_only_if_available
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::matrix_marks_jaws_as_available_only_if_available ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::matrix_marks_jaws_as_available_only_if_available
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::matrix_marks_jaws_as_available_only_if_available' (2324) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:1044:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.078s] (19/29) hdd-xtask::bin/hdd-xtask ux_docs::accessibility::tests::matrix_requires_every_modality
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::matrix_requires_every_modality ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::matrix_requires_every_modality
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::matrix_requires_every_modality' (14432) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:1037:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.079s] (20/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::page_patterns_require_a_real_component
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::page_patterns_require_a_real_component ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::page_patterns_require_a_real_component
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::page_patterns_require_a_real_component' (26844) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:1026:9:
+    assertion failed: declared.contains("App frame")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.085s] (21/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::missing_documents_are_findings_not_panics
+        FAIL [   0.080s] (22/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::regression_names_the_artifact_directory_and_the_baseline_tasks
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::regression_names_the_artifact_directory_and_the_baseline_tasks ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::regression_names_the_artifact_directory_and_the_baseline_tasks
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::regression_names_the_artifact_directory_and_the_baseline_tasks' (23892) 
+panicked at crates\hdd-xtask\src\ux_docs\accessibility.rs:1114:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.080s] (23/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::sections_require_all_eight_with_a_body
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::sections_require_all_eight_with_a_body ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::sections_require_all_eight_with_a_body
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::sections_require_all_eight_with_a_body' (29912) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:893:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.079s] (24/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::severity_names_the_four_levels_and_the_ac40_gate_rule
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::severity_names_the_four_levels_and_the_ac40_gate_rule ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::severity_names_the_four_levels_and_the_ac40_gate_rule
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::severity_names_the_four_levels_and_the_ac40_gate_rule' (11648) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:1075:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.079s] (25/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::statement_rejects_an_absolute_conformance_claim
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::statement_rejects_an_absolute_conformance_claim ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::statement_rejects_an_absolute_conformance_claim
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::statement_rejects_an_absolute_conformance_claim' (18780) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:1088:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.079s] (26/29) hdd-xtask::bin/hdd-xtask ux_docs::accessibility::tests::statement_requires_known_gaps
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::statement_requires_known_gaps ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::statement_requires_known_gaps
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::statement_requires_known_gaps' (8268) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:1095:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.080s] (27/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::strategy_cites_only_real_screens_and_journeys
+  stdout ───
+
+    running 1 test
+    test ux_docs::accessibility::tests::strategy_cites_only_real_screens_and_journeys ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::accessibility::tests::strategy_cites_only_real_screens_and_journeys
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::accessibility::tests::strategy_cites_only_real_screens_and_journeys' (28032) panicked at 
+crates\hdd-xtask\src\ux_docs\accessibility.rs:1190:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.079s] (28/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::the_fixture_documents_pass_every_rule
+        PASS [   0.088s] (29/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::whole_token_matching_rejects_longer_words_and_ids
+────────────
+     Summary [   0.157s] 29 tests run: 4 passed, 25 failed, 324 skipped
+        FAIL [   0.009s] ( 1/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::criteria_file_parses_the_fixture_list
+        FAIL [   0.014s] ( 2/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_a_vacuous_not_applicable_reason
+        FAIL [   0.019s] ( 3/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_a_whole_token_owner_that_is_not_a_component
+        FAIL [   0.024s] ( 4/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::checklist_set_requires_exactly_the_named_files
+        FAIL [   0.028s] ( 5/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::criteria_file_rejects_a_bad_id_level_source_and_duplicate
+        FAIL [   0.033s] ( 6/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_a_level_or_title_drift
+        FAIL [   0.037s] ( 7/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_a_missing_criterion
+        FAIL [   0.042s] ( 8/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_an_id_not_in_the_stored_list
+        FAIL [   0.048s] ( 9/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::automated_checks_name_the_axe_oracle_and_the_named_checks
+        FAIL [   0.052s] (10/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::human_steps_require_the_pending_marker_and_instructions
+        FAIL [   0.057s] (11/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::criteria_file_rejects_malformed_toml
+        FAIL [   0.063s] (12/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::flows_require_twelve_real_journeys_with_exact_titles
+        FAIL [   0.067s] (13/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::checklist_has_the_required_parts
+        FAIL [   0.078s] (14/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::manual_checks_name_walkthroughs_twelve_scripts_zoom_and_reflow
+        FAIL [   0.082s] (16/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_a_duplicate_row
+        FAIL [   0.077s] (17/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_an_undeclared_page_pattern
+        FAIL [   0.077s] (18/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::matrix_marks_jaws_as_available_only_if_available
+        FAIL [   0.078s] (19/29) hdd-xtask::bin/hdd-xtask ux_docs::accessibility::tests::matrix_requires_every_modality
+        FAIL [   0.079s] (20/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::page_patterns_require_a_real_component
+        FAIL [   0.080s] (22/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::regression_names_the_artifact_directory_and_the_baseline_tasks
+        FAIL [   0.080s] (23/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::sections_require_all_eight_with_a_body
+        FAIL [   0.079s] (24/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::severity_names_the_four_levels_and_the_ac40_gate_rule
+        FAIL [   0.079s] (25/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::statement_rejects_an_absolute_conformance_claim
+        FAIL [   0.079s] (26/29) hdd-xtask::bin/hdd-xtask ux_docs::accessibility::tests::statement_requires_known_gaps
+        FAIL [   0.080s] (27/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::strategy_cites_only_real_screens_and_journeys
+error: test run failed

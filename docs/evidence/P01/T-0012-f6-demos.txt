@@ -1,0 +1,14 @@
+# T-0012 review round 3: F-6 mutation demonstration
+# Date: 2026-10-19. Removing Maya from the J-22 matrix row must make 'cargo xtask ux-docs' FAIL; the file is restored and its SHA-256 compared.
+
+## Maya removed from the J-22 row
+[ux-docs] docs/UX/persona-journey-matrix.md: the matrix row for J-22 does not link persona maya, whose key journeys include it (spec B1.1)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## restored file
+ux-docs: PASS
+(exit 0)
+persona-journey-matrix.md SHA-256 before: 4B48E26CE7A76056E72F4835646B8FDD9C2DF88209F3733CE0A4341500DFF545
+persona-journey-matrix.md SHA-256 after:  4B48E26CE7A76056E72F4835646B8FDD9C2DF88209F3733CE0A4341500DFF545
+hashes equal: True

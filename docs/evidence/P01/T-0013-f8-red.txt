@@ -1,0 +1,28 @@
+   Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.84s
+────────────
+ Nextest run ID b4c81a02-dc84-4fd8-951e-7bfbee39068f with nextest profile: default
+    Starting 1 test across 1 binary (163 tests skipped)
+        FAIL [   0.020s] (1/1) hdd-xtask::bin/hdd-xtask ux_docs::tests::f8_a_component_must_be_a_whole_token
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::f8_a_component_must_be_a_whole_token ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::f8_a_component_must_be_a_whole_token
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 163 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::tests::f8_a_component_must_be_a_whole_token' (30084) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1364:9:
+    | DataTableOfDoom |: 
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   0.021s] 1 test run: 0 passed, 1 failed, 163 skipped
+        FAIL [   0.020s] (1/1) hdd-xtask::bin/hdd-xtask ux_docs::tests::f8_a_component_must_be_a_whole_token
+error: test run failed

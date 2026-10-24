@@ -1,0 +1,10 @@
+[package]
+name = "hdd-ui"
+description = "design tokens -> CSS, component macros, icon sprite, SVG chart kit, islands JS"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true

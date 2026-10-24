@@ -1,0 +1,23 @@
+FAIL: cannot read D:/nonexistent/hdd.live.yaml (The system cannot find the path specified. (os error 3)).
+Required for runtime.profile: hosted (section 8):
+  - operator_email: the address that receives test mail and alerts; it is the only address the agent may mail
+  - platform_domain: the apex you own that will host www/app/admin/api/ns/status, for example example.com (registrar access not needed yet)
+  - domain: the apex zone you own and want protected first
+  - test_hostname: a subdomain of `domain` that mirrors your real site, for example hddtest.<domain> (benign traffic and GET/HEAD attack shapes only)
+  - sandbox_hostname: a second subdomain of `domain`, distinct from test_hostname, that forwards only exact canary paths, for example hddsbx.<domain>
+  - surfaces.public_host: host for the public site, for example www.<platform_domain>
+  - surfaces.app_host: host for the customer app, for example app.<platform_domain>
+  - surfaces.admin_host: host for the admin panel, for example admin.<platform_domain>
+  - surfaces.api_host: host for the API, for example api.<platform_domain>
+  - surfaces.status_host: host for the status page, ideally served from outside this server
+  - origin.url: the real origin with scheme, for example https://203.0.113.10
+  - origin.tls_server_name: the name the origin certificate is valid for
+  - origin.host_header: the Host header the origin expects
+  - platform.public_ipv4: the public IPv4 address(es) of the server that will run HDD (at least one IPv4 or IPv6 address)
+  - platform.ns_hostnames: the nameserver host names HDD will serve, for example ns1.<platform_domain> and ns2.<platform_domain>
+  - platform.edge_cname_zone: zone for <site-id>.edge.<platform_domain> (CNAME modes), for example edge.<platform_domain>
+  - platform.acme_cname_zone: zone for DNS-01 delegation targets, for example acme.<platform_domain>
+  - acme.email: the account email for the certificate authority
+Copy hdd.live.example.yaml to hdd.live.yaml (git-ignored), fill these fields, and run `hddctl preflight --profile-only`.
+
+exit 1

@@ -1,0 +1,210 @@
+# T-0215 batch B2 round 3 - red evidence (re-created red demonstrations)
+
+The round-3 fixes were implemented in the same session as their tests, so each red below is a **re-created red
+demonstration**: the exact seam of the fix is reverted, the named regression test is run, the real command output is
+captured, and the file is restored from its in-memory original (byte-identical; the SHA-256 before = after is in
+T-0215-b2r3-negative-demos.txt). The failure lines are real output, not a transcript written by hand.
+
+## S-1-executor-profile-is-the-allowlist
+
+Seam reverted: `crates\hdd-acceptance\src\runner.rs`. Expected red: the check cannot widen the allowlist: the profile is the executor's.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(s1_a_check_cannot_widen_the_allowlist)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.015s] (1/1) hdd-acceptance runner::tests::s1_a_check_cannot_widen_the_allowlist
+    test runner::tests::s1_a_check_cannot_widen_the_allowlist ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 200 filtered out; finished in 0.01s
+    thread 'runner::tests::s1_a_check_cannot_widen_the_allowlist' (772) panicked at
+     Summary [   0.017s] 1 test run: 0 passed, 1 failed, 217 skipped
+        FAIL [   0.015s] (1/1) hdd-acceptance runner::tests::s1_a_check_cannot_widen_the_allowlist
+error: test run failed
+```
+
+## S-2-inspect-gate-is-crate-internal
+
+Seam reverted: `crates\hdd-acceptance\src\inspect.rs`. Expected red: the compile_fail doctest: InspectGate::new is not callable outside the crate.
+
+```text
+$ cargo test -p hdd-acceptance --doc
+command exit code 101
+test crates\hdd-acceptance\src\lib.rs - (line 74) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 79) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 39) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 69) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 93) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 84) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 44) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 52) - compile fail ... FAILED
+failures:
+Test compiled successfully, but it's marked `compile_fail`.
+failures:
+test result: FAILED. 7 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.36s
+error: doctest failed, to rerun pass `-p hdd-acceptance --doc`
+```
+
+## S-3-request-content-and-unambiguous-digest
+
+Seam reverted: `crates\hdd-acceptance\src\guard.rs`. Expected red: two different header lists must not share a digest.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(s3_the_header_digest_is_unambiguous)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.011s] (1/1) hdd-acceptance guard::tests::s3_the_header_digest_is_unambiguous
+    test guard::tests::s3_the_header_digest_is_unambiguous ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 200 filtered out; finished in 0.00s
+    thread 'guard::tests::s3_the_header_digest_is_unambiguous' (35384) panicked at
+    assertion `left != right` failed
+      left: "6a651134eb4b24becd9ad2eb0eebbc48114c8df2f9fdf737eee59154098952b1"
+     right: "6a651134eb4b24becd9ad2eb0eebbc48114c8df2f9fdf737eee59154098952b1"
+     Summary [   0.012s] 1 test run: 0 passed, 1 failed, 217 skipped
+        FAIL [   0.011s] (1/1) hdd-acceptance guard::tests::s3_the_header_digest_is_unambiguous
+error: test run failed
+```
+
+## S-4-ac00-with-an-unmet-dependency-stops-the-run
+
+Seam reverted: `crates\hdd-acceptance\src\runner.rs`. Expected red: AC-00 with an unmet dependency stops the run.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(s4_ac00_with_an_unmet_dependency)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.015s] (1/1) hdd-acceptance runner::tests::s4_ac00_with_an_unmet_dependency_stops_the_run
+    test runner::tests::s4_ac00_with_an_unmet_dependency_stops_the_run ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 200 filtered out; finished in 0.01s
+    thread 'runner::tests::s4_ac00_with_an_unmet_dependency_stops_the_run' (35436) panicked at
+    assertion `left == right` failed
+      left: None
+     right: Some(SelfTestFailed)
+     Summary [   0.016s] 1 test run: 0 passed, 1 failed, 217 skipped
+        FAIL [   0.015s] (1/1) hdd-acceptance runner::tests::s4_ac00_with_an_unmet_dependency_stops_the_run
+error: test run failed
+```
+
+## S-5-resume-refuses-an-invalid-run
+
+Seam reverted: `crates\hdd-acceptance\src\report.rs`. Expected red: an invalid previous run cannot be resumed.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(s5_resume_refuses_an_invalid_run_and_a_future_timestamp)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.011s] (1/1) hdd-acceptance report::tests::s5_resume_refuses_an_invalid_run_and_a_future_timestamp
+    test report::tests::s5_resume_refuses_an_invalid_run_and_a_future_timestamp ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 200 filtered out; finished in 0.00s
+    thread 'report::tests::s5_resume_refuses_an_invalid_run_and_a_future_timestamp' (36012) panicked at
+    assertion failed: matches!(fresh_bound().resume_with(&invalid, &dir),
+     Summary [   0.012s] 1 test run: 0 passed, 1 failed, 217 skipped
+        FAIL [   0.011s] (1/1) hdd-acceptance report::tests::s5_resume_refuses_an_invalid_run_and_a_future_timestamp
+error: test run failed
+```
+
+## S-6-evidence-is-bound-to-check-and-run
+
+Seam reverted: `crates\hdd-acceptance\src\runner.rs`. Expected red: foreign or leftover evidence is refused.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(s6_evidence_from_another_check_or_run_is_refused)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.015s] (1/1) hdd-acceptance runner::tests::s6_evidence_from_another_check_or_run_is_refused
+    test runner::tests::s6_evidence_from_another_check_or_run_is_refused ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 200 filtered out; finished in 0.01s
+    thread 'runner::tests::s6_evidence_from_another_check_or_run_is_refused' (25008) panicked at
+     Summary [   0.016s] 1 test run: 0 passed, 1 failed, 217 skipped
+        FAIL [   0.015s] (1/1) hdd-acceptance runner::tests::s6_evidence_from_another_check_or_run_is_refused
+error: test run failed
+```
+
+## S-7-marker-suffixes-and-camel-case
+
+Seam reverted: `crates\hdd-acceptance\src\report.rs`. Expected red: aws_secret_access_key / secret_key / accessToken are redacted.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(s7_markers_inside_json_keys_suffixes_and_camel_case)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.010s] (1/1) hdd-acceptance
+    test report::tests::s7_markers_inside_json_keys_suffixes_and_camel_case_are_redacted ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 200 filtered out; finished in 0.00s
+    thread 'report::tests::s7_markers_inside_json_keys_suffixes_and_camel_case_are_redacted' (34268) panicked at
+     Summary [   0.010s] 1 test run: 0 passed, 1 failed, 217 skipped
+        FAIL [   0.010s] (1/1) hdd-acceptance
+error: test run failed
+```
+
+## S-8-every-safety-envelope-denial-latches
+
+Seam reverted: `crates\hdd-acceptance\src\guard.rs`. Expected red: class C / class B / class A-with-body / inspect-required / runner-not-bannable latch too.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(s8_every_safety_envelope_denial_marks_the_run_invalid)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.015s] (1/1) hdd-acceptance guard::tests::s8_every_safety_envelope_denial_marks_the_run_invalid
+    test guard::tests::s8_every_safety_envelope_denial_marks_the_run_invalid ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 200 filtered out; finished in 0.01s
+    thread 'guard::tests::s8_every_safety_envelope_denial_marks_the_run_invalid' (37636) panicked at
+     Summary [   0.016s] 1 test run: 0 passed, 1 failed, 217 skipped
+        FAIL [   0.015s] (1/1) hdd-acceptance guard::tests::s8_every_safety_envelope_denial_marks_the_run_invalid
+error: test run failed
+```
+
+## S-9-refund-keeps-the-duration-clock
+
+Seam reverted: `crates\hdd-acceptance\src\limits.rs`. Expected red: a refund must not restart the duration window.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(s9_a_refund_does_not_restart_the_duration_clock)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.009s] (1/1) hdd-acceptance limits::tests::s9_a_refund_does_not_restart_the_duration_clock
+    test limits::tests::s9_a_refund_does_not_restart_the_duration_clock ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 200 filtered out; finished in 0.00s
+    thread 'limits::tests::s9_a_refund_does_not_restart_the_duration_clock' (34976) panicked at
+    assertion `left == right` failed: a refund must not restart the duration clock (review item S-9)
+      left: Ok(())
+     right: Err(DurationExceeded { lane: Http, limit_s: 60 })
+     Summary [   0.010s] 1 test run: 0 passed, 1 failed, 217 skipped
+        FAIL [   0.009s] (1/1) hdd-acceptance limits::tests::s9_a_refund_does_not_restart_the_duration_clock
+error: test run failed
+```
+
+## S-10-guarded-spec-and-cleanup-lock
+
+Seam reverted: `crates\hdd-acceptance\src\runner.rs`. Expected red: a panic in spec() is caught and counted.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(s10_a_panicking_spec_is_caught_and_counted)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.015s] (1/1) hdd-acceptance runner::tests::s10_a_panicking_spec_is_caught_and_counted
+    test runner::tests::s10_a_panicking_spec_is_caught_and_counted ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 200 filtered out; finished in 0.01s
+    thread 'runner::tests::s10_a_panicking_spec_is_caught_and_counted' (38600) panicked at
+     Summary [   0.016s] 1 test run: 0 passed, 1 failed, 217 skipped
+        FAIL [   0.015s] (1/1) hdd-acceptance runner::tests::s10_a_panicking_spec_is_caught_and_counted
+error: test run failed
+```
+

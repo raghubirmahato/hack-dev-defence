@@ -1,0 +1,37 @@
+# Embedded PostgreSQL on all three operating systems (T-0563 step 8). NOT YET RUN: this file was written on a Windows builder
+# without access to GitHub Actions, so it is UNVERIFIED until the first run. When T-0105 and T-0128 land, their migration,
+# RLS and BOLA suites are added to the same jobs and run unchanged against the embedded server.
+name: embedded-db
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  embedded-postgres:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the Rust toolchain from rust-toolchain.toml
+        run: rustup show
+      - name: Download the pinned PostgreSQL archive (the code checks its digest)
+        shell: bash
+        run: |
+          cargo xtask db up --data-dir "${RUNNER_TEMP}/hdd-db" --download \
+            --allow "https://github.com/theseus-rs/postgresql-binaries/releases/download/17.11.1/" \
+            --allow "https://release-assets.githubusercontent.com/"
+          cargo xtask db down --data-dir "${RUNNER_TEMP}/hdd-db"
+      - name: End-to-end test (sample migration, listener, backup and restore)
+        shell: bash
+        run: |
+          archive="$(ls "${RUNNER_TEMP}"/hdd-db/cache/postgresql-*.tar.gz | head -n 1)"
+          HDD_E2E_PG_ARCHIVE="${archive}" cargo test -p hdd-local --test e2e_embedded -- --nocapture

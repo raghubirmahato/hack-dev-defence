@@ -1,0 +1,22 @@
+# lab/demo/targets.allow.example - template for the operator-created allowlist.
+#
+# Copy this file to lab/demo/targets.allow (never commit live target details if
+# you do not want them in the repository) and put ONE host per line: the hosts
+# you are authorised to send the demo's SQL-injection requests to.
+#
+# Rules enforced by lab/demo/attack.ps1 and lab/demo/attack.sh:
+#   * a loopback target (127.0.0.1, 127.0.0.0/8, ::1, localhost) is always
+#     allowed and needs no entry: the local rehearsal never leaves the machine;
+#   * any other host is REFUSED before the first request unless the exact
+#     hostname appears in lab/demo/targets.allow;
+#   * blank lines and lines starting with '#' are ignored; an inline ' # ...'
+#     comment after the host is stripped;
+#   * there is no wildcard support: list each hostname explicitly; port and path
+#     are taken from --TargetUrl / HDD_ATTACK_TARGET;
+#   * the scripts never scan, never try other paths and never touch a host that
+#     is not in this file. Only run them against sites you own or operate.
+#
+# Example (replace with your own authorised target; keep the real file out of git
+# if your hostname is sensitive):
+# shop.example.com
+# staging.example.org

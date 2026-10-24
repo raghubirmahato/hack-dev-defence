@@ -1,0 +1,13 @@
+PASS MAIN DOMAIN home: 200, CoreByte, no redirect :: 200
+PASS main domain product page works :: 200
+PASS legitimate admin login on the main domain (303 /admin, secure cookie) :: (303, '/admin')
+PASS admin dashboard renders for the real admin :: 200
+PASS wrong password is 401 (not blocked) :: 401
+PASS BLOCK: injection on the main domain refused 403 by HDD (rule H1-001) :: (403, 'H1-001', '30d492b7ea2893.lhr.life')
+   client_ip HDD recorded: 106.205.196.197
+PASS BLOCK: UNION injection in the search box refused :: 403
+PASS MONITOR: injection passes (admin 303) and is recorded as would-block :: (303, 'would_block')
+PASS OFF: injection passes (admin 303), nothing blocked :: (303, 'allow')
+PASS BLOCK again: refused :: 403
+PASS a forged secret header gives no bypass (request still inspected) :: 200
+RESULT ALL PASS 11 / 11

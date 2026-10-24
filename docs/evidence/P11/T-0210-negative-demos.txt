@@ -1,0 +1,53 @@
+# T-0210 mutation demos (negative evidence, final tree)
+# Date: 2026-10-20 (Asia/Katmandu)
+# Method: back up the file, mutate it, show the named check FAILS, restore, refresh the mtime so cargo rebuilds,
+# show SHA-256 before = after, and show the check PASS again. Each mutation is applied to
+# crates/hdd-canary/src/lib.rs and restored byte-identically from the backup.
+
+## Demo 1: the 8 KB header limit removed (A2)
+SHA-256 before: E7CB6C94B1A9706E7AB25917A0C687EEDC085DC5963C1AB2F2028D0231BD3061
+SHA-256 while mutated: B4941C47FF9578F1FD97BB53F62BB9D9637F8FD3E04F25533B77B323882C3045
+Command: cargo nextest run -p hdd-canary --no-fail-fast -E "test(t0210_parse_request_enforces_the_header_size_and_count_limits)"
+Exit while mutated: 100 (expected non-zero)
+  FAIL [   0.017s] (1/1) hdd-canary tests::t0210_parse_request_enforces_the_header_size_and_count_limits
+  thread 'tests::t0210_parse_request_enforces_the_header_size_and_count_limits' (35396) panicked at
+  assertion `left == right` failed
+  Summary [   0.027s] 1 test run: 0 passed, 1 failed, 25 skipped
+  FAIL [   0.017s] (1/1) hdd-canary tests::t0210_parse_request_enforces_the_header_size_and_count_limits
+SHA-256 after restore: E7CB6C94B1A9706E7AB25917A0C687EEDC085DC5963C1AB2F2028D0231BD3061
+Restore byte-identical: True
+After restore, command exit: 0 (expected 0)
+  PASS [   0.015s] (1/1) hdd-canary tests::t0210_parse_request_enforces_the_header_size_and_count_limits
+  Summary [   0.015s] 1 test run: 1 passed, 25 skipped
+
+## Demo 2: a manifest hash no longer covers the generated file (A1)
+SHA-256 before: E7CB6C94B1A9706E7AB25917A0C687EEDC085DC5963C1AB2F2028D0231BD3061
+SHA-256 while mutated: A42186889868831E1E8653D7A987D6D6B4F940C8B17DF5037A22670B30787D7A
+Command: cargo nextest run -p hdd-canary --no-fail-fast -E "test(t0210_generate_writes_the_five_contract_files_and_real_hashes)"
+Exit while mutated: 100 (expected non-zero)
+  FAIL [   0.062s] (1/1) hdd-canary tests::t0210_generate_writes_the_five_contract_files_and_real_hashes
+  thread 'tests::t0210_generate_writes_the_five_contract_files_and_real_hashes' (24040) panicked at
+  assertion `left == right` failed: the manifest records the real hash of ok.txt
+  Summary [   0.064s] 1 test run: 0 passed, 1 failed, 25 skipped
+  FAIL [   0.062s] (1/1) hdd-canary tests::t0210_generate_writes_the_five_contract_files_and_real_hashes
+SHA-256 after restore: E7CB6C94B1A9706E7AB25917A0C687EEDC085DC5963C1AB2F2028D0231BD3061
+Restore byte-identical: True
+After restore, command exit: 0 (expected 0)
+  PASS [   0.058s] (1/1) hdd-canary tests::t0210_generate_writes_the_five_contract_files_and_real_hashes
+  Summary [   0.059s] 1 test run: 1 passed, 25 skipped
+
+## Demo 3: cookie/authorization redaction removed (A3)
+SHA-256 before: E7CB6C94B1A9706E7AB25917A0C687EEDC085DC5963C1AB2F2028D0231BD3061
+SHA-256 while mutated: 57728D654256194E27A68919F6DA2C2033FB71CD8FE4C9F4E42DDC4C12944551
+Command: cargo nextest run -p hdd-canary --no-fail-fast -E "test(t0210_echo_headers_json_is_bounded_and_redacts_credentials)"
+Exit while mutated: 100 (expected non-zero)
+  FAIL [   0.014s] (1/1) hdd-canary tests::t0210_echo_headers_json_is_bounded_and_redacts_credentials
+  thread 'tests::t0210_echo_headers_json_is_bounded_and_redacts_credentials' (26472) panicked at
+  Summary [   0.015s] 1 test run: 0 passed, 1 failed, 25 skipped
+  FAIL [   0.014s] (1/1) hdd-canary tests::t0210_echo_headers_json_is_bounded_and_redacts_credentials
+SHA-256 after restore: E7CB6C94B1A9706E7AB25917A0C687EEDC085DC5963C1AB2F2028D0231BD3061
+Restore byte-identical: True
+After restore, command exit: 0 (expected 0)
+  PASS [   0.017s] (1/1) hdd-canary tests::t0210_echo_headers_json_is_bounded_and_redacts_credentials
+  Summary [   0.018s] 1 test run: 1 passed, 25 skipped
+

@@ -1,0 +1,96 @@
+cargo.exe : warning: constant `COPY_DECK` is never used
+At line:1 char:136
++ ... se); $out = & cargo nextest run -p hdd-xtask ux_docs::dataviz --no-fa ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: consta...` is never used:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  --> crates\hdd-xtask\src\ux_docs\onboarding.rs:51:11
+   |
+51 | pub const COPY_DECK: &str = "i18n/en/copy-deck.ftl";
+   |           ^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.18s
+────────────
+ Nextest run ID a2db4f2a-965f-44b5-b24a-63e391eb1734 with nextest profile: default
+    Starting 29 tests across 1 binary (418 tests skipped)
+        PASS [   0.011s] ( 1/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_every_chart_form_used_has_a_numeric_downsampling_rule
+        FAIL [   0.017s] ( 2/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_a_ranking_definition_needs_an_argmax_aggregation
+  stdout ───
+
+    running 1 test
+    test ux_docs::dataviz::tests::t27_a_ranking_definition_needs_an_argmax_aggregation ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::dataviz::tests::t27_a_ranking_definition_needs_an_argmax_aggregation
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 446 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::dataviz::tests::t27_a_ranking_definition_needs_an_argmax_aggregation' (5344) panicked at 
+crates\hdd-xtask\src\ux_docs\dataviz.rs:3352:9:
+    a ranking definition with the aggregation `max` must be a finding: 
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.023s] ( 3/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_every_chart_has_a_text_summary_and_a_view_as_table_toggle
+        PASS [   0.026s] ( 4/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_comparison_defines_the_previous_period_and_the_unknown_case
+        PASS [   0.031s] ( 5/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_a_byte_order_mark_or_mojibake_fails_the_document_rule
+        PASS [   0.031s] ( 6/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_every_required_screen_has_a_question_and_a_metric
+        PASS [   0.035s] ( 7/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_chart_forms_are_the_b11_10_forms_and_whole_tokens
+        PASS [   0.040s] ( 8/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_colour_has_eight_patterned_b11_2_series
+        PASS [   0.043s] ( 9/29) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_chart_form_is_justified
+        PASS [   0.048s] (10/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_dictionary_columns_and_rows_are_complete
+        PASS [   0.050s] (11/29) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_derived_kpis_state_their_formula
+        PASS [   0.055s] (12/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_downsampling_methods_match_their_form_and_lttb_stays_on_the_line
+        PASS [   0.058s] (13/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_downsampling_thresholds_are_numeric
+        PASS [   0.068s] (14/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_every_screen_has_a_visual_not_only_the_table_alternative
+        PASS [   0.069s] (15/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_annotations_include_mode_rule_ban_and_deployment
+        PASS [   0.069s] (16/29) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_kpi_must_be_a_dictionary_row
+        PASS [   0.062s] (17/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_metric_type_and_labels_agree_with_b9
+        PASS [   0.067s] (18/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_metric_ids_exist_in_b9_and_audit_ids_in_b8
+        PASS [   0.085s] (19/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_a_spec_without_b9_or_b11_10_is_a_finding_not_a_panic
+        PASS [   0.063s] (20/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_missing_documents_and_sections_are_findings
+        PASS [   0.061s] (21/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_print_layout_points_to_responsive_without_its_own_margin
+        PASS [   0.069s] (22/29) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_placeholder_values_are_rejected
+        PASS [   0.066s] (23/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_spec_gaps_are_stated_with_real_references
+        PASS [   0.067s] (24/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_table_specs_need_columns_sort_filters_and_density
+        PASS [   0.068s] (25/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_the_chart_rules_state_the_global_rules
+        PASS [   0.069s] (26/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_time_presets_are_exactly_the_six_named
+        PASS [   0.069s] (27/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_unknown_behaviour_is_defined_for_every_widget
+        PASS [   0.080s] (28/29) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_the_check_reads_the_fixture_tree
+        PASS [   0.079s] (29/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_the_fixture_documents_pass_every_rule
+────────────
+     Summary [   0.130s] 29 tests run: 28 passed, 1 failed, 418 skipped
+        FAIL [   0.017s] ( 2/29) hdd-xtask::bin/hdd-xtask 
+ux_docs::dataviz::tests::t27_a_ranking_definition_needs_an_argmax_aggregation
+error: test run failed

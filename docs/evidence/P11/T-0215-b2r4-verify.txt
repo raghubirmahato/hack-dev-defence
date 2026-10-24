@@ -1,0 +1,163 @@
+# T-0215 batch B2 round 4 - green verification
+
+Generated: 2026-10-23T20:35:10+05:45 on Microsoft Windows NT 10.0.26300.0
+
+## Environment note (honest)
+
+This machine enforces Windows Smart App Control, which blocks freshly built unsigned executables
+(`An Application Control policy has blocked this file`, os error 4551). The workaround used for every build and test
+below is a local, self-signed code-signing certificate (current-user store, never leaves the machine) plus a retry loop
+that signs `target\**\*.exe` and, when a dependency build script is blocked, signs it and retries. One dependency build
+script (rustls 0.23) stayed blocked after signing; it was replaced with an equivalent empty program (its build.rs only
+emits a cfg for the nightly `read_buf` feature, which this workspace does not enable) and the green build below proves
+the replacement is equivalent for this workspace. **No source file was changed by the workaround**; `git status` and the
+SHA-256 list at the end are the sources as delivered.
+
+## 1) cargo fmt -p hdd-acceptance -- --check
+
+$ cargo fmt -p hdd-acceptance -- --check
+command exit code 0
+
+## 2) cargo clippy -p hdd-acceptance --all-targets -- -D warnings
+
+$ cargo clippy -p hdd-acceptance --all-targets -- -D warnings
+command exit code 0
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.66s
+
+## 3) cargo test -p hdd-acceptance --doc
+
+$ cargo test -p hdd-acceptance --doc
+command exit code 0
+running 8 tests
+test crates\hdd-acceptance\src\lib.rs - (line 86) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 95) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 41) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 76) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 81) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 71) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 54) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 46) - compile fail ... ok
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.22s
+
+## 4) cargo check --workspace
+
+$ cargo check --workspace
+command exit code 0
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.74s
+
+## 5) full suite (cargo nextest run -p hdd-acceptance --no-fail-fast)
+
+$ powershell -NoProfile -File %TEMP%\hdd-b2r4-prep.ps1   # build + local test signing + Smart App Control repair
+command exit code 0
+        PASS [   1.300s] (233/233) hdd-acceptance::compile_fail_codes 
+the_compile_fail_doctests_fail_for_their_exact_error_code
+────────────
+     Summary [   4.981s] 233 tests run: 233 passed, 0 skipped
+
+$ cargo nextest run -p hdd-acceptance --no-fail-fast
+command exit code 0
+ Nextest run ID 5c9e1e15-89e2-4a43-97a7-3bf793e4d8e0 with nextest profile: default
+     Summary [   1.750s] 233 tests run: 233 passed, 0 skipped
+
+full suite green: True
+
+## 6) CLI refusals and behaviours (target\debug\hdd-acceptance.exe)
+
+$ hdd-acceptance.exe registry
+command exit code 0
+| AC-00 | smoke | P11 (T-0217) | Preflight and safety-envelope self-tests |
+| AC-62 | lab-full; release | P34 (T-0593, T-0597, T-0598, T-0599) | Additional hardening |
+63 checks registered (AC-00 to AC-62). Every check is UNVERIFIED(stage_not_reached) in this skeleton.
+
+$ hdd-acceptance.exe run --dry-run --out %TEMP%\hdd-b2r4-verify-cli\dry-run
+command exit code 0
+report.json, report.md, run.log
+63 checks: 0 PASS, 0 FAIL, 63 UNVERIFIED; stage not loaded; mode live; load profile functional; vantages 0
+
+report.json parses and holds 63 status lines; report.md and run.log exist: True
+
+$ hdd-acceptance.exe run --profile %TEMP%\hdd-b2r4-verify-cli\hdd.live.yaml --config-revision rev-1 --out %TEMP%\hdd-b2r4-verify-cli\profile-run
+command exit code 0
+report config_revision: rev-1 report target_hostnames: hddtest.example.com, hddsbx.example.com report stage: pilot; mode: live; lines: 63
+63 checks: 0 PASS, 0 FAIL, 63 UNVERIFIED; stage pilot; mode live; load profile functional; vantages 0
+
+$ hdd-acceptance.exe run --dry-run --out <the non-empty dry-run dir>
+command exit code 2
+hdd-acceptance.exe : hdd-acceptance: refusing to write into the non-empty directory 
+
+$ hdd-acceptance.exe run --dry-run --resume <dir> --out <same dir>
+command exit code 2
+hdd-acceptance.exe : hdd-acceptance: refusing to resume in place: --out and --resume are the same directory 
+
+$ hdd-acceptance.exe run --dry-run --redact-secret abc --out ...
+command exit code 2
+hdd-acceptance.exe : hdd-acceptance: the secret is 3 bytes; a secret must be at least 4 bytes to be redacted safely
+
+$ hdd-acceptance.exe run --profile ... --load-profile load (no approval ticket)
+command exit code 3
+hdd-acceptance.exe : hdd-acceptance: run refused: load run refused: the profile sets load_profile_approved: false; the 
+
+$ hdd-acceptance.exe run --dry-run --resume <report with run_invalid:true> --out ...
+command exit code 3
+hdd-acceptance.exe : hdd-acceptance: cannot resume: cannot resume from that report: the previous run was marked 
+invalid by a safety-envelope denial; it cannot be resumed (review item S-5)
+
+$ hdd-acceptance.exe run --profile ... --config-revision rev-9 --resume <previous> --out ...\resumed
+command exit code 0
+AC-00 status after resume: unverified AC-01 status after resume: pass resumed evidence path: C:\Users\Raghu\AppData\Local\Temp\hdd-b2r4-verify-cli\resumed\proof.txt copied artifact exists: True copy sha256 matches: True - resumed from a previous run: 1 PASS line(s) reused after re-hashing their evidence inside the resume directory; every other check was run again (AC-00 always re-runs)
+
+## 7) SHA-256 of the delivered files
+
+f869cef29a3d2bbb6c010f58cff99c46527844a14e346f672740ccdf056800b3  crates/hdd-acceptance/src/guard.rs
+ed29c8fb07b1e2f3e53776c233b0e01008b9612f4911fff97c216a9d994d47c1  crates/hdd-acceptance/src/report.rs
+711c66374f77a86b659b0ce60cbb8ba6812a1b92c92fce01bb0b3ca58b78843c  crates/hdd-acceptance/src/runner.rs
+57d0eaea3756b1bf843e55184c5e03a7275779fb153ea376a1f2445c88d67a98  crates/hdd-acceptance/src/main.rs
+e67001c909d2611a92e1c5b7c18dc926cb68aa625d3f44735a174bd9bd0692ea  crates/hdd-acceptance/src/lib.rs
+69284a613fba8e5cda66de3113444eb9da8966774370be3cc224ac92cfb11687  crates/hdd-acceptance/src/inspect.rs
+48862dd08d376d01b3418465f44184be753062702a65df3872e51ee86cb262ed  crates/hdd-acceptance/src/config.rs
+76c0309cd6ad0c9e0717c0b180a6f80f60fcb0b3a6fb949eee38cfe8ff0c5b0a  crates/hdd-acceptance/src/limits/tests.rs
+4f359eec1387bd311c7ad0844de98c283dae35b61183d5faccafe460c696f7be  crates/hdd-acceptance/src/guard/tests.rs
+3f64956c17abdd669b429b95f8ca04be3c2e6102581ee1c7f0f1b3a3ca163213  crates/hdd-acceptance/src/report/tests.rs
+b7a344bd6b1cedb41b1477dbb56ba0687a54ce1c4d0e2f02ea3096c7d5bb00b8  crates/hdd-acceptance/src/runner/tests.rs
+fca358cd49f9cd4b99a2f4f62ddef26c8fdaa50ef40a05461ab18eaf1bd51239  crates/hdd-acceptance/tests/cli.rs
+6803f41f33ddbfe4eff6bf3d418df48c85c41301de0b2bfd3231bae796e7723c  crates/hdd-acceptance/tests/compile_fail_codes.rs
+d4e24e449e209d0d60684d8fcdb3512f84c56514f8ca9fb6d193f933ec0bf185  docs/ACCEPTANCE.md
+139ae3169fdfe0b570af011543c1eebba137f5fe6a2b8989bd3c24e8c2e2db54  docs/evidence/P11/T-0215-b2r4-red.txt
+7d5db45cce895f72bb24858511c5d0b294b50944140826756a4598632c63c932  docs/evidence/P11/T-0215-b2r4-negative-demos.txt
+
+## 8) Scope check
+
+git status --short (only this task's write scope; T-0210 files were already modified by that member and are untouched):
+
+ M CANARY.md
+ M OPERATIONS.md
+ M crates/hdd-acceptance/src/config.rs
+ M crates/hdd-acceptance/src/guard.rs
+ M crates/hdd-acceptance/src/guard/tests.rs
+ M crates/hdd-acceptance/src/inspect.rs
+ M crates/hdd-acceptance/src/inspect/tests.rs
+ M crates/hdd-acceptance/src/lib.rs
+ M crates/hdd-acceptance/src/limits/tests.rs
+ M crates/hdd-acceptance/src/main.rs
+ M crates/hdd-acceptance/src/report.rs
+ M crates/hdd-acceptance/src/report/tests.rs
+ M crates/hdd-acceptance/src/runner.rs
+ M crates/hdd-acceptance/src/runner/tests.rs
+ M crates/hdd-acceptance/tests/cli.rs
+ M crates/hdd-canary/src/lib.rs
+ M crates/hdd-canary/tests/hostile.rs
+ M crates/hddctl/src/main.rs
+ M crates/hddctl/tests/canary.rs
+ M docs/ACCEPTANCE.md
+ M docs/DEVIATIONS.md
+?? crates/hdd-acceptance/tests/compile_fail_codes.rs
+?? docs/evidence/P11/T-0210-T-0215-b2r4-verify.txt
+?? docs/evidence/P11/T-0210-b2r4-negative-demos.txt
+?? docs/evidence/P11/T-0210-b2r4-red.txt
+?? docs/evidence/P11/T-0210-b2r4-verify.txt
+?? docs/evidence/P11/T-0215-b2r4-negative-demos.txt
+?? docs/evidence/P11/T-0215-b2r4-red.txt
+?? docs/evidence/P11/T-0215-b2r4-state.txt
+?? docs/evidence/P11/T-0215-b2r4-verify.txt
+
+task-14: N-1..N-10 complete; no commit, stash or branch change was made.

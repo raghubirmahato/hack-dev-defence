@@ -1,0 +1,13 @@
+== clean commit
+secret scan (staged): PASS
+commit succeeded (exit 0)
+== commit with a fake private key block
+[secrets] leak.pem.txt:1: private key block: ----… (31 chars)
+secret scan (staged): FAIL (1 finding(s))
+commit exit code: 1
+== staged blob listing (the key is staged but no commit was created)
+6f6dab4 clean
+== .env file
+[secrets] .env: environment file with real values must not be committed (use .env.example)
+secret scan (staged): FAIL (1 finding(s))
+commit exit code: 1

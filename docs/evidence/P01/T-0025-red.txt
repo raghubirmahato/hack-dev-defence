@@ -1,0 +1,663 @@
+# T-0025 red: security_ux tests before the rules are implemented
+# Date: 2026-10-20
+# State: the 17 rule functions return no finding; the fixtures and tests are final.
+# Command: cargo nextest run -p hdd-xtask ux_docs::security_ux --no-fail-fast
+# (captured with real output; this file is not edited afterwards)
+
+cargo :     Blocking waiting for file lock on build directory
+At line:11 char:11
++ $output = cargo nextest run -p hdd-xtask ux_docs::security_ux --no-fa ...
++           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Blocking wa...build directory:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: unused import: `cells`
+  --> crates\hdd-xtask\src\ux_docs\onboarding.rs:42:13
+   |
+42 | use super::{cells, column, finding, screen_ids, section_body, section_table};
+   |             ^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `section_body`
+  --> crates\hdd-xtask\src\ux_docs\security_ux.rs:48:21
+   |
+48 | use super::{column, section_body, section_table};
+   |                     ^^^^^^^^^^^^
+
+warning: function `documents` is never used
+    --> crates\hdd-xtask\src\ux_docs\accessibility.rs:1589:19
+     |
+1589 |     pub(crate) fn documents() -> Vec<(String, String)> {
+     |                   ^^^^^^^^^
+     |
+     = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `spec_section` is never used
+    --> crates\hdd-xtask\src\ux_docs\accessibility.rs:1604:19
+     |
+1604 |     pub(crate) fn spec_section() -> String {
+     |                   ^^^^^^^^^^^^
+
+warning: constant `REQUIRED_SCREENS` is never used
+  --> crates\hdd-xtask\src\ux_docs\dataviz.rs:52:7
+   |
+52 | const REQUIRED_SCREENS: [&str; 9] = [
+   |       ^^^^^^^^^^^^^^^^
+
+warning: constant `ALLOWED_FORMS` is never used
+  --> crates\hdd-xtask\src\ux_docs\dataviz.rs:60:7
+   |
+60 | const ALLOWED_FORMS: [&str; 8] = [
+   |       ^^^^^^^^^^^^^
+
+warning: constant `CHART_FORMS` is never used
+  --> crates\hdd-xtask\src\ux_docs\dataviz.rs:72:7
+   |
+72 | const CHART_FORMS: [&str; 6] = [
+   |       ^^^^^^^^^^^
+
+warning: constant `DENIED_FORMS` is never used
+  --> crates\hdd-xtask\src\ux_docs\dataviz.rs:82:7
+   |
+82 | const DENIED_FORMS: [&str; 9] = [
+   |       ^^^^^^^^^^^^
+
+warning: constant `TIME_PRESETS` is never used
+  --> crates\hdd-xtask\src\ux_docs\dataviz.rs:95:7
+   |
+95 | const TIME_PRESETS: [(&str, &str); 6] = [
+   |       ^^^^^^^^^^^^
+
+warning: constant `AGGREGATIONS` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:105:7
+    |
+105 | const AGGREGATIONS: [&str; 12] = [
+    |       ^^^^^^^^^^^^
+
+warning: constant `VALUE_TYPES` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:122:7
+    |
+122 | const VALUE_TYPES: [&str; 7] = [
+    |       ^^^^^^^^^^^
+
+warning: constant `PROM_TYPES` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:133:7
+    |
+133 | const PROM_TYPES: [&str; 3] = ["counter", "gauge", "histogram"];
+    |       ^^^^^^^^^^
+
+warning: constant `SOURCE_TABLES` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:137:7
+    |
+137 | const SOURCE_TABLES: [&str; 45] = [
+    |       ^^^^^^^^^^^^^
+
+warning: constant `REQUIRED_ANNOTATIONS` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:186:7
+    |
+186 | const REQUIRED_ANNOTATIONS: [(&str, &str); 4] = [
+    |       ^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `DATAVIZ_SECTIONS` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:194:7
+    |
+194 | const DATAVIZ_SECTIONS: [&str; 11] = [
+    |       ^^^^^^^^^^^^^^^^
+
+warning: constant `DICTIONARY_SECTIONS` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:209:7
+    |
+209 | const DICTIONARY_SECTIONS: [&str; 3] = ["Source legend", "Reading a row", "Metrics"];
+    |       ^^^^^^^^^^^^^^^^^^^
+
+warning: constant `PLACEHOLDER_TOKENS` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:212:7
+    |
+212 | const PLACEHOLDER_TOKENS: [&str; 8] = [
+    |       ^^^^^^^^^^^^^^^^^^
+
+warning: function `token_in` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:232:4
+    |
+232 | fn token_in(hay: &str, needle: &str) -> bool {
+    |    ^^^^^^^^
+
+warning: function `is_token_char` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:256:4
+    |
+256 | fn is_token_char(c: Option<char>) -> bool {
+    |    ^^^^^^^^^^^^^
+
+warning: function `mentions` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:261:4
+    |
+261 | fn mentions(hay: &str, needle: &str) -> bool {
+    |    ^^^^^^^^
+
+warning: function `word_count` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:267:4
+    |
+267 | fn word_count(cell: &str) -> usize {
+    |    ^^^^^^^^^^
+
+warning: function `line_has_all` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:273:4
+    |
+273 | fn line_has_all(text: &str, needles: &[&str]) -> bool {
+    |    ^^^^^^^^^^^^
+
+warning: function `b11_10_body` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:282:4
+    |
+282 | fn b11_10_body(spec: &str) -> String {
+    |    ^^^^^^^^^^^
+
+warning: function `allowed_forms` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:297:4
+    |
+297 | fn allowed_forms(spec: &str) -> (BTreeSet<String>, Vec<String>) {
+    |    ^^^^^^^^^^^^^
+
+warning: struct `Metric` is never constructed
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:326:8
+    |
+326 | struct Metric {
+    |        ^^^^^^
+
+warning: function `b9_metrics` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:333:4
+    |
+333 | fn b9_metrics(spec: &str) -> BTreeMap<String, Metric> {
+    |    ^^^^^^^^^^
+
+warning: function `metric_tokens` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:388:4
+    |
+388 | fn metric_tokens(text: &str) -> Vec<String> {
+    |    ^^^^^^^^^^^^^
+
+warning: function `audit_tokens` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:393:4
+    |
+393 | fn audit_tokens(text: &str) -> Vec<String> {
+    |    ^^^^^^^^^^^^
+
+warning: function `prefixed_tokens` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:398:4
+    |
+398 | fn prefixed_tokens(text: &str, prefix: &str) -> Vec<String> {
+    |    ^^^^^^^^^^^^^^^
+
+warning: function `hex_values` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:426:4
+    |
+426 | fn hex_values(text: &str) -> Vec<String> {
+    |    ^^^^^^^^^^
+
+warning: function `cell` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:457:4
+    |
+457 | fn cell(row: &[String], index: usize) -> &str {
+    |    ^^^^
+
+warning: function `need_column` is never used
+   --> crates\hdd-xtask\src\ux_docs\dataviz.rs:462:4
+    |
+462 | fn need_column(
+    |    ^^^^^^^^^^^
+
+warning: function `all` is never used
+    --> crates\hdd-xtask\src\ux_docs\dataviz.rs:1055:8
+     |
+1055 |     fn all(dataviz: &str, dictionary: &str, spec: &str) -> String {
+     |        ^^^
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 33 warnings (run `cargo fix --bin "hdd-xtask" -p hdd-xtask 
+--tests` to apply 2 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.46s
+────────────
+ Nextest run ID 2a1e7020-ca51-4e51-984d-8218133ff15a with nextest profile: default
+    Starting 20 tests across 1 binary (379 tests skipped)
+        FAIL [   0.014s] ( 1/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_abuse_categories_and_atk_citations_are_required
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_abuse_categories_and_atk_citations_are_required ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_abuse_categories_and_atk_citations_are_required
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_abuse_categories_and_atk_citations_are_required' (16292) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1161:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.014s] ( 2/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_a_real_audit_id_in_the_wrong_row_is_caught
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_a_real_audit_id_in_the_wrong_row_is_caught ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_a_real_audit_id_in_the_wrong_row_is_caught
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_a_real_audit_id_in_the_wrong_row_is_caught' (3448) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1080:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.020s] ( 3/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_catalog_needs_twenty_rows_and_full_cells
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_catalog_needs_twenty_rows_and_full_cells ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_catalog_needs_twenty_rows_and_full_cells
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_catalog_needs_twenty_rows_and_full_cells' (26744) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1024:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.024s] ( 4/20) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_every_safeguard_names_a_kind
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_every_safeguard_names_a_kind ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_every_safeguard_names_a_kind
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_every_safeguard_names_a_kind' (33016) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1040:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.029s] ( 5/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_copy_values_are_clean_and_claim_free
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_copy_values_are_clean_and_claim_free ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_copy_values_are_clean_and_claim_free
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_copy_values_are_clean_and_claim_free' (25200) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1119:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.040s] ( 6/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_a_complete_fixture_passes_every_rule
+        FAIL [   0.041s] ( 7/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_audit_events_must_exist_in_b8_as_whole_tokens
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_audit_events_must_exist_in_b8_as_whole_tokens ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_audit_events_must_exist_in_b8_as_whole_tokens
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_audit_events_must_exist_in_b8_as_whole_tokens' (29948) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1065:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.048s] ( 8/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_abuse_cases_stay_inside_the_hdd_attack_range
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_abuse_cases_stay_inside_the_hdd_attack_range ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_abuse_cases_stay_inside_the_hdd_attack_range
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_abuse_cases_stay_inside_the_hdd_attack_range' (32120) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1143:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.049s] ( 9/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_permissions_must_exist_in_b4_2
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_permissions_must_exist_in_b4_2 ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_permissions_must_exist_in_b4_2
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_permissions_must_exist_in_b4_2' (23880) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1091:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.055s] (10/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_preview_patterns_cover_the_four_areas
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_preview_patterns_cover_the_four_areas ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_preview_patterns_cover_the_four_areas
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_preview_patterns_cover_the_four_areas' (29716) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1199:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.062s] (11/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_malformed_input_is_a_finding_not_a_panic
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_malformed_input_is_a_finding_not_a_panic ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_malformed_input_is_a_finding_not_a_panic
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_malformed_input_is_a_finding_not_a_panic' (33108) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1288:13:
+    catalog accepted an empty document
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.065s] (12/20) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_required_actions_are_named
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_required_actions_are_named ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_required_actions_are_named
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_required_actions_are_named' (32464) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1049:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.071s] (13/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_forbidden_claims_are_rejected
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_forbidden_claims_are_rejected ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_forbidden_claims_are_rejected
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_forbidden_claims_are_rejected' (26108) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1262:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.076s] (14/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_honest_limits_quote_b13_exactly
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_honest_limits_quote_b13_exactly ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_honest_limits_quote_b13_exactly
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_honest_limits_quote_b13_exactly' (23232) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1232:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.081s] (15/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_copy_keys_must_match_the_copy_file
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_copy_keys_must_match_the_copy_file ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_copy_keys_must_match_the_copy_file
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_copy_keys_must_match_the_copy_file' (2328) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1101:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.086s] (16/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_missing_documents_are_findings
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_missing_documents_are_findings ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_missing_documents_are_findings
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_missing_documents_are_findings' (30476) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1007:9:
+    assertion `left == right` failed: 
+      left: 0
+     right: 3
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.078s] (17/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_stride_delta_names_the_ui_abuse_threats
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_stride_delta_names_the_ui_abuse_threats ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_stride_delta_names_the_ui_abuse_threats
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_stride_delta_names_the_ui_abuse_threats' (8172) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1251:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.083s] (18/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_self_lockout_requirements_are_numbered_and_complete
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_self_lockout_requirements_are_numbered_and_complete ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_self_lockout_requirements_are_numbered_and_complete
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_self_lockout_requirements_are_numbered_and_complete' (13260) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1179:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.082s] (19/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_time_box_states_the_browser_close_revert
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_time_box_states_the_browser_close_revert ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_time_box_states_the_browser_close_revert
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_time_box_states_the_browser_close_revert' (12768) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1220:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.082s] (20/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_typed_confirmation_rules_are_stated
+  stdout ───
+
+    running 1 test
+    test ux_docs::security_ux::tests::t25_typed_confirmation_rules_are_stated ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::security_ux::tests::t25_typed_confirmation_rules_are_stated
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 398 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::security_ux::tests::t25_typed_confirmation_rules_are_stated' (31816) panicked at 
+crates\hdd-xtask\src\ux_docs\security_ux.rs:1208:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   0.108s] 20 tests run: 1 passed, 19 failed, 379 skipped
+        FAIL [   0.014s] ( 1/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_abuse_categories_and_atk_citations_are_required
+        FAIL [   0.014s] ( 2/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_a_real_audit_id_in_the_wrong_row_is_caught
+        FAIL [   0.020s] ( 3/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_catalog_needs_twenty_rows_and_full_cells
+        FAIL [   0.024s] ( 4/20) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_every_safeguard_names_a_kind
+        FAIL [   0.029s] ( 5/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_copy_values_are_clean_and_claim_free
+        FAIL [   0.041s] ( 7/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_audit_events_must_exist_in_b8_as_whole_tokens
+        FAIL [   0.048s] ( 8/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_abuse_cases_stay_inside_the_hdd_attack_range
+        FAIL [   0.049s] ( 9/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_permissions_must_exist_in_b4_2
+        FAIL [   0.055s] (10/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_preview_patterns_cover_the_four_areas
+        FAIL [   0.062s] (11/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_malformed_input_is_a_finding_not_a_panic
+        FAIL [   0.065s] (12/20) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_required_actions_are_named
+        FAIL [   0.071s] (13/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_forbidden_claims_are_rejected
+        FAIL [   0.076s] (14/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_honest_limits_quote_b13_exactly
+        FAIL [   0.081s] (15/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_copy_keys_must_match_the_copy_file
+        FAIL [   0.086s] (16/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_missing_documents_are_findings
+        FAIL [   0.078s] (17/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_stride_delta_names_the_ui_abuse_threats
+        FAIL [   0.083s] (18/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_self_lockout_requirements_are_numbered_and_complete
+        FAIL [   0.082s] (19/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_time_box_states_the_browser_close_revert
+        FAIL [   0.082s] (20/20) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_typed_confirmation_rules_are_stated
+error: test run failed
+
+exit code: 100

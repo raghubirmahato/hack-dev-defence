@@ -1,0 +1,11 @@
+=== T-0027 mutation demo ===
+file: docs/UX/DATAVIZ.md
+sha256 before: FF68B062006BCAEFE04342E5AD0ED4FC75FD943A4709571CFAC7E27B20AC3D9D
+sha256 while mutated: 3AB110E59992B9F11D63EE5B2794586DDBF64C7B05C6493C2B3955C2A9C6C5E8
+sha256 restored: FF68B062006BCAEFE04342E5AD0ED4FC75FD943A4709571CFAC7E27B20AC3D9D
+mutation: replace [is never interpolated as a zero] with [is sometimes interpolated as a zero]
+ux-docs exit during mutation: 1
+[ux-docs] docs/UX/DATAVIZ.md: the chart rules do not state that a gap is drawn as a gap and never interpolated as zero (B11.10)
+[ux-docs] docs/UX/DATAVIZ.md:103: the line mentions interpolation without `never`: a chart never interpolates data (T-0027 notes, R-16)
+ux-docs after byte-identical restore: exit 0 - ux-docs: PASS
+restored byte-identical: True

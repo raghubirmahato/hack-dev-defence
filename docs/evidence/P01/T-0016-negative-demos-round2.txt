@@ -1,0 +1,26 @@
+# T-0016 review round 2: F-12 error-path demonstrations. Each mutation must make 'cargo xtask ux-docs' FAIL; the files are restored after each step and their SHA-256 compared.
+# Date: 2026-10-19.
+
+## 1. ERR-AUTH-002 put back on J-02 step 6 (session step)
+[ux-docs] docs/UX/journeys/J-02.md:16: the error sentence for `ERR-AUTH-002` shares no content word with the B7 title or note (F-12)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 2. a shortened sentence on J-01 step 1 (four words after the code)
+[ux-docs] docs/UX/journeys/J-01.md:11: the error sentence for `ERR-SYS-001` has 4 words; at least six are required (F-12)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 3. a sentence unrelated to its code on J-04 step 1
+[ux-docs] docs/UX/journeys/J-04.md:11: the error sentence for `ERR-AUTH-002` shares no content word with the B7 title or note (F-12)
+[ux-docs] docs/UX/journeys/J-04.md:11: the error sentence for `ERR-AUTH-002` shares no content word with the step (F-12)
+ux-docs: FAIL (2 finding(s))
+(exit 1)
+
+## restored files
+ux-docs: PASS
+(exit 0)
+docs/UX/journeys/J-01.md SHA-256: D1F714EEA25A30B5033D06875952CD00DACF47EFEB779F24D8F4053204BC2403 -> D1F714EEA25A30B5033D06875952CD00DACF47EFEB779F24D8F4053204BC2403
+docs/UX/journeys/J-02.md SHA-256: 1B3F051BCA4C6FCA4DEC803C9E0E95FF393587334BD62E665921169D58FA412A -> 1B3F051BCA4C6FCA4DEC803C9E0E95FF393587334BD62E665921169D58FA412A
+docs/UX/journeys/J-04.md SHA-256: DB412E76AA1FBED76209CA629AE2C9B703A88BC49ECE3600BB878DE4ED563AFA -> DB412E76AA1FBED76209CA629AE2C9B703A88BC49ECE3600BB878DE4ED563AFA
+all hashes equal: True

@@ -1,0 +1,268 @@
+   Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+warning: constant `SIDEBAR_ITEMS` is never used
+   --> crates\hdd-xtask\src\ux_docs.rs:178:11
+    |
+178 | pub const SIDEBAR_ITEMS: [&str; 13] = [
+    |           ^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `DOMAIN_TABS` is never used
+   --> crates\hdd-xtask\src\ux_docs.rs:194:11
+    |
+194 | pub const DOMAIN_TABS: [&str; 9] = [
+    |           ^^^^^^^^^^^
+
+warning: constant `TOP_BAR_CONTROLS` is never used
+   --> crates\hdd-xtask\src\ux_docs.rs:206:11
+    |
+206 | pub const TOP_BAR_CONTROLS: [&str; 7] = [
+    |           ^^^^^^^^^^^^^^^^
+
+warning: constant `NAV_SECTIONS` is never used
+   --> crates\hdd-xtask\src\ux_docs.rs:216:11
+    |
+216 | pub const NAV_SECTIONS: [&str; 9] = [
+    |           ^^^^^^^^^^^^
+
+warning: constant `NAV_FOCUS_SUBSECTIONS` is never used
+   --> crates\hdd-xtask\src\ux_docs.rs:228:11
+    |
+228 | pub const NAV_FOCUS_SUBSECTIONS: [&str; 2] = ["Full page loads", "Partial swaps"];
+    |           ^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `NAV_MOBILE_WIDTHS` is never used
+   --> crates\hdd-xtask\src\ux_docs.rs:230:11
+    |
+230 | pub const NAV_MOBILE_WIDTHS: [&str; 3] = ["360 px", "480 px", "768 px"];
+    |           ^^^^^^^^^^^^^^^^^
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 6 warnings
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.94s
+────────────
+ Nextest run ID f4c6a37e-ec9a-45fb-b887-dcf0030d534a with nextest profile: default
+    Starting 12 tests across 1 binary (184 tests skipped)
+        FAIL [   0.018s] ( 1/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_a_route_outside_the_route_table_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t15_a_route_outside_the_route_table_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t15_a_route_outside_the_route_table_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 195 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t15_a_route_outside_the_route_table_fails' (33504) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:2113:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.023s] ( 2/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_a_hover_only_row_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t15_a_hover_only_row_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t15_a_hover_only_row_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 195 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t15_a_hover_only_row_fails' (22572) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:2199:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.028s] ( 3/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_an_empty_keyboard_or_aria_cell_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t15_an_empty_keyboard_or_aria_cell_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t15_an_empty_keyboard_or_aria_cell_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 195 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t15_an_empty_keyboard_or_aria_cell_fails' (4448) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:2099:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.034s] ( 4/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_a_missing_sidebar_item_tab_or_control_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t15_a_missing_sidebar_item_tab_or_control_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t15_a_missing_sidebar_item_tab_or_control_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 195 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t15_a_missing_sidebar_item_tab_or_control_fails' (26008) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:2136:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.038s] ( 5/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_the_shortcut_map_must_cover_b23_and_not_conflict
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t15_the_shortcut_map_must_cover_b23_and_not_conflict ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t15_the_shortcut_map_must_cover_b23_and_not_conflict
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 195 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t15_the_shortcut_map_must_cover_b23_and_not_conflict' (32480) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:2161:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.041s] ( 6/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_the_shortcut_list_is_read_from_b23
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t15_the_shortcut_list_is_read_from_b23 ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t15_the_shortcut_list_is_read_from_b23
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 195 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t15_the_shortcut_list_is_read_from_b23' (17736) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:2083:9:
+    `g o`: {}
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.043s] ( 7/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_wireframes_are_required
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t15_wireframes_are_required ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t15_wireframes_are_required
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 195 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t15_wireframes_are_required' (26384) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:2210:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.053s] ( 8/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_a_complete_navigation_document_passes
+        FAIL [   0.062s] ( 9/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_a_permission_that_differs_from_the_route_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t15_a_permission_that_differs_from_the_route_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t15_a_permission_that_differs_from_the_route_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 195 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t15_a_permission_that_differs_from_the_route_fails' (2192) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:2123:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.067s] (10/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_restricted_states_focus_and_mobile_are_required
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t15_restricted_states_focus_and_mobile_are_required ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t15_restricted_states_focus_and_mobile_are_required
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 195 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t15_restricted_states_focus_and_mobile_are_required' (1492) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:2185:5:
+    assertion failed: navigation_messages(&restricted).contains("plan-limited")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.072s] (11/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_a_missing_section_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t15_a_missing_section_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t15_a_missing_section_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 195 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t15_a_missing_section_fails' (22512) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:2091:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   1.299s] (12/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_missing_navigation_document_is_named
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t15_missing_navigation_document_is_named ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t15_missing_navigation_document_is_named
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 195 filtered out; finished in 1.25s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t15_missing_navigation_document_is_named' (11500) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:2217:5:
+    [ux-docs] docs/SPEC.md: the B2.3 keyboard shortcuts cannot be read, so the navigation shortcut map cannot be checked
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   1.300s] 12 tests run: 1 passed, 11 failed, 184 skipped
+        FAIL [   0.018s] ( 1/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_a_route_outside_the_route_table_fails
+        FAIL [   0.023s] ( 2/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_a_hover_only_row_fails
+        FAIL [   0.028s] ( 3/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_an_empty_keyboard_or_aria_cell_fails
+        FAIL [   0.034s] ( 4/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_a_missing_sidebar_item_tab_or_control_fails
+        FAIL [   0.038s] ( 5/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_the_shortcut_map_must_cover_b23_and_not_conflict
+        FAIL [   0.041s] ( 6/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_the_shortcut_list_is_read_from_b23
+        FAIL [   0.043s] ( 7/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_wireframes_are_required
+        FAIL [   0.062s] ( 9/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_a_permission_that_differs_from_the_route_fails
+        FAIL [   0.067s] (10/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_restricted_states_focus_and_mobile_are_required
+        FAIL [   0.072s] (11/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_a_missing_section_fails
+        FAIL [   1.299s] (12/12) hdd-xtask::bin/hdd-xtask ux_docs::tests::t15_missing_navigation_document_is_named
+error: test run failed

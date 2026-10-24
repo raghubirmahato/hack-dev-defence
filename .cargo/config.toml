@@ -1,0 +1,3 @@
+# T-0004: no network or TLS-weakening flags. `cargo xtask <cmd>` runs the hdd-xtask binary (T-0005).
+[alias]
+xtask = "run --quiet --package hdd-xtask --"

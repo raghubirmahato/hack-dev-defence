@@ -1,0 +1,921 @@
+# T-0023 red evidence (tests first, rules stubbed)
+
+Date: 2026-10-20
+Task: T-0023 (docs/UX/I18N.md and crates/hdd-xtask/src/ux_docs/i18n_plan.rs)
+Host: Windows 11, Rust 1.98.1, Track L (no Docker)
+Tool: DeepSeek Harness teammate t0023
+
+## Command line
+
+cargo nextest run -p hdd-xtask --no-fail-fast -E 'test(/t23_/)'
+
+## What this run shows
+
+The 19 T-0023 tests and the fixtures module were written before the rule functions.
+Every rule function still compiles and returns no findings, so the tests that assert a
+mutation produces a finding fail on the assertion, not on a compile error. The one
+passing test is the reference pseudo-locale transform unit test; the other 18 fail.
+
+## Real output (tail)
+cargo.exe :     Blocking waiting for file lock on build directory
+At line:1 char:162
++ ... ce'; $out = & cargo nextest run -p hdd-xtask --no-fail-fast -E 'test( ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Blocking wa...build directory:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+   Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+warning: unused imports: `section_body` and `subsection_body`
+  --> crates\hdd-xtask\src\ux_docs\errors.rs:56:28
+   |
+56 | use super::{cells, column, section_body, section_table, subsection_body};
+   |                            ^^^^^^^^^^^^                 ^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `BTreeSet`
+  --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:49:34
+   |
+49 | use std::collections::{BTreeMap, BTreeSet};
+   |                                  ^^^^^^^^
+
+warning: unused import: `read_text`
+  --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:54:28
+   |
+54 | use crate::util::{Finding, read_text, walk_files};
+   |                            ^^^^^^^^^
+
+warning: unused variable: `doc`
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:848:23
+    |
+848 | fn structure_findings(doc: &str) -> Vec<Finding> {
+    |                       ^^^ help: if this is intentional, prefix it with an underscore: `_doc`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `CLASSES` is never used
+  --> crates\hdd-xtask\src\ux_docs\errors.rs:68:11
+   |
+68 | pub const CLASSES: [&str; 9] = [
+   |           ^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `PATTERNS` is never used
+  --> crates\hdd-xtask\src\ux_docs\errors.rs:81:11
+   |
+81 | pub const PATTERNS: [&str; 5] = ["inline", "summary", "toast", "banner", "page"];
+   |           ^^^^^^^^
+
+warning: constant `CLASS_PATTERNS` is never used
+  --> crates\hdd-xtask\src\ux_docs\errors.rs:84:7
+   |
+84 | const CLASS_PATTERNS: [(&str, &[&str]); 9] = [
+   |       ^^^^^^^^^^^^^^
+
+warning: constant `EXAMPLE_FAMILIES` is never used
+  --> crates\hdd-xtask\src\ux_docs\errors.rs:97:7
+   |
+97 | const EXAMPLE_FAMILIES: [(&str, &[&str]); 9] = [
+   |       ^^^^^^^^^^^^^^^^
+
+warning: constant `CLASS_STATUSES` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:110:7
+    |
+110 | const CLASS_STATUSES: [(&str, &[u16]); 9] = [
+    |       ^^^^^^^^^^^^^^
+
+warning: constant `STATUS_CLASS` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:123:11
+    |
+123 | pub const STATUS_CLASS: [(&str, &str); 16] = [
+    |           ^^^^^^^^^^^^
+
+warning: constant `EXCEPTIONS` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:144:11
+    |
+144 | pub const EXCEPTIONS: [(&str, &str); 10] = [
+    |           ^^^^^^^^^^
+
+warning: constant `PATTERN_KEYS` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:158:7
+    |
+158 | const PATTERN_KEYS: [(&str, &[&str]); 5] = [
+    |       ^^^^^^^^^^^^
+
+warning: constant `SECTION_KEYS` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:167:7
+    |
+167 | const SECTION_KEYS: [(&str, &[&str]); 4] = [
+    |       ^^^^^^^^^^^^
+
+warning: constant `VISITOR_PAGES` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:196:11
+    |
+196 | pub const VISITOR_PAGES: [&str; 9] = [
+    |           ^^^^^^^^^^^^^
+
+warning: constant `REQUIRED_SECTIONS` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:202:7
+    |
+202 | const REQUIRED_SECTIONS: [&str; 15] = [
+    |       ^^^^^^^^^^^^^^^^^
+
+warning: constant `RULE_WORDS` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:221:7
+    |
+221 | const RULE_WORDS: [&str; 8] = [
+    |       ^^^^^^^^^^
+
+warning: constant `TRACE_WORDS` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:233:7
+    |
+233 | const TRACE_WORDS: [&str; 7] = [
+    |       ^^^^^^^^^^^
+
+warning: constant `INTERNAL_WORDS` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:244:7
+    |
+244 | const INTERNAL_WORDS: [&str; 9] = [
+    |       ^^^^^^^^^^^^^^
+
+warning: constant `BLAME_WORDS` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:257:7
+    |
+257 | const BLAME_WORDS: [&str; 5] = [
+    |       ^^^^^^^^^^^
+
+warning: constant `TENANT_WORDS` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:266:7
+    |
+266 | const TENANT_WORDS: [&str; 7] = [
+    |       ^^^^^^^^^^^^
+
+warning: constant `KEY_SHAPE` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:277:7
+    |
+277 | const KEY_SHAPE: &str = r"^[a-z0-9]+(-[a-z0-9]+)*$";
+    |       ^^^^^^^^^
+
+warning: fields `status`, `title`, `notes`, and `family` are never read
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:285:5
+    |
+283 | struct CatalogEntry {
+    |        ------------ fields in this struct
+284 |     /// HTTP status.
+285 |     status: u16,
+    |     ^^^^^^
+286 |     /// The `Title` cell.
+287 |     title: String,
+    |     ^^^^^
+288 |     /// The `Notes` cell.
+289 |     notes: String,
+    |     ^^^^^
+290 |     /// The `ERR-` family (`VAL`, `PERM`, `VISITOR`, ...).
+291 |     family: String,
+    |     ^^^^^^
+
+warning: struct `ClassRow` is never constructed
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:295:8
+    |
+295 | struct ClassRow {
+    |        ^^^^^^^^
+
+warning: struct `PageRow` is never constructed
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:313:8
+    |
+313 | struct PageRow {
+    |        ^^^^^^^
+
+warning: struct `RetryRow` is never constructed
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:333:8
+    |
+333 | struct RetryRow {
+    |        ^^^^^^^^
+
+warning: field `line` is never read
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:353:5
+    |
+351 | struct Message {
+    |        ------- field in this struct
+352 |     /// 1-based line number.
+353 |     line: usize,
+    |     ^^^^
+
+warning: function `has_token` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:366:4
+    |
+366 | fn has_token(text: &str, token: &str) -> bool {
+    |    ^^^^^^^^^
+
+warning: function `has_any` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:371:4
+    |
+371 | fn has_any(text: &str, tokens: &[&str]) -> bool {
+    |    ^^^^^^^
+
+warning: function `err_tokens` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:376:4
+    |
+376 | fn err_tokens(text: &str) -> Vec<String> {
+    |    ^^^^^^^^^^
+
+warning: function `key_tokens` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:388:4
+    |
+388 | fn key_tokens(cell: &str) -> Vec<String> {
+    |    ^^^^^^^^^^
+
+warning: function `classify` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:413:4
+    |
+413 | fn classify(code: &str, catalog: &BTreeMap<String, CatalogEntry>) -> Option<&'static str> {
+    |    ^^^^^^^^
+
+warning: function `status_class` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:422:4
+    |
+422 | fn status_class(status: u16) -> Option<&'static str> {
+    |    ^^^^^^^^^^^^
+
+warning: function `class_rows` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:675:4
+    |
+675 | fn class_rows(doc: &str) -> Vec<ClassRow> {
+    |    ^^^^^^^^^^
+
+warning: function `page_rows` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:724:4
+    |
+724 | fn page_rows(doc: &str) -> Vec<PageRow> {
+    |    ^^^^^^^^^
+
+warning: function `retry_rows` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:779:4
+    |
+779 | fn retry_rows(doc: &str) -> Vec<RetryRow> {
+    |    ^^^^^^^^^^
+
+warning: function `b6_cell_pair` is never used
+   --> crates\hdd-xtask\src\ux_docs\errors.rs:826:4
+    |
+826 | fn b6_cell_pair(cell: &str) -> Option<String> {
+    |    ^^^^^^^^^^^^
+
+warning: function `journey_error_codes` is never used
+    --> crates\hdd-xtask\src\ux_docs\errors.rs:1009:4
+     |
+1009 | fn journey_error_codes(journeys: &[(String, String)]) -> BTreeSet<String> {
+     |    ^^^^^^^^^^^^^^^^^^^
+
+warning: constant `RESPONSIVE` is never used
+  --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:67:11
+   |
+67 | pub const RESPONSIVE: &str = "docs/UX/RESPONSIVE.md";
+   |           ^^^^^^^^^^
+
+warning: constant `FTL_DIR` is never used
+  --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:71:11
+   |
+71 | pub const FTL_DIR: &str = "i18n/en";
+   |           ^^^^^^^
+
+warning: constant `DESIGN_DIR` is never used
+  --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:73:11
+   |
+73 | pub const DESIGN_DIR: &str = "design";
+   |           ^^^^^^^^^^
+
+warning: constant `SECTIONS` is never used
+  --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:76:11
+   |
+76 | pub const SECTIONS: [&str; 14] = [
+   |           ^^^^^^^^
+
+warning: constant `KEY_SHAPE` is never used
+  --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:94:11
+   |
+94 | pub const KEY_SHAPE: &str = r"^[a-z0-9]+(-[a-z0-9]+)+$";
+   |           ^^^^^^^^^
+
+warning: constant `MIN_KEY_EXAMPLES` is never used
+  --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:97:11
+   |
+97 | pub const MIN_KEY_EXAMPLES: usize = 10;
+   |           ^^^^^^^^^^^^^^^^
+
+warning: constant `MIN_LOGICAL_PROPERTIES` is never used
+  --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:99:11
+   |
+99 | pub const MIN_LOGICAL_PROPERTIES: usize = 10;
+   |           ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `MIN_ICON_ROLES` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:101:11
+    |
+101 | pub const MIN_ICON_ROLES: usize = 8;
+    |           ^^^^^^^^^^^^^^
+
+warning: constant `MIN_LOCALE_CRITERIA` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:103:11
+    |
+103 | pub const MIN_LOCALE_CRITERIA: usize = 5;
+    |           ^^^^^^^^^^^^^^^^^^^
+
+warning: constant `MIN_WORKFLOW_STEPS` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:105:11
+    |
+105 | pub const MIN_WORKFLOW_STEPS: usize = 5;
+    |           ^^^^^^^^^^^^^^^^^^
+
+warning: constant `MIN_TEST_ROWS` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:107:11
+    |
+107 | pub const MIN_TEST_ROWS: usize = 10;
+    |           ^^^^^^^^^^^^^
+
+warning: constant `LOGICAL_PROPERTIES` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:149:11
+    |
+149 | pub const LOGICAL_PROPERTIES: [(&str, &str); 20] = [
+    |           ^^^^^^^^^^^^^^^^^^
+
+warning: constant `BANNED_PHYSICAL` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:173:11
+    |
+173 | pub const BANNED_PHYSICAL: [&str; 8] = [
+    |           ^^^^^^^^^^^^^^^
+
+warning: constant `AREA_FILES` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:186:11
+    |
+186 | pub const AREA_FILES: [&str; 7] = [
+    |           ^^^^^^^^^^
+
+warning: constant `NO_ICONS_MARKER` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:191:11
+    |
+191 | pub const NO_ICONS_MARKER: &str = "no icon inventory exists yet";
+    |           ^^^^^^^^^^^^^^^
+
+warning: function `at` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:211:4
+    |
+211 | fn at(location: impl Into<String>, message: impl Into<String>) -> Finding {
+    |    ^^
+
+warning: function `is_token_char` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:216:4
+    |
+216 | fn is_token_char(c: char) -> bool {
+    |    ^^^^^^^^^^^^^
+
+warning: function `has_token` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:221:4
+    |
+221 | fn has_token(text: &str, token: &str) -> bool {
+    |    ^^^^^^^^^
+
+warning: function `section_lines` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:237:4
+    |
+237 | fn section_lines(doc: &str, title: &str) -> Option<Vec<(usize, String)>> {
+    |    ^^^^^^^^^^^^^
+
+warning: function `section_text` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:242:4
+    |
+242 | fn section_text(doc: &str, title: &str) -> Option<String> {
+    |    ^^^^^^^^^^^^
+
+warning: function `section_tables` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:253:4
+    |
+253 | fn section_tables(doc: &str, title: &str) -> Vec<MdTable> {
+    |    ^^^^^^^^^^^^^^
+
+warning: function `first_table` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:258:4
+    |
+258 | fn first_table(doc: &str, title: &str) -> Option<MdTable> {
+    |    ^^^^^^^^^^^
+
+warning: function `require_column` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:263:4
+    |
+263 | fn require_column(header: &[String], name: &str, location: &str) -> Result<usize, Finding> {
+    |    ^^^^^^^^^^^^^^
+
+warning: function `cell` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:273:4
+    |
+273 | fn cell<'a>(row: &'a (usize, Vec<String>), index: usize) -> (usize, &'a str) {
+    |    ^^^^
+
+warning: function `bare` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:318:4
+    |
+318 | fn bare(cell: &str) -> String {
+    |    ^^^^
+
+warning: function `lower` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:323:4
+    |
+323 | fn lower(text: &str) -> String {
+    |    ^^^^^
+
+warning: function `mentions` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:328:4
+    |
+328 | fn mentions(text: &str, needle: &str) -> bool {
+    |    ^^^^^^^^
+
+warning: function `logical_pairs` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:333:4
+    |
+333 | fn logical_pairs() -> &'static [(&'static str, &'static str)] {
+    |    ^^^^^^^^^^^^^
+
+warning: function `profile_locales` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:415:4
+    |
+415 | fn profile_locales(profile: &str) -> Option<Vec<String>> {
+    |    ^^^^^^^^^^^^^^^
+
+warning: function `valid_locale_tag` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:436:4
+    |
+436 | fn valid_locale_tag(tag: &str) -> bool {
+    |    ^^^^^^^^^^^^^^^^
+
+warning: function `responsive_viewports` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:444:4
+    |
+444 | fn responsive_viewports(responsive: &str) -> Vec<String> {
+    |    ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `responsive_print_margin` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:462:4
+    |
+462 | fn responsive_print_margin(responsive: &str) -> Option<u32> {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `millimetres` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:470:4
+    |
+470 | fn millimetres(text: &str) -> Vec<u32> {
+    |    ^^^^^^^^^^^
+
+warning: function `design_icons` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:488:4
+    |
+488 | fn design_icons(root: &Path) -> Vec<String> {
+    |    ^^^^^^^^^^^^
+
+warning: function `backticked` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:515:4
+    |
+515 | fn backticked(text: &str) -> Vec<String> {
+    |    ^^^^^^^^^^
+
+warning: function `accessibility_language_owners` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:534:4
+    |
+534 | fn accessibility_language_owners(accessibility: &str) -> (Option<String>, Vec<String>) {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `activation_emails` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:566:4
+    |
+566 | fn activation_emails(onboarding: &str) -> Vec<String> {
+    |    ^^^^^^^^^^^^^^^^^
+
+warning: function `content_format_examples` is never used
+   --> crates\hdd-xtask\src\ux_docs\i18n_plan.rs:582:4
+    |
+582 | fn content_format_examples(content: &str) -> Vec<(String, String)> {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 75 warnings (run `cargo fix --bin "hdd-xtask" -p hdd-xtask 
+--tests` to apply 4 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.31s
+────────────
+ Nextest run ID aa89e2f4-c538-4667-9540-2aea6a85d9e5 with nextest profile: default
+    Starting 19 tests across 1 binary (475 tests skipped)
+        FAIL [   0.014s] ( 1/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_email_localization_covers_the_activation_emails
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_email_localization_covers_the_activation_emails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_email_localization_covers_the_activation_emails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 493 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_email_localization_covers_the_activation_emails' (23592) panicked at 
+crates\hdd-xtask\src\ux_docs\i18n_plan.rs:1482:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.019s] ( 2/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_formatting_agrees_with_the_content_strategy
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_formatting_agrees_with_the_content_strategy ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_formatting_agrees_with_the_content_strategy
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 493 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_formatting_agrees_with_the_content_strategy' (424) panicked at 
+crates\hdd-xtask\src\ux_docs\i18n_plan.rs:1443:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.026s] ( 3/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_file_layout_lists_exactly_the_existing_files
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_file_layout_lists_exactly_the_existing_files ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_file_layout_lists_exactly_the_existing_files
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 493 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_file_layout_lists_exactly_the_existing_files' (7140) panicked at 
+crates\hdd-xtask\src\ux_docs\i18n_plan.rs:1269:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.033s] ( 4/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_key_examples_are_real_keys_with_real_values
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_key_examples_are_real_keys_with_real_values ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_key_examples_are_real_keys_with_real_values
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 493 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_key_examples_are_real_keys_with_real_values' (35548) panicked at 
+crates\hdd-xtask\src\ux_docs\i18n_plan.rs:1209:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.046s] ( 5/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_a_key_defined_in_two_files_is_a_finding
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_a_key_defined_in_two_files_is_a_finding ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_a_key_defined_in_two_files_is_a_finding
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 493 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_a_key_defined_in_two_files_is_a_finding' (32752) panicked at 
+crates\hdd-xtask\src\ux_docs\i18n_plan.rs:1314:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.058s] ( 6/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_pseudo_examples_are_evaluated_by_the_reference_transform
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_pseudo_examples_are_evaluated_by_the_reference_transform ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_pseudo_examples_are_evaluated_by_the_reference_transform
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 493 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_pseudo_examples_are_evaluated_by_the_reference_transform' (11580) panicked 
+at crates\hdd-xtask\src\ux_docs\i18n_plan.rs:1330:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.066s] ( 7/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_required_sections_are_present_and_ordered
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_required_sections_are_present_and_ordered ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_required_sections_are_present_and_ordered
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 493 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_required_sections_are_present_and_ordered' (16716) panicked at 
+crates\hdd-xtask\src\ux_docs\i18n_plan.rs:1186:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.071s] ( 8/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_fallback_chain_and_missing_key_behaviour_are_stated
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_fallback_chain_and_missing_key_behaviour_are_stated ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_fallback_chain_and_missing_key_behaviour_are_stated
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 493 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_fallback_chain_and_missing_key_behaviour_are_stated' (29888) panicked at 
+crates\hdd-xtask\src\ux_docs\i18n_plan.rs:1290:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.080s] ( 9/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_malformed_input_is_a_finding_not_a_panic
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_malformed_input_is_a_finding_not_a_panic ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_malformed_input_is_a_finding_not_a_panic
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 493 filtered out; finished in 0.03s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_malformed_input_is_a_finding_not_a_panic' (8300) panicked at 
+crates\hdd-xtask\src\ux_docs\i18n_plan.rs:1580:9:
+    a malformed tree must produce findings
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.081s] (10/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_a_complete_fixture_tree_passes_and_a_missing_document_is_named
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_a_complete_fixture_tree_passes_and_a_missing_document_is_named ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_a_complete_fixture_tree_passes_and_a_missing_document_is_named
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 493 filtered out; finished in 0.04s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_a_complete_fixture_tree_passes_and_a_missing_document_is_named' (31972) 
+panicked at crates\hdd-xtask\src\ux_docs\i18n_plan.rs:1570:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.081s] (11/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_key_naming_convention_is_stated
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_key_naming_convention_is_stated ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_key_naming_convention_is_stated
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 493 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_key_naming_convention_is_stated' (25920) panicked at 
+crates\hdd-xtask\src\ux_docs\i18n_plan.rs:1250:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.087s] (12/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_launch_locales_equal_the_profile_locales_key
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_launch_locales_equal_the_profile_locales_key ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_launch_locales_equal_the_profile_locales_key
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 493 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_launch_locales_equal_the_profile_locales_key' (31432) panicked at 
+crates\hdd-xtask\src\ux_docs\i18n_plan.rs:1525:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.093s] (13/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_not_translated_list_matches_the_spec_formats
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_not_translated_list_matches_the_spec_formats ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_not_translated_list_matches_the_spec_formats
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 493 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_not_translated_list_matches_the_spec_formats' (24800) panicked at 
+crates\hdd-xtask\src\ux_docs\i18n_plan.rs:1462:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.099s] (14/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_pseudo_transform_matches_the_fixture_examples
+        FAIL [   0.113s] (15/19) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_negotiation_order_and_headers
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_negotiation_order_and_headers ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_negotiation_order_and_headers
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 493 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_negotiation_order_and_headers' (28552) panicked at 
+crates\hdd-xtask\src\ux_docs\i18n_plan.rs:1420:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.107s] (16/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_test_strategy_covers_overflow_missing_keys_and_plurals
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_test_strategy_covers_overflow_missing_keys_and_plurals ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_test_strategy_covers_overflow_missing_keys_and_plurals
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 493 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_test_strategy_covers_overflow_missing_keys_and_plurals' (32108) panicked at 
+crates\hdd-xtask\src\ux_docs\i18n_plan.rs:1550:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.130s] (17/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_rtl_icon_table_is_honest_about_the_missing_inventory
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_rtl_icon_table_is_honest_about_the_missing_inventory ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_rtl_icon_table_is_honest_about_the_missing_inventory
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 493 filtered out; finished in 0.03s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_rtl_icon_table_is_honest_about_the_missing_inventory' (25636) panicked at 
+crates\hdd-xtask\src\ux_docs\i18n_plan.rs:1398:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.117s] (18/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_rtl_readiness_lists_real_properties_and_handles_dir
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_rtl_readiness_lists_real_properties_and_handles_dir ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_rtl_readiness_lists_real_properties_and_handles_dir
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 493 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_rtl_readiness_lists_real_properties_and_handles_dir' (31236) panicked at 
+crates\hdd-xtask\src\ux_docs\i18n_plan.rs:1371:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.108s] (19/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_translator_workflow_needs_no_external_service
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_translator_workflow_needs_no_external_service ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_translator_workflow_needs_no_external_service
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 493 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_translator_workflow_needs_no_external_service' (30672) panicked at 
+crates\hdd-xtask\src\ux_docs\i18n_plan.rs:1502:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   0.137s] 19 tests run: 1 passed, 18 failed, 475 skipped
+        FAIL [   0.014s] ( 1/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_email_localization_covers_the_activation_emails
+        FAIL [   0.019s] ( 2/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_formatting_agrees_with_the_content_strategy
+        FAIL [   0.026s] ( 3/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_file_layout_lists_exactly_the_existing_files
+        FAIL [   0.033s] ( 4/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_key_examples_are_real_keys_with_real_values
+        FAIL [   0.046s] ( 5/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_a_key_defined_in_two_files_is_a_finding
+        FAIL [   0.058s] ( 6/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_pseudo_examples_are_evaluated_by_the_reference_transform
+        FAIL [   0.066s] ( 7/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_required_sections_are_present_and_ordered
+        FAIL [   0.071s] ( 8/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_fallback_chain_and_missing_key_behaviour_are_stated
+        FAIL [   0.080s] ( 9/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_malformed_input_is_a_finding_not_a_panic
+        FAIL [   0.081s] (10/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_a_complete_fixture_tree_passes_and_a_missing_document_is_named
+        FAIL [   0.081s] (11/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_key_naming_convention_is_stated
+        FAIL [   0.087s] (12/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_launch_locales_equal_the_profile_locales_key
+        FAIL [   0.093s] (13/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_not_translated_list_matches_the_spec_formats
+        FAIL [   0.113s] (15/19) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_negotiation_order_and_headers
+        FAIL [   0.107s] (16/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_test_strategy_covers_overflow_missing_keys_and_plurals
+        FAIL [   0.130s] (17/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_rtl_icon_table_is_honest_about_the_missing_inventory
+        FAIL [   0.117s] (18/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_rtl_readiness_lists_real_properties_and_handles_dir
+        FAIL [   0.108s] (19/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::i18n_plan::tests::t23_translator_workflow_needs_no_external_service
+error: test run failed

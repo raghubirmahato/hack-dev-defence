@@ -1,0 +1,54 @@
+# T-0016 negative demonstrations: each mutation of a shipped journey map or docs/UX/spec-patches.md must make 'cargo xtask ux-docs' FAIL; every file is restored after each step and its SHA-256 compared.
+# Date: 2026-10-19. Only J-01 to J-06 are delivered in this pass (the assignment permits the split).
+
+## 1. a spec-mentioned screen removed from J-02 (S-035)
+[ux-docs] docs/UX/journeys/J-02.md: the spec text mentions `S-035` but the journey's Screen column and `Missing screens` do not (T-0016)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 2. a bad ERR code in J-02 (ERR-NOPE-999)
+[ux-docs] docs/UX/journeys/J-02.md:11: `ERR-NOPE-999` is not a code of the B7 error catalog (A3)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 3. a bad ATK id in J-03 (ATK-999)
+[ux-docs] docs/UX/journeys/J-03.md:31: `ATK-999` is not an id of the C5 attack matrix (A4)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 4. a seven-step table in J-05 (step 8 removed)
+[ux-docs] docs/UX/journeys/J-05.md: the steps table has 7 rows; at least 8 are required (A1)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 5. a changed title in J-04
+[ux-docs] docs/UX/journeys/J-04.md: the title `# J-04 Login` differs from the spec title `# J-04 Returning user logs in`
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 6. a changed persona link in J-06 (Omar removed)
+[ux-docs] docs/UX/journeys/J-06.md: the persona links (alex, dan, sara) differ from the persona-journey matrix row (alex, dan, omar, sara)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 7. a screen missing from spec-patches in J-01 (S-150)
+[ux-docs] docs/UX/journeys/J-01.md:15: screen `S-150` is not in B12.1 and is not listed in spec-patches.md (A5)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 8. a patch for an existing screen (S-041 in spec-patches)
+[ux-docs] docs/UX/spec-patches.md:9: `S-041` already exists in B12.1, so it cannot be proposed (A5)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## restored files
+ux-docs: PASS
+(exit 0)
+docs/UX/journeys/J-01.md SHA-256: EA6C76C593E4784C7AD2C4A28D74E7A8D9E09392D3A708B3F478C3D0F1A4BE59 -> EA6C76C593E4784C7AD2C4A28D74E7A8D9E09392D3A708B3F478C3D0F1A4BE59
+docs/UX/journeys/J-02.md SHA-256: A312D76371C761390D7683154272A4901BC0E8489DFC920C55D63CD62248F405 -> A312D76371C761390D7683154272A4901BC0E8489DFC920C55D63CD62248F405
+docs/UX/journeys/J-03.md SHA-256: 1F8A0A8A25D229570DD22FDDD6D116394D011AFB9915C156C1F721DE6907F6F8 -> 1F8A0A8A25D229570DD22FDDD6D116394D011AFB9915C156C1F721DE6907F6F8
+docs/UX/journeys/J-04.md SHA-256: ACA0DF9970D7BE050B0B42E6E93A86CF72C88948B6C8DF76E671D2497E779BD6 -> ACA0DF9970D7BE050B0B42E6E93A86CF72C88948B6C8DF76E671D2497E779BD6
+docs/UX/journeys/J-05.md SHA-256: F21132A9514EFDCCBCD7005D38A1AD999DDE272111ACEF806D3E23980D4FA8CB -> F21132A9514EFDCCBCD7005D38A1AD999DDE272111ACEF806D3E23980D4FA8CB
+docs/UX/journeys/J-06.md SHA-256: 557A4F76C415FE3290DEC91941BAF387545EF3F95ACADDABF30D1E099DDA77D9 -> 557A4F76C415FE3290DEC91941BAF387545EF3F95ACADDABF30D1E099DDA77D9
+docs/UX/spec-patches.md SHA-256: A8635F8F90D19C0575F92961CFC17A3E7350710613FB749129877559668ABF0A -> A8635F8F90D19C0575F92961CFC17A3E7350710613FB749129877559668ABF0A
+all hashes equal: True

@@ -1,0 +1,256 @@
+# Dependency vetting register (R-08, T-0008 step 5). Read by `cargo xtask deps check` (step `dependency-vetting` of verify).
+#
+# Every external crate declared in a workspace manifest needs one entry. Facts (version, licence, MSRV, last release) are read
+# from the registry (`cargo metadata` + the crates.io API) on the vetting date and never asserted from memory.
+# A crate that wraps C/C++ (`ffi`), exposes `unsafe` in its public API (`unsafe_api`), or whose latest release is older than
+# 365 days additionally needs an ADR (`adr = "NNNN"`) that exists in docs/adr/.
+#
+# Tools installed on the builder (not dependencies of the workspace), vetted 2026-10-18 from the registry:
+#   tokei 15.0.0 (MIT OR Apache-2.0, last release 2026-09-06), cargo-vet 0.10.2 (Apache-2.0/MIT, 2026-01-13),
+#   cargo-geiger 0.14.0 (MIT OR Apache-2.0, 2026-10-12), cargo-nextest 0.9.148, cargo-deny 0.20.2, cargo-audit, cargo-machete.
+
+[[crate]]
+name = "clap"
+version = "4.6.7"
+license = "MIT OR Apache-2.0"
+msrv = "1.85"
+last_release = "2026-09-14"
+vetted_on = "2026-10-18"
+note = "CLI parsing for xtask; derive API fits the subcommand tree. Maintained (clap-rs), widely used."
+
+[[crate]]
+name = "argon2"
+version = "0.6.0"
+license = "MIT OR Apache-2.0"
+msrv = "1.85"
+last_release = "2026-08-27"
+vetted_on = "2026-10-23"
+note = "Argon2id password hashing for the HK1 account store (Addendum 2): pure Rust (RustCrypto), no FFI or unsafe API in the public interface, default features add `password-hash` with a random salt from `getrandom`; released and maintained. Used only by `hdd-proxy`, never on the data path."
+
+[[crate]]
+name = "regex"
+version = "1.13.1"
+license = "MIT OR Apache-2.0"
+msrv = "1.65"
+last_release = "2026-07-15"
+vetted_on = "2026-10-18"
+note = "Linear-time regex for the spec parser, linters and scanners; no backtracking, so safe on hostile input."
+
+[[crate]]
+name = "serde"
+version = "1.0.229"
+license = "MIT OR Apache-2.0"
+msrv = "1.56"
+last_release = "2026-07-18"
+vetted_on = "2026-10-18"
+note = "Derive-based deserialization of the TOML configuration files."
+
+[[crate]]
+name = "serde_json"
+version = "1.0.154"
+license = "MIT OR Apache-2.0"
+msrv = "1.71"
+last_release = "2026-10-11"
+vetted_on = "2026-10-18"
+note = "Reads tokei JSON output and writes verify summaries."
+
+[[crate]]
+name = "sha2"
+version = "0.11.1"
+license = "MIT OR Apache-2.0"
+msrv = "1.88"
+last_release = "2026-10-12"
+vetted_on = "2026-10-18"
+note = "SHA-256 for spec checksums and evidence hashes (RustCrypto)."
+
+[[crate]]
+name = "toml"
+version = "1.1.8+spec-1.1.0"
+license = "MIT OR Apache-2.0"
+msrv = "1.85"
+last_release = "2026-10-09"
+vetted_on = "2026-10-18"
+note = "Parses docs/*.toml configuration; strict deserialization."
+
+[[crate]]
+name = "getrandom"
+version = "0.4.3"
+license = "MIT OR Apache-2.0"
+msrv = "1.85"
+last_release = "2026-06-17"
+vetted_on = "2026-10-18"
+note = "OS random source for gen-secrets (no userspace PRNG; one small API)."
+
+
+[[crate]]
+name = "serde-saphyr"
+version = "2.0.0"
+license = "MIT OR Apache-2.0"
+msrv = "1.89"
+last_release = "2026-10-13"
+vetted_on = "2026-10-18"
+note = "YAML parser for hdd.live.yaml (ADR-0002): safe Rust (forbid(unsafe_code)), parsing budgets (events, depth, aliases, anchors, merge keys), duplicate-key policy; read into a generic value then typed."
+
+[[crate]]
+name = "schemars"
+version = "1.2.3"
+license = "MIT"
+msrv = "1.74"
+last_release = "2026-10-12"
+vetted_on = "2026-10-18"
+note = "JSON Schema generation for the profile (docs/profile.schema.json); doc comments become descriptions; output is deterministic."
+
+[[crate]]
+name = "serde_path_to_error"
+version = "0.1.20"
+license = "MIT OR Apache-2.0"
+msrv = "1.61"
+last_release = "2025-09-15"
+vetted_on = "2026-10-18"
+note = "Reports the full key path of a deserialization error (ADR-0026); finished crate, no release in over a year."
+adr = "0026"
+
+[[crate]]
+name = "proptest"
+version = "1.12.0"
+license = "MIT OR Apache-2.0"
+msrv = "1.88"
+last_release = "2026-10-10"
+vetted_on = "2026-10-18"
+note = "Property tests for CIDR, host name, allowlist and profile parsing (never panic); dev-dependency only."
+
+
+[[crate]]
+name = "tokio"
+version = "1.53.3"
+license = "MIT"
+msrv = "1.71"
+last_release = "2026-10-13"
+vetted_on = "2026-10-18"
+note = "Async runtime for the egress client, kill-switch poller and tests; the workspace standard (section 6)."
+
+[[crate]]
+name = "hyper"
+version = "1.12.0"
+license = "MIT"
+msrv = "1.63"
+last_release = "2026-10-06"
+vetted_on = "2026-10-18"
+note = "HTTP/1.1 client connection (hyper::client::conn::http1) over our own pinned, validated sockets; no hyper Client pool."
+
+[[crate]]
+name = "hyper-util"
+version = "0.1.21"
+license = "MIT"
+msrv = "1.85"
+last_release = "2026-09-24"
+vetted_on = "2026-10-18"
+note = "Only the TokioIo adapter between tokio sockets and hyper's I/O traits."
+
+[[crate]]
+name = "http"
+version = "1.5.0"
+license = "MIT OR Apache-2.0"
+msrv = "1.57.0"
+last_release = "2026-07-29"
+vetted_on = "2026-10-18"
+note = "HTTP types (Method, StatusCode, headers) shared with hyper."
+
+[[crate]]
+name = "http-body-util"
+version = "0.1.5"
+license = "MIT"
+msrv = "1.61"
+last_release = "2026-08-12"
+vetted_on = "2026-10-18"
+note = "Bounded collection of response bodies (size cap enforced while reading)."
+
+[[crate]]
+name = "rustls"
+version = "0.23.46"
+license = "Apache-2.0 OR ISC OR MIT"
+msrv = "1.71"
+last_release = "2026-10-14"
+vetted_on = "2026-10-18"
+note = "TLS for the egress client with certificate verification always on; ring provider (provisional, ADR-0001)."
+ffi = true
+adr = "0001"
+
+[[crate]]
+name = "tokio-rustls"
+version = "0.26.6"
+license = "MIT OR Apache-2.0"
+msrv = "1.71"
+last_release = "2026-09-28"
+vetted_on = "2026-10-18"
+note = "Async TLS stream over the pinned TCP connection; ring provider (provisional, ADR-0001)."
+ffi = true
+adr = "0001"
+
+[[crate]]
+name = "rustls-native-certs"
+version = "0.8.5"
+license = "Apache-2.0 OR ISC OR MIT"
+msrv = "1.71"
+last_release = "2026-10-13"
+vetted_on = "2026-10-18"
+note = "Loads the operating system trust roots, so the builder and hosted server trust what the OS trusts; avoids baking a root list with a non-permissive data licence."
+
+[[crate]]
+name = "rcgen"
+version = "0.14.10"
+license = "MIT OR Apache-2.0"
+msrv = "1.88"
+last_release = "2026-08-28"
+vetted_on = "2026-10-18"
+note = "Dev-dependency: generates throwaway CAs and leaf certificates for local TLS test servers; never used for a customer domain (section 6)."
+ffi = true
+adr = "0001"
+
+[[crate]]
+name = "bytes"
+version = "1.12.1"
+license = "MIT"
+msrv = "1.57"
+last_release = "2026-07-08"
+vetted_on = "2026-10-18"
+note = "Byte buffer type of the hyper request and body APIs (Bytes::copy_from_slice); already in the graph through hyper."
+
+
+[[crate]]
+name = "redis"
+version = "1.7.1"
+license = "BSD-3-Clause"
+msrv = "1.88"
+last_release = "2026-09-25"
+vetted_on = "2026-10-19"
+note = "Hosted backend of the store traits (T-0562, ADR-0028). redis-rs: maintained (push 2026-10-17), BSD-3-Clause, MSRV 1.88; its Script API handles EVALSHA and NOSCRIPT; ConnectionManager reconnects; RESP3 push messages feed the bus; rustls without a bundled provider, so it uses the ring provider pinned by ADR-0001. fred was rejected: no push to its repository since 2025-02-27."
+
+
+[[crate]]
+name = "flate2"
+version = "1.1.10"
+license = "MIT OR Apache-2.0"
+msrv = "1.67.0"
+last_release = "2026-08-28"
+vetted_on = "2026-10-19"
+note = "gzip decoding of the pinned PostgreSQL archive (T-0563, ADR-0029). Pure-Rust backend (miniz_oxide, no C), maintained by the Rust project's libs team; no unsafe API used by HDD."
+
+[[crate]]
+name = "tar"
+version = "0.4.46"
+license = "MIT OR Apache-2.0"
+msrv = "1.63"
+last_release = "2026-05-18"
+vetted_on = "2026-10-19"
+note = "Safe extraction of the pinned PostgreSQL archive (T-0563, ADR-0029): default features off (no xattr); every entry is checked by HDD before unpack_in, which itself refuses paths outside the destination."
+
+[[crate]]
+name = "chacha20poly1305"
+version = "0.11.0"
+license = "Apache-2.0 OR MIT"
+msrv = "1.85"
+last_release = "2026-08-05"
+vetted_on = "2026-10-19"
+note = "ChaCha20-Poly1305 for encrypted logical backups (T-0563). RustCrypto AEAD, pure Rust, audited by NCC Group (per its README); keys come from a 0600 file and never from the command line."
+

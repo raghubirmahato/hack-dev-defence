@@ -1,0 +1,58 @@
+# T-0563 real run on the Windows builder, 2026-10-19 (the operator approved the download in chat; this run uses the cached archive via --bundle, after the review fixes)
+
+## the pinned digest and the archive
+triple = "x86_64-pc-windows-msvc"
+file = "postgresql-17.11.1-x86_64-pc-windows-msvc.tar.gz"
+sha256 = "9855f1b2a9acf127e148fbdd929ef118bfe2fc095c9358a7da74bdc02cedfc27"
+size = 48321881
+
+archive file: 9855f1b2a9acf127e148fbdd929ef118bfe2fc095c9358a7da74bdc02cedfc27  48321881 bytes
+
+## db status
+PostgreSQL 17.11.1 (embedded)
+  data directory: D:\Hack Dev Defence\target\hdd-db
+  installed: true
+  initialized: true
+  running: yes, 127.0.0.1:54320
+  accepting connections: true
+  hdd_embedded_db_up: 1
+
+## listeners: the database port is bound to 127.0.0.1 only
+  TCP    127.0.0.1:54320        0.0.0.0:0              LISTENING       23644
+
+## owner-only data directory, cache and secrets (icacls)
+target/hdd-db HACKDEV\Raghu:(OI)(CI)(F) 
+target/hdd-db/cache HACKDEV\Raghu:(OI)(CI)(F) 
+target/hdd-db/postgres HACKDEV\Raghu:(OI)(CI)(F) 
+target/hdd-db/secrets/pg_admin.pw HACKDEV\Raghu:(F) 
+target/hdd-db/secrets/hdd_owner.url HACKDEV\Raghu:(F) 
+target/hdd-db/secrets/backup.key HACKDEV\Raghu:(F) 
+
+## pg_hba.conf rules
+host    all       all   127.0.0.1/32   scram-sha-256
+host    all       all   ::1/128        scram-sha-256
+
+## managed settings
+# >>> hdd managed settings (rewritten at every start; edit nothing between the markers)
+listen_addresses = '127.0.0.1'
+port = 54320
+max_connections = 100
+password_encryption = 'scram-sha-256'
+ssl = off
+fsync = on
+synchronous_commit = on
+full_page_writes = on
+shared_buffers = 2048MB
+effective_cache_size = 7804MB
+work_mem = 4MB
+logging_collector = on
+log_directory = 'D:/Hack Dev Defence/target/hdd-db/logs'
+log_filename = 'postgres-%a.log'
+log_truncate_on_rotation = on
+log_rotation_age = 1d
+log_min_messages = warning
+log_connections = off
+# <<< hdd managed settings
+
+## lock file present while idle but not held: a second 'db up' works
+db up: 127.0.0.1:54320 (installed: false, initialized: false, started: false); connection URL file: D:\Hack Dev Defence\

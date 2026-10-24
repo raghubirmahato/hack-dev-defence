@@ -1,0 +1,11 @@
+rustc 1.98.1 (48a229cea 2026-09-01)
+cargo 1.98.1 (797e8a9bc 2026-08-05)
+cargo-nextest 0.9.148 (cd1d6d546 2026-10-07)
+cargo-deny 0.20.2
+cargo-audit-audit 0.22.2
+cargo-vet 0.10.2
+0.9.2
+tokei 15.0.0 compiled with serialization support: json
+cargo-geiger 0.14.0
+git version 2.56.0.windows.1
+MINGW64_NT-10.0-26300 HackDev 3.6.10-5a1665c8.x86_64 2026-09-28 10:40 UTC x86_64 Msys

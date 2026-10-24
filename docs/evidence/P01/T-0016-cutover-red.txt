@@ -1,0 +1,100 @@
+   Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.43s
+────────────
+ Nextest run ID 4bd1e542-1b00-42dd-a1b9-8c036b55995c with nextest profile: default
+    Starting 4 tests across 1 binary (220 tests skipped)
+        FAIL [   0.158s] (1/4) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_cutover_safety_is_required_for_j08_and_j09
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t16_cutover_safety_is_required_for_j08_and_j09 ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t16_cutover_safety_is_required_for_j08_and_j09
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 223 filtered out; finished in 0.14s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t16_cutover_safety_is_required_for_j08_and_j09' (7696) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:2968:5:
+    [ux-docs] docs/UX/journeys/J-08.md:35: `ATK-225` is not an id of the C5 attack matrix (A4)
+    [ux-docs] docs/UX/journeys/J-08.md:36: `ATK-225` is not an id of the C5 attack matrix (A4)
+    [ux-docs] docs/UX/journeys/J-08.md: `AUD-domain.activated` is not an audit event of spec B8 (T-0016)
+    [ux-docs] docs/UX/journeys/J-08.md: `AUD-domain.created` is not an audit event of spec B8 (T-0016)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.175s] (2/4) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_cutover_row_is_needed_per_dns_step
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t16_cutover_row_is_needed_per_dns_step ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t16_cutover_row_is_needed_per_dns_step
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 223 filtered out; finished in 0.16s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t16_cutover_row_is_needed_per_dns_step' (23440) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:3008:5:
+    [ux-docs] docs/UX/journeys/J-08.md:35: `ATK-225` is not an id of the C5 attack matrix (A4)
+    [ux-docs] docs/UX/journeys/J-08.md:36: `ATK-225` is not an id of the C5 attack matrix (A4)
+    [ux-docs] docs/UX/journeys/J-08.md: `AUD-domain.activated` is not an audit event of spec B8 (T-0016)
+    [ux-docs] docs/UX/journeys/J-08.md: `AUD-domain.created` is not an audit event of spec B8 (T-0016)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.191s] (3/4) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_cutover_guard_and_undo_need_a_control
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t16_cutover_guard_and_undo_need_a_control ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t16_cutover_guard_and_undo_need_a_control
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 223 filtered out; finished in 0.15s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t16_cutover_guard_and_undo_need_a_control' (32784) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:2991:5:
+    [ux-docs] docs/UX/journeys/J-08.md:35: `ATK-225` is not an id of the C5 attack matrix (A4)
+    [ux-docs] docs/UX/journeys/J-08.md:36: `ATK-225` is not an id of the C5 attack matrix (A4)
+    [ux-docs] docs/UX/journeys/J-08.md: `AUD-domain.activated` is not an audit event of spec B8 (T-0016)
+    [ux-docs] docs/UX/journeys/J-08.md: `AUD-domain.created` is not an audit event of spec B8 (T-0016)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.204s] (4/4) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_cutover_needs_four_non_empty_rows
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t16_cutover_needs_four_non_empty_rows ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t16_cutover_needs_four_non_empty_rows
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 223 filtered out; finished in 0.17s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t16_cutover_needs_four_non_empty_rows' (27556) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:2981:5:
+    [ux-docs] docs/UX/journeys/J-08.md:35: `ATK-225` is not an id of the C5 attack matrix (A4)
+    [ux-docs] docs/UX/journeys/J-08.md:36: `ATK-225` is not an id of the C5 attack matrix (A4)
+    [ux-docs] docs/UX/journeys/J-08.md: `AUD-domain.activated` is not an audit event of spec B8 (T-0016)
+    [ux-docs] docs/UX/journeys/J-08.md: `AUD-domain.created` is not an audit event of spec B8 (T-0016)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   0.205s] 4 tests run: 0 passed, 4 failed, 220 skipped
+        FAIL [   0.158s] (1/4) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_cutover_safety_is_required_for_j08_and_j09
+        FAIL [   0.175s] (2/4) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_cutover_row_is_needed_per_dns_step
+        FAIL [   0.191s] (3/4) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_cutover_guard_and_undo_need_a_control
+        FAIL [   0.204s] (4/4) hdd-xtask::bin/hdd-xtask ux_docs::tests::t16_cutover_needs_four_non_empty_rows
+error: test run failed

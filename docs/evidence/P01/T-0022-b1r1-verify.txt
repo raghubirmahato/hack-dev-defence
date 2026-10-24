@@ -1,0 +1,54 @@
+T-0022 batch B1 round 1 fix F-25/F-26: post-implementation verification (real output).
+Date: 2026-10-20. Working tree; no commit. Captured with cmd redirection so no PowerShell error-record noise.
+
+## cargo nextest run -p hdd-xtask ux_docs::a11y --no-fail-fast
+Command: cargo nextest run -p hdd-xtask ux_docs::a11y --no-fail-fast
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.20s
+────────────
+ Nextest run ID 08739ab8-35aa-483e-b404-9a7be011302a with nextest profile: default
+    Starting 46 tests across 1 binary (396 tests skipped)
+────────────
+     Summary [   0.667s] 46 tests run: 46 passed, 396 skipped
+exit=0
+
+## cargo nextest run -p hdd-xtask ux_docs (whole shared module family)
+Command: cargo nextest run -p hdd-xtask ux_docs --no-fail-fast
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.20s
+────────────
+ Nextest run ID ae89cb5c-d9e8-410c-82a2-834b95143808 with nextest profile: default
+    Starting 344 tests across 1 binary (98 tests skipped)
+────────────
+     Summary [  34.861s] 344 tests run: 344 passed, 98 skipped
+exit=0
+
+## cargo nextest run -p hdd-xtask ux_docs::tests::a_complete_tree (wired fixture tree)
+Command: cargo nextest run -p hdd-xtask ux_docs::tests::a_complete_tree --no-fail-fast
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.18s
+────────────
+ Nextest run ID 026e211b-b8ed-4fa9-8456-bfb59c6e3f74 with nextest profile: default
+    Starting 1 test across 1 binary (441 tests skipped)
+────────────
+     Summary [  20.797s] 1 test run: 1 passed, 441 skipped
+exit=0
+
+## cargo fmt --all --check
+Command: cargo fmt --all --check
+exit=0
+
+## cargo clippy -p hdd-xtask --all-targets -- -D warnings
+Command: cargo clippy -p hdd-xtask --all-targets -- -D warnings
+    Checking hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.66s
+exit=0
+
+## cargo xtask ux-docs
+Command: cargo xtask ux-docs
+ux-docs: PASS
+exit=0
+
+## cargo xtask claims-lint
+Command: cargo xtask claims-lint
+claims-lint: scanned 267 files with 34 phrases and 1 context rules
+claims-lint: PASS
+exit=0
+

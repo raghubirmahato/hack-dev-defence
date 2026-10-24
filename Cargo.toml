@@ -1,0 +1,65 @@
+[workspace]
+resolver = "2"
+members = ["crates/*", "lab/vulnlab"]
+exclude = ["crates/hdd-xdp-ebpf"]
+# The Vuln-Lab (lab/vulnlab) is deliberately absent from default-members: it must never be built by a
+# plain `cargo build`/`cargo check` and never appears in the dependency graph of a shipped binary (A4 of T-0004).
+default-members = [
+    "crates/hdd-common",
+    "crates/hdd-waf-core",
+    "crates/hdd-auth",
+    "crates/hdd-api",
+    "crates/hdd-web",
+    "crates/hdd-ui",
+    "crates/hdd-worker",
+    "crates/hdd-mailer",
+    "crates/hdd-notify",
+    "crates/hdd-analytics",
+    "crates/hdd-intel",
+    "crates/hdd-challenge",
+    "crates/hdd-proxy",
+    "crates/hdd-dns",
+    "crates/hdd-firewall",
+    "crates/hdd-xdp-logic",
+    "crates/hdd-xdp",
+    "crates/hdd-shield",
+    "crates/hdd-vuln",
+    "crates/hdd-scan",
+    "crates/hddctl",
+    "crates/hdd-local",
+    "crates/hdd-acceptance",
+    "crates/hdd-loadgen",
+    "crates/hdd-canary",
+    "crates/hdd-sdk",
+    "crates/hdd-xtask",
+]
+
+[workspace.package]
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.98"
+publish = false
+
+# No [workspace.dependencies] yet. Each dependency is added by the task that uses it, with vetting evidence
+# in an ADR or the commit body (R-08, T-0004 notes). Versions are never asserted from memory.
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+missing_docs = "deny"
+
+[workspace.lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+indexing_slicing = "deny"
+todo = "deny"
+unimplemented = "deny"
+dbg_macro = "deny"
+print_stdout = "deny"
+
+[profile.release]
+# R-09: release builds unwind so that a panic is isolated to its task and counted, never aborts the process.
+panic = "unwind"
+lto = "thin"
+codegen-units = 1
+strip = "debuginfo"

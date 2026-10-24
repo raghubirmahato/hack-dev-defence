@@ -1,0 +1,305 @@
+# T-0215 batch B2 round 2 - red evidence (re-created red demonstrations)
+
+The round-2 fixes were already implemented when this session took over from the interrupted one, so for every
+finding the red is **re-created**: the specific seam of the fix is reverted, the named test is run, the real output
+is captured here, and the file is restored from its in-memory original. Each restore is byte-identical (SHA-256
+before = after, also recorded in T-0215-b2r2-negative-demos.txt). The failure lines below are real command output.
+
+## correction-A-closed-eight-code-set
+
+Seam reverted: `crates\hdd-acceptance\src\status.rs`. Expected red: the closed reason set / len 8.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(the_reason_set_is_closed_and_round_trips_by_code)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.009s] (1/1) hdd-acceptance status::tests::the_reason_set_is_closed_and_round_trips_by_code
+    test status::tests::the_reason_set_is_closed_and_round_trips_by_code ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'status::tests::the_reason_set_is_closed_and_round_trips_by_code' (23796) panicked at
+    assertion `left == right` failed
+      left: 9
+     right: 8
+     Summary [   0.010s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.009s] (1/1) hdd-acceptance status::tests::the_reason_set_is_closed_and_round_trips_by_code
+error: test run failed
+```
+
+## correction-B-dependency-is-stage-not-reached
+
+Seam reverted: `crates\hdd-acceptance\src\runner.rs`. Expected red: UNVERIFIED(stage_not_reached) naming the dependency.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(a8_a_dependent_of_a_failed_check_is_unverified_stage_not_reached)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   2.016s] (1/1) hdd-acceptance
+runner::tests::a8_a_dependent_of_a_failed_check_is_unverified_stage_not_reached_naming_the_dependency
+    test runner::tests::a8_a_dependent_of_a_failed_check_is_unverified_stage_not_reached_naming_the_dependency ...
+FAILED
+    failures:
+    failures:
+        runner::tests::a8_a_dependent_of_a_failed_check_is_unverified_stage_not_reached_naming_the_dependency
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'runner::tests::a8_a_dependent_of_a_failed_check_is_unverified_stage_not_reached_naming_the_dependency'
+(8188) panicked at crates\hdd-acceptance\src\runner\tests.rs:566:5:
+    assertion `left == right` failed
+      left: Unverified { reason: StageForbids }
+     right: Unverified { reason: StageNotReached }
+     Summary [   2.018s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   2.016s] (1/1) hdd-acceptance
+runner::tests::a8_a_dependent_of_a_failed_check_is_unverified_stage_not_reached_naming_the_dependency
+error: test run failed
+```
+
+## R-1-profile-mode-matrix
+
+Seam reverted: `crates\hdd-acceptance\src\config.rs`. Expected red: ProfileModeMismatch for the forbidden pairs.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r1_every_profile_mode_pair_is_refused_or_accepted)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.031s] (1/1) hdd-acceptance
+    test config::tests::r1_every_profile_mode_pair_is_refused_or_accepted_by_the_specification_table ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.02s
+    thread 'config::tests::r1_every_profile_mode_pair_is_refused_or_accepted_by_the_specification_table' (30708)
+panicked at crates\hdd-acceptance\src\config\tests.rs:253:26:
+    protocol-abuse in Lab must be refused with ProfileModeMismatch, got Ok(RunnerConfig { profile: Profile {
+     Summary [   0.032s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.031s] (1/1) hdd-acceptance
+error: test run failed
+```
+
+## R-2-resume-re-hashes-evidence
+
+Seam reverted: `crates\hdd-acceptance\src\report.rs`. Expected red: ResumeMismatch for the hand-edited PASS line.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r2_resume_refuses_a_hand_edited_pass_line)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.011s] (1/1) hdd-acceptance report::tests::r2_resume_refuses_a_hand_edited_pass_line_with_a_fake_hash
+    test report::tests::r2_resume_refuses_a_hand_edited_pass_line_with_a_fake_hash ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'report::tests::r2_resume_refuses_a_hand_edited_pass_line_with_a_fake_hash' (34024) panicked at
+    assertion failed: matches!(fresh_bound().resume_with(&previous, &dir),
+     Summary [   0.012s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.011s] (1/1) hdd-acceptance report::tests::r2_resume_refuses_a_hand_edited_pass_line_with_a_fake_hash
+error: test run failed
+```
+
+## R-3-constructors-are-sealed
+
+Seam reverted: `crates\hdd-acceptance\src\guard.rs`. Expected red: the compile_fail doctest fails because Connector::new became callable.
+
+```text
+$ cargo test -p hdd-acceptance --doc
+command exit code 101
+test crates\hdd-acceptance\src\lib.rs - (line 39) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 49) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 44) - compile fail ... ok
+test crates\hdd-acceptance\src\lib.rs - (line 34) - compile fail ... FAILED
+failures:
+Test compiled successfully, but it's marked `compile_fail`.
+failures:
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.33s
+error: doctest failed, to rerun pass `-p hdd-acceptance --doc`
+```
+
+## R-4-executor-re-verifies-evidence
+
+Seam reverted: `crates\hdd-acceptance\src\runner.rs`. Expected red: FAIL evidence invalid for the fabricated hash.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r4_a_fabricated_evidence_hash)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.011s] (1/1) hdd-acceptance runner::tests::r4_a_fabricated_evidence_hash_is_turned_into_a_fail
+    test runner::tests::r4_a_fabricated_evidence_hash_is_turned_into_a_fail ... FAILED
+    failures:
+    failures:
+        runner::tests::r4_a_fabricated_evidence_hash_is_turned_into_a_fail
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'runner::tests::r4_a_fabricated_evidence_hash_is_turned_into_a_fail' (26376) panicked at
+     Summary [   0.012s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.011s] (1/1) hdd-acceptance runner::tests::r4_a_fabricated_evidence_hash_is_turned_into_a_fail
+error: test run failed
+```
+
+## R-5-inspect-ticket-single-use
+
+Seam reverted: `crates\hdd-acceptance\src\guard.rs`. Expected red: InspectTicket(Reused) on the second prepare.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r5_a_reused_inspect_ticket_is_refused)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.015s] (1/1) hdd-acceptance guard::tests::r5_a_reused_inspect_ticket_is_refused
+    test guard::tests::r5_a_reused_inspect_ticket_is_refused ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.01s
+    thread 'guard::tests::r5_a_reused_inspect_ticket_is_refused' (28728) panicked at
+    assertion `left == right` failed
+      left: Ok(PlannedRequest { target: "hddtest.example.com", path: "/?probe=1", class: A, method: Get, resolved:
+     right: Err(InspectTicket(Reused))
+     Summary [   0.016s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.015s] (1/1) hdd-acceptance guard::tests::r5_a_reused_inspect_ticket_is_refused
+error: test run failed
+```
+
+## R-6-redaction-spaces-quotes-tabs
+
+Seam reverted: `crates\hdd-acceptance\src\report.rs`. Expected red: the space/tab-separated tails leak again.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r6_redaction_handles_spaces_quotes_and_tabs)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.010s] (1/1) hdd-acceptance report::tests::r6_redaction_handles_spaces_quotes_and_tabs
+    test report::tests::r6_redaction_handles_spaces_quotes_and_tabs ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'report::tests::r6_redaction_handles_spaces_quotes_and_tabs' (32760) panicked at
+    assertion `left == right` failed: input "token = abc def"
+      left: "token = [REDACTED] def"
+     right: "token = [REDACTED]"
+     Summary [   0.011s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.010s] (1/1) hdd-acceptance report::tests::r6_redaction_handles_spaces_quotes_and_tabs
+error: test run failed
+```
+
+## R-7-planned-request-expiry
+
+Seam reverted: `crates\hdd-acceptance\src\guard.rs`. Expected red: the stale request is sent instead of RequestExpired.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r7_a_stale_prepared_request_is_refused_at_send)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.050s] (1/1) hdd-acceptance guard::tests::r7_a_stale_prepared_request_is_refused_at_send
+    test guard::tests::r7_a_stale_prepared_request_is_refused_at_send ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.04s
+    thread 'guard::tests::r7_a_stale_prepared_request_is_refused_at_send' (3252) panicked at
+    assertion failed: matches!(connector.send(planned, &mut sender),
+     Summary [   0.051s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.050s] (1/1) hdd-acceptance guard::tests::r7_a_stale_prepared_request_is_refused_at_send
+error: test run failed
+```
+
+## R-8-ac00-must-be-planned-and-pass
+
+Seam reverted: `crates\hdd-acceptance\src\runner.rs`. Expected red: the AC-00-free plan runs instead of MissingSelfTest.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r8_a_plan_without_ac00_is_refused)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.011s] (1/1) hdd-acceptance runner::tests::r8_a_plan_without_ac00_is_refused
+    test runner::tests::r8_a_plan_without_ac00_is_refused ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'runner::tests::r8_a_plan_without_ac00_is_refused' (27856) panicked at
+    assertion `left == right` failed
+      left: None
+     right: Some(MissingSelfTest)
+     Summary [   0.012s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.011s] (1/1) hdd-acceptance runner::tests::r8_a_plan_without_ac00_is_refused
+error: test run failed
+```
+
+## R-9-eager-signal-listener
+
+Seam reverted: `crates\hdd-acceptance\src\runner.rs`. Expected red: the listener was not polled before the first check.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r9_the_signal_listener_is_primed_in_the_constructor)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.010s] (1/1) hdd-acceptance runner::tests::r9_the_signal_listener_is_primed_in_the_constructor
+    test runner::tests::r9_the_signal_listener_is_primed_in_the_constructor ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'runner::tests::r9_the_signal_listener_is_primed_in_the_constructor' (33264) panicked at
+    the listener must be polled (and the OS handler registered) before the first check
+     Summary [   0.011s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.010s] (1/1) hdd-acceptance runner::tests::r9_the_signal_listener_is_primed_in_the_constructor
+error: test run failed
+```
+
+## R-10-limiter-pops-expired-grants
+
+Seam reverted: `crates\hdd-acceptance\src\limits.rs`. Expected red: the window is never purged, so the rate check counts expired grants.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r10_the_limiter_pops_expired_grants)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.010s] (1/1) hdd-acceptance
+    test limits::tests::r10_the_limiter_pops_expired_grants_and_300k_lab_grants_finish_quickly ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'limits::tests::r10_the_limiter_pops_expired_grants_and_300k_lab_grants_finish_quickly' (30228) panicked at
+    assertion `left == right` failed
+      left: Err(RateExceeded { lane: Http, retry_after_ms: 1 })
+     right: Ok(())
+     Summary [   0.011s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.010s] (1/1) hdd-acceptance
+error: test run failed
+```
+
+## R-11-cap-exactly-512-including-marker
+
+Seam reverted: `crates\hdd-acceptance\src\report.rs`. Expected red: the truncated value is longer than 512 bytes.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r11_truncate_utf8_never_exceeds_the_cap)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.009s] (1/1) hdd-acceptance
+    test report::tests::r11_truncate_utf8_never_exceeds_the_cap_and_counts_the_marker ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'report::tests::r11_truncate_utf8_never_exceeds_the_cap_and_counts_the_marker' (5628) panicked at
+    assertion `left == right` failed
+      left: 523
+     right: 512
+     Summary [   0.010s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.009s] (1/1) hdd-acceptance
+error: test run failed
+```
+
+## R-12-redaction-before-serialisation
+
+Seam reverted: `crates\hdd-acceptance\src\report.rs`. Expected red: a short secret corrupts a hash or an id in the JSON document.
+
+```text
+$ cargo nextest run -p hdd-acceptance --no-fail-fast -E "test(r12_short_secrets_do_not_corrupt_the_json_document)"
+command exit code 100
++ ...  $output = (& cargo nextest run -p hdd-acceptance --no-fail-fast -E " ...
+        FAIL [   0.010s] (1/1) hdd-acceptance report::tests::r12_short_secrets_do_not_corrupt_the_json_document
+    test report::tests::r12_short_secrets_do_not_corrupt_the_json_document ... FAILED
+    failures:
+    failures:
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 175 filtered out; finished in 0.00s
+    thread 'report::tests::r12_short_secrets_do_not_corrupt_the_json_document' (8596) panicked at
+    the document must stay valid JSON: Parse { message: "unknown variant `[REDACTED]`, expected one of `pass`, `fail`,
+     Summary [   0.011s] 1 test run: 0 passed, 1 failed, 191 skipped
+        FAIL [   0.010s] (1/1) hdd-acceptance report::tests::r12_short_secrets_do_not_corrupt_the_json_document
+error: test run failed
+```
+

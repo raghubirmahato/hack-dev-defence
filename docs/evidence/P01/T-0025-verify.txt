@@ -1,0 +1,126 @@
+# T-0025 verification: ux_docs/security_ux, the shipped documents and the repository gates
+# Date: 2026-10-20
+# Repository: D:\Hack Dev Defence (Windows, pwsh, Rust 1.98.1, edition 2024)
+# Tree: final T-0025 working tree (nothing committed)
+#
+# Workaround recorded for honesty: while another worker's process or the Windows scanner held
+# target/debug/hdd-xtask.exe, cargo could not relink it ("failed to remove file ... Access is denied").
+# Before each cargo xtask run the stale target binary was deleted (a build artifact only; no source
+# file and no other worker's file was touched) and the command was retried. The PowerShell error-record
+# lines in the output below come from cargo writing progress to stderr; they are not command failures.
+#
+# Note: an earlier capture of section 2 failed on docs/UX/RESPONSIVE.md while the T-0024 worker was
+# still editing that file; no T-0025 file was named in any finding. The tree below is the settled state
+# (cargo xtask ux-docs PASS before this capture).
+
+## cargo nextest run -p hdd-xtask ux_docs::security_ux --no-fail-fast
+cargo :     Finished `test` profile [unoptimized + debuginfo] target(s) in 0.35s
+At line:37 char:84
++ ... ail-fast' { cargo nextest run -p hdd-xtask ux_docs::security_ux --no- ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Finished `t...get(s) in 0.35s:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+────────────
+ Nextest run ID a5350fef-aba2-42e7-8f03-5421b40c11ca with nextest profile: default
+    Starting 22 tests across 1 binary (380 tests skipped)
+        PASS [   0.171s] ( 1/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_abuse_categories_and_atk_citations_are_required
+        PASS [   0.185s] ( 2/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_forbidden_claims_are_rejected
+        PASS [   0.185s] ( 3/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_copy_values_are_clean_and_claim_free
+        PASS [   0.189s] ( 4/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_audit_events_must_exist_in_b8_as_whole_tokens
+        PASS [   0.193s] ( 5/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_missing_documents_are_findings
+        PASS [   0.207s] ( 6/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_fixture_documents_cover_the_required_paths
+        PASS [   0.219s] ( 7/22) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_every_safeguard_names_a_kind
+        PASS [   0.260s] ( 8/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_catalog_needs_twenty_rows_and_full_cells
+        PASS [   0.275s] ( 9/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_permissions_must_exist_in_b4_2
+        PASS [   0.281s] (10/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_malformed_input_is_a_finding_not_a_panic
+        PASS [   0.281s] (11/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_documents_rule_accepts_existing_files
+        PASS [   0.319s] (12/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_copy_keys_must_match_the_copy_file
+        PASS [   0.428s] (13/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_a_real_audit_id_in_the_wrong_row_is_caught
+        PASS [   0.421s] (14/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_honest_limits_quote_b13_exactly
+        PASS [   0.421s] (15/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_abuse_cases_stay_inside_the_hdd_attack_range
+        PASS [   0.253s] (16/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_time_box_states_the_browser_close_revert
+        PASS [   0.299s] (17/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_preview_patterns_cover_the_four_areas
+        PASS [   0.312s] (18/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_stride_delta_names_the_ui_abuse_threats
+        PASS [   0.279s] (19/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_typed_confirmation_rules_are_stated
+        PASS [   0.321s] (20/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_self_lockout_requirements_are_numbered_and_complete
+        PASS [   0.843s] (21/22) hdd-xtask::bin/hdd-xtask 
+ux_docs::security_ux::tests::t25_a_complete_fixture_passes_every_rule
+        PASS [   1.006s] (22/22) hdd-xtask::bin/hdd-xtask ux_docs::security_ux::tests::t25_required_actions_are_named
+────────────
+     Summary [   1.205s] 22 tests run: 22 passed, 380 skipped
+
+exit code: 0
+
+## cargo nextest run -p hdd-xtask the_shipped_ux_documents_pass --no-fail-fast (the real-tree check)
+cargo :     Finished `test` profile [unoptimized + debuginfo] target(s) in 0.22s
+At line:38 char:115
++ ... e check)' { cargo nextest run -p hdd-xtask the_shipped_ux_documents_p ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Finished `t...get(s) in 0.22s:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+────────────
+ Nextest run ID da4b5a72-c6f4-48ce-b7dc-2e2cbc8b4e6d with nextest profile: default
+    Starting 1 test across 1 binary (401 tests skipped)
+        PASS [  11.448s] (1/1) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_shipped_ux_documents_pass
+────────────
+     Summary [  11.449s] 1 test run: 1 passed, 401 skipped
+
+exit code: 0
+
+## cargo xtask ux-docs
+ux-docs: PASS
+
+exit code: 0
+
+## cargo xtask claims-lint
+claims-lint: scanned 247 files with 34 phrases and 1 context rules
+claims-lint: PASS
+
+exit code: 0
+
+## cargo fmt --all --check
+
+exit code: 0
+
+## cargo clippy -p hdd-xtask --all-targets -- -D warnings
+cargo :     Checking hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+At line:42 char:72
++ ...  warnings' { cargo clippy -p hdd-xtask --all-targets -- -D warnings }
++                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Checking hd...ates\hdd-xtask):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.65s
+
+exit code: 0
+
+## Result
+- `cargo nextest run -p hdd-xtask ux_docs::security_ux --no-fail-fast` -> exit 0
+- `cargo nextest run -p hdd-xtask the_shipped_ux_documents_pass --no-fail-fast (the real-tree check)` -> exit 0
+- `cargo xtask ux-docs` -> exit 0
+- `cargo xtask claims-lint` -> exit 0
+- `cargo fmt --all --check` -> exit 0
+- `cargo clippy -p hdd-xtask --all-targets -- -D warnings` -> exit 0
+- `docs/evidence/P01/T-0025-red.txt` is the red run captured before the rules were implemented (20 tests: 1 passed, 19 failed); it was not edited afterwards.
+- Nothing is committed; the working tree is the deliverable.

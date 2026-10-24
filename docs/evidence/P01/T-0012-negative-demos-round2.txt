@@ -1,0 +1,19 @@
+# T-0012 review fix F-1: re-run of negative-demo mutations 7 and 8 against the restored adversary.md (round 2)
+# Date: 2026-10-19. The file is backed up, mutated, checked and restored; its SHA-256 after restore is compared with the value before.
+
+## mutation 7: an adversary with fewer than ten distinct ATK references
+[ux-docs] docs/UX/personas/adversary.md: 7 distinct ATK references; the adversary file needs at least ten abuse stories mapped to the attack coverage matrix (A4)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## mutation 8: an ATK id that is not in the attack registry
+[ux-docs] docs/UX/personas/adversary.md: `ATK-999` is not an id of the attack coverage matrix (C5)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## restored file
+ux-docs: PASS
+(exit 0)
+adversary.md SHA-256 before mutations: E03F207968689EA9CE028613A99952CBE3868C7DA1B8A197AF4978B6B7C0E0CA
+adversary.md SHA-256 after restore:  E03F207968689EA9CE028613A99952CBE3868C7DA1B8A197AF4978B6B7C0E0CA
+hashes equal: True

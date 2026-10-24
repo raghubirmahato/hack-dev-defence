@@ -1,0 +1,67 @@
+# T-0023 negative demos (mutate, FAIL, restore, SHA-256 unchanged, PASS)
+
+Date: 2026-10-20
+Task: T-0023 (docs/UX/I18N.md and crates/hdd-xtask/src/ux_docs/i18n_plan.rs)
+Host: Windows 11, Rust 1.98.1, Track L (no Docker)
+
+Backup: C:\Users\Raghu\AppData\Local\Temp\t0023-demo-f0f73b2044874da6be46e3d0ae14d132\I18N.md
+SHA-256 of docs/UX/I18N.md before the demos: 25D0DCFDC9FF757E9E92F2510C6D1830A1F5CE5C75F03352956FC9B97B7B0788
+
+Every demo changes the shipped document, runs `cargo xtask ux-docs`, records the exact
+finding line and the exit code, restores the file from the backup, and compares the
+SHA-256 with the value recorded above.
+
+## Mutation: A pseudo-locale input no longer matches the definition
+- change: `| `0 events` |` -> `| `0 event` |`
+- mutated SHA-256: F10B97ACC3AFA6F873EA2C155DDB502962D2DE14D6DC90A94DF1A2D0A40C72E3
+- cargo xtask ux-docs exit 1; ux-docs: FAIL (1 finding(s))
+- expected finding: [ux-docs] docs/UX/I18N.md:124: the pseudo-locale example `0 event` evaluates to `[[0 éṽéñţ··]]`, not `[[0 éṽéñţš···]]` (T-0023 step 1)
+- restored SHA-256: 25D0DCFDC9FF757E9E92F2510C6D1830A1F5CE5C75F03352956FC9B97B7B0788
+- restored file is byte-identical (SHA-256 before = after)
+
+## Mutation: B invented key in the example table
+- change: `| `tagline` | `i18n/en/copy-deck.ftl` |` -> `| `invented-key` | `i18n/en/copy-deck.ftl` |`
+- mutated SHA-256: 035E85D1210E2A7380C3F9E44B93E9648CD30ED99C1D023186648134F6749D71
+- cargo xtask ux-docs exit 1; ux-docs: FAIL (1 finding(s))
+- expected finding: [ux-docs] docs/UX/I18N.md:37: the key `invented-key` is not defined in `i18n/en/copy-deck.ftl` (T-0023 A1)
+- restored SHA-256: 25D0DCFDC9FF757E9E92F2510C6D1830A1F5CE5C75F03352956FC9B97B7B0788
+- restored file is byte-identical (SHA-256 before = after)
+
+## Mutation: C physical property in the logical table
+- change: `| `margin-inline-start` | `margin-left` | start margin of a card |` -> `| `margin-left` | `margin-left` | start margin of a card |`
+- mutated SHA-256: 6A5B6EBDDE24678E6BECDA98757D429B86EB63D0825EDA77A9DB902003F6B696
+- cargo xtask ux-docs exit 1; ux-docs: FAIL (1 finding(s))
+- expected finding: [ux-docs] docs/UX/I18N.md:185: `margin-left` is not a CSS logical property, so it cannot make a component RTL-safe (T-0023 A2)
+- restored SHA-256: 25D0DCFDC9FF757E9E92F2510C6D1830A1F5CE5C75F03352956FC9B97B7B0788
+- restored file is byte-identical (SHA-256 before = after)
+
+## Mutation: D the honest no-icon statement removed
+- change: `no icon inventory exists yet` -> `the icon inventory is in design/`
+- mutated SHA-256: E14B2546E4BDBC490C0E97F4FCDD386ED7E8DB0A204F31CB4DE5DB67056E3835
+- cargo xtask ux-docs exit 1; ux-docs: FAIL (1 finding(s))
+- expected finding: [ux-docs] docs/UX/I18N.md: the `design/` directory has no icon files, so the mirrored-icon table must say `no icon inventory exists yet` (T-0023 A2)
+- restored SHA-256: 25D0DCFDC9FF757E9E92F2510C6D1830A1F5CE5C75F03352956FC9B97B7B0788
+- restored file is byte-identical (SHA-256 before = after)
+
+## Mutation: E Vary header loses Cookie
+- change: `Vary: Accept-Language, Cookie` -> `Vary: Accept-Language`
+- mutated SHA-256: 9BA554CCFF77ABC9B602C461A2CECF616D1972CCEC745C9F0540234AD847FC94
+- cargo xtask ux-docs exit 1; ux-docs: FAIL (1 finding(s))
+- expected finding: [ux-docs] docs/UX/I18N.md: the negotiation section must state that the response sends the `Vary` header (T-0023 step 2)
+- restored SHA-256: 25D0DCFDC9FF757E9E92F2510C6D1830A1F5CE5C75F03352956FC9B97B7B0788
+- restored file is byte-identical (SHA-256 before = after)
+
+## Mutation: F format example drifts from CONTENT.md
+- change: `12 minutes ago (14:05 UTC)` -> `a while ago`
+- mutated SHA-256: F46E9DDB202E95427D41756ECF76DD00081844F4774C7AF81AB079879EBFC717
+- cargo xtask ux-docs exit 1; ux-docs: FAIL (1 finding(s))
+- expected finding: [ux-docs] docs/UX/I18N.md: CONTENT.md formats `Relative time` as `12 minutes ago (14:05 UTC)`; the formatting section must carry the same example (T-0023 step 3)
+- restored SHA-256: 25D0DCFDC9FF757E9E92F2510C6D1830A1F5CE5C75F03352956FC9B97B7B0788
+- restored file is byte-identical (SHA-256 before = after)
+
+## Restored tree
+- cargo xtask ux-docs exit 0; ux-docs: PASS
+- final SHA-256: 25D0DCFDC9FF757E9E92F2510C6D1830A1F5CE5C75F03352956FC9B97B7B0788
+- ux-docs: PASS on the restored tree
+
+No file was left mutated. The temporary backup directory is removed at the end of this run.

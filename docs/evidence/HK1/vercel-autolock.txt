@@ -1,0 +1,10 @@
+PASS direct to Vercel is refused 403 with the HDD message :: 403
+PASS direct health check also refused (no side door) :: 403
+PASS no injection reaches the admin panel when HDD is bypassed
+PASS shop home through HDD is 200 with CoreByte :: 200
+PASS legitimate admin/admin login through HDD reaches /admin :: (303, '/admin')
+PASS wrong password is 401 (not blocked) :: 401
+PASS SQL injection through HDD in block mode is 403 with a rule :: (403, 'H1-001', 'tautology', 'username')
+PASS protection OFF: the same injection reaches /admin through HDD :: (303, '/admin')
+PASS protection back ON: blocked again :: 403
+RESULT ALL PASS 9 / 9

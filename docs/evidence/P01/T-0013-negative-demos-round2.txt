@@ -1,0 +1,31 @@
+# T-0013 review round 2: mutation demonstrations for F-8 and F-9 on the shipped documents
+# Date: 2026-10-19. Each mutation must make 'cargo xtask ux-docs' FAIL; the files are restored after each step and the SHA-256 values are compared.
+
+## F-8: a component matched inside a longer word (DataTableOfDoom)
+[ux-docs] docs/UX/design-requirements.md:11: DR-03 names no screen (S-nnn) or component from the spec (T-0013 A4)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## F-9: an honesty-test answer that is not Yes or No (Maybe)
+[ux-docs] docs/UX/PATTERNS.md:254: the honesty-test answer `maybe` must be Yes or No (T-0013 step 7)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## F-9: an honesty-test answer No blocks the document
+[ux-docs] docs/UX/PATTERNS.md:255: the honesty-test review answers No; a No blocks the change and the document cannot ship (T-0013 step 7)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## F-9: four honesty-test rows instead of five
+[ux-docs] docs/UX/PATTERNS.md: the honesty-test review has 4 rows; exactly five are required (T-0013 step 7)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## restored files
+ux-docs: PASS
+(exit 0)
+PATTERNS.md SHA-256 before: 4A8B7BF5D85598DF763746DBD134BAC406EBBD843C116EB9A1F5378E17E8C41E
+PATTERNS.md SHA-256 after:  4A8B7BF5D85598DF763746DBD134BAC406EBBD843C116EB9A1F5378E17E8C41E
+design-requirements.md SHA-256 before: 947D3126D8F2C3734CE79A020CF7663D416F050D41654AEC83645DA2740EA24C
+design-requirements.md SHA-256 after:  947D3126D8F2C3734CE79A020CF7663D416F050D41654AEC83645DA2740EA24C
+hashes equal: True

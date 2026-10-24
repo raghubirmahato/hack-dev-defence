@@ -1,0 +1,10 @@
+[package]
+name = "hdd-vuln"
+description = "inventory, feeds, matching, exposure board data, VEX, virtual-patch lifecycle"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true

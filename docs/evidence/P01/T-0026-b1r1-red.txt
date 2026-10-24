@@ -1,0 +1,313 @@
+cargo :     Blocking waiting for file lock on build directory
+At line:1 char:155
++ ... v Defence"; cargo nextest run -p hdd-xtask ux_docs::onboarding --no-f ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Blocking wa...build directory:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+   Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+warning: constant `WAF_MONITOR_RATIO` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:409:7
+    |
+409 | const WAF_MONITOR_RATIO: f64 = 0.5;
+    |       ^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `ALL_PASS_OUTCOME` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:413:11
+    |
+413 | pub const ALL_PASS_OUTCOME: &str = "Nothing to do now.";
+    |           ^^^^^^^^^^^^^^^^
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 2 warnings
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 12.02s
+────────────
+ Nextest run ID aa983101-cd10-4546-82d8-082e15b8d70e with nextest profile: default
+    Starting 27 tests across 1 binary (415 tests skipped)
+        PASS [   0.021s] ( 1/27) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_footnote_equals_the_b13_text
+        FAIL [   0.021s] ( 2/27) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_mfa_rule_names_who_can_enrol
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_mfa_rule_names_who_can_enrol ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_mfa_rule_names_who_can_enrol
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_mfa_rule_names_who_can_enrol' (4372) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:3508:9:
+    an MFA rule that does not name who can enrol must be a finding: [Finding { check: "ux-docs", location: 
+"docs/UX/ONBOARDING.md:51", message: "the condition status `not Pass` is not Pass, Partial, Fail or Unknown (T-0026 
+step 3)" }, Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:51", message: "rule `12` has no B12.1 screen 
+in its action (T-0026 step 3)" }, Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:52", message: "rule 
+`13` has no B12.1 screen in its action (T-0026 step 3)" }, Finding { check: "ux-docs", location: 
+"docs/UX/ONBOARDING.md:72", message: "the example expects the action `Open the remediation link for RD-HTTPS at 
+S-050.` but rule 12 says `Open the remediation link for the first non-Pass check in catalog order.` (T-0026 Tests)" }, 
+Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:74", message: "the example expects the action `Open the 
+remediation link for RD-SHIELD at S-057.` but rule 12 says `Open the remediation link for the first non-Pass check in 
+catalog order.` (T-0026 Tests)" }, Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:75", message: "the 
+example expects the action `Open the remediation link for RD-GREY at S-045.` but rule 12 says `Open the remediation 
+link for the first non-Pass check in catalog order.` (T-0026 Tests)" }, Finding { check: "ux-docs", location: 
+"docs/UX/ONBOARDING.md:76", message: "the example expects the action `Open the remediation link for RD-ORIGIN-EXPOSURE 
+at S-138.` but rule 12 says `Open the remediation link for the first non-Pass check in catalog order.` (T-0026 Tests)" 
+}, Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:78", message: "the example `others=Pass` matches the 
+first-match rule 12 but the table expects rule 13 (T-0026 Tests)" }, Finding { check: "ux-docs", location: 
+"docs/UX/ONBOARDING.md:78", message: "the example expects the action `Nothing to do now.` but rule 12 says `Open the 
+remediation link for the first non-Pass check in catalog order.` (T-0026 Tests)" }]
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.028s] ( 3/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_catalog_rows_have_weight_source_interval_and_real_screen
+        FAIL [   0.038s] ( 4/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_b122_mapping_has_one_row_per_phrase
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_b122_mapping_has_one_row_per_phrase ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_b122_mapping_has_one_row_per_phrase
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_b122_mapping_has_one_row_per_phrase' (26644) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:3383:9:
+    a paraphrase of a B12.2 phrase must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.040s] ( 5/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_every_catalog_check_is_reachable_by_a_rule
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_every_catalog_check_is_reachable_by_a_rule ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_every_catalog_check_is_reachable_by_a_rule
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_every_catalog_check_is_reachable_by_a_rule' (32268) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:3461:9:
+    [Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:51", message: "the condition status `not Pass` is 
+not Pass, Partial, Fail or Unknown (T-0026 step 3)" }, Finding { check: "ux-docs", location: 
+"docs/UX/ONBOARDING.md:51", message: "rule `12` has no B12.1 screen in its action (T-0026 step 3)" }, Finding { check: 
+"ux-docs", location: "docs/UX/ONBOARDING.md:52", message: "rule `13` has no B12.1 screen in its action (T-0026 step 
+3)" }, Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:72", message: "the example expects the action 
+`Open the remediation link for RD-HTTPS at S-050.` but rule 12 says `Open the remediation link for the first non-Pass 
+check in catalog order.` (T-0026 Tests)" }, Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:74", message: 
+"the example expects the action `Open the remediation link for RD-SHIELD at S-057.` but rule 12 says `Open the 
+remediation link for the first non-Pass check in catalog order.` (T-0026 Tests)" }, Finding { check: "ux-docs", 
+location: "docs/UX/ONBOARDING.md:75", message: "the example expects the action `Open the remediation link for RD-GREY 
+at S-045.` but rule 12 says `Open the remediation link for the first non-Pass check in catalog order.` (T-0026 Tests)" 
+}, Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:76", message: "the example expects the action `Open 
+the remediation link for RD-ORIGIN-EXPOSURE at S-138.` but rule 12 says `Open the remediation link for the first 
+non-Pass check in catalog order.` (T-0026 Tests)" }, Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:78", 
+message: "the example `others=Pass` matches the first-match rule 12 but the table expects rule 13 (T-0026 Tests)" }, 
+Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:78", message: "the example expects the action `Nothing to 
+do now.` but rule 12 says `Open the remediation link for the first non-Pass check in catalog order.` (T-0026 Tests)" }]
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.045s] ( 6/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_checklist_requires_persistence_and_resume
+        PASS [   0.050s] ( 7/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_catalog_weights_sum_to_one_hundred
+        PASS [   0.063s] ( 8/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_j25_readiness_table_agrees_with_the_model
+        PASS [   0.068s] ( 9/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_empty_states_name_real_screens_and_honest_keys
+        FAIL [   0.068s] (10/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_check_on_a_fixture_tree_is_green
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_check_on_a_fixture_tree_is_green ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_check_on_a_fixture_tree_is_green
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.02s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_check_on_a_fixture_tree_is_green' (17172) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:3342:9:
+    the fixture tree must pass: [Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:51", message: "the 
+condition status `not Pass` is not Pass, Partial, Fail or Unknown (T-0026 step 3)" }, Finding { check: "ux-docs", 
+location: "docs/UX/ONBOARDING.md:51", message: "rule `12` has no B12.1 screen in its action (T-0026 step 3)" }, 
+Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:52", message: "rule `13` has no B12.1 screen in its 
+action (T-0026 step 3)" }, Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:72", message: "the example 
+expects the action `Open the remediation link for RD-HTTPS at S-050.` but rule 12 says `Open the remediation link for 
+the first non-Pass check in catalog order.` (T-0026 Tests)" }, Finding { check: "ux-docs", location: 
+"docs/UX/ONBOARDING.md:74", message: "the example expects the action `Open the remediation link for RD-SHIELD at 
+S-057.` but rule 12 says `Open the remediation link for the first non-Pass check in catalog order.` (T-0026 Tests)" }, 
+Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:75", message: "the example expects the action `Open the 
+remediation link for RD-GREY at S-045.` but rule 12 says `Open the remediation link for the first non-Pass check in 
+catalog order.` (T-0026 Tests)" }, Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:76", message: "the 
+example expects the action `Open the remediation link for RD-ORIGIN-EXPOSURE at S-138.` but rule 12 says `Open the 
+remediation link for the first non-Pass check in catalog order.` (T-0026 Tests)" }, Finding { check: "ux-docs", 
+location: "docs/UX/ONBOARDING.md:78", message: "the example `others=Pass` matches the first-match rule 12 but the 
+table expects rule 13 (T-0026 Tests)" }, Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:78", message: 
+"the example expects the action `Nothing to do now.` but rule 12 says `Open the remediation link for the first 
+non-Pass check in catalog order.` (T-0026 Tests)" }]
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.074s] (11/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_category_weights_sum_to_one_hundred
+        PASS [   0.082s] (12/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_measures_use_local_counters_only
+        PASS [   0.088s] (13/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_missing_documents_are_findings_not_panics
+        PASS [   0.095s] (14/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_all_pass_state_returns_the_distinct_outcome
+        PASS [   0.102s] (15/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_malformed_specification_is_findings_not_panics
+        PASS [   0.105s] (16/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_activation_emails_have_a_subject_structure_and_safe_keys
+        PASS [   0.092s] (17/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_monitor_summary_keeps_the_block_decision_evidence
+        FAIL [   0.102s] (18/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_next_best_action_is_evaluated_against_its_examples
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_next_best_action_is_evaluated_against_its_examples ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_next_best_action_is_evaluated_against_its_examples
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_next_best_action_is_evaluated_against_its_examples' (28120) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:3070:9:
+    assertion failed: next_action_findings(&onboarding, &screens).is_empty()
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.107s] (19/27) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_no_forbidden_claims_phrase
+        PASS [   0.099s] (20/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_nudges_have_a_numeric_cap_and_an_opt_out
+        FAIL [   0.097s] (21/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_origin_exposure_covers_mail_records_and_headers
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_origin_exposure_covers_mail_records_and_headers ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_origin_exposure_covers_mail_records_and_headers
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_origin_exposure_covers_mail_records_and_headers' (25232) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:3449:9:
+    an origin-exposure row without the mail records must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.103s] (22/27) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_scoring_example_is_evaluated
+        PASS [   0.100s] (23/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_stage_map_uses_the_expected_real_screen_for_each_stage
+        FAIL [   0.113s] (24/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_six_multi_condition_examples_are_evaluated
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_six_multi_condition_examples_are_evaluated ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_six_multi_condition_examples_are_evaluated
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.02s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_six_multi_condition_examples_are_evaluated' (26268) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:3529:9:
+    [Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:51", message: "the condition status `not Pass` is 
+not Pass, Partial, Fail or Unknown (T-0026 step 3)" }, Finding { check: "ux-docs", location: 
+"docs/UX/ONBOARDING.md:51", message: "rule `12` has no B12.1 screen in its action (T-0026 step 3)" }, Finding { check: 
+"ux-docs", location: "docs/UX/ONBOARDING.md:52", message: "rule `13` has no B12.1 screen in its action (T-0026 step 
+3)" }, Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:72", message: "the example expects the action 
+`Open the remediation link for RD-HTTPS at S-050.` but rule 12 says `Open the remediation link for the first non-Pass 
+check in catalog order.` (T-0026 Tests)" }, Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:74", message: 
+"the example expects the action `Open the remediation link for RD-SHIELD at S-057.` but rule 12 says `Open the 
+remediation link for the first non-Pass check in catalog order.` (T-0026 Tests)" }, Finding { check: "ux-docs", 
+location: "docs/UX/ONBOARDING.md:75", message: "the example expects the action `Open the remediation link for RD-GREY 
+at S-045.` but rule 12 says `Open the remediation link for the first non-Pass check in catalog order.` (T-0026 Tests)" 
+}, Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:76", message: "the example expects the action `Open 
+the remediation link for RD-ORIGIN-EXPOSURE at S-138.` but rule 12 says `Open the remediation link for the first 
+non-Pass check in catalog order.` (T-0026 Tests)" }, Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:78", 
+message: "the example `others=Pass` matches the first-match rule 12 but the table expects rule 13 (T-0026 Tests)" }, 
+Finding { check: "ux-docs", location: "docs/UX/ONBOARDING.md:78", message: "the example expects the action `Nothing to 
+do now.` but rule 12 says `Open the remediation link for the first non-Pass check in catalog order.` (T-0026 Tests)" }]
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.103s] (25/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_structure_requires_the_named_sections
+        PASS [   0.107s] (26/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_unknown_never_counts_as_a_pass
+        FAIL [   0.104s] (27/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_waf_monitor_partial_is_a_design_value
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_waf_monitor_partial_is_a_design_value ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_waf_monitor_partial_is_a_design_value
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_waf_monitor_partial_is_a_design_value' (16556) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:3417:9:
+    a monitor-mode ratio without the T-0172 confirmation must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   0.180s] 27 tests run: 19 passed, 8 failed, 415 skipped
+        FAIL [   0.021s] ( 2/27) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_mfa_rule_names_who_can_enrol
+        FAIL [   0.038s] ( 4/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_b122_mapping_has_one_row_per_phrase
+        FAIL [   0.040s] ( 5/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_every_catalog_check_is_reachable_by_a_rule
+        FAIL [   0.068s] (10/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_check_on_a_fixture_tree_is_green
+        FAIL [   0.102s] (18/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_next_best_action_is_evaluated_against_its_examples
+        FAIL [   0.097s] (21/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_origin_exposure_covers_mail_records_and_headers
+        FAIL [   0.113s] (24/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_six_multi_condition_examples_are_evaluated
+        FAIL [   0.104s] (27/27) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_waf_monitor_partial_is_a_design_value
+error: test run failed

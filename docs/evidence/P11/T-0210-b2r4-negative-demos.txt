@@ -1,0 +1,38 @@
+# T-0210 batch B2 review round 4 (P-1..P-10): mutation demos (P-1, P-4, P-9 captured; each restores byte-identically)
+
+## P-1
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: 67DA9B0C27B514E102E1E5BF7632A43DB0D5A5AAA4CE395066384C5A371DA513
+SHA-256 while mutated: 208AFF6B15E8906EF827A3A68DEF77B2F0061771243C9568C3259C7E58FAC38C
+Command while mutated: cargo nextest run -p hdd-canary -E "test(a_worker_panic_is_counted_and_the_service_continues)" -> exit 100 (expected non-zero)
+  FAIL [   1.052s] (1/1) hdd-canary::hostile a_worker_panic_is_counted_and_the_service_continues
+  thread 'hdd-canary-worker-0' (1056) panicked at crates\hdd-canary\src\lib.rs:1755:9:
+  thread 'a_worker_panic_is_counted_and_the_service_continues' (34096) panicked at
+SHA-256 after restore: 67DA9B0C27B514E102E1E5BF7632A43DB0D5A5AAA4CE395066384C5A371DA513
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+
+## P-4
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: 67DA9B0C27B514E102E1E5BF7632A43DB0D5A5AAA4CE395066384C5A371DA513
+SHA-256 while mutated: F3D42389236C06FF96DC6E94FC4D5E5B0CC0E6E18C8534BF3F6A62490F03CCD0
+Command while mutated: cargo nextest run -p hdd-canary -E "test(non_closing_clients_do_not_delay_a_fifth)" -> exit 100 (expected non-zero)
+  FAIL [   1.038s] (1/1) hdd-canary::hostile non_closing_clients_do_not_delay_a_fifth
+  thread 'non_closing_clients_do_not_delay_a_fifth' (30452) panicked at crates\hdd-canary\tests\hostile.rs:887:5:
+  FAIL [   1.038s] (1/1) hdd-canary::hostile non_closing_clients_do_not_delay_a_fifth
+SHA-256 after restore: 67DA9B0C27B514E102E1E5BF7632A43DB0D5A5AAA4CE395066384C5A371DA513
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+
+## P-9
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: 67DA9B0C27B514E102E1E5BF7632A43DB0D5A5AAA4CE395066384C5A371DA513
+SHA-256 while mutated: 872722FE217C99E0D6807646A3BB934CE019B89CBA9C9326E398E92AB7564E88
+Command while mutated: cargo nextest run -p hdd-canary -E "test(t0210_echo_headers_are_an_allowlist_not_a_denylist)" -> exit 100 (expected non-zero)
+  FAIL [   0.012s] (1/1) hdd-canary tests::t0210_echo_headers_are_an_allowlist_not_a_denylist
+  thread 'tests::t0210_echo_headers_are_an_allowlist_not_a_denylist' (9124) panicked at
+  -planted"},{"name":"x-password","value":"password-planted"},{"name":"x-jwt-assertion","value":"jwt-planted"},{"name":"c
+SHA-256 after restore: 67DA9B0C27B514E102E1E5BF7632A43DB0D5A5AAA4CE395066384C5A371DA513
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+

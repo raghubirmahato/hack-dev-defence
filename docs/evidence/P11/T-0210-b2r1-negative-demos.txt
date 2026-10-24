@@ -1,0 +1,149 @@
+# T-0210 batch B2 round 1: mutation demos for every finding
+# Date: 2026-10-20 (Asia/Katmandu); host: Windows 11, Track L
+# Method: back up the file, mutate the seam, run the new test (it must FAIL with the expected message),
+# restore the backup byte-identically, refresh the mtime so cargo rebuilds, and run it again (it must PASS).
+# 'SHA-256 before' and 'SHA-256 after restore' are equal in every demo.
+
+## F-B2-0 - accepted stream left non-blocking (root cause of the flake)
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: C92C30C296DEBC95AAD6449B81D6D0ACB0C292F6E76706B2545BC4D0CE7ED2CA
+SHA-256 while mutated: 1526CE998E2CAE2A349BA9E813EF1F99BBDDA0A241989517E6A92AB2120868B5
+Command while mutated: cargo nextest run -p hdd-canary -E "test(a2_a_request_that_arrives_after_accept_is_served_not_rejected)" -> exit 100 (expected non-zero)
+  FAIL [   0.083s] (1/1) hdd-canary::hostile a2_a_request_that_arrives_after_accept_is_served_not_rejected
+  thread 'a2_a_request_that_arrives_after_accept_is_served_not_rejected' (33836) panicked at
+  assertion `left == right` failed: attempt 0: a request arriving 60 ms after accept must be read, not rejected:
+  left: 0
+  right: 200
+  FAIL [   0.083s] (1/1) hdd-canary::hostile a2_a_request_that_arrives_after_accept_is_served_not_rejected
+SHA-256 after restore: C92C30C296DEBC95AAD6449B81D6D0ACB0C292F6E76706B2545BC4D0CE7ED2CA
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   0.338s] (1/1) hdd-canary::hostile a2_a_request_that_arrives_after_accept_is_served_not_rejected
+  Summary [   0.339s] 1 test run: 1 passed, 31 skipped
+
+## C-1 - per-read timeout instead of the absolute connection deadline
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: C92C30C296DEBC95AAD6449B81D6D0ACB0C292F6E76706B2545BC4D0CE7ED2CA
+SHA-256 while mutated: 3D19B505C49CEF75B0A9C7FA91B96699DCDBE4207440A5D8B80EEBEAAF4A2F15
+Command while mutated: cargo nextest run -p hdd-canary -E "test(a_connection_deadline_closes_a_dripping_client_at_the_deadline)" -> exit 100 (expected non-zero)
+  FAIL [   4.115s] (1/1) hdd-canary::hostile a_connection_deadline_closes_a_dripping_client_at_the_deadline
+  thread 'a_connection_deadline_closes_a_dripping_client_at_the_deadline' (17084) panicked at
+  a dripping client must be disconnected at the deadline: 4.087518s
+  FAIL [   4.115s] (1/1) hdd-canary::hostile a_connection_deadline_closes_a_dripping_client_at_the_deadline
+SHA-256 after restore: C92C30C296DEBC95AAD6449B81D6D0ACB0C292F6E76706B2545BC4D0CE7ED2CA
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   0.754s] (1/1) hdd-canary::hostile a_connection_deadline_closes_a_dripping_client_at_the_deadline
+  Summary [   0.755s] 1 test run: 1 passed, 31 skipped
+
+## C-2 - the sweep stops feeding the parser (the old fuzz style)
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: C92C30C296DEBC95AAD6449B81D6D0ACB0C292F6E76706B2545BC4D0CE7ED2CA
+SHA-256 while mutated: 378A86DD7F76CA657260967005538DDAE56E3BF9AB967ED7E62A6E43A035D579
+Command while mutated: cargo nextest run -p hdd-canary -E "test(t0210_parser_never_panics_on_arbitrary_bytes_and_keeps_limits)" -> exit 100 (expected non-zero)
+  FAIL [   0.023s] (1/1) hdd-canary tests::t0210_parser_never_panics_on_arbitrary_bytes_and_keeps_limits
+  thread 'tests::t0210_parser_never_panics_on_arbitrary_bytes_and_keeps_limits' (26096) panicked at
+  the structured sweep produced only 0 accepted heads; it does not reach the parser logic
+  FAIL [   0.023s] (1/1) hdd-canary tests::t0210_parser_never_panics_on_arbitrary_bytes_and_keeps_limits
+SHA-256 after restore: C92C30C296DEBC95AAD6449B81D6D0ACB0C292F6E76706B2545BC4D0CE7ED2CA
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   0.069s] (1/1) hdd-canary tests::t0210_parser_never_panics_on_arbitrary_bytes_and_keeps_limits
+  Summary [   0.069s] 1 test run: 1 passed, 31 skipped
+
+## C-3 - the no-profile target check accepts any override
+File: crates/hddctl/src/main.rs
+SHA-256 before: C8CD0BB8BD9BF06225A900295BA6156E6F045076AF922E89B29E015EDA2634CE
+SHA-256 while mutated: 4940EC7950A1B972D551220C2F29E42F861BC90BCF9C89A1575A90C859AA7D9E
+Command while mutated: cargo nextest run -p hddctl -E "test(t0210_verify_without_a_profile_requires_local_only_for_overrides)" -> exit 100 (expected non-zero)
+  FAIL [   2.807s] (1/1) hddctl::canary t0210_verify_without_a_profile_requires_local_only_for_overrides
+  thread 't0210_verify_without_a_profile_requires_local_only_for_overrides' (25908) panicked at
+  assertion `left == right` failed: Canary verification (T-0210, spec C16.1 + C16 intro; runbook CANARY.md).
+  left: Some(0)
+  right: Some(1)
+  FAIL [   2.807s] (1/1) hddctl::canary t0210_verify_without_a_profile_requires_local_only_for_overrides
+SHA-256 after restore: C8CD0BB8BD9BF06225A900295BA6156E6F045076AF922E89B29E015EDA2634CE
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   2.859s] (1/1) hddctl::canary t0210_verify_without_a_profile_requires_local_only_for_overrides
+  Summary [   2.859s] 1 test run: 1 passed, 35 skipped
+
+## C-4 - through-HDD PASS without HDD evidence
+File: crates/hddctl/src/main.rs
+SHA-256 before: C8CD0BB8BD9BF06225A900295BA6156E6F045076AF922E89B29E015EDA2634CE
+SHA-256 while mutated: 6DD48ED7B844421DC748E8AA4E442891049200D1585437F55B2707CCAB11782D
+Command while mutated: cargo nextest run -p hddctl -E "test(t0210_verify_checks_the_through_path_and_query_invariance_when_overridden)" -> exit 100 (expected non-zero)
+  FAIL [   3.063s] (1/1) hddctl::canary t0210_verify_checks_the_through_path_and_query_invariance_when_overridden
+  thread 't0210_verify_checks_the_through_path_and_query_invariance_when_overridden' (8772) panicked at
+  FAIL [   3.063s] (1/1) hddctl::canary t0210_verify_checks_the_through_path_and_query_invariance_when_overridden
+SHA-256 after restore: C8CD0BB8BD9BF06225A900295BA6156E6F045076AF922E89B29E015EDA2634CE
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   5.800s] (1/1) hddctl::canary t0210_verify_checks_the_through_path_and_query_invariance_when_overridden
+  Summary [   5.801s] 1 test run: 1 passed, 35 skipped
+
+## C-5 - runner IP matched as a substring instead of a whole token
+File: crates/hddctl/src/main.rs
+SHA-256 before: C8CD0BB8BD9BF06225A900295BA6156E6F045076AF922E89B29E015EDA2634CE
+SHA-256 while mutated: 281E0DA025FCE3BF14904F0A8E9A957A3DEF975136DB8DA0952014E024E89A0C
+Command while mutated: cargo nextest run -p hddctl -E "test(t0210_verify_reports_a_runner_ip_that_the_echo_does_not_show)" -> exit 100 (expected non-zero)
+  FAIL [   3.258s] (1/1) hddctl::canary t0210_verify_reports_a_runner_ip_that_the_echo_does_not_show
+  thread 't0210_verify_reports_a_runner_ip_that_the_echo_does_not_show' (35140) panicked at
+  assertion `left == right` failed: Canary verification (T-0210, spec C16.1 + C16 intro; runbook CANARY.md).
+  left: Some(0)
+  right: Some(1)
+  FAIL [   3.258s] (1/1) hddctl::canary t0210_verify_reports_a_runner_ip_that_the_echo_does_not_show
+SHA-256 after restore: C8CD0BB8BD9BF06225A900295BA6156E6F045076AF922E89B29E015EDA2634CE
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   2.445s] (1/1) hddctl::canary t0210_verify_reports_a_runner_ip_that_the_echo_does_not_show
+  Summary [   2.445s] 1 test run: 1 passed, 35 skipped
+
+## C-6 - a transport failure to the through target is a FAIL
+File: crates/hddctl/src/main.rs
+SHA-256 before: C8CD0BB8BD9BF06225A900295BA6156E6F045076AF922E89B29E015EDA2634CE
+SHA-256 while mutated: 71008755ADD684AB3EA2403DAA3F72EC86748B275B3CECBF1328C5D08D763508
+Command while mutated: cargo nextest run -p hddctl -E "test(t0210_verify_transport_failure_to_the_through_target_is_a_pending_step)" -> exit 100 (expected non-zero)
+  FAIL [   2.858s] (1/1) hddctl::canary t0210_verify_transport_failure_to_the_through_target_is_a_pending_step
+  thread 't0210_verify_transport_failure_to_the_through_target_is_a_pending_step' (15720) panicked at
+  assertion `left == right` failed: Canary verification (T-0210, spec C16.1 + C16 intro; runbook CANARY.md).
+  left: Some(1)
+  right: Some(0)
+  FAIL [   2.858s] (1/1) hddctl::canary t0210_verify_transport_failure_to_the_through_target_is_a_pending_step
+SHA-256 after restore: C8CD0BB8BD9BF06225A900295BA6156E6F045076AF922E89B29E015EDA2634CE
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   2.054s] (1/1) hddctl::canary t0210_verify_transport_failure_to_the_through_target_is_a_pending_step
+  Summary [   2.054s] 1 test run: 1 passed, 35 skipped
+
+## C-7 - no comparison of the manifest base path with the base path in use
+File: crates/hddctl/src/main.rs
+SHA-256 before: C8CD0BB8BD9BF06225A900295BA6156E6F045076AF922E89B29E015EDA2634CE
+SHA-256 while mutated: C0656F1E7FBBD82A4E65D944EE9CC65F0E6718B342ECB8C8766B57047D99AD26
+Command while mutated: cargo nextest run -p hddctl -E "test(t0210_verify_fails_when_the_manifest_base_path_differs)" -> exit 100 (expected non-zero)
+  FAIL [   2.928s] (1/1) hddctl::canary t0210_verify_fails_when_the_manifest_base_path_differs
+  thread 't0210_verify_fails_when_the_manifest_base_path_differs' (9600) panicked at
+  assertion `left == right` failed: Canary verification (T-0210, spec C16.1 + C16 intro; runbook CANARY.md).
+  left: Some(0)
+  right: Some(1)
+  FAIL [   2.928s] (1/1) hddctl::canary t0210_verify_fails_when_the_manifest_base_path_differs
+SHA-256 after restore: C8CD0BB8BD9BF06225A900295BA6156E6F045076AF922E89B29E015EDA2634CE
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   2.306s] (1/1) hddctl::canary t0210_verify_fails_when_the_manifest_base_path_differs
+  Summary [   2.306s] 1 test run: 1 passed, 35 skipped
+
+## C-8 - a rejected HEAD carries a response body again
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: C92C30C296DEBC95AAD6449B81D6D0ACB0C292F6E76706B2545BC4D0CE7ED2CA
+SHA-256 while mutated: D13F4C8B1D88E5CCCA09E9967FED5FE37660B62990FA84D557DBBAE7B454C243
+Command while mutated: cargo nextest run -p hdd-canary -E "test(a2_a_rejected_head_gets_no_response_body)" -> exit 100 (expected non-zero)
+  FAIL [   0.037s] (1/1) hdd-canary::hostile a2_a_rejected_head_gets_no_response_body
+  thread 'a2_a_rejected_head_gets_no_response_body' (32200) panicked at crates\hdd-canary\tests\hostile.rs:579:5:
+  FAIL [   0.037s] (1/1) hdd-canary::hostile a2_a_rejected_head_gets_no_response_body
+SHA-256 after restore: C92C30C296DEBC95AAD6449B81D6D0ACB0C292F6E76706B2545BC4D0CE7ED2CA
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   0.038s] (1/1) hdd-canary::hostile a2_a_rejected_head_gets_no_response_body
+  Summary [   0.038s] 1 test run: 1 passed, 31 skipped
+

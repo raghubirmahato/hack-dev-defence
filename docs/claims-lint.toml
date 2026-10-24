@@ -1,0 +1,147 @@
+# Claims policy configuration (section 4, R-10, R-32). Read by `cargo xtask claims-lint`.
+# Forbidden phrases are matched case-insensitively as substrings. Quotations (the claims dictionary, the specification
+# itself) are allowed only inside a block delimited by the markers `claims-lint:allow-start` / `claims-lint:allow-end`
+# (an HTML comment in Markdown), or in a path under `exclude` below. Extend the list here, never weaken it silently:
+# a removal is a deviation (docs/DEVIATIONS.md).
+
+extensions = ["md", "html", "htm", "txt", "ftl", "json", "yaml", "yml", "toml", "svg", "xml", "tmpl", "j2"]
+
+# Scanned: documents, product copy, templates, translation catalogs, report templates, OpenAPI descriptions.
+include = [
+    "*.md",
+    "docs/**",
+    "i18n/**",
+    "legal/**",
+    "design/**",
+    "deploy/**",
+    "packaging/**",
+    "migrations/**",
+    "crates/**/templates/**",
+    "crates/**/i18n/**",
+    "crates/**/openapi*",
+    "**/openapi*.json",
+    "**/openapi*.yaml",
+    "**/report-templates/**",
+]
+
+# Not scanned. The verbatim specification and everything derived verbatim from it quote the forbidden phrases by definition
+# (ASM-004); the lint's own configuration lists them.
+exclude = [
+    "docs/SPEC.md",
+    "docs/spec/**",
+    "docs/tasks/**",
+    "docs/phases/**",
+    "docs/claims-lint.toml",
+    "docs/gates/TEMPLATE.md",
+    "docs/gates/evidence/**",   # raw tool output: logs quote lint findings, including the forbidden phrases they caught
+]
+
+# --- Section 4.2 forbidden phrases -------------------------------------------------------------------------------------
+[[phrases]]
+text = "structurally impossible"
+[[phrases]]
+text = "cannot be bypassed"
+[[phrases]]
+text = "nothing reaches the origin"
+[[phrases]]
+text = "AI-powered protection"
+[[phrases]]
+text = "unhackable"
+[[phrases]]
+text = "unbreakable"
+[[phrases]]
+text = "100% secure"
+[[phrases]]
+text = "100% protection"
+[[phrases]]
+text = "fully secure"
+[[phrases]]
+text = "completely secure"
+[[phrases]]
+text = "guaranteed protection"
+[[phrases]]
+text = "stops all attacks"
+[[phrases]]
+text = "blocks all attacks"
+[[phrases]]
+text = "zero-day proof"
+[[phrases]]
+text = "immune to"
+[[phrases]]
+text = "DDoS-proof"
+
+# "DDoS protection" is forbidden only as an unqualified claim. A line that also says what is NOT covered, or what the product
+# needs or requires, is a qualified statement (approved patterns, section 4.3). Merely mentioning an upstream provider does not
+# excuse the phrase.
+[[phrases]]
+text = "DDoS protection"
+unless_line_contains = ["not ", "no ", "without", "does not", "cannot", "needs", "requires", "forbidden"]
+
+[[phrases]]
+text = "military-grade"
+[[phrases]]
+text = "bank-grade"
+[[phrases]]
+text = "bulletproof"
+[[phrases]]
+text = "impenetrable"
+[[phrases]]
+text = "foolproof"
+[[phrases]]
+text = "never be hacked"
+[[phrases]]
+text = "AI-powered"
+[[phrases]]
+text = "absolute protection"
+[[phrases]]
+text = "absolute defence"
+[[phrases]]
+text = "absolute defense"
+[[phrases]]
+text = "absolute security"
+[[phrases]]
+text = "complete protection"
+[[phrases]]
+text = "total protection"
+[[phrases]]
+text = "impossible to bypass"
+[[phrases]]
+text = "next-gen"
+[[phrases]]
+text = "cutting-edge"
+[[phrases]]
+text = "world-class"
+
+# --- Context rules (T-0019 step 4) -------------------------------------------------------------------------------------
+# The phrase rules above apply everywhere. A context rule applies only to the public-copy paths it lists: inside them a
+# claim word must be accompanied by a scope signal on the same line, within `within` words (default 12) between the claim
+# word and the first word of the scope term. Scope terms are matched as whole words, case-insensitively; a multi-word term
+# must appear as consecutive words. Public copy may say what was tested, measured, scoped or named as a limitation; it may
+# not say that the product "protects" without that scope. Product documents (docs/UX, docs/spec) are out of scope.
+
+[[context]]
+words = ["protect", "protects", "protecting", "protected", "protection"]
+scope = [
+    "tested",
+    "test",
+    "lab",
+    "measured",
+    "scoped",
+    "known limitation",
+    "known limitations",
+    "coverage map",
+    "payload",
+    "payloads",
+    "proxied",
+    "proxied name",
+    "proxied names",
+    "attack class",
+    "named attack class",
+    "SQL injection",
+    "cross-site scripting",
+    "XSS",
+    "DDoS readiness",
+]
+within = 12
+paths = ["docs/site/**", "crates/**/templates/**", "i18n/en/**"]
+

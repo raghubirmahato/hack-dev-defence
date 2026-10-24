@@ -1,0 +1,46 @@
+T-0018 negative demos: each mutation must make cargo xtask ux-docs FAIL, and the restored file must have the
+same SHA-256. Run from D:\Hack Dev Defence on 2026-10-19T22:44:13.9528810+05:45.
+
+== Demo 1: a cycle in the dependency graph (J-01 needs J-34) ==
+file: docs/UX/journey-dependencies.md
+sha256 before: 494A56E2F5FB9FCB833DAC2FE5E097BB1C403C4979204F68E8F484343E036F83
+exit code: 1
+[ux-docs] docs/UX/journey-dependencies.md: the dependency graph is not acyclic: a cycle leaves these journeys unresolved after the topological sort: J-01, J-02, J-03, J-04, J-05, J-06, J-07, J-08, J-09, J-10, J-11, J-12, J-13, J-14, J-15, J-16, J-17, J-18, J-19, J-20, J-21, J-22, J-23, J-24, J-25, J-26, J-27, J-28, J-29, J-30, J-31, J-32, J-33, J-34 (T-0018 A2)
+sha256 after restore: 494A56E2F5FB9FCB833DAC2FE5E097BB1C403C4979204F68E8F484343E036F83
+identical: True
+
+== Demo 2: readiness weights sum to 99 ==
+file: docs/UX/journeys/J-25.md
+sha256 before: 1046A05317FD82DA4B5257F5DDB8FF22C2A83B298A6C07898AC48C57A7B7B61A
+exit code: 1
+[ux-docs] docs/UX/journeys/J-25.md: the readiness weights sum to 99; they must sum to 100 (T-0018 step 2)
+sha256 after restore: 1046A05317FD82DA4B5257F5DDB8FF22C2A83B298A6C07898AC48C57A7B7B61A
+identical: True
+
+== Demo 3: an unknown permission id ==
+file: docs/UX/journeys/J-29.md
+sha256 before: E3DF6F45779DEEA1AB70FDBBB058BB3049C0105AE115D8E7FFCBD1827E4E3FE4
+exit code: 1
+[ux-docs] docs/UX/journeys/J-29.md:62: `PERM-platform.tenant.reaad` is not a permission of the B4.2 catalog (A3)
+sha256 after restore: E3DF6F45779DEEA1AB70FDBBB058BB3049C0105AE115D8E7FFCBD1827E4E3FE4
+identical: True
+
+== Demo 4: a missing stress case (small screen removed) ==
+file: docs/UX/journeys/J-26.md
+sha256 before: 3C568267AF834DF09647CE9A8322E9F9063C415F914A600BDF4341C52D022ECA
+exit code: 1
+[ux-docs] docs/UX/journeys/J-26.md: the stress case `small screen` must appear exactly once, found 0 (T-0018 step 7)
+sha256 after restore: 3C568267AF834DF09647CE9A8322E9F9063C415F914A600BDF4341C52D022ECA
+identical: True
+
+== Demo 5: a missing journey file (J-33 removed) ==
+file: docs/UX/journeys/J-33.md
+sha256 before: E1570200087936FA4FC7B11253DEB90B9BD05310ADDF541B627381F6983F0BBA
+exit code: 1
+[ux-docs] docs/UX/journeys/J-33.md: the journey file does not exist (T-0016)
+sha256 after restore: E1570200087936FA4FC7B11253DEB90B9BD05310ADDF541B627381F6983F0BBA
+identical: True
+
+== Restored tree ==
+cargo xtask ux-docs exit code: 0
+ux-docs: PASS

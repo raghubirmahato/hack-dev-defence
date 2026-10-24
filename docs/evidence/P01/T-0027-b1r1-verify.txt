@@ -1,0 +1,52 @@
+T-0027 data visualization: verification evidence for the batch B1 round-1 review findings F-27 and F-23
+Captured: 2026-10-20 (Asia/Katmandu), final working tree, nothing committed
+Module: crates/hdd-xtask/src/ux_docs/dataviz.rs (its unit tests are inside the file). Documents changed:
+docs/UX/DATAVIZ.md (new ## Downsampling section with one numeric rule per chart form used in Screen questions; the
+print row now points at RESPONSIVE.md and states no margin value; the performance rows are labelled line-only).
+docs/UX/metrics-dictionary.md was not changed: F-27 and F-23 need no dictionary edit.
+
+Red evidence: docs/evidence/P01/T-0027-b1r1-red.txt sha256 D58443C36A63798E165DD4781DCFCCA8BEA6AE4766C9EC8F883D5704220F1669
+Mutation demos: docs/evidence/P01/T-0027-negative-demos-round2.txt sha256 E32E016F5A64868899A06B813BF96519D5603865B5EC6ACA5B8F326D689F0316
+Final docs/UX/DATAVIZ.md sha256 7EAD43A2D9CFC559E426F85212D034DD048A6634850C34794F4438D027115340 (equal to the demo's before/restored hash)
+
+1) cargo nextest run -p hdd-xtask ux_docs::dataviz --no-fail-fast
+   exit 0
+   Summary [   0.231s] 28 tests run: 28 passed, 414 skipped
+
+2) cargo fmt --all --check
+   exit 0, no output
+
+3) cargo clippy -p hdd-xtask --all-targets -- -D warnings
+   exit 0
+   Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.48s
+
+4) cargo xtask ux-docs
+   exit 0
+   ux-docs: PASS
+
+5) cargo xtask claims-lint
+   exit 0
+   claims-lint: scanned 266 files with 34 phrases and 1 context rules
+   claims-lint: PASS
+
+6) Whole hdd-xtask suite at capture time, for context (the Lead runs the full gate):
+   Summary [  32.789s] 442 tests run: 432 passed, 10 failed, 0 skipped
+   The 10 failures are fixture-tree tests of other batch B1 workers' documents, not this task's. Every failure
+   message names S-126 in the RESPONSIVE fixture or the step-up claim of dangerous-actions.md; no failure message
+   mentions DATAVIZ.md or metrics-dictionary.md, and all 28 ux_docs::dataviz tests pass in the same run. The failing
+   test names:
+   - ux_docs::tests::a_complete_tree_passes_and_each_missing_document_is_named
+   - ux_docs::tests::a_mojibake_sequence_in_a_shipped_persona_or_the_matrix_fails_the_tree
+   - ux_docs::tests::every_persona_file_is_required_and_named
+   - ux_docs::tests::f6_a_declared_key_journey_missing_from_the_matrix_row_fails
+   - ux_docs::tests::t13_missing_patterns_or_design_documents_are_named
+   - ux_docs::tests::t14_missing_ia_or_routes_documents_are_named
+   - ux_docs::tests::t15_missing_navigation_document_is_named
+   - ux_docs::tests::t16_missing_journey_file_is_named
+   - ux_docs::tests::t18_a_missing_extension_journey_or_dependency_file_is_named
+   - ux_docs::tests::the_primary_persona_question_is_linked_from_the_matrix_or_maya
+
+Not covered here: the full cargo xtask verify gate (the Lead runs it), and measured chart rendering (T-0088).
+The module is a document linter: it proves that each used chart form has a numeric downsampling row with a fitting
+method and an exact-total statement, and that the print row points to RESPONSIVE.md; it does not prove the renderer
+implements the rule, which T-0088's tests own.

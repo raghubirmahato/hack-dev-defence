@@ -1,0 +1,25 @@
+[package]
+name = "hdd-local"
+description = "local runtime: supervisor, embedded PostgreSQL manager, local CA, hosts helper, doctor, self-test, local backups"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+chacha20poly1305 = "0.11.0"
+clap = { version = "4.6.7", features = ["derive"] }
+flate2 = { version = "1.1.10", default-features = false, features = ["rust_backend"] }
+tar = { version = "0.4.46", default-features = false }
+getrandom = "0.4.3"
+hdd-common = { version = "0.0.0", path = "../hdd-common" }
+serde = { version = "1.0.229", features = ["derive"] }
+sha2 = "0.11.1"
+tokio = { version = "1.53.3", features = ["rt", "time"] }
+toml = "1.1.8"
+
+[dev-dependencies]
+tokio = { version = "1.53.3", features = ["rt", "time", "macros", "rt-multi-thread"] }

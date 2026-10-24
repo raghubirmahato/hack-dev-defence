@@ -1,0 +1,46 @@
+# T-0015 negative demonstrations: each mutation of docs/UX/NAVIGATION.md must make 'cargo xtask ux-docs' FAIL; the file is restored after each step and its SHA-256 compared.
+# Date: 2026-10-19.
+
+## 1. a route that is not in routes.toml (Sidebar Overview)
+[ux-docs] docs/UX/NAVIGATION.md:33: route `/app/o/{org}/nowhere` is not in routes.toml (A1)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 2. a permission that differs from the route (Tab DNS)
+[ux-docs] docs/UX/NAVIGATION.md:47: permission `PERM-dns.write` of `Tab · DNS` differs from the route's permission `PERM-dns.read` for `/app/o/{org}/domains/{dom}/dns` in routes.toml (A1)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 3. a reserved key used as a shortcut (Ctrl/Cmd+R for the shortcut list)
+[ux-docs] docs/UX/NAVIGATION.md: the shortcut map is missing the B2.3 shortcut `?` (A5)
+[ux-docs] docs/UX/NAVIGATION.md: the shortcut `ctrl/cmd+r` is both in the map and in the `Reserved by browsers and assistive technology` table (A5)
+ux-docs: FAIL (2 finding(s))
+(exit 1)
+
+## 4. a duplicated shortcut (g d relabelled g o)
+[ux-docs] docs/UX/NAVIGATION.md:113: the shortcut ``g o`` appears twice in the shortcut map (A5)
+[ux-docs] docs/UX/NAVIGATION.md: the shortcut map is missing the B2.3 shortcut `g d` (A5)
+ux-docs: FAIL (2 finding(s))
+(exit 1)
+
+## 5. a missing 480 px section
+[ux-docs] docs/UX/NAVIGATION.md: the `Mobile` section has no `### 480 px` subsection (A4)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 6. an empty ARIA role cell (Sidebar Bans)
+[ux-docs] docs/UX/NAVIGATION.md:36: the `ARIA role` cell of `Sidebar · Bans` is empty (A1)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 7. a missing sidebar item (Settings)
+[ux-docs] docs/UX/NAVIGATION.md: the sidebar item `Settings` has no row in the elements table (A1)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## restored file
+ux-docs: PASS
+(exit 0)
+NAVIGATION.md SHA-256 before: D711450FF303DDB4E4A9E9F2B3EDC4BC87A15B13E1AF00C9E73388CB35D4EC43
+NAVIGATION.md SHA-256 after:  D711450FF303DDB4E4A9E9F2B3EDC4BC87A15B13E1AF00C9E73388CB35D4EC43
+hash equal: True

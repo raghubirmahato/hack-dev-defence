@@ -1,0 +1,10 @@
+[package]
+name = "hdd-challenge"
+description = "proof-of-work challenge, clearance cookies (shared by proxy and web)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true

@@ -1,0 +1,4 @@
+$ cargo vet --locked
+Vetting Succeeded (175 exempted)
+
+(exit 0)

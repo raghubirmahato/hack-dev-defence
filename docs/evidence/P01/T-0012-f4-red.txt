@@ -1,0 +1,47 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.21s
+────────────
+ Nextest run ID 68119d2d-3ac3-4e92-a721-c870edb2a5e9 with nextest profile: default
+    Starting 2 tests across 1 binary (134 tests skipped)
+        FAIL [   0.011s] (1/2) hdd-xtask::bin/hdd-xtask ux_docs::tests::f4_units_comparators_and_registry_ids_are_measurable
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::f4_units_comparators_and_registry_ids_are_measurable ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::f4_units_comparators_and_registry_ids_are_measurable
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 135 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::f4_units_comparators_and_registry_ids_are_measurable' (32668) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:762:9:
+    `zero` must be measurable
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.016s] (2/2) hdd-xtask::bin/hdd-xtask ux_docs::tests::f4_identifier_digits_do_not_make_an_outcome_measurable
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::f4_identifier_digits_do_not_make_an_outcome_measurable ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::f4_identifier_digits_do_not_make_an_outcome_measurable
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 135 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::f4_identifier_digits_do_not_make_an_outcome_measurable' (32352) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:740:9:
+    `see J-02` must not be measurable
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   0.017s] 2 tests run: 0 passed, 2 failed, 134 skipped
+        FAIL [   0.011s] (1/2) hdd-xtask::bin/hdd-xtask ux_docs::tests::f4_units_comparators_and_registry_ids_are_measurable
+        FAIL [   0.016s] (2/2) hdd-xtask::bin/hdd-xtask ux_docs::tests::f4_identifier_digits_do_not_make_an_outcome_measurable
+error: test run failed

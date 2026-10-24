@@ -1,0 +1,281 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.21s
+────────────
+ Nextest run ID 79e21bda-ecdf-4bbd-8d9e-3b503c58977f with nextest profile: default
+    Starting 19 tests across 1 binary (92 tests skipped)
+        PASS [   0.011s] ( 1/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_complete_charter_passes
+        FAIL [   0.018s] ( 2/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::honesty_tests_must_be_five_questions_a3
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::honesty_tests_must_be_five_questions_a3 ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::honesty_tests_must_be_five_questions_a3
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 110 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::honesty_tests_must_be_five_questions_a3' (28676) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:209:5:
+    assertion failed: messages(&charter_findings(&four)).contains("five")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.027s] ( 3/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_charter_over_four_printed_pages_fails_a5
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::a_charter_over_four_printed_pages_fails_a5 ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::a_charter_over_four_printed_pages_fails_a5
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 110 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::a_charter_over_four_printed_pages_fails_a5' (33440) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:220:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.028s] ( 4/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_broken_link_in_any_ux_document_or_agents_md_fails_the_tree
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::a_broken_link_in_any_ux_document_or_agents_md_fails_the_tree ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::a_broken_link_in_any_ux_document_or_agents_md_fails_the_tree
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 110 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::tests::a_broken_link_in_any_ux_document_or_agents_md_fails_the_tree' (14120) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:291:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.035s] ( 5/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_file_link_with_a_line_fragment_on_a_non_markdown_file_checks_only_the_file
+        FAIL [   0.039s] ( 6/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::an_anchor_must_name_a_real_heading_in_the_same_or_the_target_file
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::an_anchor_must_name_a_real_heading_in_the_same_or_the_target_file ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::an_anchor_must_name_a_real_heading_in_the_same_or_the_target_file
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 110 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::an_anchor_must_name_a_real_heading_in_the_same_or_the_target_file' (24984) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:148:5:
+    assertion `left == right` failed: 
+      left: 0
+     right: 3
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.041s] ( 7/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::six_principles_instead_of_seven_fail
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::six_principles_instead_of_seven_fail ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::six_principles_instead_of_seven_fail
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 110 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::six_principles_instead_of_seven_fail' (27556) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:203:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.046s] ( 8/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_principle_without_an_enforcement_mechanism_fails_a1
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::a_principle_without_an_enforcement_mechanism_fails_a1 ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::a_principle_without_an_enforcement_mechanism_fails_a1
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 110 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::a_principle_without_an_enforcement_mechanism_fails_a1' (5656) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:196:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.051s] ( 9/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::complete_measures_pass
+        FAIL [   0.057s] (10/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_link_to_a_file_that_exists_passes_and_a_missing_one_names_file_and_line
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::a_link_to_a_file_that_exists_passes_and_a_missing_one_names_file_and_line ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::a_link_to_a_file_that_exists_passes_and_a_missing_one_names_file_and_line
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 110 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::a_link_to_a_file_that_exists_passes_and_a_missing_one_names_file_and_line' (6972) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:127:5:
+    assertion `left == right` failed: 
+      left: 0
+     right: 1
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.065s] (11/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_complete_tree_passes_and_each_missing_document_is_named
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::a_complete_tree_passes_and_each_missing_document_is_named ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::a_complete_tree_passes_and_each_missing_document_is_named
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 110 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::a_complete_tree_passes_and_each_missing_document_is_named' (8048) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:276:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.068s] (12/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::external_mailto_and_bare_anchor_links_are_not_file_links
+        PASS [   0.073s] (13/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::links_in_code_blocks_and_code_spans_are_examples_not_links
+        FAIL [   0.075s] (14/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_measure_without_source_or_privacy_treatment_fails_a2
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::a_measure_without_source_or_privacy_treatment_fails_a2 ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::a_measure_without_source_or_privacy_treatment_fails_a2
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 110 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::a_measure_without_source_or_privacy_treatment_fails_a2' (22512) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:238:5:
+    assertion failed: messages(&measures_findings(&m)).contains("Data source")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.079s] (15/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::every_measure_the_task_names_must_be_present
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::every_measure_the_task_names_must_be_present ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::every_measure_the_task_names_must_be_present
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 110 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::every_measure_the_task_names_must_be_present' (33216) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:247:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.084s] (16/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_decision_record_needs_status_date_and_the_three_sections
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::a_decision_record_needs_status_date_and_the_three_sections ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::a_decision_record_needs_status_date_and_the_three_sections
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 110 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::a_decision_record_needs_status_date_and_the_three_sections' (3524) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:256:5:
+    assertion failed: messages(&decision_findings("UXD-001", &no_status)).contains("Status")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.077s] (17/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::slugs_follow_the_github_rule
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::slugs_follow_the_github_rule ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::slugs_follow_the_github_rule
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 110 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::slugs_follow_the_github_rule' (12280) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:110:5:
+    assertion `left == right` failed
+      left: ""
+     right: "honesty-tests"
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.074s] (18/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_shipped_ux_documents_pass
+        FAIL [   0.072s] (19/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::titles_directories_parent_paths_and_escapes_are_handled
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::titles_directories_parent_paths_and_escapes_are_handled ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::titles_directories_parent_paths_and_escapes_are_handled
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 110 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::titles_directories_parent_paths_and_escapes_are_handled' (31536) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:172:5:
+    assertion `left == right` failed
+      left: 0
+     right: 1
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   0.100s] 19 tests run: 6 passed, 13 failed, 92 skipped
+        FAIL [   0.018s] ( 2/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::honesty_tests_must_be_five_questions_a3
+        FAIL [   0.027s] ( 3/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_charter_over_four_printed_pages_fails_a5
+        FAIL [   0.028s] ( 4/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_broken_link_in_any_ux_document_or_agents_md_fails_the_tree
+        FAIL [   0.039s] ( 6/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::an_anchor_must_name_a_real_heading_in_the_same_or_the_target_file
+        FAIL [   0.041s] ( 7/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::six_principles_instead_of_seven_fail
+        FAIL [   0.046s] ( 8/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_principle_without_an_enforcement_mechanism_fails_a1
+        FAIL [   0.057s] (10/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_link_to_a_file_that_exists_passes_and_a_missing_one_names_file_and_line
+        FAIL [   0.065s] (11/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_complete_tree_passes_and_each_missing_document_is_named
+        FAIL [   0.075s] (14/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_measure_without_source_or_privacy_treatment_fails_a2
+        FAIL [   0.079s] (15/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::every_measure_the_task_names_must_be_present
+        FAIL [   0.084s] (16/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_decision_record_needs_status_date_and_the_three_sections
+        FAIL [   0.077s] (17/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::slugs_follow_the_github_rule
+        FAIL [   0.072s] (19/19) hdd-xtask::bin/hdd-xtask ux_docs::tests::titles_directories_parent_paths_and_escapes_are_handled
+error: test run failed

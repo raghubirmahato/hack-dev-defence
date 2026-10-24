@@ -1,0 +1,32 @@
+HK1 web UI redesign: verification record (Claude, 2026-10-24)
+
+What changed (crates/hdd-proxy/src/ui/*, ui.rs, admin.rs route, tests/web_pages.rs):
+- New design system (app.css): light palette by default, dark mode only through the toggle (choice kept in localStorage),
+  sidebar layout with icons, responsive down to 360 px, focus-visible, reduced-motion, high-contrast support.
+- Custom logo (shield with a faceted half, inner outline and an H whose mint crossbar is the "gate"): inline SVG in every
+  page plus favicon.svg.
+- Public landing page at `/` presenting the whole platform (idea, how it works, with/without comparison, capability
+  cards marked Working today / Early build / Planned, principles, roadmap, limits). The control panel moved to `/app`
+  (redirects to `/login` without a session). Login and setup pages restyled.
+- Events table reshaped (Action first, one "what was detected" column), live feed shows ban blocks honestly,
+  overview status banner and a four-step setup checklist, one-click example payloads in the Test console, key text in bold.
+- Two functional bugs found by the interaction tests and fixed in app.js:
+  1. The Test console form was never bound (initConsole was not called by the route loader), so a submit reloaded the page.
+  2. After a mode change on the Sites screen only the Overview data reloaded, so the Sites card showed a stale mode and the
+     next click could silently do nothing.
+
+How it was verified (real headless Chrome driven over the DevTools protocol, against the real hdd-proxy binary built
+from this tree, on loopback, with the lab origin behind it):
+  flows.mjs: 29 PASS, 0 FAIL: sign in through the form, wrong password error, every nav link shows its own screen and
+  marks aria-current, example button fills the console, console blocks the classic bypass and allows "O'Brien", mode switch
+  monitor/block with polling, turning protection off asks for typed confirmation, event details drawer opens and closes,
+  add-site wizard opens, a real attack through the proxy creates a ban that shows in Bans and Unban (typed confirmation)
+  removes it, theme toggle and persistence, landing adapts to a signed-in visitor, sign out, /app without a session
+  redirects to /login, no uncaught JavaScript errors.
+  shots.mjs: every page at 1360 px and 390 px captured and reviewed; the only console message is the landing page's
+  expected 401 from its "am I signed in" probe.
+  cargo nextest run -p hdd-proxy --test web_pages: 14 passed. claims-lint PASS, secret-scan PASS, rules PASS,
+  rust-share PASS (JavaScript 2281 of 3000 lines).
+
+Not verified: WCAG audit with a screen reader or axe (UNVERIFIED(tool_unavailable)); Safari/Firefox rendering (only
+Chrome was driven); the 390 px Events table scrolls horizontally inside its card by design.

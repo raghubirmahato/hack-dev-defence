@@ -1,0 +1,10 @@
+[package]
+name = "hdd-api"
+description = "control plane JSON API (:8000) + SSE; OpenAPI"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true

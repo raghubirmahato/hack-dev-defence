@@ -1,0 +1,356 @@
+$ cargo nextest run -p hdd-xtask ux_docs::responsive --no-fail-fast
+(red capture: the module tests of F-21 to F-24 were written first; the bodies of gap_note_findings, never_moves_findings, catalog_coverage_findings, print_margin_findings, safeguard_crosscheck_findings and the F-24 breakpoint rule were stubbed to the empty finding list for this run, then implemented. Real command output follows.)
+
+cargo :     Blocking waiting for file lock on build directory
+At line:1 char:154
++ ... Seconds 10; cargo nextest run -p hdd-xtask ux_docs::responsive --no-f ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Blocking wa...build directory:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: unreachable statement
+    --> crates\hdd-xtask\src\ux_docs\responsive.rs:1893:5
+     |
+1892 |       return Vec::new(); // RED capture: the rule body is stubbed.
+     |       ----------------- any code following this expression is unreachable
+1893 | /     let (header, rows) = match controls_table(text) {
+1894 | |         Ok(table) => table,
+1895 | |         Err(findings) => return findings,
+1896 | |     };
+     | |______^ unreachable statement
+     |
+     = note: `#[warn(unreachable_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: unreachable statement
+    --> crates\hdd-xtask\src\ux_docs\responsive.rs:1978:5
+     |
+1977 |     return Vec::new(); // RED capture: the rule body is stubbed.
+     |     ----------------- any code following this expression is unreachable
+1978 |     let mut out = Vec::new();
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^ unreachable statement
+
+warning: unreachable statement
+    --> crates\hdd-xtask\src\ux_docs\responsive.rs:2000:5
+     |
+1999 |       return Vec::new(); // RED capture: the rule body is stubbed.
+     |       ----------------- any code following this expression is unreachable
+2000 | /     let (control_header, control_rows) = match controls_table(text) {
+2001 | |         Ok(table) => table,
+2002 | |         Err(findings) => return findings,
+2003 | |     };
+     | |______^ unreachable statement
+
+warning: unreachable statement
+    --> crates\hdd-xtask\src\ux_docs\responsive.rs:2053:5
+     |
+2052 |       return Vec::new(); // RED capture: the rule body is stubbed.
+     |       ----------------- any code following this expression is unreachable
+2053 | /     let Some(catalog) = catalog else {
+2054 | |         return vec![at(format!(
+2055 | |             "the dangerous-actions catalog `{CATALOG}` cannot be read, so the never-hidden list cannot be 
+checked against it (F-...
+2056 | |         ))];
+2057 | |     };
+     | |______^ unreachable statement
+
+warning: unreachable statement
+    --> crates\hdd-xtask\src\ux_docs\responsive.rs:2192:5
+     |
+2191 |     return Vec::new(); // RED capture: the rule body is stubbed.
+     |     ----------------- any code following this expression is unreachable
+2192 |     let mut out = Vec::new();
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^ unreachable statement
+
+warning: unused variable: `text`
+    --> crates\hdd-xtask\src\ux_docs\a11y.rs:1037:14
+     |
+1037 |     fn parse(text: &str) -> Option<Severity> {
+     |              ^^^^ help: if this is intentional, prefix it with an underscore: `_text`
+     |
+     = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `text`
+    --> crates\hdd-xtask\src\ux_docs\responsive.rs:1888:5
+     |
+1888 |     text: &str,
+     |     ^^^^ help: if this is intentional, prefix it with an underscore: `_text`
+
+warning: unused variable: `journeys`
+    --> crates\hdd-xtask\src\ux_docs\responsive.rs:1889:5
+     |
+1889 |     journeys: &[(String, String)],
+     |     ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_journeys`
+
+warning: unused variable: `catalog`
+    --> crates\hdd-xtask\src\ux_docs\responsive.rs:1890:5
+     |
+1890 |     catalog: Option<&str>,
+     |     ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_catalog`
+
+warning: unused variable: `text`
+    --> crates\hdd-xtask\src\ux_docs\responsive.rs:1976:22
+     |
+1976 | fn gap_note_findings(text: &str) -> Vec<Finding> {
+     |                      ^^^^ help: if this is intentional, prefix it with an underscore: `_text`
+
+warning: unused variable: `text`
+    --> crates\hdd-xtask\src\ux_docs\responsive.rs:1998:25
+     |
+1998 | fn never_moves_findings(text: &str) -> Vec<Finding> {
+     |                         ^^^^ help: if this is intentional, prefix it with an underscore: `_text`
+
+warning: unused variable: `text`
+    --> crates\hdd-xtask\src\ux_docs\responsive.rs:2051:30
+     |
+2051 | fn catalog_coverage_findings(text: &str, catalog: Option<&str>) -> Vec<Finding> {
+     |                              ^^^^ help: if this is intentional, prefix it with an underscore: `_text`
+
+warning: unused variable: `catalog`
+    --> crates\hdd-xtask\src\ux_docs\responsive.rs:2051:42
+     |
+2051 | fn catalog_coverage_findings(text: &str, catalog: Option<&str>) -> Vec<Finding> {
+     |                                          ^^^^^^^ help: if this is intentional, prefix it with an underscore: 
+`_catalog`
+
+warning: unused variable: `text`
+    --> crates\hdd-xtask\src\ux_docs\responsive.rs:2190:26
+     |
+2190 | fn print_margin_findings(text: &str, dataviz: Option<&str>) -> Vec<Finding> {
+     |                          ^^^^ help: if this is intentional, prefix it with an underscore: `_text`
+
+warning: unused variable: `dataviz`
+    --> crates\hdd-xtask\src\ux_docs\responsive.rs:2190:38
+     |
+2190 | fn print_margin_findings(text: &str, dataviz: Option<&str>) -> Vec<Finding> {
+     |                                      ^^^^^^^ help: if this is intentional, prefix it with an underscore: 
+`_dataviz`
+
+warning: constant `JOURNEY_DIR` is never used
+  --> crates\hdd-xtask\src\ux_docs\a11y.rs:58:11
+   |
+58 | pub const JOURNEY_DIR: &str = "docs/UX/journeys";
+   |           ^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `WAF_MONITOR_RATIO` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:409:7
+    |
+409 | const WAF_MONITOR_RATIO: f64 = 0.5;
+    |       ^^^^^^^^^^^^^^^^^
+
+warning: constant `ALL_PASS_OUTCOME` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:413:11
+    |
+413 | pub const ALL_PASS_OUTCOME: &str = "Nothing to do now.";
+    |           ^^^^^^^^^^^^^^^^
+
+warning: function `spec_card_minimum` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:397:4
+    |
+397 | fn spec_card_minimum(spec: &str) -> Option<u32> {
+    |    ^^^^^^^^^^^^^^^^^
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 19 warnings (run `cargo fix --bin "hdd-xtask" -p hdd-xtask 
+--tests` to apply 10 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.29s
+────────────
+ Nextest run ID 9c7e8f3c-d42c-4ea8-8444-1da54f0ff0cf with nextest profile: default
+    Starting 24 tests across 1 binary (418 tests skipped)
+        FAIL [   0.020s] ( 1/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_f24_last_breakpoint_states_a_testable_card_rule
+  stdout ───
+
+    running 1 test
+    test ux_docs::responsive::tests::t24_f24_last_breakpoint_states_a_testable_card_rule ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::responsive::tests::t24_f24_last_breakpoint_states_a_testable_card_rule
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::responsive::tests::t24_f24_last_breakpoint_states_a_testable_card_rule' (22776) panicked at 
+crates\hdd-xtask\src\ux_docs\responsive.rs:2968:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.020s] ( 2/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_f21_no_table_cell_carries_a_gap_note
+  stdout ───
+
+    running 1 test
+    test ux_docs::responsive::tests::t24_f21_no_table_cell_carries_a_gap_note ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::responsive::tests::t24_f21_no_table_cell_carries_a_gap_note
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::responsive::tests::t24_f21_no_table_cell_carries_a_gap_note' (8964) panicked at 
+crates\hdd-xtask\src\ux_docs\responsive.rs:2838:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.031s] ( 3/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_f22_every_never_moves_cell_names_the_same_control_set
+  stdout ───
+
+    running 1 test
+    test ux_docs::responsive::tests::t24_f22_every_never_moves_cell_names_the_same_control_set ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::responsive::tests::t24_f22_every_never_moves_cell_names_the_same_control_set
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::responsive::tests::t24_f22_every_never_moves_cell_names_the_same_control_set' (31756) panicked at 
+crates\hdd-xtask\src\ux_docs\responsive.rs:2862:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.044s] ( 4/24) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_breakpoints_match_b11_4
+        PASS [   0.096s] ( 5/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_a_missing_document_is_one_finding_not_a_panic
+        PASS [   0.106s] ( 6/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_every_cited_screen_exists_in_b12_1
+        FAIL [   0.106s] ( 7/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_f23_print_margin_is_canonical_and_dataviz_points_here
+  stdout ───
+
+    running 1 test
+    test ux_docs::responsive::tests::t24_f23_print_margin_is_canonical_and_dataviz_points_here ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::responsive::tests::t24_f23_print_margin_is_canonical_and_dataviz_points_here
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::responsive::tests::t24_f23_print_margin_is_canonical_and_dataviz_points_here' (28192) panicked at 
+crates\hdd-xtask\src\ux_docs\responsive.rs:2927:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.115s] ( 8/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_an_empty_document_is_findings_not_a_panic
+        FAIL [   0.131s] ( 9/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_f22_catalog_time_boxed_and_critical_rows_are_covered_or_excluded
+  stdout ───
+
+    running 1 test
+    test ux_docs::responsive::tests::t24_f22_catalog_time_boxed_and_critical_rows_are_covered_or_excluded ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::responsive::tests::t24_f22_catalog_time_boxed_and_critical_rows_are_covered_or_excluded
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.02s
+
+  stderr ───
+
+    thread 'ux_docs::responsive::tests::t24_f22_catalog_time_boxed_and_critical_rows_are_covered_or_excluded' (20200) 
+panicked at crates\hdd-xtask\src\ux_docs\responsive.rs:2885:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.131s] (10/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_data_dense_screens_keep_real_columns
+        FAIL [   0.083s] (11/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_security_controls_are_cross_checked_against_journey_safeguards
+  stdout ───
+
+    running 1 test
+    test ux_docs::responsive::tests::t24_security_controls_are_cross_checked_against_journey_safeguards ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::responsive::tests::t24_security_controls_are_cross_checked_against_journey_safeguards
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::responsive::tests::t24_security_controls_are_cross_checked_against_journey_safeguards' (28304) 
+panicked at crates\hdd-xtask\src\ux_docs\responsive.rs:2799:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.099s] (12/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_surface_categories_are_derived_from_the_b12_1_groups
+        PASS [   0.163s] (13/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_sections_are_required_with_a_body
+        PASS [   0.266s] (14/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_testing_hooks_pin_the_viewport_helper_and_naming
+        PASS [   0.479s] (15/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_b11_7_transformations_are_stated
+        PASS [   0.475s] (16/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_print_rules_cover_reports_and_audit_exports
+        PASS [   0.561s] (17/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_input_modalities_use_the_b11_4_targets
+        PASS [   0.660s] (18/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_device_matrix_has_exactly_the_seven_viewports
+        PASS [   0.672s] (19/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_performance_budgets_are_numeric_for_every_class
+        PASS [   0.717s] (20/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_each_screen_category_has_a_small_screen_behaviour
+        PASS [   0.816s] (21/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_content_priority_covers_every_breakpoint_and_never_hides_security
+        FAIL [   1.597s] (22/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_security_controls_are_named_and_never_hidden
+  stdout ───
+
+    running 1 test
+    test ux_docs::responsive::tests::t24_security_controls_are_named_and_never_hidden ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::responsive::tests::t24_security_controls_are_named_and_never_hidden
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 1.54s
+
+  stderr ───
+
+    thread 'ux_docs::responsive::tests::t24_security_controls_are_named_and_never_hidden' (34436) panicked at 
+crates\hdd-xtask\src\ux_docs\responsive.rs:3105:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   2.889s] (23/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_a_complete_document_passes_the_whole_check
+        PASS [   7.887s] (24/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_placeholder_cells_are_rejected
+────────────
+     Summary [   7.908s] 24 tests run: 17 passed, 7 failed, 418 skipped
+        FAIL [   0.020s] ( 1/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_f24_last_breakpoint_states_a_testable_card_rule
+        FAIL [   0.020s] ( 2/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_f21_no_table_cell_carries_a_gap_note
+        FAIL [   0.031s] ( 3/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_f22_every_never_moves_cell_names_the_same_control_set
+        FAIL [   0.106s] ( 7/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_f23_print_margin_is_canonical_and_dataviz_points_here
+        FAIL [   0.131s] ( 9/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_f22_catalog_time_boxed_and_critical_rows_are_covered_or_excluded
+        FAIL [   0.083s] (11/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_security_controls_are_cross_checked_against_journey_safeguards
+        FAIL [   1.597s] (22/24) hdd-xtask::bin/hdd-xtask 
+ux_docs::responsive::tests::t24_security_controls_are_named_and_never_hidden
+error: test run failed

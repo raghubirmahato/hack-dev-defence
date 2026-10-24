@@ -1,0 +1,405 @@
+# T-0210 batch B2 review round 1: red evidence (failing tests written before each fix)
+# Date: 2026-10-20 (Asia/Katmandu); host: Windows 11, Track L
+# Command: cargo nextest run -p hdd-canary -p hddctl --no-fail-fast
+# Result before the fixes: 68 tests run, 43 passed, 25 failed (exit 100). One section per finding.
+# Every test below is the new or rewritten test that reproduces the reported defect; after the fix it passes.
+
+## F-B2-0
+Test: a2_a_request_that_arrives_after_accept_is_served_not_rejected
+FAIL [   0.161s] (26/68) hdd-canary::hostile a2_a_request_that_arrives_after_accept_is_served_not_rejected
+  stdout ───
+  running 1 test
+  test a2_a_request_that_arrives_after_accept_is_served_not_rejected ... FAILED
+  failures:
+  failures:
+  a2_a_request_that_arrives_after_accept_is_served_not_rejected
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.07s
+  stderr ───
+  thread 'a2_a_request_that_arrives_after_accept_is_served_not_rejected' (35720) panicked at
+  crates\hdd-canary\tests\hostile.rs:451:9:
+  assertion `left == right` failed: attempt 0: a request arriving 60 ms after accept must be read, not rejected:
+  left: 0
+  right: 200
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+## C-1
+Test: a_connection_deadline_closes_a_dripping_client_at_the_deadline
+FAIL [   0.585s] (67/68) hdd-canary::hostile a_connection_deadline_closes_a_dripping_client_at_the_deadline
+  stdout ───
+  running 1 test
+  test a_connection_deadline_closes_a_dripping_client_at_the_deadline ... FAILED
+  failures:
+  failures:
+  a_connection_deadline_closes_a_dripping_client_at_the_deadline
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.49s
+  stderr ───
+  thread 'a_connection_deadline_closes_a_dripping_client_at_the_deadline' (13784) panicked at
+  crates\hdd-canary\tests\hostile.rs:517:5:
+  a dripping client must reach the absolute deadline, not be answered immediately: 9.2631ms
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+Test: a_rejected_connection_is_closed_at_the_deadline_while_dripping
+FAIL [   0.581s] (68/68) hdd-canary::hostile a_rejected_connection_is_closed_at_the_deadline_while_dripping
+  stdout ───
+  running 1 test
+  test a_rejected_connection_is_closed_at_the_deadline_while_dripping ... FAILED
+  failures:
+  failures:
+  a_rejected_connection_is_closed_at_the_deadline_while_dripping
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.49s
+  stderr ───
+  thread 'a_rejected_connection_is_closed_at_the_deadline_while_dripping' (3028) panicked at
+  crates\hdd-canary\tests\hostile.rs:550:5:
+  the drain must use the remaining part of the connection deadline: 8.4714ms
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+  ────────────
+  Summary [   0.696s] 68 tests run: 43 passed, 25 failed, 0 skipped
+
+## C-2
+Test: t0210_parser_never_panics_on_arbitrary_bytes_and_keeps_limits
+FAIL [   0.167s] (19/68) hdd-canary tests::t0210_parser_never_panics_on_arbitrary_bytes_and_keeps_limits
+  stdout ───
+  running 1 test
+  test tests::t0210_parser_never_panics_on_arbitrary_bytes_and_keeps_limits ... FAILED
+  failures:
+  failures:
+  tests::t0210_parser_never_panics_on_arbitrary_bytes_and_keeps_limits
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.08s
+  stderr ───
+  thread 'tests::t0210_parser_never_panics_on_arbitrary_bytes_and_keeps_limits' (22892) panicked at
+  crates\hdd-canary\src\lib.rs:1708:9:
+  the structured sweep produced only 416 accepted heads; it does not reach the parser logic
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+## C-3
+Test: t0210_verify_without_a_profile_requires_local_only_for_overrides
+FAIL [   0.275s] (66/68) hddctl::canary t0210_verify_without_a_profile_requires_local_only_for_overrides
+  stdout ───
+  running 1 test
+  test t0210_verify_without_a_profile_requires_local_only_for_overrides ... FAILED
+  failures:
+  failures:
+  t0210_verify_without_a_profile_requires_local_only_for_overrides
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.23s
+  stderr ───
+  thread 't0210_verify_without_a_profile_requires_local_only_for_overrides' (4472) panicked at
+  crates\hddctl\tests\canary.rs:378:5:
+  assertion `left == right` failed: Canary verification (T-0210, spec C16.1 + C16 intro; runbook CANARY.md).
+  Targets that will be contacted (benign GET through hdd-common::egress::Client):
+  direct: http://127.0.0.1:51166/__hdd_canary/
+  through: (none; the through-HDD check is UNVERIFIED, see the table)
+  RULE             STATUS                          FIELD / MESSAGE
+  -----------------------------------------------------------------
+  CANARY-MANIFEST  PASS
+  C:\Users\Raghu\AppData\Local\Temp\hddctl-canary-28548-needs-local-only: 5 files match manifest.sha256 (real SHA-256)
+
+Test: t0210_verify_refuses_a_profile_override_host_the_profile_does_not_name
+FAIL [   0.103s] (48/68) hddctl::canary t0210_verify_refuses_a_profile_override_host_the_profile_does_not_name
+  stdout ───
+  running 1 test
+  test t0210_verify_refuses_a_profile_override_host_the_profile_does_not_name ... FAILED
+  failures:
+  failures:
+  t0210_verify_refuses_a_profile_override_host_the_profile_does_not_name
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.08s
+  stderr ───
+  thread 't0210_verify_refuses_a_profile_override_host_the_profile_does_not_name' (32840) panicked at
+  crates\hddctl\tests\canary.rs:46:28:
+  no `CANARY-TARGET` line in:
+  Canary verification (T-0210, spec C16.1 + C16 intro; runbook CANARY.md).
+  Targets that will be contacted (benign GET through hdd-common::egress::Client):
+  direct: http://third-party.example/__hdd_canary/
+  through: (none; the through-HDD check is UNVERIFIED, see the table)
+  RULE             STATUS                          FIELD / MESSAGE
+  -----------------------------------------------------------------
+  CANARY-MANIFEST  PASS
+
+Test: t0210_verify_local_only_refuses_a_public_name
+FAIL [   0.067s] (41/68) hddctl::canary t0210_verify_local_only_refuses_a_public_name
+  stdout ───
+  running 1 test
+  test t0210_verify_local_only_refuses_a_public_name ... FAILED
+  failures:
+  failures:
+  t0210_verify_local_only_refuses_a_public_name
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.04s
+  stderr ───
+  thread 't0210_verify_local_only_refuses_a_public_name' (29792) panicked at crates\hddctl\tests\canary.rs:426:5:
+  assertion `left == right` failed: error: unexpected argument '--local-only' found
+  Usage: hddctl.exe canary verify --dir <DIR>
+  For more information, try '--help'.
+  left: Some(2)
+  right: Some(1)
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+Test: t0210_verify_local_only_refuses_a_metadata_address
+FAIL [   0.088s] (36/68) hddctl::canary t0210_verify_local_only_refuses_a_metadata_address
+  stdout ───
+  running 1 test
+  test t0210_verify_local_only_refuses_a_metadata_address ... FAILED
+  failures:
+  failures:
+  t0210_verify_local_only_refuses_a_metadata_address
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.04s
+  stderr ───
+  thread 't0210_verify_local_only_refuses_a_metadata_address' (23876) panicked at
+  crates\hddctl\tests\canary.rs:442:5:
+  assertion `left == right` failed: error: unexpected argument '--local-only' found
+  Usage: hddctl.exe canary verify --dir <DIR>
+  For more information, try '--help'.
+  left: Some(2)
+  right: Some(1)
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+Test: t0210_verify_local_only_refuses_a_private_address
+FAIL [   0.082s] (40/68) hddctl::canary t0210_verify_local_only_refuses_a_private_address
+  stdout ───
+  running 1 test
+  test t0210_verify_local_only_refuses_a_private_address ... FAILED
+  failures:
+  failures:
+  t0210_verify_local_only_refuses_a_private_address
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.04s
+  stderr ───
+  thread 't0210_verify_local_only_refuses_a_private_address' (28444) panicked at crates\hddctl\tests\canary.rs:460:5:
+  assertion `left == right` failed: error: unexpected argument '--local-only' found
+  Usage: hddctl.exe canary verify --dir <DIR>
+  For more information, try '--help'.
+  left: Some(2)
+  right: Some(1)
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+Test: t0210_verify_refuses_a_userinfo_trick
+FAIL [   0.054s] (45/68) hddctl::canary t0210_verify_refuses_a_userinfo_trick
+  stdout ───
+  running 1 test
+  test t0210_verify_refuses_a_userinfo_trick ... FAILED
+  failures:
+  failures:
+  t0210_verify_refuses_a_userinfo_trick
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.04s
+  stderr ───
+  thread 't0210_verify_refuses_a_userinfo_trick' (24812) panicked at crates\hddctl\tests\canary.rs:480:5:
+  assertion `left == right` failed: error: unexpected argument '--local-only' found
+  Usage: hddctl.exe canary verify --dir <DIR>
+  For more information, try '--help'.
+  left: Some(2)
+  right: Some(1)
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+Test: t0210_verify_local_only_refuses_the_name_localhost
+FAIL [   0.070s] (43/68) hddctl::canary t0210_verify_local_only_refuses_the_name_localhost
+  stdout ───
+  running 1 test
+  test t0210_verify_local_only_refuses_the_name_localhost ... FAILED
+  failures:
+  failures:
+  t0210_verify_local_only_refuses_the_name_localhost
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.04s
+  stderr ───
+  thread 't0210_verify_local_only_refuses_the_name_localhost' (34376) panicked at
+  crates\hddctl\tests\canary.rs:501:5:
+  assertion `left == right` failed: error: unexpected argument '--local-only' found
+  Usage: hddctl.exe canary verify --dir <DIR>
+  For more information, try '--help'.
+  left: Some(2)
+  right: Some(1)
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+## C-4
+Test: t0210_verify_checks_the_through_path_and_query_invariance_when_overridden
+  (no FAIL line found for this test in the captured run)
+
+Test: t0210_verify_through_hdd_passes_when_the_echo_shows_hdd_evidence
+FAIL [   0.073s] (51/68) hddctl::canary t0210_verify_through_hdd_passes_when_the_echo_shows_hdd_evidence
+  stdout ───
+  running 1 test
+  test t0210_verify_through_hdd_passes_when_the_echo_shows_hdd_evidence ... FAILED
+  failures:
+  failures:
+  t0210_verify_through_hdd_passes_when_the_echo_shows_hdd_evidence
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.04s
+  stderr ───
+  thread 't0210_verify_through_hdd_passes_when_the_echo_shows_hdd_evidence' (16344) panicked at
+  crates\hddctl\tests\canary.rs:603:5:
+  assertion `left == right` failed: error: unexpected argument '--local-only' found
+  Usage: hddctl.exe canary verify --dir <DIR>
+  For more information, try '--help'.
+  left: Some(2)
+  right: Some(0)
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+## C-5
+Test: t0210_verify_reports_a_runner_ip_that_the_echo_does_not_show
+FAIL [   0.063s] (46/68) hddctl::canary t0210_verify_reports_a_runner_ip_that_the_echo_does_not_show
+  stdout ───
+  running 1 test
+  test t0210_verify_reports_a_runner_ip_that_the_echo_does_not_show ... FAILED
+  failures:
+  failures:
+  t0210_verify_reports_a_runner_ip_that_the_echo_does_not_show
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.04s
+  stderr ───
+  thread 't0210_verify_reports_a_runner_ip_that_the_echo_does_not_show' (4016) panicked at
+  crates\hddctl\tests\canary.rs:641:5:
+  assertion `left == right` failed: error: unexpected argument '--local-only' found
+  Usage: hddctl.exe canary verify --dir <DIR>
+  For more information, try '--help'.
+  left: Some(2)
+  right: Some(1)
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+Test: t0210_verify_whole_token_runner_ip_match_accepts_the_exact_address
+FAIL [   0.084s] (53/68) hddctl::canary t0210_verify_whole_token_runner_ip_match_accepts_the_exact_address
+  stdout ───
+  running 1 test
+  test t0210_verify_whole_token_runner_ip_match_accepts_the_exact_address ... FAILED
+  failures:
+  failures:
+  t0210_verify_whole_token_runner_ip_match_accepts_the_exact_address
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.05s
+  stderr ───
+  thread 't0210_verify_whole_token_runner_ip_match_accepts_the_exact_address' (18828) panicked at
+  crates\hddctl\tests\canary.rs:678:5:
+  assertion `left == right` failed: error: unexpected argument '--local-only' found
+  Usage: hddctl.exe canary verify --dir <DIR>
+  For more information, try '--help'.
+  left: Some(2)
+  right: Some(0)
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+## C-6
+Test: t0210_verify_transport_failure_to_the_through_target_is_a_pending_step
+FAIL [   0.064s] (49/68) hddctl::canary t0210_verify_transport_failure_to_the_through_target_is_a_pending_step
+  stdout ───
+  running 1 test
+  test t0210_verify_transport_failure_to_the_through_target_is_a_pending_step ... FAILED
+  failures:
+  failures:
+  t0210_verify_transport_failure_to_the_through_target_is_a_pending_step
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.04s
+  stderr ───
+  thread 't0210_verify_transport_failure_to_the_through_target_is_a_pending_step' (16356) panicked at
+  crates\hddctl\tests\canary.rs:722:5:
+  assertion `left == right` failed: error: unexpected argument '--local-only' found
+  Usage: hddctl.exe canary verify --dir <DIR>
+  For more information, try '--help'.
+  left: Some(2)
+  right: Some(0)
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+## C-7
+Test: t0210_verify_fails_when_the_manifest_base_path_differs
+FAIL [   0.091s] (38/68) hddctl::canary t0210_verify_fails_when_the_manifest_base_path_differs
+  stdout ───
+  running 1 test
+  test t0210_verify_fails_when_the_manifest_base_path_differs ... FAILED
+  failures:
+  failures:
+  t0210_verify_fails_when_the_manifest_base_path_differs
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.05s
+  stderr ───
+  thread 't0210_verify_fails_when_the_manifest_base_path_differs' (2260) panicked at
+  crates\hddctl\tests\canary.rs:346:5:
+  assertion `left == right` failed: Canary verification (T-0210, spec C16.1 + C16 intro; runbook CANARY.md).
+  Targets that will be contacted (benign GET through hdd-common::egress::Client):
+  direct: (none; the direct check is UNVERIFIED, see the table)
+  through: (none; the through-HDD check is UNVERIFIED, see the table)
+  RULE             STATUS                          FIELD / MESSAGE
+  -----------------------------------------------------------------
+  CANARY-MANIFEST  PASS
+  C:\Users\Raghu\AppData\Local\Temp\hddctl-canary-26668-manifest-base-path: 5 files match manifest.sha256 (real SHA-256)
+
+## C-8
+Test: a2_a_rejected_head_gets_no_response_body
+FAIL [   0.122s] (22/68) hdd-canary::hostile a2_a_rejected_head_gets_no_response_body
+  stdout ───
+  running 1 test
+  test a2_a_rejected_head_gets_no_response_body ... FAILED
+  failures:
+  failures:
+  a2_a_rejected_head_gets_no_response_body
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.03s
+  stderr ───
+  thread 'a2_a_rejected_head_gets_no_response_body' (24004) panicked at crates\hdd-canary\tests\hostile.rs:574:5:
+  a HEAD response carries no body, got [110, 111, 116, 32, 102, 111, 117, 110, 100, 10]
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+Test: t0210_start_refuses_a_non_regular_file
+FAIL [   0.099s] (16/68) hdd-canary tests::t0210_start_refuses_a_non_regular_file
+  stdout ───
+  running 1 test
+  test tests::t0210_start_refuses_a_non_regular_file ... FAILED
+  failures:
+  failures:
+  tests::t0210_start_refuses_a_non_regular_file
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.01s
+  stderr ───
+  thread 'tests::t0210_start_refuses_a_non_regular_file' (27716) panicked at crates\hdd-canary\src\lib.rs:1729:9:
+  file error: cannot read C:\Users\Raghu\AppData\Local\Temp\hdd-canary-lib-33772-non-regular\ok.txt: Access is
+  denied. (os error 5)
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+Test: t0210_verify_warns_when_the_contract_files_lack_nosniff
+FAIL [   0.086s] (52/68) hddctl::canary t0210_verify_warns_when_the_contract_files_lack_nosniff
+  stdout ───
+  running 1 test
+  test t0210_verify_warns_when_the_contract_files_lack_nosniff ... FAILED
+  failures:
+  failures:
+  t0210_verify_warns_when_the_contract_files_lack_nosniff
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.04s
+  stderr ───
+  thread 't0210_verify_warns_when_the_contract_files_lack_nosniff' (33896) panicked at
+  crates\hddctl\tests\canary.rs:760:5:
+  assertion `left == right` failed: a WARN does not fail the run:
+  error: unexpected argument '--local-only' found
+  Usage: hddctl.exe canary verify --dir <DIR>
+  For more information, try '--help'.
+  left: Some(2)
+  right: Some(0)
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+Test: t0210_verify_fails_the_echo_without_nosniff
+FAIL [   0.108s] (37/68) hddctl::canary t0210_verify_fails_the_echo_without_nosniff
+  stdout ───
+  running 1 test
+  test t0210_verify_fails_the_echo_without_nosniff ... FAILED
+  failures:
+  failures:
+  t0210_verify_fails_the_echo_without_nosniff
+  test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.06s
+  stderr ───
+  thread 't0210_verify_fails_the_echo_without_nosniff' (2924) panicked at crates\hddctl\tests\canary.rs:793:5:
+  assertion `left == right` failed: error: unexpected argument '--local-only' found
+  Usage: hddctl.exe canary verify --dir <DIR>
+  For more information, try '--help'.
+  left: Some(2)
+  right: Some(1)
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+## Full run summary
+     Summary [   0.696s] 68 tests run: 43 passed, 25 failed, 0 skipped
+[exit code: 100]
+
+## Notes on two findings that are not product failures
+C-2 is a test-quality defect, not a product defect: the old uniform-random-bytes sweep produced essentially zero accepted
+heads (terminator almost never generated), so its assertions lived in an `if let Ok(..)` that never ran. The rewritten
+sweep first failed with "the structured sweep produced only 416 accepted heads" (under-generated); the generation was made
+structured (half well-formed, half mixed, plus byte mutations and noise) so that the test now asserts both classes >= 500.
+The mutation demo restores the old parser-feeding style (the sweep no longer feeds the parser) and the rewritten test fails
+with "produced only 0 accepted heads" - which is exactly the weak-test defect.
+C-8's symlink rejection test is `#[cfg(unix)]` and therefore UNVERIFIED(environment_unsupported) on this Windows host; the
+regular-file rejection test (directory in place of a file) and the hard size-limit test run here, and the size limit was
+already partly covered by the metadata check before this round (the `take()` read is defence in depth).
+
+## F-B2-0 pre-fix reproduction (stress run, before the fix)
+The flake was reproduced before the fix in a stress loop (12 iterations of the combined suite, 4 CPU busy loops,
+--test-threads=16), on iteration 3:
+  FAIL [   0.315s] (46/49) hddctl::canary t0210_verify_reports_a_static_install_echo_as_unverified
+  CANARY-QUERY FAIL: static.js: HTTP 404 without a query and 200 with one (expected 200/200)
+Root cause: the accepted socket inherited the listener's non-blocking mode on Windows, so a request whose bytes arrived a
+few milliseconds after accept() made read() return WouldBlock; read_head treated that as an incomplete/rejected request and
+answered with the opaque 404, and the probe failed. The deterministic regression test is
+a2_a_request_that_arrives_after_accept_is_served_not_rejected (it fails pre-fix with left: 0, right: 200). The fix is
+set_nonblocking(false) on the accepted stream, plus the absolute per-connection deadline.

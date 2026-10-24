@@ -1,0 +1,111 @@
+T-0027 data visualization: verification evidence
+
+Captured: 2026-10-20 (Asia/Katmandu). Working tree, nothing committed.
+Files this task owns: docs/UX/DATAVIZ.md, docs/UX/metrics-dictionary.md,
+crates/hdd-xtask/src/ux_docs/dataviz.rs, docs/evidence/P01/T-0027-red.txt and this file.
+Four other workers were editing sibling ux_docs modules in the same crate during the run; their files
+are not mine and were not edited. The six required commands below were run last, after the other workers
+had stopped failing, and all six exited 0.
+
+RESULT LINES
+1. cargo nextest run -p hdd-xtask ux_docs::dataviz --no-fail-fast       exit 0; Summary [   0.119s] 25 tests run: 25 passed, 376 skipped
+2. cargo xtask ux-docs                                                exit 0; ux-docs: PASS
+3. cargo xtask claims-lint                                            exit 0; claims-lint: scanned 247 files with 34 phrases and 1 context rules; claims-lint: PASS
+4. cargo fmt --all --check                                            exit 0, no output
+5. cargo clippy -p hdd-xtask --all-targets -- -D warnings             exit 0, Finished dev profile
+6. rustfmt --edition 2024 --check crates/hdd-xtask/src/ux_docs/dataviz.rs   exit 0, no output
+
+Earlier in the parallel run (before the other workers finished) ux-docs, claims-lint and clippy failed on
+files owned by T-0022 and T-0024 (missing acceptance-ui/ wording, unreadable T-0022 evidence files, a regex
+in a loop in accessibility.rs). No such finding ever named a file this task owns; the final run above is
+the state of the tree at capture time.
+
+The full hdd-xtask suite was also run, because it contains the shipped-document test that now includes
+DATAVIZ.md and metrics-dictionary.md. That test passes; the suite still has 10 failures, all of them
+fixture-tree tests in ux_docs/tests.rs that assert check(fixture_tree) is empty. The fixture tree has no
+documents for the five parallel modules yet, so each run reports the missing documents, mine included.
+That is the fixture-tree step for the Lead: put dataviz::fixtures::documents() into good_tree. The captured
+summary and one panic message follow verbatim.
+
+cargo nextest run -p hdd-xtask --no-fail-fast  -> exit 100
+Summary [  20.165s] 401 tests run: 391 passed, 10 failed, 0 skipped
+    thread 'ux_docs::tests::a_complete_tree_passes_and_each_missing_document_is_named' (22732) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1930:5:
+    [ux-docs] docs/UX/a11y-criteria.toml: the stored WCAG 2.2 criterion list does not exist (T-0022 A1)
+    [ux-docs] docs/UX/ACCESSIBILITY.md: the accessibility strategy does not exist (T-0022 step 1)
+    [ux-docs] docs/UX/a11y-checklists: the checklist directory does not exist (T-0022 step 4)
+    [ux-docs] docs/UX/DATAVIZ.md: the document does not exist (T-0027)
+    [ux-docs] docs/UX/metrics-dictionary.md: the document does not exist (T-0027)
+    [ux-docs] docs/UX/ONBOARDING.md: the document cannot be read (cannot read C:\Users\Raghu\AppData\Local\Temp\hdd-xtask-ux-31372-tree\docs/UX/ONBOARDING.md: The system cannot find the file specified. (os error 2)); T-0026 requires it
+    [ux-docs] docs/UX/READINESS-MODEL.md: the document cannot be read (cannot read C:\Users\Raghu\AppData\Local\Temp\hdd-xtask-ux-31372-tree\docs/UX/READINESS-MODEL.md: The system cannot find the file specified. (os error 2)); T-0026 requires it
+    [ux-docs] docs/UX/RESPONSIVE.md: the responsive and device strategy document does not exist (T-0024 deliverable)
+    [ux-docs] docs/UX/dangerous-actions.md: the document does not exist (T-0025 deliverables)
+    [ux-docs] docs/UX/SECURITY-UX.md: the document does not exist (T-0025 deliverables)
+    [ux-docs] i18n/en/dangerous-actions.ftl: the document does not exist (T-0025 deliverables)
+
+Red evidence: docs/evidence/P01/T-0027-red.txt, sha256 E19700D50D428F28811AF5A8C3A3553FAC266F9140FBE4490015928D7F6CDF2A
+  Summary [   0.171s] 25 tests run: 2 passed, 23 failed, 376 skipped (the scaffold-state run).
+  Disclosure for a precise record: the first red attempt, made with the tests and no rule bodies, could not build
+  because sibling files owned by other workers were mid-edit. The implementation was then drafted to reach a
+  buildable tree, the scaffold bodies were restored for this failing run, and the implementation was re-applied
+  immediately afterwards. The test source is the same in the red and green runs apart from rustfmt whitespace, so
+  the failing output in the red file is real and the green run below is the same 25 tests against the rules.
+
+Not verified here: the full cargo xtask verify (the Lead runs it) and the Lead-side wiring of the fixture
+documents in ux_docs/tests.rs. The evidence files this task owns are UTF-8 without a byte-order mark.
+
+====================================================================================================
+COMMAND 1: cargo nextest run -p hdd-xtask ux_docs::dataviz --no-fail-fast
+----------------------------------------------------------------------------------------------------
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.20s
+────────────
+ Nextest run ID 93e97b4c-4659-411a-a6c7-224c6de922c4 with nextest profile: default
+    Starting 25 tests across 1 binary (376 tests skipped)
+        PASS [   0.017s] ( 1/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_a_byte_order_mark_or_mojibake_fails_the_document_rule
+        PASS [   0.026s] ( 2/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_comparison_defines_the_previous_period_and_the_unknown_case
+        PASS [   0.028s] ( 3/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_screen_has_a_visual_not_only_the_table_alternative
+        PASS [   0.030s] ( 4/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_a_spec_without_b9_or_b11_10_is_a_finding_not_a_panic
+        PASS [   0.033s] ( 5/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_metric_type_and_labels_agree_with_b9
+        PASS [   0.037s] ( 6/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_derived_kpis_state_their_formula
+        PASS [   0.045s] ( 7/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_chart_forms_are_the_b11_10_forms_and_whole_tokens
+        PASS [   0.056s] ( 8/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_dictionary_columns_and_rows_are_complete
+        PASS [   0.064s] ( 9/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_colour_has_eight_patterned_b11_2_series
+        PASS [   0.082s] (10/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_downsampling_thresholds_are_numeric
+        PASS [   0.085s] (11/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_metric_ids_exist_in_b9_and_audit_ids_in_b8
+        PASS [   0.091s] (12/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_annotations_include_mode_rule_ban_and_deployment
+        PASS [   0.095s] (13/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_required_screen_has_a_question_and_a_metric
+        PASS [   0.106s] (14/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_chart_form_is_justified
+        PASS [   0.107s] (15/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_kpi_must_be_a_dictionary_row
+        PASS [   0.119s] (16/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_every_chart_has_a_text_summary_and_a_view_as_table_toggle
+        PASS [   0.108s] (17/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_missing_documents_and_sections_are_findings
+        PASS [   0.101s] (18/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_placeholder_values_are_rejected
+        PASS [   0.100s] (19/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_spec_gaps_are_stated_with_real_references
+        PASS [   0.106s] (20/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_table_specs_need_columns_sort_filters_and_density
+        PASS [   0.106s] (21/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_the_chart_rules_state_the_global_rules
+        PASS [   0.102s] (22/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_time_presets_are_exactly_the_six_named
+        PASS [   0.118s] (23/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_the_fixture_documents_pass_every_rule
+        PASS [   0.098s] (24/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_unknown_behaviour_is_defined_for_every_widget
+        PASS [   0.126s] (25/25) hdd-xtask::bin/hdd-xtask ux_docs::dataviz::tests::t27_the_check_reads_the_fixture_tree
+────────────
+     Summary [   0.164s] 25 tests run: 25 passed, 376 skipped
+
+COMMAND 2: cargo xtask ux-docs
+----------------------------------------------------------------------------------------------------
+ux-docs: PASS
+
+COMMAND 3: cargo xtask claims-lint
+----------------------------------------------------------------------------------------------------
+claims-lint: scanned 247 files with 34 phrases and 1 context rules
+claims-lint: PASS
+
+COMMAND 4: cargo fmt --all --check
+----------------------------------------------------------------------------------------------------
+(no output)
+
+COMMAND 5: cargo clippy -p hdd-xtask --all-targets -- -D warnings
+----------------------------------------------------------------------------------------------------
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.19s
+
+COMMAND 6: rustfmt --edition 2024 --check crates/hdd-xtask/src/ux_docs/dataviz.rs
+----------------------------------------------------------------------------------------------------
+(no output)
+

@@ -1,0 +1,13 @@
+=== T-0026 mutation demo ===
+file: docs/UX/journeys/J-25.md
+sha256 before: 1046A05317FD82DA4B5257F5DDB8FF22C2A83B298A6C07898AC48C57A7B7B61A
+sha256 while mutated: 2C1CC7A51DC20C77973F872F1F9E1D51484957E177814424FA1FC91DB55B9177
+sha256 restored: 1046A05317FD82DA4B5257F5DDB8FF22C2A83B298A6C07898AC48C57A7B7B61A
+mutation: replace [| Traffic flows through HDD | 8 |] with [| Traffic flows through HDD | 9 |]
+ux-docs exit during mutation: 1
+[ux-docs] docs/UX/journeys/J-25.md:69: the J-25 weight 9 of `Traffic flows through HDD` differs from the model weight 8 (T-0026 step 2)
+[ux-docs] docs/UX/journeys/J-25.md: the J-25 readiness weights sum to 101, not 100 (T-0026 A2)
+[ux-docs] docs/UX/READINESS-MODEL.md: the readiness model weights sum to 100 but the J-25 table sums to 101 (T-0026 A2)
+[ux-docs] docs/UX/journeys/J-25.md: the readiness weights sum to 101; they must sum to 100 (T-0018 step 2)
+ux-docs after byte-identical restore: exit 0 - ux-docs: PASS
+restored byte-identical: True

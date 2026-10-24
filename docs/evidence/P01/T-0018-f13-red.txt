@@ -1,0 +1,49 @@
+T-0018 F-13 red evidence: the two new checks are run before they exist. The tests expect a finding for a
+task-order contradiction and for an edge between the alternative journeys J-08 and J-09; both tests fail now.
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.38s
+────────────
+ Nextest run ID fc248c9d-6dc7-4be9-92c5-46c9c98e5462 with nextest profile: default
+    Starting 2 tests across 1 binary (251 tests skipped)
+        FAIL [   0.742s] (1/2) hdd-xtask::bin/hdd-xtask ux_docs::tests::t18_f13_alternative_journeys_have_no_edge_between_them
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t18_f13_alternative_journeys_have_no_edge_between_them ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t18_f13_alternative_journeys_have_no_edge_between_them
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 252 filtered out; finished in 0.72s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t18_f13_alternative_journeys_have_no_edge_between_them' (13380) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:4426:5:
+    the alternative edge must be reported: 
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.748s] (2/2) hdd-xtask::bin/hdd-xtask ux_docs::tests::t18_f13_task_order_contradiction_needs_an_exception
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t18_f13_task_order_contradiction_needs_an_exception ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t18_f13_task_order_contradiction_needs_an_exception
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 252 filtered out; finished in 0.72s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t18_f13_task_order_contradiction_needs_an_exception' (19840) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:4397:5:
+    the contradiction must be reported: 
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   0.750s] 2 tests run: 0 passed, 2 failed, 251 skipped
+        FAIL [   0.742s] (1/2) hdd-xtask::bin/hdd-xtask ux_docs::tests::t18_f13_alternative_journeys_have_no_edge_between_them
+        FAIL [   0.748s] (2/2) hdd-xtask::bin/hdd-xtask ux_docs::tests::t18_f13_task_order_contradiction_needs_an_exception
+error: test run failed

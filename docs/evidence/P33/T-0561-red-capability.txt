@@ -1,0 +1,9 @@
+$ cargo test -p hdd-common --lib capability   # tests written first; module has no implementation
+     30 error[E0433]: cannot find type `Capability` in this scope
+      9 error[E0433]: cannot find type `Availability` in this scope
+      8 error[E0599]: no method named `availability` found for struct `types::Profile` in the current scope
+      4 error[E0599]: no method named `refusals` found for struct `types::Profile` in the current scope
+      3 error[E0433]: cannot find type `Ack` in this scope
+      3 error[E0425]: cannot find value `ERR_LOCAL_UNAVAILABLE` in this scope
+      2 error[E0599]: no method named `requested` found for struct `types::Profile` in the current scope
+      2 error[E0599]: no method named `capabilities` found for struct `types::Profile` in the current scope

@@ -1,0 +1,68 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.21s
+────────────
+ Nextest run ID 1147908e-e62e-42e8-afee-6c2239589ed2 with nextest profile: default
+    Starting 4 tests across 1 binary (132 tests skipped)
+        FAIL [   0.010s] (1/4) hdd-xtask::bin/hdd-xtask ux_docs::tests::f5_a_criterion_counts_only_when_the_b11_11_table_covers_it
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::f5_a_criterion_counts_only_when_the_b11_11_table_covers_it ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::f5_a_criterion_counts_only_when_the_b11_11_table_covers_it
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 135 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::f5_a_criterion_counts_only_when_the_b11_11_table_covers_it' (32264) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:784:5:
+    assertion failed: criterion_is_covered("1.4.4", &criteria)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.024s] (2/4) hdd-xtask::bin/hdd-xtask ux_docs::tests::f5_b11_11_criteria_are_read_from_the_spec_table
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::f5_b11_11_criteria_are_read_from_the_spec_table ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::f5_b11_11_criteria_are_read_from_the_spec_table
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 135 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::f5_b11_11_criteria_are_read_from_the_spec_table' (16164) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:773:9:
+    `1.1.1` missing: {}
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.026s] (3/4) hdd-xtask::bin/hdd-xtask ux_docs::tests::f5_an_uncovered_criterion_is_reported_and_does_not_count
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::f5_an_uncovered_criterion_is_reported_and_does_not_count ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::f5_an_uncovered_criterion_is_reported_and_does_not_count
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 135 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::tests::f5_an_uncovered_criterion_is_reported_and_does_not_count' (23676) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:799:5:
+    [ux-docs] docs/UX/personas/maya.md: the accessibility section names 1 B11.11 criteria; at least two criteria are required (A3)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.033s] (4/4) hdd-xtask::bin/hdd-xtask ux_docs::tests::f5_fewer_than_two_covered_criteria_fails
+────────────
+     Summary [   0.033s] 4 tests run: 1 passed, 3 failed, 132 skipped
+        FAIL [   0.010s] (1/4) hdd-xtask::bin/hdd-xtask ux_docs::tests::f5_a_criterion_counts_only_when_the_b11_11_table_covers_it
+        FAIL [   0.024s] (2/4) hdd-xtask::bin/hdd-xtask ux_docs::tests::f5_b11_11_criteria_are_read_from_the_spec_table
+        FAIL [   0.026s] (3/4) hdd-xtask::bin/hdd-xtask ux_docs::tests::f5_an_uncovered_criterion_is_reported_and_does_not_count
+error: test run failed

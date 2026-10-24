@@ -1,0 +1,4 @@
+#!/bin/sh
+# Installed by `cargo xtask hooks install` (T-0005). Blocks commits that contain secrets.
+if [ -n "$HDD_XTASK_BIN" ]; then exec "$HDD_XTASK_BIN" secrets scan --staged; fi
+exec cargo xtask secrets scan --staged

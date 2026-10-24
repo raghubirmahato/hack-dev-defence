@@ -1,0 +1,748 @@
+# T-0210 red evidence (tests first, before the implementation)
+# Date: 2026-10-20 (Asia/Katmandu)
+# Command: cargo nextest run -p hdd-canary -p hddctl --no-fail-fast
+# The scaffold public API compiles; every behaviour test fails because its body is unimplemented.
+# ============================================================cargo.exe : warning: unused import: `self`
+At line:7 char:12
++ "@; $out = & cargo nextest run -p hdd-canary -p hddctl --no-fail-fast ...
++            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: unused import: `self`:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  --> crates\hdd-canary\src\lib.rs:21:15
+   |
+21 | use std::io::{self, Read, Write};
+   |               ^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused imports: `TcpListener` and `TcpStream`
+  --> crates\hdd-canary\src\lib.rs:22:28
+   |
+22 | use std::net::{SocketAddr, TcpListener, TcpStream};
+   |                            ^^^^^^^^^^^  ^^^^^^^^^
+
+warning: unused import: `Sha256`
+  --> crates\hdd-canary\src\lib.rs:28:20
+   |
+28 | use sha2::{Digest, Sha256};
+   |                    ^^^^^^
+
+warning: unused import: `Write`
+  --> crates\hdd-canary\src\lib.rs:21:27
+   |
+21 | use std::io::{self, Read, Write};
+   |                           ^^^^^
+
+warning: unused import: `Digest`
+  --> crates\hdd-canary\src\lib.rs:28:12
+   |
+28 | use sha2::{Digest, Sha256};
+   |            ^^^^^^
+
+warning: unused import: `Read`
+  --> crates\hdd-canary\src\lib.rs:21:21
+   |
+21 | use std::io::{self, Read, Write};
+   |                     ^^^^
+
+warning: associated function `bump` is never used
+   --> crates\hdd-canary\src\lib.rs:378:8
+    |
+377 | impl Metrics {
+    | ------------ associated function in this implementation
+378 |     fn bump(counter: &AtomicU64, by: u64) {
+    |        ^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: struct `ServedFile` is never constructed
+   --> crates\hdd-canary\src\lib.rs:458:8
+    |
+458 | struct ServedFile {
+    |        ^^^^^^^^^^
+
+warning: `hdd-canary` (lib) generated 8 warnings (run `cargo fix --lib -p hdd-canary` to apply 3 suggestions)
+warning: struct `ServedFile` is never constructed
+   --> crates\hdd-canary\src\lib.rs:458:8
+    |
+458 | struct ServedFile {
+    |        ^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `hdd-canary` (lib test) generated 7 warnings (6 duplicates)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.29s
+────────────
+ Nextest run ID f4cb3bf0-a8c0-437f-b29b-84849f7f071e with nextest profile: default
+    Starting 41 tests across 6 binaries
+        FAIL [   0.020s] ( 1/41) hdd-canary tests::t0210_echo_headers_json_is_bounded_and_redacts_credentials
+  stdout ───
+
+    running 1 test
+    test tests::t0210_echo_headers_json_is_bounded_and_redacts_credentials ... FAILED
+
+    failures:
+
+    failures:
+        tests::t0210_echo_headers_json_is_bounded_and_redacts_credentials
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'tests::t0210_echo_headers_json_is_bounded_and_redacts_credentials' (29680) panicked at 
+crates\hdd-canary\src\lib.rs:845:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.029s] ( 2/41) hdd-canary tests::t0210_sha256_is_real_sha256
+  stdout ───
+
+    running 1 test
+    test tests::t0210_sha256_is_real_sha256 ... FAILED
+
+    failures:
+
+    failures:
+        tests::t0210_sha256_is_real_sha256
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'tests::t0210_sha256_is_real_sha256' (25876) panicked at crates\hdd-canary\src\lib.rs:486:9:
+    assertion `left == right` failed
+      left: ""
+     right: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.037s] ( 3/41) hdd-canary tests::t0210_generate_writes_the_five_contract_files_and_real_hashes
+  stdout ───
+
+    running 1 test
+    test tests::t0210_generate_writes_the_five_contract_files_and_real_hashes ... FAILED
+
+    failures:
+
+    failures:
+        tests::t0210_generate_writes_the_five_contract_files_and_real_hashes
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'tests::t0210_generate_writes_the_five_contract_files_and_real_hashes' (11876) panicked at 
+crates\hdd-canary\src\lib.rs:500:50:
+    generate: Io("not implemented")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.044s] ( 4/41) hdd-canary tests::t0210_manifest_text_round_trips_and_rejects_bad_input
+  stdout ───
+
+    running 1 test
+    test tests::t0210_manifest_text_round_trips_and_rejects_bad_input ... FAILED
+
+    failures:
+
+    failures:
+        tests::t0210_manifest_text_round_trips_and_rejects_bad_input
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'tests::t0210_manifest_text_round_trips_and_rejects_bad_input' (29636) panicked at 
+crates\hdd-canary\src\lib.rs:609:44:
+    round trip: Manifest("not implemented")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.053s] ( 5/41) hdd-canary tests::t0210_metrics_are_bounded_and_saturate
+        FAIL [   0.058s] ( 6/41) hdd-canary tests::t0210_generate_is_idempotent
+  stdout ───
+
+    running 1 test
+    test tests::t0210_generate_is_idempotent ... FAILED
+
+    failures:
+
+    failures:
+        tests::t0210_generate_is_idempotent
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'tests::t0210_generate_is_idempotent' (7028) panicked at crates\hdd-canary\src\lib.rs:536:39:
+    first: Io("not implemented")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.066s] ( 7/41) hdd-canary tests::t0210_parse_request_enforces_the_header_size_and_count_limits
+  stdout ───
+
+    running 1 test
+    test tests::t0210_parse_request_enforces_the_header_size_and_count_limits ... FAILED
+
+    failures:
+
+    failures:
+        tests::t0210_parse_request_enforces_the_header_size_and_count_limits
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'tests::t0210_parse_request_enforces_the_header_size_and_count_limits' (24320) panicked at 
+crates\hdd-canary\src\lib.rs:737:9:
+    exactly 8 KB
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.073s] ( 8/41) hdd-canary tests::t0210_parse_request_accepts_the_documented_shapes
+  stdout ───
+
+    running 1 test
+    test tests::t0210_parse_request_accepts_the_documented_shapes ... FAILED
+
+    failures:
+
+    failures:
+        tests::t0210_parse_request_accepts_the_documented_shapes
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'tests::t0210_parse_request_accepts_the_documented_shapes' (18092) panicked at 
+crates\hdd-canary\src\lib.rs:704:10:
+    parsed: Incomplete
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.081s] ( 9/41) hdd-canary tests::t0210_route_serves_only_the_exact_contract_paths
+  stdout ───
+
+    running 1 test
+    test tests::t0210_route_serves_only_the_exact_contract_paths ... FAILED
+
+    failures:
+
+    failures:
+        tests::t0210_route_serves_only_the_exact_contract_paths
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'tests::t0210_route_serves_only_the_exact_contract_paths' (3500) panicked at 
+crates\hdd-canary\src\lib.rs:664:13:
+    assertion `left == right` failed: ok.txt
+      left: Reject
+     right: File(CanaryFile { name: "ok.txt", media_type: "text/plain; charset=utf-8", content: [104, 100, 100, 45, 
+99, 97, 110, 97, 114, 121, 45, 111, 107] })
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.089s] (10/41) hdd-canary tests::t0210_parse_request_rejects_methods_bodies_and_malformed_heads
+  stdout ───
+
+    running 1 test
+    test tests::t0210_parse_request_rejects_methods_bodies_and_malformed_heads ... FAILED
+
+    failures:
+
+    failures:
+        tests::t0210_parse_request_rejects_methods_bodies_and_malformed_heads
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'tests::t0210_parse_request_rejects_methods_bodies_and_malformed_heads' (26788) panicked at 
+crates\hdd-canary\src\lib.rs:756:9:
+    a plain GET is valid
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.096s] (11/41) hdd-canary tests::t0210_base_path_normalisation_table
+  stdout ───
+
+    running 1 test
+    test tests::t0210_base_path_normalisation_table ... FAILED
+
+    failures:
+
+    failures:
+        tests::t0210_base_path_normalisation_table
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'tests::t0210_base_path_normalisation_table' (27856) panicked at crates\hdd-canary\src\lib.rs:641:13:
+    assertion `left == right` failed: /__hdd_canary/
+      left: Err(BasePath("not implemented"))
+     right: Ok("/__hdd_canary/")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.111s] (12/41) hdd-canary tests::t0210_check_manifest_detects_a_changed_file_and_names_it
+  stdout ───
+
+    running 1 test
+    test tests::t0210_check_manifest_detects_a_changed_file_and_names_it ... FAILED
+
+    failures:
+
+    failures:
+        tests::t0210_check_manifest_detects_a_changed_file_and_names_it
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'tests::t0210_check_manifest_detects_a_changed_file_and_names_it' (24520) panicked at 
+crates\hdd-canary\src\lib.rs:549:31:
+    generate: Io("not implemented")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.118s] (13/41) hdd-canary::hostile a1_the_sidecar_serves_exactly_the_c16_1_files
+  stdout ───
+
+    running 1 test
+    test a1_the_sidecar_serves_exactly_the_c16_1_files ... FAILED
+
+    failures:
+
+    failures:
+        a1_the_sidecar_serves_exactly_the_c16_1_files
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'a1_the_sidecar_serves_exactly_the_c16_1_files' (26820) panicked at 
+crates\hdd-canary\tests\hostile.rs:32:51:
+    generate: Io("not implemented")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.126s] (14/41) hdd-canary 
+tests::t0210_check_manifest_detects_missing_file_and_missing_or_extra_entries
+  stdout ───
+
+    running 1 test
+    test tests::t0210_check_manifest_detects_missing_file_and_missing_or_extra_entries ... FAILED
+
+    failures:
+
+    failures:
+        tests::t0210_check_manifest_detects_missing_file_and_missing_or_extra_entries
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'tests::t0210_check_manifest_detects_missing_file_and_missing_or_extra_entries' (27920) panicked at 
+crates\hdd-canary\src\lib.rs:573:31:
+    generate: Io("not implemented")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.134s] (15/41) hdd-canary tests::t0210_parse_request_enforces_the_request_line_limit
+  stdout ───
+
+    running 1 test
+    test tests::t0210_parse_request_enforces_the_request_line_limit ... FAILED
+
+    failures:
+
+    failures:
+        tests::t0210_parse_request_enforces_the_request_line_limit
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'tests::t0210_parse_request_enforces_the_request_line_limit' (25652) panicked at 
+crates\hdd-canary\src\lib.rs:723:42:
+    exactly at the limit: Incomplete
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.126s] (16/41) hdd-canary::hostile a2_a_body_is_never_read_and_the_server_keeps_serving
+  stdout ───
+
+    running 1 test
+    test a2_a_body_is_never_read_and_the_server_keeps_serving ... FAILED
+
+    failures:
+
+    failures:
+        a2_a_body_is_never_read_and_the_server_keeps_serving
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'a2_a_body_is_never_read_and_the_server_keeps_serving' (32744) panicked at 
+crates\hdd-canary\tests\hostile.rs:32:51:
+    generate: Io("not implemented")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.125s] (17/41) hdd-canary::hostile a2_a_slow_client_is_bounded_by_the_read_timeout
+  stdout ───
+
+    running 1 test
+    test a2_a_slow_client_is_bounded_by_the_read_timeout ... FAILED
+
+    failures:
+
+    failures:
+        a2_a_slow_client_is_bounded_by_the_read_timeout
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'a2_a_slow_client_is_bounded_by_the_read_timeout' (32296) panicked at 
+crates\hdd-canary\tests\hostile.rs:32:51:
+    generate: Io("not implemented")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.125s] (18/41) hdd-canary::hostile a2_an_oversized_request_line_is_rejected_and_serving_continues
+  stdout ───
+
+    running 1 test
+    test a2_an_oversized_request_line_is_rejected_and_serving_continues ... FAILED
+
+    failures:
+
+    failures:
+        a2_an_oversized_request_line_is_rejected_and_serving_continues
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'a2_an_oversized_request_line_is_rejected_and_serving_continues' (34136) panicked at 
+crates\hdd-canary\tests\hostile.rs:32:51:
+    generate: Io("not implemented")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.123s] (19/41) hdd-canary::hostile a2_hostile_requests_get_one_opaque_response_and_no_reflection
+  stdout ───
+
+    running 1 test
+    test a2_hostile_requests_get_one_opaque_response_and_no_reflection ... FAILED
+
+    failures:
+
+    failures:
+        a2_hostile_requests_get_one_opaque_response_and_no_reflection
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'a2_hostile_requests_get_one_opaque_response_and_no_reflection' (16640) panicked at 
+crates\hdd-canary\tests\hostile.rs:32:51:
+    generate: Io("not implemented")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.122s] (20/41) hdd-canary::hostile a2_query_strings_do_not_change_what_is_served_and_are_not_echoed
+  stdout ───
+
+    running 1 test
+    test a2_query_strings_do_not_change_what_is_served_and_are_not_echoed ... FAILED
+
+    failures:
+
+    failures:
+        a2_query_strings_do_not_change_what_is_served_and_are_not_echoed
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'a2_query_strings_do_not_change_what_is_served_and_are_not_echoed' (25660) panicked at 
+crates\hdd-canary\tests\hostile.rs:32:51:
+    generate: Io("not implemented")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.124s] (21/41) hdd-canary::hostile a3_echo_headers_returns_only_received_headers_with_a_size_cap
+  stdout ───
+
+    running 1 test
+    test a3_echo_headers_returns_only_received_headers_with_a_size_cap ... FAILED
+
+    failures:
+
+    failures:
+        a3_echo_headers_returns_only_received_headers_with_a_size_cap
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'a3_echo_headers_returns_only_received_headers_with_a_size_cap' (34076) panicked at 
+crates\hdd-canary\tests\hostile.rs:32:51:
+    generate: Io("not implemented")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.142s] (22/41) hddctl::canary t0210_generate_is_idempotent_and_rejects_a_bad_base_path
+  stdout ───
+
+    running 1 test
+    test t0210_generate_is_idempotent_and_rejects_a_bad_base_path ... FAILED
+
+    failures:
+
+    failures:
+        t0210_generate_is_idempotent_and_rejects_a_bad_base_path
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.02s
+
+  stderr ───
+
+    thread 't0210_generate_is_idempotent_and_rejects_a_bad_base_path' (6012) panicked at 
+crates\hddctl\tests\canary.rs:101:5:
+    assertion `left == right` failed: error: unrecognized subcommand 'canary'
+
+    Usage: hddctl.exe <COMMAND>
+
+    For more information, try '--help'.
+
+      left: Some(2)
+     right: Some(0)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.141s] (23/41) hddctl::canary t0210_generate_writes_the_contract_files_with_real_hashes
+  stdout ───
+
+    running 1 test
+    test t0210_generate_writes_the_contract_files_with_real_hashes ... FAILED
+
+    failures:
+
+    failures:
+        t0210_generate_writes_the_contract_files_with_real_hashes
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.02s
+
+  stderr ───
+
+    thread 't0210_generate_writes_the_contract_files_with_real_hashes' (33352) panicked at 
+crates\hddctl\tests\canary.rs:66:5:
+    assertion `left == right` failed: error: unrecognized subcommand 'canary'
+
+    Usage: hddctl.exe <COMMAND>
+
+    For more information, try '--help'.
+
+      left: Some(2)
+     right: Some(0)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.141s] (24/41) hddctl::canary 
+t0210_verify_checks_the_through_path_and_query_invariance_when_overridden
+  stdout ───
+
+    running 1 test
+    test t0210_verify_checks_the_through_path_and_query_invariance_when_overridden ... FAILED
+
+    failures:
+
+    failures:
+        t0210_verify_checks_the_through_path_and_query_invariance_when_overridden
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.02s
+
+  stderr ───
+
+    thread 't0210_verify_checks_the_through_path_and_query_invariance_when_overridden' (23200) panicked at 
+crates\hddctl\tests\canary.rs:154:5:
+    assertion `left == right` failed
+      left: Some(2)
+     right: Some(0)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.140s] (25/41) hddctl::canary t0210_verify_detects_a_tampered_or_missing_manifest
+  stdout ───
+
+    running 1 test
+    test t0210_verify_detects_a_tampered_or_missing_manifest ... FAILED
+
+    failures:
+
+    failures:
+        t0210_verify_detects_a_tampered_or_missing_manifest
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.02s
+
+  stderr ───
+
+    thread 't0210_verify_detects_a_tampered_or_missing_manifest' (33464) panicked at 
+crates\hddctl\tests\canary.rs:211:5:
+    assertion `left == right` failed
+      left: Some(2)
+     right: Some(0)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.141s] (26/41) hddctl::canary t0210_verify_detects_served_bytes_that_differ_from_the_contract
+  stdout ───
+
+    running 1 test
+    test t0210_verify_detects_served_bytes_that_differ_from_the_contract ... FAILED
+
+    failures:
+
+    failures:
+        t0210_verify_detects_served_bytes_that_differ_from_the_contract
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.02s
+
+  stderr ───
+
+    thread 't0210_verify_detects_served_bytes_that_differ_from_the_contract' (28304) panicked at 
+crates\hddctl\tests\canary.rs:184:5:
+    assertion `left == right` failed
+      left: Some(2)
+     right: Some(0)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.134s] (27/41) hddctl::canary t0210_verify_fails_a_broken_profile_instead_of_a_fake_pass
+  stdout ───
+
+    running 1 test
+    test t0210_verify_fails_a_broken_profile_instead_of_a_fake_pass ... FAILED
+
+    failures:
+
+    failures:
+        t0210_verify_fails_a_broken_profile_instead_of_a_fake_pass
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.02s
+
+  stderr ───
+
+    thread 't0210_verify_fails_a_broken_profile_instead_of_a_fake_pass' (4632) panicked at 
+crates\hddctl\tests\canary.rs:297:5:
+    assertion `left == right` failed
+      left: Some(2)
+     right: Some(0)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.134s] (28/41) hddctl::canary t0210_verify_reports_a_runner_ip_that_the_echo_does_not_show
+  stdout ───
+
+    running 1 test
+    test t0210_verify_reports_a_runner_ip_that_the_echo_does_not_show ... FAILED
+
+    failures:
+
+    failures:
+        t0210_verify_reports_a_runner_ip_that_the_echo_does_not_show
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.02s
+
+  stderr ───
+
+    thread 't0210_verify_reports_a_runner_ip_that_the_echo_does_not_show' (24712) panicked at 
+crates\hddctl\tests\canary.rs:270:5:
+    assertion `left == right` failed
+      left: Some(2)
+     right: Some(0)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.133s] (29/41) hddctl::canary t0210_verify_without_a_dir_reports_the_manifest_half_unverified
+  stdout ───
+
+    running 1 test
+    test t0210_verify_without_a_dir_reports_the_manifest_half_unverified ... FAILED
+
+    failures:
+
+    failures:
+        t0210_verify_without_a_dir_reports_the_manifest_half_unverified
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.02s
+
+  stderr ───
+
+    thread 't0210_verify_without_a_dir_reports_the_manifest_half_unverified' (25528) panicked at 
+crates\hddctl\tests\canary.rs:250:5:
+    assertion `left == right` failed: error: unrecognized subcommand 'canary'
+
+    Usage: hddctl.exe <COMMAND>
+
+    For more information, try '--help'.
+
+      left: Some(2)
+     right: Some(0)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.131s] (30/41) hddctl::canary t0210_verify_without_a_profile_is_honest
+  stdout ───
+
+    running 1 test
+    test t0210_verify_without_a_profile_is_honest ... FAILED
+
+    failures:
+
+    failures:
+        t0210_verify_without_a_profile_is_honest
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.02s
+
+  stderr ───
+
+    thread 't0210_verify_without_a_profile_is_honest' (30996) panicked at crates\hddctl\tests\canary.rs:125:5:
+    assertion `left == right` failed
+      left: Some(2)
+     right: Some(0)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.148s] (31/41) hddctl::preflight a3_unknown_keys_are_rejected_with_the_key_path
+        PASS [   0.148s] (32/41) hddctl::preflight a4_a_token_in_a_name_field_is_rejected_and_never_echoed
+        PASS [   0.169s] (33/41) hddctl::preflight 
+a1_the_example_file_fails_only_on_the_empty_required_fields_with_remediation
+        PASS [   0.170s] (34/41) hddctl::preflight 
+a2_the_runner_ip_inside_admin_cidrs_fails_with_the_documented_message
+        PASS [   0.129s] (35/41) hddctl::preflight 
+t0561_a5_a_machine_without_docker_postgres_redis_nft_and_dig_gets_track_l_and_exit_zero
+        PASS [   0.172s] (36/41) hddctl::preflight a_complete_profile_passes_profile_only_preflight
+        PASS [   0.142s] (37/41) hddctl::preflight 
+t0561_the_plan_follows_hdd_runtime_profile_and_a_missing_profile_file_still_prints_it
+        PASS [   0.196s] (38/41) hddctl::preflight a_missing_file_prints_every_required_field_and_how_to_provide_it
+        PASS [   0.148s] (39/41) hddctl::preflight the_profile_only_mode_never_prints_probe_sections
+        PASS [   0.195s] (40/41) hddctl::preflight full_preflight_runs_the_probes_but_only_through_the_allowlist
+        PASS [   0.547s] (41/41) hdd-canary tests::t0210_parser_never_panics_on_arbitrary_bytes_and_keeps_limits
+────────────
+     Summary [   0.549s] 41 tests run: 12 passed, 29 failed, 0 skipped
+        FAIL [   0.020s] ( 1/41) hdd-canary tests::t0210_echo_headers_json_is_bounded_and_redacts_credentials
+        FAIL [   0.029s] ( 2/41) hdd-canary tests::t0210_sha256_is_real_sha256
+        FAIL [   0.037s] ( 3/41) hdd-canary tests::t0210_generate_writes_the_five_contract_files_and_real_hashes
+        FAIL [   0.044s] ( 4/41) hdd-canary tests::t0210_manifest_text_round_trips_and_rejects_bad_input
+        FAIL [   0.058s] ( 6/41) hdd-canary tests::t0210_generate_is_idempotent
+        FAIL [   0.066s] ( 7/41) hdd-canary tests::t0210_parse_request_enforces_the_header_size_and_count_limits
+        FAIL [   0.073s] ( 8/41) hdd-canary tests::t0210_parse_request_accepts_the_documented_shapes
+        FAIL [   0.081s] ( 9/41) hdd-canary tests::t0210_route_serves_only_the_exact_contract_paths
+        FAIL [   0.089s] (10/41) hdd-canary tests::t0210_parse_request_rejects_methods_bodies_and_malformed_heads
+        FAIL [   0.096s] (11/41) hdd-canary tests::t0210_base_path_normalisation_table
+        FAIL [   0.111s] (12/41) hdd-canary tests::t0210_check_manifest_detects_a_changed_file_and_names_it
+        FAIL [   0.118s] (13/41) hdd-canary::hostile a1_the_sidecar_serves_exactly_the_c16_1_files
+        FAIL [   0.126s] (14/41) hdd-canary 
+tests::t0210_check_manifest_detects_missing_file_and_missing_or_extra_entries
+        FAIL [   0.134s] (15/41) hdd-canary tests::t0210_parse_request_enforces_the_request_line_limit
+        FAIL [   0.126s] (16/41) hdd-canary::hostile a2_a_body_is_never_read_and_the_server_keeps_serving
+        FAIL [   0.125s] (17/41) hdd-canary::hostile a2_a_slow_client_is_bounded_by_the_read_timeout
+        FAIL [   0.125s] (18/41) hdd-canary::hostile a2_an_oversized_request_line_is_rejected_and_serving_continues
+        FAIL [   0.123s] (19/41) hdd-canary::hostile a2_hostile_requests_get_one_opaque_response_and_no_reflection
+        FAIL [   0.122s] (20/41) hdd-canary::hostile a2_query_strings_do_not_change_what_is_served_and_are_not_echoed
+        FAIL [   0.124s] (21/41) hdd-canary::hostile a3_echo_headers_returns_only_received_headers_with_a_size_cap
+        FAIL [   0.142s] (22/41) hddctl::canary t0210_generate_is_idempotent_and_rejects_a_bad_base_path
+        FAIL [   0.141s] (23/41) hddctl::canary t0210_generate_writes_the_contract_files_with_real_hashes
+        FAIL [   0.141s] (24/41) hddctl::canary 
+t0210_verify_checks_the_through_path_and_query_invariance_when_overridden
+        FAIL [   0.140s] (25/41) hddctl::canary t0210_verify_detects_a_tampered_or_missing_manifest
+        FAIL [   0.141s] (26/41) hddctl::canary t0210_verify_detects_served_bytes_that_differ_from_the_contract
+        FAIL [   0.134s] (27/41) hddctl::canary t0210_verify_fails_a_broken_profile_instead_of_a_fake_pass
+        FAIL [   0.134s] (28/41) hddctl::canary t0210_verify_reports_a_runner_ip_that_the_echo_does_not_show
+        FAIL [   0.133s] (29/41) hddctl::canary t0210_verify_without_a_dir_reports_the_manifest_half_unverified
+        FAIL [   0.131s] (30/41) hddctl::canary t0210_verify_without_a_profile_is_honest
+error: test run failed
+
+[exit code: 100]

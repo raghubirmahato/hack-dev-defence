@@ -1,0 +1,31 @@
+# Secrets and live profile (never commit; T-0002)
+hdd.live.yaml
+secrets/
+*.pem
+.env
+.env.*
+!.env.example
+
+# Build and evidence output
+target/
+acceptance-*/
+*.log
+# gate evidence logs are committed (their sha256 are cited by the gate reports)
+!docs/gates/evidence/**/*.log
+
+# Editors / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Local HDD data directory when run from the repo
+/hdd-data/
+
+# HK1 demo track local artifacts
+lab/demo/targets.allow
+lab/demo/**/__pycache__/
+lab/demo/**/*.db
+
+# NOT ignored on purpose: Cargo.lock (binaries), .sqlx/ (offline query data is committed), docs/gates/evidence/

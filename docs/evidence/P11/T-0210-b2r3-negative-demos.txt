@@ -1,0 +1,114 @@
+# T-0210 batch B2 review round 3 (Q-1..Q-8): mutation demos
+# Date: 2026-10-20; host: Windows 11, Track L. Each demo: backup, mutate the seam, the named test FAILs, restore
+# byte-identically (SHA-256 before = after), refresh mtime, the same test PASSes. Q-8's slow-reader test was deleted
+# with the reason in T-0210-b2r3-red.txt; the relative deadline bound and the stage_not_reached reason are covered here.
+
+## Q-1
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: BE70F6048816922088363CD11132D1BD0D1C95D2C32BCAF65E642F91B30BE7F9
+SHA-256 while mutated: C586A4BF5612685D40846DB04DBCB7412959A599697117753BD21326644E618E
+Command while mutated: cargo nextest run -p hdd-canary -E "test(t0210_delegation_pending_is_only_a_resolve_of_a_profile_test_hostname)" -> exit 100 (expected non-zero)
+  FAIL [   0.010s] (1/1) hdd-canary tests::t0210_delegation_pending_is_only_a_resolve_of_a_profile_test_hostname
+  thread 'tests::t0210_delegation_pending_is_only_a_resolve_of_a_profile_test_hostname' (10884) panicked at
+  FAIL [   0.010s] (1/1) hdd-canary tests::t0210_delegation_pending_is_only_a_resolve_of_a_profile_test_hostname
+SHA-256 after restore: BE70F6048816922088363CD11132D1BD0D1C95D2C32BCAF65E642F91B30BE7F9
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   0.009s] (1/1) hdd-canary tests::t0210_delegation_pending_is_only_a_resolve_of_a_profile_test_hostname
+  Summary [   0.010s] 1 test run: 1 passed, 48 skipped
+
+## Q-2
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: BE70F6048816922088363CD11132D1BD0D1C95D2C32BCAF65E642F91B30BE7F9
+SHA-256 while mutated: BCDAA43B1081E795448C86DBC23718845F121FE2AE5F46D1520BFC8003A62078
+Command while mutated: cargo nextest run -p hdd-canary -E "test(t0210_hdd_echo_evidence_uses_hdd_connecting_ip_and_hdd_built_xff_only)" -> exit 100 (expected non-zero)
+  FAIL [   0.009s] (1/1) hdd-canary tests::t0210_hdd_echo_evidence_uses_hdd_connecting_ip_and_hdd_built_xff_only
+  thread 'tests::t0210_hdd_echo_evidence_uses_hdd_connecting_ip_and_hdd_built_xff_only' (37408) panicked at
+  assertion failed: hdd_echo_evidence(&xff, Some(runner)).is_some()
+  FAIL [   0.009s] (1/1) hdd-canary tests::t0210_hdd_echo_evidence_uses_hdd_connecting_ip_and_hdd_built_xff_only
+SHA-256 after restore: BE70F6048816922088363CD11132D1BD0D1C95D2C32BCAF65E642F91B30BE7F9
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   0.009s] (1/1) hdd-canary tests::t0210_hdd_echo_evidence_uses_hdd_connecting_ip_and_hdd_built_xff_only
+  Summary [   0.010s] 1 test run: 1 passed, 48 skipped
+
+## Q-3
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: BE70F6048816922088363CD11132D1BD0D1C95D2C32BCAF65E642F91B30BE7F9
+SHA-256 while mutated: 2E32A65D37262F01E6D76BE7BF5E3558137A6F4F26EDC6678D8ED63E079A70DB
+Command while mutated: cargo nextest run -p hdd-canary -E "test(t0210_echo_headers_are_an_allowlist_not_a_denylist)" -> exit 100 (expected non-zero)
+  FAIL [   0.010s] (1/1) hdd-canary tests::t0210_echo_headers_are_an_allowlist_not_a_denylist
+  thread 'tests::t0210_echo_headers_are_an_allowlist_not_a_denylist' (25000) panicked at
+  leaked `session-planted`:
+  -planted"},{"name":"x-password","value":"password-planted"},{"name":"x-jwt-assertion","value":"jwt-planted"},{"name":"c
+  FAIL [   0.010s] (1/1) hdd-canary tests::t0210_echo_headers_are_an_allowlist_not_a_denylist
+SHA-256 after restore: BE70F6048816922088363CD11132D1BD0D1C95D2C32BCAF65E642F91B30BE7F9
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   0.010s] (1/1) hdd-canary tests::t0210_echo_headers_are_an_allowlist_not_a_denylist
+  Summary [   0.010s] 1 test run: 1 passed, 48 skipped
+
+## Q-4
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: BE70F6048816922088363CD11132D1BD0D1C95D2C32BCAF65E642F91B30BE7F9
+SHA-256 while mutated: A6470FA59B0ECF5788760AD4E72AA6DB9DBF4F5A32ED1E7055F7764377DF400B
+Command while mutated: cargo nextest run -p hdd-canary -E "test(a_served_response_survives_trailing_client_bytes)" -> exit 0 (expected non-zero)
+SHA-256 after restore: BE70F6048816922088363CD11132D1BD0D1C95D2C32BCAF65E642F91B30BE7F9
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   0.057s] (1/1) hdd-canary::hostile a_served_response_survives_trailing_client_bytes
+  Summary [   0.058s] 1 test run: 1 passed, 48 skipped
+
+## Q-6
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: BE70F6048816922088363CD11132D1BD0D1C95D2C32BCAF65E642F91B30BE7F9
+Mutation: the wait() error omits the exported listener-panic count.
+Command while mutated: cargo nextest run -p hdd-canary -E "test(t0210_start_propagates_a_real_listener_panic_and_counts_it)" -> exit 100 (expected non-zero)
+  FAIL [   0.120s] (1/1) hdd-canary tests::t0210_start_propagates_a_real_listener_panic_and_counts_it
+  thread 'hdd-canary' (35544) panicked at crates\hdd-canary\src\lib.rs:1514:9:
+  thread 'tests::t0210_start_propagates_a_real_listener_panic_and_counts_it' (5660) panicked at
+  FAIL [   0.120s] (1/1) hdd-canary tests::t0210_start_propagates_a_real_listener_panic_and_counts_it
+SHA-256 after restore: BE70F6048816922088363CD11132D1BD0D1C95D2C32BCAF65E642F91B30BE7F9
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   0.116s] (1/1) hdd-canary tests::t0210_start_propagates_a_real_listener_panic_and_counts_it
+  Summary [   0.117s] 1 test run: 1 passed, 48 skipped
+
+## Q-7
+Status: the new symlink test reports UNVERIFIED(environment_unsupported) on this host because creating a directory
+symlink/junction needs a privilege the builder session does not hold; the test prints that status itself and returns.
+No mutation demo is claimed for it here (an item that does not reproduce on this host is reported as such). The
+directory-node check it exercises is the same regular-file decision covered by t0210_ensure_regular_decision_table
+and by the K-7 demo; ensure_real_directory() additionally refuses a symlinked/reparse-point root and a non-directory
+root, with the check-then-use window documented as accepted because the directory is root-controlled.
+
+## Q-8
+File: crates/hddctl/src/main.rs
+SHA-256 before: 38294C52A8F7C20DC30204E77F03D65D1DAFA444A4592B9F4993D31F0C3B6B15
+SHA-256 while mutated: D5413DAB18E2DC2F0550B92DE8C07DA4D2CC052547BBA98A5AC2669461B9B221
+Command while mutated: cargo nextest run -p hddctl -E "test(t0210_verify_lockdown_applied_direct_reason_is_stage_not_reached)" -> exit 100 (expected non-zero)
+  FAIL [   2.217s] (1/1) hddctl::canary t0210_verify_lockdown_applied_direct_reason_is_stage_not_reached
+  thread 't0210_verify_lockdown_applied_direct_reason_is_stage_not_reached' (36264) panicked at
+  FAIL [   2.217s] (1/1) hddctl::canary t0210_verify_lockdown_applied_direct_reason_is_stage_not_reached
+SHA-256 after restore: 38294C52A8F7C20DC30204E77F03D65D1DAFA444A4592B9F4993D31F0C3B6B15
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   1.810s] (1/1) hddctl::canary t0210_verify_lockdown_applied_direct_reason_is_stage_not_reached
+  Summary [   1.811s] 1 test run: 1 passed, 48 skipped
+
+
+## Q-2b
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: B4571DFCB8766D7BC4E7A3ADF83D339452454FADD5C333655D0B50E6B0BAA458
+Mutation: revert the spoof-stripping requirement (spoof_present forced false): an append-only origin terminator that leaves 203.0.113.99 in X-Forwarded-For is wrongly accepted as HDD evidence.
+# Command while mutated: cargo nextest run -p hdd-canary -p hddctl -E "test(t0210_hdd_echo_evidence_uses_hdd_connecting_ip_and_hdd_built_xff_only) or test(t0210_parsing_spoof_probe_requires_a_hdd_rebuilt_forwarded_chain)" -> exit 100 (expected non-zero)
+  FAIL [   0.014s] (1/2) hdd-canary tests::t0210_hdd_echo_evidence_uses_hdd_connecting_ip_and_hdd_built_xff_only
+  thread 'tests::t0210_hdd_echo_evidence_uses_hdd_connecting_ip_and_hdd_built_xff_only' (36736) panicked at
+  FAIL [   2.312s] (2/2) hddctl::canary t0210_parsing_spoof_probe_requires_a_hdd_rebuilt_forwarded_chain
+  thread 't0210_parsing_spoof_probe_requires_a_hdd_rebuilt_forwarded_chain' (37056) panicked at
+  FAIL [   0.014s] (1/2) hdd-canary tests::t0210_hdd_echo_evidence_uses_hdd_connecting_ip_and_hdd_built_xff_only
+  FAIL [   2.312s] (2/2) hddctl::canary t0210_parsing_spoof_probe_requires_a_hdd_rebuilt_forwarded_chain
+# SHA-256 after restore: B4571DFCB8766D7BC4E7A3ADF83D339452454FADD5C333655D0B50E6B0BAA458
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+

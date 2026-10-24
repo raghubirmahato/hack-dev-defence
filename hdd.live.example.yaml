@@ -1,0 +1,120 @@
+# hdd.live.example.yaml: generated verbatim from section 8 and 8.1 of the master specification (docs/SPEC.md).
+# Copy to hdd.live.yaml (git-ignored) and fill in. Never put secret VALUES here: only environment variable NAMES.
+# For runtime.profile: local only `runtime`, `operator_email` and `signup` are required (section 8.2); everything else
+# marked REQUIRED is for the hosted profile. T-0006 turns this into a schema-backed, validated, fully commented file
+# (docs/profile.schema.json) and `hddctl preflight --profile-only`.
+schema_version: 5
+lifecycle_stage: pilot                  # pilot | production (section 2.7)
+deployment_mode: owner_only             # owner_only | saas (saas is refused when runtime.profile is local)
+runtime:                                # R-31; section 8.2
+  profile: hosted                       # hosted | local
+  local:                                # read only when profile is local
+    data_dir: ''                        # empty = per-OS user data directory
+    database: embedded                  # embedded | external | compose
+    kv: memory                          # memory | redis
+    ports: {web: 8443, proxy_http: 8080, proxy_https: 8444, dns: 5300, api: 8000}   # unprivileged defaults
+    local_domain_suffix: hdd.localhost  # Chromium and Firefox resolve *.localhost to loopback
+    tls: local_ca                       # local_ca | http_only (loopback only)
+    lan_exposure: false                 # true binds protected-site listeners to the LAN; needs the acknowledgement (section 2.11)
+    loopback_client_identity: ua_keyed  # ua_keyed | single
+    test_client_header: false           # accept X-HDD-Test-Client on loopback; selftest and acceptance runs enable it
+    dogfood: false                      # true routes the product surfaces through the HDD proxy like hosted (platform_internal); off by default
+    tunnel: {provider: none, trusted_cidrs: []}   # operator-run tunnel: none | cloudflared | ngrok | wireguard | other
+  hosting:                              # read only when profile is hosted
+    profile: H1                         # H1 to H5 (C18.10)
+    watchdog: true
+    backups: {schedule: '0 3 * * *', target: local, remote_env: ''}
+    last_known_good_snapshot: true
+# ---- REQUIRED when runtime.profile is hosted (local needs only runtime, operator_email and signup; section 8.2) ----
+platform_domain: example.com            # operator-owned apex hosting www/app/admin/api/ns/status
+domain: example.com                     # apex zone the operator owns and will protect first
+test_hostname: hddtest.example.com      # real-site mirror: benign + GET/HEAD attack shapes
+sandbox_hostname: hddsbx.example.com    # forwards only exact canary paths; Class B and body vectors go here
+surfaces:
+  public_host: www.example.com
+  app_host: app.example.com
+  admin_host: admin.example.com
+  api_host: api.example.com
+  status_host: status.example.com       # ideally served from outside this VPS (T-0100)
+  admin_exposure: tunnel_only           # tunnel_only | routed_with_cidr (admin_cidrs + MFA required)
+origin:
+  url: https://203.0.113.10             # real origin, scheme included
+  tls_server_name: example.com
+  host_header: example.com
+  tls_verify: {mode: webpki, pin: ''}   # webpki | pinned_ca | pinned_spki; verification can never be disabled
+  lockdown_state: pending               # pending | applied (origin firewall / secret header, set by operator)
+  canary: {base_path: /__hdd_canary/, use_hdd_canary_agent: true}
+platform:
+  public_ipv4: ['198.51.100.20']        # VPS IPs running HDD
+  public_ipv6: []
+  ns_hostnames: ['ns1.example.com', 'ns2.example.com']
+  edge_cname_zone: edge.example.com     # saas/cname modes: <site-id>.edge.<platform_domain>
+  acme_cname_zone: acme.example.com     # DNS-01 delegation target: <zone-id>.acme.<platform_domain>
+  uplink_mbps: 0                        # contracted or measured; 0 = unknown (capacity then UNVERIFIED)
+  deploy_mode: on-vps                   # on-vps | ssh
+  ssh: {host: '', user: '', key_path: ''}
+  min_resources: {vcpu: 2, ram_mb: 4096, disk_gb: 40}
+dns:
+  topology: self_authoritative          # self_authoritative | hidden_primary
+  public_ns: []                         # hidden_primary: NS names served by the external secondary
+registrar: {provider: '', api_token_env: ''}   # env var NAME only; registrar changes are manual unless a token is supplied
+existing_dns: {provider: '', export_method: zonefile, zonefile_path: ''}   # axfr | api | zonefile | manual
+test_runner:
+  public_ip: auto                       # auto = discovered through the canary echo via HDD; bannable by design
+  control_plane_access: ssh-tunnel      # ssh-tunnel | wireguard
+admin_cidrs: []                         # never-ban + admin-hostname allowlist; must NOT contain the runner IP
+ssh_allow_cidrs: []                     # port 22 only; may contain the runner IP
+egress_allowlist: []                    # section 2.1; must cover SMTP relay, CAs, resolvers, feeds you enable
+acme: {email: '', directory: staging}   # staging first; production only after staging passes and operator confirms
+operator_email: ''                      # receives test mail and alerts; the only address the agent may mail
+# ---- PRODUCT (required when the UI is enabled; defaults shown are the safest) ----
+signup:
+  mode: invite_only                     # disabled | invite_only | open (open needs operator approval in chat)
+  email_verification: required          # always required; field kept for explicitness
+  allowed_email_domains: []             # empty = any (subject to policy below)
+  disposable_email_policy: challenge    # block | challenge | allow
+  password_breach_check: offline_list   # offline_list | hibp_range | off  (hibp_range needs egress entry)
+  min_password_length: 12
+  require_mfa_for: [platform_admin]     # roles for which MFA enrollment is forced; org owners may require it for members
+smtp: {host: '', port: 587, tls: starttls, username_env: '', password_env: '', from_address: '', from_name: 'Hack Dev Defence', reply_to: ''}
+branding: {product_name: 'Hack Dev Defence', logo_path: '', legal_entity: '', support_email: '', terms_url: '', privacy_url: ''}
+plans: {mode: unlimited}                # unlimited | tiered (tiered quotas editable in the admin panel)
+geoip: {db_path: '', asn_db_path: '', source: ''}   # HDD_GEOIP_DB; source records the license/provenance
+locales: [en]                           # UI languages shipped
+# ---- OPTIONAL (missing => UNVERIFIED, never faked) ----
+secondary_dns: {provider: '', tsig_key_env: '', addresses: []}
+vantage_points: []                      # [{name, ssh_host, ssh_user, ssh_key_path}] or SOCKS proxies
+origin_access_log: {ssh_host: '', path: ''}
+site:
+  platform: custom                      # wordpress | static | custom | other (drives honeypot defaults)
+  har_file: ''                          # scrubbed before use (AC-06)
+  crawl_start_url: ''
+  replay_methods: [GET, HEAD]           # state-changing methods need explicit per-path allowlisting
+  non_http_services: [smtp, imap, ssh]  # forced grey-cloud
+  extra_proxied_ports: []
+  auth_paths: ['/login', '/wp-login.php', '/signin', '/api/auth/login']   # drives auth-endpoint hardening
+upstream_cdn: {enabled: false, trusted_cidrs: []}
+alerts: {webhook_env: '', heartbeat_url_env: ''}   # heartbeat = external dead-man monitor the operator runs
+retention: {events_days: 30, audit_days: 400}   # audit floor 180; plan caps may lower the events value
+lab: {enabled: false, host: '', cidr: '', vulnlab_enabled: false}   # closed lab for L3/L4 and the Vuln-Lab
+load_profile_approved: false            # true only after the operator's written approval for a `load` run
+
+# ===== Section 8.1: fields required for production cutover =====
+# The pilot may run with upstream_ddos.mode: none, but readiness then reports DDoS as NOT READY and the cutover checklist fails.
+upstream_ddos:
+  mode: none                    # always_on | on_demand | none
+  provider: ''
+  advertised_capacity_gbps: 0   # copied from the contract; never assumed by the agent
+  over_capacity_behavior: ''    # for example null-route for N minutes; from the contract
+  mitigation_api: {kind: '', token_env: ''}
+  standby_edge_ips: []          # pre-provisioned standby or scrubbed edge IPs for DNS failover
+  provider_contact: ''
+  risk_acceptance_volumetric: false   # true only after the operator's written confirmation in chat (date recorded)
+  lab: {host: '', private_link: ''}   # closed lab machine the operator owns for L3/L4 tests (never the live VPS)
+secondary_dns_required_for_cutover: true
+app_inventory:
+  components: []                # [{name, version, ecosystem|cpe|purl, internet_facing, notes}]
+  sbom_path: ''                 # CycloneDX or SPDX
+  patch_sla_days: {kev: 2, critical: 7, high: 30, medium: 90}
+  vuln_feed_mode: online        # online | offline (file import)
+  origin_owner_contact: ''      # receives patch-SLA alerts

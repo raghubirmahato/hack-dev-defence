@@ -1,0 +1,46 @@
+=== T-0027 mutation demo (batch B1 round 1) ===
+Date: 2026-10-20 (Asia/Katmandu)
+Tool: DeepSeek Harness, task T-0027, review findings F-27 and F-23
+
+Method: back up docs/UX/DATAVIZ.md into the session scratch directory, apply one mutation, run
+`cargo xtask ux-docs`, record the exit code and every finding line that names docs/UX/DATAVIZ.md,
+restore the backup, show the SHA-256 is unchanged, and run the check again to show the finding is gone.
+The tree is a shared working tree and other batch B1 workers are still editing their own files, so a run
+can also fail on their documents; the demo therefore reports the count of findings that name
+docs/UX/DATAVIZ.md, which is this module's own result, and the total finding count for context.
+
+--- mutation A: downsampling row uses the wrong method (LTTB on a stacked bar) ---
+file: docs/UX/DATAVIZ.md
+sha256 before: 7EAD43A2D9CFC559E426F85212D034DD048A6634850C34794F4438D027115340
+mutation: replace [Re-bucket by summing adjacent rollup buckets down to 400] with [LTTB with a three-point window down to 400]
+sha256 while mutated: B003421BC01BB999416A9B5A8DFC269882A3BBF6E193F5C1C5EA9FB642E325ED
+ux-docs exit during mutation: 1
+ux-docs: FAIL (2 finding(s))
+[ux-docs] docs/UX/DATAVIZ.md:260: `stacked bar` names LTTB, but LTTB is the line-series method only; the other forms aggregate whole rows (F-27)
+[ux-docs] docs/UX/DATAVIZ.md:260: the method of `stacked bar` does not state `re-bucket` (F-27)
+sha256 restored: 7EAD43A2D9CFC559E426F85212D034DD048A6634850C34794F4438D027115340
+restored byte-identical: True
+ux-docs exit after restore: 0
+ux-docs: PASS
+findings naming docs/UX/DATAVIZ.md after restore: 0
+
+--- mutation B: print row states its own margin value (the F-23 disagreement) ---
+file: docs/UX/DATAVIZ.md
+sha256 before: 7EAD43A2D9CFC559E426F85212D034DD048A6634850C34794F4438D027115340
+mutation: replace [| Print | A4 portrait, ISO 216, page margins in [RESPONSIVE.md](RESPONSIVE.md) |] with [| Print | A4 portrait, 15 mm margins |]
+sha256 while mutated: 0166B3DDA504F4A8FE965B9E159407EE79D7580934CA155459E396FD175D97C1
+ux-docs exit during mutation: 1
+ux-docs: FAIL (5 finding(s))
+[ux-docs] docs/UX/DATAVIZ.md: the print layout does not point to docs/UX/RESPONSIVE.md for the page margins (F-23)
+[ux-docs] docs/UX/DATAVIZ.md: the print layout states its own margin `15 mm`; the value belongs to docs/UX/RESPONSIVE.md (F-23)
+[ux-docs] docs/UX/DATAVIZ.md: the print margin `15 mm` differs from `12 mm` in docs/UX/RESPONSIVE.md; one value, stated in one document (F-23)
+[ux-docs] docs/UX/DATAVIZ.md: the `Performance and print` section must point to RESPONSIVE.md for the shared print setup (F-23)
+[ux-docs] docs/UX/DATAVIZ.md: the DATAVIZ print rule states 15 mm margins while RESPONSIVE.md is canonical at 12 mm (F-23)
+sha256 restored: 7EAD43A2D9CFC559E426F85212D034DD048A6634850C34794F4438D027115340
+restored byte-identical: True
+ux-docs exit after restore: 0
+ux-docs: PASS
+findings naming docs/UX/DATAVIZ.md after restore: 0
+
+final sha256 of docs/UX/DATAVIZ.md: 7EAD43A2D9CFC559E426F85212D034DD048A6634850C34794F4438D027115340
+final file equals the backup: True

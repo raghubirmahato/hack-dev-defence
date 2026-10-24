@@ -1,0 +1,111 @@
+$ cargo deny check
+advisories ok, bans ok, licenses ok, sources ok
+warning[license-not-encountered]: license was not encountered
+   ┌─ D:\Hack Dev Defence\deny.toml:20:6
+   │
+20 │     "BSD-2-Clause",
+   │      ━━━━━━━━━━━━ unmatched license allowance
+
+warning[license-not-encountered]: license was not encountered
+   ┌─ D:\Hack Dev Defence\deny.toml:25:6
+   │
+25 │     "CC0-1.0",
+   │      ━━━━━━━ unmatched license allowance
+
+warning[license-not-encountered]: license was not encountered
+   ┌─ D:\Hack Dev Defence\deny.toml:24:6
+   │
+24 │     "Zlib",
+   │      ━━━━ unmatched license allowance
+
+warning[duplicate]: found 2 duplicate entries for crate 'getrandom'
+   ┌─ D:\Hack Dev Defence/Cargo.lock:41:1
+   │  
+41 │ ╭ getrandom 0.2.17 registry+https://github.com/rust-lang/crates.io-index
+42 │ │ getrandom 0.4.3 registry+https://github.com/rust-lang/crates.io-index
+   │ ╰─────────────────────────────────────────────────────────────────────┘ lock entries
+   │  
+   ├ getrandom v0.2.17
+     └── ring v0.17.14
+         ├── rcgen v0.14.10
+         │   └── (dev) hdd-common v0.0.0
+         │       ├── hdd-xtask v0.0.0
+         │       └── hddctl v0.0.0
+         ├── rustls v0.23.46
+         │   ├── hdd-common v0.0.0 (*)
+         │   └── tokio-rustls v0.26.6
+         │       └── hdd-common v0.0.0 (*)
+         └── rustls-webpki v0.103.15
+             └── rustls v0.23.46 (*)
+   ├ getrandom v0.4.3
+     ├── hdd-common v0.0.0
+     │   ├── hdd-xtask v0.0.0
+     │   └── hddctl v0.0.0
+     ├── hdd-xtask v0.0.0 (*)
+     ├── rand v0.10.3
+     │   └── proptest v1.12.0
+     │       └── (dev) hdd-common v0.0.0 (*)
+     └── tempfile v3.27.0
+         ├── proptest v1.12.0 (*)
+         └── rusty-fork v0.3.1
+             └── proptest v1.12.0 (*)
+
+warning[duplicate]: found 2 duplicate entries for crate 'windows-sys'
+    ┌─ D:\Hack Dev Defence/Cargo.lock:161:1
+    │  
+161 │ ╭ windows-sys 0.52.0 registry+https://github.com/rust-lang/crates.io-index
+162 │ │ windows-sys 0.61.2 registry+https://github.com/rust-lang/crates.io-index
+    │ ╰────────────────────────────────────────────────────────────────────────┘ lock entries
+    │  
+    ├ windows-sys v0.52.0
+      └── ring v0.17.14
+          ├── rcgen v0.14.10
+          │   └── (dev) hdd-common v0.0.0
+          │       ├── hdd-xtask v0.0.0
+          │       └── hddctl v0.0.0
+          ├── rustls v0.23.46
+          │   ├── hdd-common v0.0.0 (*)
+          │   └── tokio-rustls v0.26.6
+          │       └── hdd-common v0.0.0 (*)
+          └── rustls-webpki v0.103.15
+              └── rustls v0.23.46 (*)
+    ├ windows-sys v0.61.2
+      ├── anstyle-query v1.1.5
+      │   └── anstream v1.0.0
+      │       └── clap_builder v4.6.7
+      │           └── clap v4.6.7
+      │               ├── hdd-xtask v0.0.0
+      │               └── hddctl v0.0.0
+      ├── anstyle-wincon v3.0.11
+      │   └── anstream v1.0.0 (*)
+      ├── errno v0.3.14
+      │   └── rustix v1.1.5
+      │       └── tempfile v3.27.0
+      │           ├── proptest v1.12.0
+      │           │   └── (dev) hdd-common v0.0.0
+      │           │       ├── hdd-xtask v0.0.0 (*)
+      │           │       └── hddctl v0.0.0 (*)
+      │           └── rusty-fork v0.3.1
+      │               └── proptest v1.12.0 (*)
+      ├── mio v1.2.4
+      │   └── tokio v1.53.3
+      │       ├── hdd-common v0.0.0 (*)
+      │       ├── hddctl v0.0.0 (*)
+      │       ├── hyper v1.12.0
+      │       │   ├── hdd-common v0.0.0 (*)
+      │       │   └── hyper-util v0.1.21
+      │       │       └── hdd-common v0.0.0 (*)
+      │       ├── hyper-util v0.1.21 (*)
+      │       └── tokio-rustls v0.26.6
+      │           └── hdd-common v0.0.0 (*)
+      ├── rustix v1.1.5 (*)
+      ├── schannel v0.1.30
+      │   └── rustls-native-certs v0.8.5
+      │       └── hdd-common v0.0.0 (*)
+      ├── socket2 v0.6.5
+      │   └── tokio v1.53.3 (*)
+      ├── tempfile v3.27.0 (*)
+      └── tokio v1.53.3 (*)
+
+
+(exit 0)

@@ -1,0 +1,28 @@
+T-0018 verification evidence. Every command below was run in D:\Hack Dev Defence on 2026-10-19T22:45:12.7803321+05:45.
+Commands and the real last lines of their output; exit codes are shown for every command.
+
+== command: cargo fmt --all --check ==
+exit code: 0
+(no output: formatting is clean)
+
+== command: cargo clippy --workspace --all-targets -- -D warnings ==
+exit code: 0
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.50s
+
+== command: cargo nextest run -p hdd-xtask --no-fail-fast ==
+exit code: 0
+        PASS [   0.118s] ( 17/251) hdd-xtask::bin/hdd-xtask gate::tests::nextest_summary_is_extracted_from_the_tail      Summary [  20.167s] 251 tests run: 251 passed, 0 skipped
+
+== command: cargo xtask ux-docs ==
+exit code: 0
+ux-docs: PASS
+
+== command: cargo xtask claims-lint ==
+exit code: 0
+claims-lint: scanned 202 files with 34 phrases
+claims-lint: PASS
+
+== command: cargo xtask verify --only rules spec-check tasks-check ux-docs claims-lint ==
+exit code: 0
+[10] rules                PASS  (log 10-rules.log, sha256 01d11d9954525512) [12] spec-check           PASS  (log 12-spec-check.log, sha256 fb33a6d05a743d9c) [13] tasks-check          PASS  (log 13-tasks-check.log, sha256 1c5f85d1da1a4a1a) [18] claims-lint          PASS  (log 18-claims-lint.log, sha256 9eb549f1a668c40d) [23] ux-docs              PASS  (log 23-ux-docs.log, sha256 9e17f83923e21b07) verify: 5 PASS, 0 FAIL, 0 UNVERIFIED; logs in D:\Hack Dev Defence\acceptance-verify\20261019T170053Z-verify
+

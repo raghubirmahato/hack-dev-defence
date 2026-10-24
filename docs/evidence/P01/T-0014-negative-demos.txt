@@ -1,0 +1,49 @@
+# T-0014 negative demonstrations: each mutation of docs/UX/routes.toml or docs/UX/IA.md must make 'cargo xtask ux-docs' FAIL; the files are restored after each step and their SHA-256 values are compared.
+# Date: 2026-10-19.
+
+## 1. a dropped screen (S-041 route removed)
+[ux-docs] docs/UX/routes.toml: screen S-041 appears 0 time(s); exactly one route row is required (A1)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 2. a duplicated screen (S-042 row relabelled as S-041)
+[ux-docs] docs/UX/routes.toml: screen S-041 appears 2 time(s); exactly one route row is required (A1)
+[ux-docs] docs/UX/routes.toml: screen S-042 appears 0 time(s); exactly one route row is required (A1)
+ux-docs: FAIL (2 finding(s))
+(exit 1)
+
+## 3. an invented permission (PERM-nope.read)
+[ux-docs] docs/UX/routes.toml: route 42: permission `PERM-nope.read` is not an id of the B4.2 catalog and is not `public` (A2)
+[ux-docs] docs/UX/routes.toml: route 44: permission `PERM-nope.read` is not an id of the B4.2 catalog and is not `public` (A2)
+[ux-docs] docs/UX/routes.toml: route 45: permission `PERM-nope.read` is not an id of the B4.2 catalog and is not `public` (A2)
+ux-docs: FAIL (3 finding(s))
+(exit 1)
+
+## 4. a trailing slash in a pattern (/features/)
+[ux-docs] docs/UX/routes.toml: route 1: pattern `/features/` has a trailing slash
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 5. an email placeholder in a pattern (/contact/{email})
+[ux-docs] docs/UX/routes.toml: route 7: pattern `/contact/{email}` contains an email placeholder
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 6. an unlisted {token} parameter (/api-reference/{token})
+[ux-docs] docs/UX/routes.toml: route 6: pattern `/api-reference/{token}` carries a `token` parameter but is not listed in the `## Token routes` section of docs/UX/IA.md (A5)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## 7. an identifier example that does not match its regex
+[ux-docs] docs/UX/IA.md: the worked example `ORG_invalid` does not match the identifier regex
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## restored files
+ux-docs: PASS
+(exit 0)
+routes.toml SHA-256 before: 445840F0EB8F2761764D2E22E7B5903B3EF67B0EB0EA2D3C99415BE62FFB8B65
+routes.toml SHA-256 after:  445840F0EB8F2761764D2E22E7B5903B3EF67B0EB0EA2D3C99415BE62FFB8B65
+IA.md SHA-256 before: 26424CED37618576B496F550864782FA1FB205BF1AA1F0BE2F9FD53F863CE7FF
+IA.md SHA-256 after:  26424CED37618576B496F550864782FA1FB205BF1AA1F0BE2F9FD53F863CE7FF
+hashes equal: True

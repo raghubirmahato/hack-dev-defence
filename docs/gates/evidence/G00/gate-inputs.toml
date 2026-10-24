@@ -1,0 +1,530 @@
+commit = "fb82732 (three commits 1ec43bd, 051eeac, fb82732; tag gate-G00 on fb82732)"
+date = "2026-10-18"
+author_role = "builder agent (second P00 session)"
+stage = "pilot"
+mode = "ci"
+host = "builder-L1 (Windows 11 Pro, Track L, no Docker)"
+kernel = "Windows 11 Pro 10.0.26300"
+toolchain = "rustc 1.98.1 (48a229cea 2026-09-01)"
+verdict = "Gate G00 passes: every pass condition holds with evidence, the tag gate-G00 is set on commit fb82732 and the ten P00 rows are done. Residual: the 58 operator questions are open. 50 of 50 acceptance criteria have PASS evidence, 0 are UNVERIFIED(human_step_pending)."
+rollback = "P00 changes are source files, configuration and documents only: nothing was deployed, no migration ran, no unit or firewall changed. Rollback is `git revert` of the three commits and `git tag -d gate-G00`. The tools installed with `cargo install` live in ~/.cargo/bin and are removed with `cargo uninstall tokei cargo-vet cargo-geiger`. The deleted bootstrap scripts are kept outside the repository in the shared notes folder, with their sha256 in docs/DEVIATIONS.md (DEV-V5-000). The test that proves the tooling can be rebuilt from nothing is `cargo xtask spec split` followed by `cargo xtask spec check`, which passes (step spec-check)."
+deviations = ["DEV-V5-000", "ASM-007", "ASM-008", "ASM-009", "ASM-010", "ASM-011", "ASM-012", "ASM-013", "ASM-014", "ASM-015", "ASM-016"]
+notes = [
+    "Matrix evidence links the verify run made just before the tasks were promoted (`docs/gates/evidence/G00/pre-promotion/`); this report cites the final run in `docs/gates/evidence/G00/verify/`. Both are complete copies with sha256.",
+    "Negative demonstrations of every verify step that can be broken: docs/gates/evidence/G00/negative-demos.md. Commit-blocking demonstration of the secret scanner: docs/gates/evidence/G00/hook-demo.txt.",
+    "T-0007 was done in the third session: the first response is docs/FIRST-RESPONSE.md; its acceptance checks run in the `rules` step.",
+    "Independent hostile review of the egress, profile and scanner code: docs/gates/evidence/G00/hostile-review.md.",
+    "T-0003 was re-run twice from a copy of the removed script (outside the repository): identical outputs; see t0003-rerun/README.md.",
+]
+questions = [
+    "Please answer the questions of docs/FIRST-RESPONSE.md by id; Q-048 (local, hosted or both) decides the path.",
+    "Which published `cargo vet` audit sets, if any, should be imported (a trust decision)?",
+    "Q-040: which egress destinations may be allowlisted (DNS resolvers, SMTP relay, CA, feeds)?",
+]
+
+[[condition]]
+text = "`docs/SPEC.md` and its split exist with a matching checksum"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/verify/12-spec-check.log, docs/gates/evidence/G00/spec-and-agents.txt"
+
+[[condition]]
+text = "`AGENTS.md` is at most 150 lines"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/spec-and-agents.txt (78 lines), docs/gates/evidence/G00/verify/10-rules.log"
+
+[[condition]]
+text = "`cargo check --workspace` is green"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/cargo-check.log"
+
+[[condition]]
+text = "`cargo xtask verify` is green"
+status = "PASS (0 FAIL; 4 named stubs UNVERIFIED)"
+evidence = "docs/gates/evidence/G00/verify/summary.json"
+
+[[condition]]
+text = "`hddctl preflight --profile-only` reports honestly (including real failures)"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/preflight-example.txt, docs/gates/evidence/G00/preflight-missing-file.txt"
+
+[[condition]]
+text = "the egress guard tests pass"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/verify/03-nextest.log (crates/hdd-common/src/egress/)"
+
+[[condition]]
+text = "the capability matrix is generated"
+status = "PASS"
+evidence = "docs/CAPABILITY-MATRIX.md; step `matrix-check`"
+
+[[condition]]
+text = "the first response of section 9 has been delivered and the operator's answers are recorded or marked open"
+status = "PASS"
+evidence = "docs/FIRST-RESPONSE.md (delivered in chat 2026-10-19); all 58 questions marked OPEN with levels in docs/OPERATOR-QUESTIONS.md and STATUS.md"
+
+[[criterion]]
+task = "T-0001"
+id = "A1"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/verify/12-spec-check.log"
+notes = "sha256 of docs/SPEC.md equals docs/SPEC.sha256; the concatenated split equals it byte for byte"
+
+[[criterion]]
+task = "T-0001"
+id = "A2"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/verify/13-tasks-check.log"
+notes = "599 rows, no gaps or duplicates; cross-checked against Appendix E14"
+
+[[criterion]]
+task = "T-0001"
+id = "A3"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/verify/12-spec-check.log"
+notes = "first line of every split file is its marker"
+
+[[criterion]]
+task = "T-0001"
+id = "A4"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/verify/12-spec-check.log"
+notes = "no file above 3,000 lines"
+
+[[criterion]]
+task = "T-0001"
+id = "A5"
+status = "PASS"
+evidence = "git log"
+notes = "committed on 2026-10-19 at the operator's request in three Conventional Commits with Task trailers (1ec43bd, 051eeac, fb82732); the pre-commit secret scan ran on each"
+
+[[criterion]]
+task = "T-0002"
+id = "A1"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/spec-and-agents.txt"
+notes = "AGENTS.md has 78 lines; step `rules` enforces the cap"
+
+[[criterion]]
+task = "T-0002"
+id = "A2"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/verify/13-tasks-check.log"
+notes = "held at bootstrap; states advanced as work proceeded (ASM-005); `tasks check` verifies 599 rows with valid states"
+
+[[criterion]]
+task = "T-0002"
+id = "A3"
+status = "PASS"
+evidence = "docs/DEVIATIONS.md"
+notes = "DEV-V5-000 to DEV-V5-007 seeded with dates, plus ASM entries"
+
+[[criterion]]
+task = "T-0002"
+id = "A4"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/git-check-ignore.txt"
+notes = "all six paths matched an ignore rule; step `rules` checks the patterns"
+
+[[criterion]]
+task = "T-0002"
+id = "A5"
+status = "PASS"
+evidence = "AGENTS.md"
+notes = "self-read only; not independently reviewed"
+
+[[criterion]]
+task = "T-0003"
+id = "A1"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/t0003-rerun/run2-ENV.md"
+notes = "the session-1 script (copy outside the repository) was re-run twice on 2026-10-19: 35 logs byte-identical; differences to docs/ENV.md are only tools installed since, disk and NTP time"
+
+[[criterion]]
+task = "T-0003"
+id = "A2"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/t0003-rerun/README.md"
+notes = "read-only commands (script header); re-run twice, nothing outside the scratchpad written"
+
+[[criterion]]
+task = "T-0003"
+id = "A3"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/t0003-rerun/run2-ENV.md"
+notes = "degradation statement for every non-PASS row, in both re-runs"
+
+[[criterion]]
+task = "T-0003"
+id = "A4"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/t0003-rerun/README.md"
+notes = "no outbound request was made in either re-run"
+
+[[criterion]]
+task = "T-0003"
+id = "A5"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/t0003-rerun/README.md"
+notes = "no secret appears in the logs; the secret-scan step covers the directory"
+
+[[criterion]]
+task = "T-0004"
+id = "A1"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/cargo-check.log"
+notes = "`cargo check --workspace` exit 0"
+
+[[criterion]]
+task = "T-0004"
+id = "A2"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/negative-demos.md"
+notes = "demo `clippy`: an unwrap in non-test code fails; reverted"
+
+[[criterion]]
+task = "T-0004"
+id = "A3"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/verify/05-deny.log"
+notes = "`cargo deny check` ok; no exceptions needed so far"
+
+[[criterion]]
+task = "T-0004"
+id = "A4"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/verify/09-vulnlab-graph.log"
+notes = "checked for every default member (not only hdd-proxy); demo shows the check fails when the dependency is real"
+
+[[criterion]]
+task = "T-0004"
+id = "A5"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/verify/08-unsafe-scan.log"
+notes = "grep rule in xtask plus a compile-fail test"
+
+[[criterion]]
+task = "T-0005"
+id = "A1"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/verify/summary.json"
+notes = "exit 0 on the clean tree; non-zero per step demonstrated in negative-demos.md (16 groups; `audit` and the stubs not demonstrable)"
+
+[[criterion]]
+task = "T-0005"
+id = "A2"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/negative-demos.md"
+notes = "`spec check` passes and fails after editing a split file"
+
+[[criterion]]
+task = "T-0005"
+id = "A3"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/negative-demos.md"
+notes = "claims-lint fails on a seeded phrase; the approved section 4.3 patterns pass (unit test)"
+
+[[criterion]]
+task = "T-0005"
+id = "A4"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/hook-demo.txt"
+notes = "the commit with a fake private key block is blocked; the fixture is generated at runtime"
+
+[[criterion]]
+task = "T-0005"
+id = "A5"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/verify/19-rust-share.log"
+notes = "exclusion list and the three markup caps are printed"
+
+[[criterion]]
+task = "T-0006"
+id = "A1"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/preflight-example.txt"
+notes = "only the two empty required fields fail, each with remediation text"
+
+[[criterion]]
+task = "T-0006"
+id = "A2"
+status = "PASS"
+evidence = "crates/hdd-common/src/profile/tests.rs"
+notes = "documented message, also through the CLI (crates/hddctl/tests/preflight.rs)"
+
+[[criterion]]
+task = "T-0006"
+id = "A3"
+status = "PASS"
+evidence = "crates/hdd-common/src/profile/tests.rs"
+notes = "unknown keys rejected with the full key path"
+
+[[criterion]]
+task = "T-0006"
+id = "A4"
+status = "PASS"
+evidence = "crates/hdd-common/src/profile/tests.rs"
+notes = "a token-looking value in a name field is rejected and never echoed"
+
+[[criterion]]
+task = "T-0006"
+id = "A5"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/verify/16-profile-check.log"
+notes = "golden test plus `profile check` against docs/profile.schema.json"
+
+[[criterion]]
+task = "T-0007"
+id = "A1"
+status = "PASS"
+evidence = "docs/FIRST-RESPONSE.md"
+notes = "checked by the `rules` step (check_first_response) and by hand against section 9; delivered to the operator in chat on 2026-10-19; every question is OPEN"
+
+[[criterion]]
+task = "T-0007"
+id = "A2"
+status = "PASS"
+evidence = "docs/FIRST-RESPONSE.md"
+notes = "checked by the `rules` step (check_first_response) and by hand against section 9; delivered to the operator in chat on 2026-10-19; every question is OPEN"
+
+[[criterion]]
+task = "T-0007"
+id = "A3"
+status = "PASS"
+evidence = "docs/FIRST-RESPONSE.md"
+notes = "checked by the `rules` step (check_first_response) and by hand against section 9; delivered to the operator in chat on 2026-10-19; every question is OPEN"
+
+[[criterion]]
+task = "T-0007"
+id = "A4"
+status = "PASS"
+evidence = "docs/FIRST-RESPONSE.md"
+notes = "checked by the `rules` step (check_first_response) and by hand against section 9; delivered to the operator in chat on 2026-10-19; every question is OPEN"
+
+[[criterion]]
+task = "T-0007"
+id = "A5"
+status = "PASS"
+evidence = "docs/FIRST-RESPONSE.md"
+notes = "checked by the `rules` step (check_first_response) and by hand against section 9; delivered to the operator in chat on 2026-10-19; every question is OPEN"
+
+[[criterion]]
+task = "T-0008"
+id = "A1"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/verify/14-adr-check.log"
+notes = "every queued ADR names its deciding task"
+
+[[criterion]]
+task = "T-0008"
+id = "A2"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/negative-demos.md"
+notes = "a dependency without a vetting entry is flagged (demo and unit test)"
+
+[[criterion]]
+task = "T-0008"
+id = "A3"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/verify/14-adr-check.log"
+notes = "the template has a rollback plan section"
+
+[[criterion]]
+task = "T-0008"
+id = "A4"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/verify/14-adr-check.log"
+notes = "numbers contiguous from 0000 and listed in the index"
+
+[[criterion]]
+task = "T-0008"
+id = "A5"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/verify/14-adr-check.log"
+notes = "ADR-0002 and ADR-0026 are accepted with a spike link / stated reason; ADR-0001 is spiking"
+
+[[criterion]]
+task = "T-0009"
+id = "A1"
+status = "PASS"
+evidence = "crates/hdd-common/src/egress/tests.rs"
+notes = "unused-listener test: the listener saw no connection"
+
+[[criterion]]
+task = "T-0009"
+id = "A2"
+status = "PASS"
+evidence = "crates/hdd-common/src/egress/tests.rs"
+notes = "public-then-loopback rebinding rejected at connect time"
+
+[[criterion]]
+task = "T-0009"
+id = "A3"
+status = "PASS"
+evidence = "crates/hdd-common/src/egress/tests.rs"
+notes = "not followed by default; denied when the caller opts in"
+
+[[criterion]]
+task = "T-0009"
+id = "A4"
+status = "PASS"
+evidence = "crates/hdd-common/src/egress/target.rs"
+notes = "real local DNS responder, CNAME chain checked"
+
+[[criterion]]
+task = "T-0009"
+id = "A5"
+status = "PASS"
+evidence = "crates/hdd-common/src/egress/killswitch.rs"
+notes = "sample tool aborted within 1 s; also a request in flight"
+
+[[criterion]]
+task = "T-0010"
+id = "A1"
+status = "PASS"
+evidence = "docs/CAPABILITY-MATRIX.md"
+notes = "599 rows, one per task; the ten P00 rows are done (run record: docs/gates/evidence/G00/pre-promotion-done/summary.json, matrix-check PASS), the other 589 are todo"
+
+[[criterion]]
+task = "T-0010"
+id = "A2"
+status = "PASS"
+evidence = "docs/gates/evidence/G00/negative-demos.md"
+notes = "`matrix check` fails when a done row lacks evidence (demo and unit tests)"
+
+[[criterion]]
+task = "T-0010"
+id = "A3"
+status = "PASS"
+evidence = "docs/gates/G00.md"
+notes = "Appendix E5.1 template with pasted output tails; regenerated and compared by `gate-report G00 --check`"
+
+[[criterion]]
+task = "T-0010"
+id = "A4"
+status = "PASS"
+evidence = "docs/gates/G00.md"
+notes = "every condition of the gate holds with evidence; the operator's answers are marked open, as the condition allows"
+
+[[criterion]]
+task = "T-0010"
+id = "A5"
+status = "PASS"
+evidence = "git tag"
+notes = "tag gate-G00 on commit fb82732 (git tag -n1 -l 'gate-*'; git rev-parse gate-G00^{commit})"
+
+[[ac]]
+check = "AC-00"
+status = "UNVERIFIED"
+reason = "stage_not_reached"
+needs = "the profile part runs now (hddctl preflight --profile-only); ports, firewall, NTP, canary and origin lockdown arrive with T-0217 and need hdd.live.yaml"
+evidence = "docs/gates/evidence/G00/preflight-example.txt"
+
+[[finding]]
+id = "F-01"
+severity = "medium"
+area = "claims-lint"
+summary = "A table row that merely mentions the allow-block marker opened an allow block (found when linting OPERATIONS.md): any text could be hidden after it"
+status = "fixed"
+link = "claims.rs `is_marker`, test `a_line_that_merely_mentions_the_marker_does_not_open_a_block`"
+
+[[finding]]
+id = "F-02"
+severity = "medium"
+area = "gen-secrets"
+summary = "On Windows the owner-only ACL removed the user's own access to the secret file (first test run: permission denied)"
+status = "fixed"
+link = "secrets.rs: ACL set on the directory with the user's SID, files inherit; test `gen_secrets_writes_distinct_32_byte_secrets_and_never_overwrites`"
+
+[[finding]]
+id = "F-03"
+severity = "low"
+area = "verify"
+summary = "`cargo machete` invoked from a cargo process treated its own subcommand name as a path"
+status = "fixed"
+link = "verify.rs step machete runs `cargo-machete .`"
+
+[[finding]]
+id = "F-04"
+severity = "low"
+area = "negative demos"
+summary = "The vulnlab-graph demo first passed because Cargo ignores a dependency on a crate without a lib target; demo repeated with a temporary lib target"
+status = "fixed"
+link = "docs/gates/evidence/G00/negative-demos.md"
+
+[[finding]]
+id = "F-05"
+severity = "low"
+area = "egress"
+summary = "Allowlisted host names are trusted to resolve honestly; only the metadata, link-local, multicast, unspecified and broadcast baseline is enforced for them"
+status = "accepted-with-owner"
+link = "docs/STRIDE.md residual, owner T-0163"
+
+[[finding]]
+id = "F-06"
+severity = "low"
+area = "egress"
+summary = "The DNS stub resolver does not fall back to TCP for truncated answers (fails closed)"
+status = "accepted-with-owner"
+link = "docs/STRIDE.md residual, owner T-0156"
+
+[[finding]]
+id = "F-07"
+severity = "medium"
+area = "supply chain"
+summary = "`cargo vet` passes with 175 exempted crates and no imported audit sets"
+status = "open"
+link = "STATUS.md open risks; operator decision"
+
+[[finding]]
+id = "F-08"
+severity = "low"
+area = "tests"
+summary = "No coverage-guided fuzz target, no criterion benchmark, no coverage or mutation figures"
+status = "open"
+link = "STATUS.md UNVERIFIED list"
+
+[[risk]]
+risk = "ADR-0001 spiking: ring is a provisional TLS provider"
+mitigation = "T-0354 decides with measurements"
+
+[[risk]]
+risk = "cargo vet exempts every third-party crate"
+mitigation = "operator chooses audit sets to import"
+
+[[risk]]
+risk = "Section 2.9's `egress.private_origin_allowlist` has no profile field (ASM-009)"
+mitigation = "T-0163 decides the field"
+
+[[risk]]
+risk = "Task-file evidence and the matrix link run summaries by hash; a re-run changes the hash"
+mitigation = "evidence is copied into docs/gates/evidence/G00/ and referenced by sha256"
+
+[[unverified]]
+item = "coverage (cargo-llvm-cov), mutation score (cargo-mutants)"
+reason = "tool_unavailable"
+needs = "install after vetting (T-0258, T-0517)"
+
+[[unverified]]
+item = "coverage-guided fuzz target for the egress parsers"
+reason = "tool_unavailable"
+needs = "cargo-fuzz and a nightly toolchain (T-0259); proptests exercise the parsers meanwhile"
+
+[[unverified]]
+item = "criterion benchmark / latency histogram for the egress module ([DP])"
+reason = "stage_not_reached"
+needs = "T-0256 owns data-plane performance; the egress client is not on a request hot path yet"
+
+[[unverified]]
+item = "reachability probes against real nameservers and an SMTP relay"
+reason = "human_step_pending"
+needs = "hdd.live.yaml with dns:// and tcp:// entries in egress_allowlist (Q-040)"
+
+[[unverified]]
+item = "cargo-geiger as a verify step"
+reason = "stage_not_reached"
+needs = "viability decided by T-0517 (ADR-0018); one-off run recorded in evidence"
+
+[[blocker]]
+task = "T-0561"
+text = "starts right after G00 (section 0.9); next session"
+

@@ -1,0 +1,21 @@
+[package]
+name = "hdd-xdp-ebpf"
+description = "kernel program (only crate allowed unsafe)"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+# Excluded from the default workspace build (T-0004 step 3): it has its own target and toolchain
+# (pinned nightly plus bpf-linker, ADR-0025 / ADR-0017). This is the only crate allowed `unsafe`.
+[workspace]
+
+[lints.rust]
+missing_docs = "deny"
+
+[lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+todo = "deny"
+unimplemented = "deny"
+dbg_macro = "deny"

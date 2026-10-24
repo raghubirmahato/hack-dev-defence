@@ -1,0 +1,60 @@
+# deploy/Caddyfile.example - TLS terminator in front of the HDD proxy (HK1).
+#
+# Topology (live site):  Internet -> Caddy :443 -> hdd-proxy 127.0.0.1:8080 -> origin
+# The HK1 proxy does not terminate TLS itself. Caddy obtains the certificate (ACME)
+# and forwards the request to the proxy on loopback.
+#
+# BEFORE USE, replace example.com with the operator's domain and review the trust
+# settings in the HDD site profile:
+#   * Caddy sets X-Forwarded-For/X-Forwarded-Proto for the proxy. Add the proxy's peer
+#     address as seen by hdd-proxy to `trusted_proxies` in the HDD config. If Caddy
+#     runs on the same host and the proxy listens on 127.0.0.1, that peer is
+#     127.0.0.1, so `trusted_proxies: ["127.0.0.1/32"]` is correct - never trust
+#     0.0.0.0/0 (it would let clients spoof their own IP and evade bans).
+#   * Keep the HDD site in mode `block` only after the origin lockdown is verified.
+#
+# Do not cache the login and admin responses; do not add Caddy-level access rules that
+# could hide HDD's block page from the demo.
+
+{
+	# Operator: use a real address for ACME registration/expiry notices.
+	email ops@example.com
+}
+
+site.example.com {
+	encode zstd gzip
+
+	# The HDD proxy behind this terminator (loopback listener, HK1 config).
+	reverse_proxy 127.0.0.1:8080 {
+		# Caddy overwrites X-Forwarded-For with the real client address by default
+		# (do not forward a client-supplied X-Forwarded-For from the edge).
+		header_up X-Forwarded-Proto {scheme}
+		# Keep the original Host so hdd-proxy can route by site host.
+		# header_up Host {host} is the Caddy default; kept explicit for clarity.
+		header_up Host {host}
+
+		# Reasonable timeouts; the proxy has its own connect/total timeouts.
+		transport http {
+			dial_timeout 5s
+			response_header_timeout 30s
+		}
+	}
+
+	# Authenticated pages must not be cached by Caddy or a downstream cache.
+	header {
+		Cache-Control "no-store"
+		-Server
+	}
+
+	log {
+		output file /var/log/caddy/hdd-access.log
+		format json
+	}
+
+	# Operator: do not expose a staging hostname here; use one server block per site.
+}
+
+# Local-only fallback for rehearsal on the same machine (optional):
+# :8088 {
+# 	reverse_proxy 127.0.0.1:8080
+# }

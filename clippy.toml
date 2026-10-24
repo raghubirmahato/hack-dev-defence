@@ -1,0 +1,7 @@
+# R-01 applies to non-test code: tests may unwrap, expect, panic and index.
+allow-unwrap-in-tests = true
+allow-expect-in-tests = true
+allow-panic-in-tests = true
+allow-indexing-slicing-in-tests = true
+allow-dbg-in-tests = true
+allow-print-in-tests = true

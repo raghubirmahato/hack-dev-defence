@@ -1,0 +1,71 @@
+{
+  "generated_at": "2026-10-20T09:00:00Z",
+  "mode": "live",
+  "stage": "pilot",
+  "load_profile": "functional",
+  "vantage_count": 0,
+  "lines": [
+    {
+      "id": "AC-00",
+      "title": "Preflight and safety-envelope self-tests",
+      "tier": "smoke",
+      "verdict": {
+        "status": "pass"
+      },
+      "evidence": [
+        {
+          "path": "run.log",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "AC-01",
+      "title": "Authentication and admin isolation",
+      "tier": "nondestructive",
+      "verdict": {
+        "status": "fail",
+        "reason": "a would not block"
+      },
+      "evidence": []
+    },
+    {
+      "id": "AC-02",
+      "title": "Zone import and parity",
+      "tier": "pilot-full",
+      "verdict": {
+        "status": "unverified",
+        "reason": "stage_not_reached"
+      },
+      "evidence": []
+    }
+  ],
+  "evidence": [
+    {
+      "check": "AC-00",
+      "kind": "http_response",
+      "fields": [
+        [
+          "status",
+          "403"
+        ],
+        [
+          "header.content-type",
+          "text/html"
+        ]
+      ]
+    }
+  ],
+  "logs": [
+    {
+      "path": "acceptance-x/run.log",
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "bytes": 42,
+      "tail": "line one\nline two"
+    }
+  ],
+  "notes": [
+    "a note"
+  ]
+}

@@ -1,0 +1,329 @@
+   Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+warning: constant `SURFACES` is never used
+   --> crates\hdd-xtask\src\ux_docs.rs:141:11
+    |
+141 | pub const SURFACES: [&str; 6] = ["public", "app", "admin", "api", "status", "data-plane"];
+    |           ^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `METHODS` is never used
+   --> crates\hdd-xtask\src\ux_docs.rs:143:11
+    |
+143 | pub const METHODS: [&str; 6] = ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE"];
+    |           ^^^^^^^
+
+warning: constant `IA_SECTIONS` is never used
+   --> crates\hdd-xtask\src\ux_docs.rs:145:11
+    |
+145 | pub const IA_SECTIONS: [&str; 10] = [
+    |           ^^^^^^^^^^^
+
+warning: constant `RESERVED_PREFIX` is never used
+   --> crates\hdd-xtask\src\ux_docs.rs:166:11
+    |
+166 | pub const RESERVED_PREFIX: &str = "/__hdd/";
+    |           ^^^^^^^^^^^^^^^
+
+warning: struct `RouteEntry` is never constructed
+    --> crates\hdd-xtask\src\ux_docs.rs:1906:12
+     |
+1906 | pub struct RouteEntry {
+     |            ^^^^^^^^^^
+
+warning: struct `RoutesFile` is never constructed
+    --> crates\hdd-xtask\src\ux_docs.rs:1926:8
+     |
+1926 | struct RoutesFile {
+     |        ^^^^^^^^^^
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 6 warnings
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.60s
+────────────
+ Nextest run ID 60a3f2ce-ed09-4d96-9264-c2d24f1f3003 with nextest profile: default
+    Starting 15 tests across 1 binary (164 tests skipped)
+        FAIL [   0.019s] ( 1/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_a_route_lacking_a_key_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t14_a_route_lacking_a_key_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t14_a_route_lacking_a_key_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 178 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t14_a_route_lacking_a_key_fails' (25060) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1581:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.013s] ( 2/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_ia_sections_are_required
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t14_ia_sections_are_required ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t14_ia_sections_are_required
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 178 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t14_ia_sections_are_required' (33564) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1780:5:
+    assertion failed: messages(&ia_findings(&missing)).contains("Redirects")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.021s] ( 3/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_url_rules_need_a_test_line_each
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t14_url_rules_need_a_test_line_each ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t14_url_rules_need_a_test_line_each
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 178 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t14_url_rules_need_a_test_line_each' (30140) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1800:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.026s] ( 4/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_every_screen_must_appear_exactly_once
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t14_every_screen_must_appear_exactly_once ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t14_every_screen_must_appear_exactly_once
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 178 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t14_every_screen_must_appear_exactly_once' (29272) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1652:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.035s] ( 5/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_a_value_outside_its_set_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t14_a_value_outside_its_set_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t14_a_value_outside_its_set_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 178 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t14_a_value_outside_its_set_fails' (23408) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1609:9:
+    surface = "public": 
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.040s] ( 6/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_a_complete_routes_file_passes
+        FAIL [   0.040s] ( 7/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_the_identifier_regex_and_example_are_checked
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t14_the_identifier_regex_and_example_are_checked ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t14_the_identifier_regex_and_example_are_checked
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 178 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t14_the_identifier_regex_and_example_are_checked' (30132) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1790:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.043s] ( 8/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_a_permission_must_exist_in_the_catalog
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t14_a_permission_must_exist_in_the_catalog ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t14_a_permission_must_exist_in_the_catalog
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 178 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t14_a_permission_must_exist_in_the_catalog' (27628) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1628:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.045s] ( 9/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_spec_registries_are_read
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t14_spec_registries_are_read ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t14_spec_registries_are_read
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 178 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t14_spec_registries_are_read' (19968) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1556:5:
+    assertion failed: permissions.contains("PERM-domain.read")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.053s] (10/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_a_token_parameter_must_be_listed_in_the_token_routes_section
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t14_a_token_parameter_must_be_listed_in_the_token_routes_section ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t14_a_token_parameter_must_be_listed_in_the_token_routes_section
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 178 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t14_a_token_parameter_must_be_listed_in_the_token_routes_section' (22332) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1735:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.058s] (11/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_the_same_pattern_and_method_set_must_not_repeat
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t14_the_same_pattern_and_method_set_must_not_repeat ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t14_the_same_pattern_and_method_set_must_not_repeat
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 178 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t14_the_same_pattern_and_method_set_must_not_repeat' (23812) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1769:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.058s] (12/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_a_route_must_not_cite_an_unknown_screen
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t14_a_route_must_not_cite_an_unknown_screen ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t14_a_route_must_not_cite_an_unknown_screen
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 178 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t14_a_route_must_not_cite_an_unknown_screen' (16488) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1694:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.066s] (13/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_an_unparseable_routes_file_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t14_an_unparseable_routes_file_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t14_an_unparseable_routes_file_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 178 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t14_an_unparseable_routes_file_fails' (26792) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1574:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.070s] (14/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_pattern_rules_are_checked
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t14_pattern_rules_are_checked ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t14_pattern_rules_are_checked
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 178 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t14_pattern_rules_are_checked' (25336) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1717:9:
+    /Page: 
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   1.250s] (15/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_missing_ia_or_routes_documents_are_named
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::t14_missing_ia_or_routes_documents_are_named ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::t14_missing_ia_or_routes_documents_are_named
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 178 filtered out; finished in 1.18s
+
+  stderr ───
+
+    thread 'ux_docs::tests::t14_missing_ia_or_routes_documents_are_named' (26620) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1807:5:
+    [ux-docs] docs/SPEC.md: the B4.2 permission catalog has no permission rows, so route permissions cannot be checked
+    [ux-docs] docs/SPEC.md: the B6.1 rate-limit classes cannot be read, so route classes cannot be checked
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   1.250s] 15 tests run: 1 passed, 14 failed, 164 skipped
+        FAIL [   0.019s] ( 1/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_a_route_lacking_a_key_fails
+        FAIL [   0.013s] ( 2/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_ia_sections_are_required
+        FAIL [   0.021s] ( 3/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_url_rules_need_a_test_line_each
+        FAIL [   0.026s] ( 4/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_every_screen_must_appear_exactly_once
+        FAIL [   0.035s] ( 5/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_a_value_outside_its_set_fails
+        FAIL [   0.040s] ( 7/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_the_identifier_regex_and_example_are_checked
+        FAIL [   0.043s] ( 8/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_a_permission_must_exist_in_the_catalog
+        FAIL [   0.045s] ( 9/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_spec_registries_are_read
+        FAIL [   0.053s] (10/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_a_token_parameter_must_be_listed_in_the_token_routes_section
+        FAIL [   0.058s] (11/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_the_same_pattern_and_method_set_must_not_repeat
+        FAIL [   0.058s] (12/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_a_route_must_not_cite_an_unknown_screen
+        FAIL [   0.066s] (13/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_an_unparseable_routes_file_fails
+        FAIL [   0.070s] (14/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_pattern_rules_are_checked
+        FAIL [   1.250s] (15/15) hdd-xtask::bin/hdd-xtask ux_docs::tests::t14_missing_ia_or_routes_documents_are_named
+error: test run failed

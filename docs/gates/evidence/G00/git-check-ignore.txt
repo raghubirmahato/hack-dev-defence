@@ -1,0 +1,7 @@
+.gitignore:2:hdd.live.yaml	hdd.live.yaml
+.gitignore:11:acceptance-*/	acceptance-x/foo
+.gitignore:3:secrets/	secrets/k
+.gitignore:5:.env	.env
+.gitignore:10:target/	target/x
+.gitignore:4:*.pem	a.pem
+exit 0

@@ -1,0 +1,53 @@
+   Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 7.74s
+────────────
+ Nextest run ID a570e083-979f-4a9b-9416-823897124dc8 with nextest profile: default
+    Starting 46 tests across 1 binary (396 tests skipped)
+        PASS [   0.018s] ( 1/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::criteria_file_rejects_malformed_toml
+        PASS [   0.022s] ( 2/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_accepts_an_outside_the_journey_line_with_a_reason
+        PASS [   0.026s] ( 3/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::fixtures_cover_the_files_the_lead_writes
+        PASS [   0.030s] ( 4/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_reports_an_uncovered_journey_screen
+        PASS [   0.041s] ( 5/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::criteria_file_parses_the_fixture_list
+        PASS [   0.043s] ( 6/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_requires_the_screens_line
+        PASS [   0.043s] ( 7/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_coverage_requires_the_doc_subsection
+        PASS [   0.053s] ( 8/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_screen_coverage_accepts_the_fixture
+        PASS [   0.060s] ( 9/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::criteria_file_requires_an_unverified_provenance_marker
+        PASS [   0.061s] (10/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::automated_checks_name_the_axe_oracle_and_the_named_checks
+        PASS [   0.061s] (11/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_accepts_screens_not_covered_with_a_reason
+        PASS [   0.069s] (12/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_reports_a_screen_outside_the_journey
+        PASS [   0.074s] (13/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::criteria_file_rejects_a_bad_id_level_source_and_duplicate
+        PASS [   0.079s] (14/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_coverage_reports_a_missing_journey
+        PASS [   0.062s] (15/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::journey_screen_ids_read_the_steps_screen_column
+        PASS [   0.071s] (16/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::human_steps_require_the_pending_marker_and_instructions
+        PASS [   0.080s] (17/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::flows_require_twelve_real_journeys_with_exact_titles
+        PASS [   0.100s] (18/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::manual_checks_name_walkthroughs_twelve_scripts_zoom_and_reflow
+        PASS [   0.143s] (19/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_has_the_required_parts
+        PASS [   0.076s] (20/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::missing_documents_are_findings_not_panics
+        PASS [   0.040s] (21/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::screen_ids_are_whole_tokens_not_parts_of_error_codes
+        PASS [   0.024s] (22/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::sections_require_all_eight_with_a_body
+        PASS [   0.155s] (23/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_accepts_the_fixture_and_every_owner_form
+        PASS [   0.153s] (24/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_a_duplicate_row
+        PASS [   0.154s] (25/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_names_the_b11_11_extension
+        PASS [   0.015s] (26/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_classifier_precedence_is_a_function
+        PASS [   0.105s] (27/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::page_patterns_require_a_real_component
+        PASS [   0.076s] (28/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::regression_names_the_artifact_directory_and_the_baseline_tasks
+        PASS [   0.147s] (29/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_a_missing_criterion
+        PASS [   0.015s] (30/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_examples_are_evaluated_by_the_classifier
+        PASS [   0.022s] (31/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_examples_need_six_rows_and_all_four_severities
+        PASS [   0.165s] (32/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_a_vacuous_not_applicable_reason
+        PASS [   0.160s] (33/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_an_id_not_in_the_stored_list
+        PASS [   0.166s] (34/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_an_undeclared_page_pattern
+        PASS [   0.037s] (35/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::strategy_cites_only_real_screens_and_journeys
+        PASS [   0.053s] (36/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_names_the_four_levels_and_the_ac40_gate_rule
+        PASS [   0.052s] (37/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::statement_requires_known_gaps
+        PASS [   0.195s] (38/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_a_whole_token_owner_that_is_not_a_component
+        PASS [   0.060s] (39/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::statement_rejects_an_absolute_conformance_claim
+        PASS [   0.052s] (40/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::whole_token_matching_rejects_longer_words_and_ids
+        PASS [   0.068s] (41/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_rejects_a_moderate_row_that_names_a_criterion_failure
+        PASS [   0.235s] (42/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_a_level_or_title_drift
+        PASS [   0.248s] (43/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::matrix_marks_jaws_as_available_only_if_available
+        PASS [   0.454s] (44/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_set_requires_exactly_the_named_files
+        PASS [   0.378s] (45/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::matrix_requires_every_modality
+        PASS [   0.431s] (46/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::the_fixture_documents_pass_every_rule
+────────────
+     Summary [   0.638s] 46 tests run: 46 passed, 396 skipped

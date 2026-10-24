@@ -1,0 +1,40 @@
+# T-0025 confirmation copy (English source). Keys are lowercase semantic words joined by hyphens.
+# Every key is named by exactly one row of docs/UX/dangerous-actions.md.
+# The typed-confirmation rows of TC-7 carry a `Type { $resource }` placeholder; the other rows do not.
+domain-remove-confirm = Type { $domain } to remove it. The zone export and the revert steps stay available after the removal.
+dns-record-delete-confirm = Delete { $record }? The DNS history keeps the previous value for a rollback.
+dns-import-confirm = Import the zone for { $domain }? The diff lists every record that is added, changed or removed.
+nameserver-change-confirm = Change the nameservers for { $domain }? Keep the old and new values open at your registrar.
+block-mode-confirm = Switch { $domain } to block mode? Matching requests are refused and the sending address is banned. You can switch back at any time.
+ban-create-confirm = Ban { $address } for { $duration }? The preview must show that your own address is not in the ban.
+access-deny-confirm = Deny { $value }? Sessions from that range lose access as soon as the entry is saved.
+geo-block-confirm = Refuse visitors from { $country }? The preview lists the sessions from that country in the last day.
+rule-broad-confirm = Save the rule { $rule } with this scope? The preview shows the requests it would have matched.
+safe-mode-confirm = Safe mode stops inspection, jails and rate limits for { $duration }. The site stays reachable and the banner shows the countdown.
+origin-lockdown-confirm = Apply the lockdown to { $domain }? Requests that skip HDD are refused at the origin.
+api-key-create-confirm = Create the key { $name } with these scopes? The secret is shown once and cannot be read again.
+mfa-remove-confirm = Remove the second factor from your account? Save the recovery codes before you continue.
+org-delete-confirm = Type { $org } to delete the organisation. Domains, members and keys are deleted; the export stays downloadable.
+global-setting-confirm = Type { $setting } to change it for every tenant. The preview names the tenants that the change reaches.
+global-ban-confirm = Type { $address } to ban it on every site. The preview lists the tenants that already refuse the address.
+rule-pack-confirm = Type { $pack } to publish the rule pack. The diff and the dry-run result are shown before the publish.
+virtual-patch-confirm = Push the emergency rule { $rule } for { $duration }? The evidence and the rollback step are shown.
+impersonation-start-confirm = View { $org } as read-only support for { $duration }? The session is recorded in the platform audit.
+member-remove-confirm = Remove { $member } from the organisation? The preview lists the permissions they lose.
+member-role-confirm = Give { $member } the owner role? Owners can delete the organisation and change every setting.
+org-transfer-confirm = Transfer ownership of { $org } to { $member }? The current owner loses control of the organisation.
+never-ban-change-confirm = Type { $cidr } to add it to the never-ban list. Addresses in that range can never be banned.
+under-attack-confirm = Type { $domain } to challenge every new visitor for { $duration }. Real visitors may wait briefly and some scripts may fail.
+pause-confirm = Pause inspection for { $domain } for { $duration }? Nothing is blocked while the pause lasts.
+hsts-change-confirm = Enable HSTS for { $domain } with this max-age? Browsers that see the header keep the rule until it expires.
+certificate-delete-confirm = Delete the certificate for { $names }? Visitors may see a TLS error once the certificate is gone.
+api-key-revoke-confirm = Revoke the key { $name }? Requests that use it fail immediately and the secret cannot be restored.
+origin-unlock-confirm = Remove the origin lockdown from { $domain }? Requests that skip HDD can reach the origin again.
+platform-emergency-confirm = Type { $control } to use this emergency control for { $duration }. It expires at the stated time unless it is cleared early.
+tenant-suspend-confirm = Type { $tenant } to suspend this tenant. The customer notice and the grace period are shown before it applies.
+proxy-toggle-confirm = Toggle the proxy for { $record }? The page states what proxying changes and keeps mail records grey.
+shield-policy-confirm = Apply this shield policy to { $domain }? The blocked classes and the ban-on-first-hit rule are listed before it applies.
+appeal-decline-confirm = Decline this appeal with the stated reason? The visitor receives the neutral message and stays blocked.
+dns-record-update-confirm = Change { $record } to { $value }? The previous value stays in the DNS history for a rollback.
+exception-create-confirm = Create the exception for { $scope } until { $expiry }? The affected rules are listed before it saves.
+ratelimit-confirm = Apply the rate limit to { $path }? The limit, the ban ladder and the burst-test result are shown before it applies.

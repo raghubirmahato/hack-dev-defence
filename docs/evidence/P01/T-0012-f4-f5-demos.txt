@@ -1,0 +1,19 @@
+# T-0012 review round 2: demonstrations for F-4 and F-5 on the shipped documents
+# Date: 2026-10-19. Each mutation of maya.md must make 'cargo xtask ux-docs' FAIL; the file is restored and its SHA-256 compared.
+
+## F-4: the vacuous outcome Claude used (see J-02) is rejected
+[ux-docs] docs/UX/personas/maya.md:23: a scenario's measurable outcome names no `AC-`, `AUD-` or `MET-` id and no number with a unit or comparator (T-0012 A1)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## F-5: a criterion outside the B11.11 table (9.9.9) is rejected
+[ux-docs] docs/UX/personas/maya.md: `9.9.9` is not a criterion of the B11.11 table (A3)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## restored file
+ux-docs: PASS
+(exit 0)
+maya.md SHA-256 before: 6EF821BD36865474B3B624434D4B394B5ED89CADE5D14D82F8FF90BA6F31219A
+maya.md SHA-256 after:  6EF821BD36865474B3B624434D4B394B5ED89CADE5D14D82F8FF90BA6F31219A
+hashes equal: True

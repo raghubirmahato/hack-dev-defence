@@ -1,0 +1,164 @@
+# T-0020 mutation demos (negative checks)
+
+Each demo writes the file from the original text with one mutation, runs `cargo xtask ux-docs`, shows
+the expected finding and the non-zero exit, restores the original text byte-identically and proves the
+SHA-256 before the mutation equals the SHA-256 after the restore. The run ends on `ux-docs: PASS`.
+Backups are kept in the scratch directory named below; nothing in the repository stays mutated.
+
+Command under test: cargo xtask ux-docs
+Repository: D:\Hack Dev Defence
+Date: 2026-10-20 10:04:15 +05:45
+Scratch backup directory: C:\Users\Raghu\AppData\Local\Temp\hdd-t20-demos-26192
+ERRORS.md SHA-256 before: E088C6F2F9FDC123A6B2C4BCE1F8FF78478E5E073962C29333CD9ECB7C8AD555
+errors.ftl SHA-256 before: 4C0AA914FFA6C33506F386C8A8F558A286D67376F424AEB67121167C70A7FF7B
+
+## D-1 - quota class example replaced by a real but borrowed code (review F-12 filler-code probe)
+file: ERRORS.md
+mutation: "| quota | page, banner | The plan section via Banner and the plan page via ErrorState | when the plan changes | focus moves to the plan heading | ERR-RATE-002 |" -> "| quota | page, banner | The plan section via Banner and the plan page via ErrorState | when the plan changes | focus moves to the plan heading | ERR-AUTH-002 |"
+SHA-256 before: E088C6F2F9FDC123A6B2C4BCE1F8FF78478E5E073962C29333CD9ECB7C8AD555
+SHA-256 while mutated: 8E4C5C7F07552B65240DD389537BF35F8DD1ED20386A7AB2D01698775CBA92D3
+cargo xtask ux-docs exit: 1
+expected finding token: ERR-AUTH-002
+matching output lines:
+[ux-docs] docs/UX/ERRORS.md:20: the example `ERR-AUTH-002` of the class `quota` is classified as `permission` by the model rules (A1: a borrowed code does not fit)
+[ux-docs] docs/UX/ERRORS.md:20: the example `ERR-AUTH-002` of the class `quota` has HTTP status 401, which is not one of the class statuses (A1)
+[ux-docs] docs/UX/ERRORS.md:20: the example `ERR-AUTH-002` of the class `quota` has the family AUTH, which does not fit the class (A1, review F-12)
+ux-docs: FAIL (3 finding(s))
+restored SHA-256: E088C6F2F9FDC123A6B2C4BCE1F8FF78478E5E073962C29333CD9ECB7C8AD555
+restore byte-identical: True
+
+## D-2 - one journey error-path code removed from the coverage table (drift probe)
+file: ERRORS.md
+mutation: "| system | ERR-SYS-001, ERR-SYS-002 |" -> "| system | ERR-SYS-001 |"
+SHA-256 before: E088C6F2F9FDC123A6B2C4BCE1F8FF78478E5E073962C29333CD9ECB7C8AD555
+SHA-256 while mutated: B791E2410E2C6D4F81051AFD85C345D10C833893197CDBA12837F13075716731
+cargo xtask ux-docs exit: 1
+expected finding token: ERR-SYS-002
+matching output lines:
+[ux-docs] docs/UX/ERRORS.md: the journeys cite `ERR-SYS-002` on an Error path, but the coverage table does not list it (collect the codes with a script)
+ux-docs: FAIL (1 finding(s))
+restored SHA-256: E088C6F2F9FDC123A6B2C4BCE1F8FF78478E5E073962C29333CD9ECB7C8AD555
+restore byte-identical: True
+
+## D-3 - data-plane page given an API problem type (the Lead review S-144 filler-code probe)
+file: ERRORS.md
+mutation: "| S-144 | Unknown host page | 404 | none in B7 (data-plane neutral 404) |" -> "| S-144 | Unknown host page | 404 | ERR-PERM-002 |"
+SHA-256 before: E088C6F2F9FDC123A6B2C4BCE1F8FF78478E5E073962C29333CD9ECB7C8AD555
+SHA-256 while mutated: 4D3EFB9D36174CB87ED19A449D3B4F1860D9137548C8FE426E46D6C866A44C0C
+cargo xtask ux-docs exit: 1
+expected finding token: VISITOR
+matching output lines:
+[ux-docs] docs/UX/ERRORS.md:161: the data-plane page `S-144` cites `ERR-PERM-002` from the `PERM` family; a visitor page must cite a visitor-facing B7 code (`ERR-VISITOR-*`) or state `none in B7`, because an API problem type borrowed here is a filler code (T-0020 step 4, review lesson 3)
+ux-docs: FAIL (1 finding(s))
+restored SHA-256: E088C6F2F9FDC123A6B2C4BCE1F8FF78478E5E073962C29333CD9ECB7C8AD555
+restore byte-identical: True
+
+## D-4 - copy inventory quotes text that B13 does not define
+file: ERRORS.md
+mutation: "| block-page-ray | B13 | Reference: {ray_id} |" -> "| block-page-ray | B13 | Reference: {request_id} |"
+SHA-256 before: E088C6F2F9FDC123A6B2C4BCE1F8FF78478E5E073962C29333CD9ECB7C8AD555
+SHA-256 while mutated: 8814D955357013BB222BC86043E9AC8749B7F782987342379CED2FA1ADA2C90F
+cargo xtask ux-docs exit: 1
+expected finding token: block-page-ray
+matching output lines:
+[ux-docs] docs/UX/ERRORS.md:291: the copy inventory quotes "Reference: {request_id}" for `block-page-ray`, but B13 says "Reference: {ray_id}" (exact text)
+ux-docs: FAIL (1 finding(s))
+restored SHA-256: E088C6F2F9FDC123A6B2C4BCE1F8FF78478E5E073962C29333CD9ECB7C8AD555
+restore byte-identical: True
+
+## D-5 - visitor copy value leaks an internal hostname word
+file: errors.ftl
+mutation: "visitor-unknown-host-body = No website is configured at this address." -> "visitor-unknown-host-body = No website is configured at this internal hostname."
+SHA-256 before: 4C0AA914FFA6C33506F386C8A8F558A286D67376F424AEB67121167C70A7FF7B
+SHA-256 while mutated: C6BC8CA781467711E90D17898BA07F423FD146501EA440E9163BC1E8EA8C905B
+cargo xtask ux-docs exit: 1
+expected finding token: internal
+matching output lines:
+[ux-docs] docs/UX/ERRORS.md visitor page S-144: the copy key `visitor-unknown-host-body` carries a forbidden internal word `internal hostname` (T-0020 step 4)
+[ux-docs] docs/UX/ERRORS.md:318: the copy inventory quotes "No website is configured at this address." for `visitor-unknown-host-body`, but errors.ftl says "No website is configured at this internal hostname." (exact text)
+ux-docs: FAIL (2 finding(s))
+restored SHA-256: 4C0AA914FFA6C33506F386C8A8F558A286D67376F424AEB67121167C70A7FF7B
+restore byte-identical: True
+
+# claims-lint:allow-start
+# This block quotes the forbidden phrase on purpose: it is the mutation text and the finding the
+# claims rule is expected to produce. The phrase is evidence, not copy.
+## D-6 - copy value carries a forbidden claims phrase (R-10)
+file: errors.ftl
+mutation: "visitor-challenge-progress = The check finishes automatically." -> "visitor-challenge-progress = The check finishes automatically with absolute protection."
+SHA-256 before: 4C0AA914FFA6C33506F386C8A8F558A286D67376F424AEB67121167C70A7FF7B
+SHA-256 while mutated: 63184497E2D98F5D1AEBC93E623436C49B2A41EA93EA3C2CF62E947587173DB9
+cargo xtask ux-docs exit: 1
+expected finding token: claims
+matching output lines:
+[ux-docs] docs/UX/ERRORS.md:312: the copy inventory quotes "The check finishes automatically." for `visitor-challenge-progress`, but errors.ftl says "The check finishes automatically with absolute protection." (exact text)
+[ux-docs] i18n/en/errors.ftl:24: forbidden claims phrase: forbidden phrase "absolute protection" (section 4.2)
+[ux-docs] i18n/en/errors.ftl:24: forbidden claims phrase: the claim word "protection" has no scope term within 12 words on this line; say what was tested, measured, scoped or is a known limitation, or remove the claim (claims context rule)
+ux-docs: FAIL (3 finding(s))
+restored SHA-256: 4C0AA914FFA6C33506F386C8A8F558A286D67376F424AEB67121167C70A7FF7B
+restore byte-identical: True
+
+# claims-lint:allow-end
+## D-7 - status classification row changed to a wrong class
+file: ERRORS.md
+mutation: "| 422 | validation |" -> "| 422 | conflict |"
+SHA-256 before: E088C6F2F9FDC123A6B2C4BCE1F8FF78478E5E073962C29333CD9ECB7C8AD555
+SHA-256 while mutated: 000A9BA109986F007C55B01781FCD80065C6DFAE98515C009F5A761A0FC88D02
+cargo xtask ux-docs exit: 1
+expected finding token: 422
+matching output lines:
+[ux-docs] docs/UX/ERRORS.md: the document classifies HTTP status 422 as `conflict`; the reviewed rule is `validation`
+ux-docs: FAIL (1 finding(s))
+restored SHA-256: E088C6F2F9FDC123A6B2C4BCE1F8FF78478E5E073962C29333CD9ECB7C8AD555
+restore byte-identical: True
+
+## D-8 - a POST create no longer requires the idempotency key (B6.1 probe)
+file: ERRORS.md
+mutation: "| Add a domain | POST | `POST O/domains` | safe with Idempotency-Key | required | none |" -> "| Add a domain | POST | `POST O/domains` | safe with Idempotency-Key | not required | none |"
+SHA-256 before: E088C6F2F9FDC123A6B2C4BCE1F8FF78478E5E073962C29333CD9ECB7C8AD555
+SHA-256 while mutated: DEDC9615CEFA2B1C0C414CA2B8BF990B6DBF19057DF36BCCA2C2E1E47B65CF22
+cargo xtask ux-docs exit: 1
+expected finding token: Idempotency-Key
+matching output lines:
+[ux-docs] docs/UX/ERRORS.md:128: the row `Add a domain` says `safe with idempotency-key` but a POST row is `unsafe` (T-0020 step 3, A3)
+ux-docs: FAIL (1 finding(s))
+restored SHA-256: E088C6F2F9FDC123A6B2C4BCE1F8FF78478E5E073962C29333CD9ECB7C8AD555
+restore byte-identical: True
+
+## D-9 - pattern copy table drops the reviewed toast key
+file: ERRORS.md
+mutation: "| toast | `error-toast-retry` |" -> "| toast | `error-toast-other` |"
+SHA-256 before: E088C6F2F9FDC123A6B2C4BCE1F8FF78478E5E073962C29333CD9ECB7C8AD555
+SHA-256 while mutated: 6B9329A4F1198295C5C8CC227B5D5094046BC9F33BDB001A8C895CE6C0A4D002
+cargo xtask ux-docs exit: 1
+expected finding token: error-toast-retry
+matching output lines:
+[ux-docs] docs/UX/ERRORS.md: the pattern-copy table does not name the copy key `error-toast-retry` for the `toast` pattern
+[ux-docs] docs/UX/ERRORS.md: the copy key `error-toast-other` is not defined in B13, i18n/en/copy-deck.ftl or i18n/en/errors.ftl (defined exactly once)
+[ux-docs] docs/UX/ERRORS.md: the copy key `error-toast-other` is cited by the model but has no copy inventory row (exact text required)
+[ux-docs] docs/UX/ERRORS.md: the copy inventory defines `error-toast-retry`, which no page, pattern or rule section uses
+ux-docs: FAIL (4 finding(s))
+restored SHA-256: E088C6F2F9FDC123A6B2C4BCE1F8FF78478E5E073962C29333CD9ECB7C8AD555
+restore byte-identical: True
+
+## D-10 - a copy key is defined twice in errors.ftl
+file: errors.ftl
+mutation: "visitor-unknown-host-title = Site not found" -> "visitor-unknown-host-title = Site not found
+visitor-unknown-host-title = Another title"
+SHA-256 before: 4C0AA914FFA6C33506F386C8A8F558A286D67376F424AEB67121167C70A7FF7B
+SHA-256 while mutated: 95455C5EB80E30C10C6CCF0911B3963951CCB4195E8063FB590816A61A602FE0
+cargo xtask ux-docs exit: 1
+expected finding token: visitor-unknown-host-title
+matching output lines:
+[ux-docs] i18n/en/errors.ftl: the copy key `visitor-unknown-host-title` is defined more than once in errors.ftl
+[ux-docs] i18n/en/errors.ftl:29: the key `visitor-unknown-host-title` is defined 2 times across the `i18n/en/` files (i18n/en/errors.ftl:29, i18n/en/errors.ftl:30); a key lives in exactly one area file (T-0023 step 1)
+ux-docs: FAIL (2 finding(s))
+restored SHA-256: 4C0AA914FFA6C33506F386C8A8F558A286D67376F424AEB67121167C70A7FF7B
+restore byte-identical: True
+
+## Restored tree
+cargo xtask ux-docs exit: 0
+ux-docs: PASS
+
+ERRORS.md SHA-256 after all demos: E088C6F2F9FDC123A6B2C4BCE1F8FF78478E5E073962C29333CD9ECB7C8AD555
+errors.ftl SHA-256 after all demos: 4C0AA914FFA6C33506F386C8A8F558A286D67376F424AEB67121167C70A7FF7B

@@ -1,0 +1,7 @@
+* text=auto eol=lf
+# The specification and its split must stay byte-identical (sha256 recorded in docs/SPEC.sha256).
+docs/SPEC.md -text
+docs/spec/*.md -text
+docs/spec/MANIFEST.tsv -text
+*.png binary
+*.woff2 binary

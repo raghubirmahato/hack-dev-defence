@@ -1,0 +1,48 @@
+   Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.37s
+────────────
+ Nextest run ID cba098ba-2a5d-4a8f-90c2-40186ff8c89b with nextest profile: default
+    Starting 2 tests across 1 binary (127 tests skipped)
+        FAIL [   0.010s] (1/2) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_mojibake_sequence_in_a_persona_or_matrix_document_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::a_mojibake_sequence_in_a_persona_or_matrix_document_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::a_mojibake_sequence_in_a_persona_or_matrix_document_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 128 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::a_mojibake_sequence_in_a_persona_or_matrix_document_fails' (31124) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:677:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.223s] (2/2) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_mojibake_sequence_in_a_shipped_persona_or_the_matrix_fails_the_tree
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::a_mojibake_sequence_in_a_shipped_persona_or_the_matrix_fails_the_tree ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::a_mojibake_sequence_in_a_shipped_persona_or_the_matrix_fails_the_tree
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 128 filtered out; finished in 0.21s
+
+  stderr ───
+
+    thread 'ux_docs::tests::a_mojibake_sequence_in_a_shipped_persona_or_the_matrix_fails_the_tree' (24300) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:697:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   0.223s] 2 tests run: 0 passed, 2 failed, 127 skipped
+        FAIL [   0.010s] (1/2) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_mojibake_sequence_in_a_persona_or_matrix_document_fails
+        FAIL [   0.223s] (2/2) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_mojibake_sequence_in_a_shipped_persona_or_the_matrix_fails_the_tree
+error: test run failed

@@ -1,0 +1,85 @@
+# deploy/hdd-proxy.service.example - systemd unit for the HK1 HDD proxy (optional).
+#
+# Topology on a Linux host: Caddy/nginx terminates TLS on :443 and forwards to this
+# proxy on 127.0.0.1:8080 (see deploy/Caddyfile.example). The admin listener stays on
+# 127.0.0.1:9090: reach it through an SSH tunnel, never by exposing it to the internet.
+#
+# Install (operator, review every line first):
+#   sudo useradd --system --shell /usr/sbin/nologin --home /var/lib/hdd hdd
+#   sudo install -d -o hdd -g hdd -m 0700 /var/lib/hdd /etc/hdd
+#   sudo install -o root -g hdd -m 0640 hdd.yaml        /etc/hdd/hdd.yaml
+#   sudo install -o root -g hdd -m 0640 hdd.env         /etc/hdd/hdd.env   # secrets, never in git
+#        # /etc/hdd/hdd.env contains: HDD_ADMIN_TOKEN=<random>  and optionally HDD_ORIGIN_SECRET=<random>
+#   sudo install -o root -g root -m 0755 hdd-proxy      /opt/hdd/bin/hdd-proxy
+#   sudo cp deploy/hdd-proxy.service.example /etc/systemd/system/hdd-proxy.service
+#   sudo systemctl daemon-reload && sudo systemctl enable --now hdd-proxy
+#   systemd-analyze security hdd-proxy.service
+#
+# The service is a plain proxy: no TLS, no privileged port, no capabilities, no network
+# egress rules are imposed here because the proxy must reach the operator's origin.
+# If the origin has a fixed IP, additionally allow-list the HDD host at the origin
+# (deploy/origin-lockdown-nginx.conf.example / origin-lockdown.htaccess.example).
+
+[Unit]
+Description=HDD HK1 reverse proxy (SQL-injection shield demo; virtual patch, not a fix)
+Documentation=file:/opt/hdd/docs/DEMO.md
+After=network-online.target
+Wants=network-online.target
+# Do not start when the configuration or the secret file is missing: fail closed.
+ConditionPathExists=/etc/hdd/hdd.yaml
+ConditionPathExists=/etc/hdd/hdd.env
+
+[Service]
+Type=simple
+User=hdd
+Group=hdd
+UMask=0077
+WorkingDirectory=/var/lib/hdd
+
+# The admin token (and optionally the origin secret) come from the environment only;
+# the YAML names the variables and never contains values (R-03).
+EnvironmentFile=/etc/hdd/hdd.env
+ExecStart=/opt/hdd/bin/hdd-proxy --config /etc/hdd/hdd.yaml
+
+# Restart on crash; the proxy is stateless for requests and keeps events in the log.
+Restart=on-failure
+RestartSec=3s
+TimeoutStopSec=10s
+
+# Hardening: unprivileged user, no capabilities, read-only filesystem except its data
+# directory, private tmp/devices, no new privileges, no home access.
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+AmbientCapabilities=
+ProtectSystem=strict
+ReadWritePaths=/var/lib/hdd
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+ProtectProc=invisible
+ProcSubset=pid
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+RestrictAddressFamilies=AF_INET AF_INET6
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+SystemCallArchitectures=native
+
+# Loopback only for the listeners. The proxy must reach the origin: if the origin is
+# remote, add its address here (for example IPAddressAllow=203.0.113.20) or remove the
+# two IP filter lines and rely on the host firewall. Never bind the admin listener to
+# a public interface: use an SSH tunnel for the dashboard.
+IPAddressDeny=any
+IPAddressAllow=localhost
+
+[Install]
+WantedBy=multi-user.target

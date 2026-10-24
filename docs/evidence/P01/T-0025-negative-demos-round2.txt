@@ -1,0 +1,78 @@
+=== T-0025 round 2 mutation demos (review F-14/F-15/F-16/F-17/F-18) ===
+Date: 2026-10-20
+Method: back up the file to %TEMP%, apply one replacement, run `cargo xtask ux-docs`, capture the
+finding that names the mutation, restore the backup and compare the SHA-256 before/after.
+Two tools share the working tree, so a cargo run that cannot replace the binary while another
+build is in flight is retried; every mutation is restored even when its run fails.
+
+--- F-14 typed-confirmation copy shape ---
+file: i18n/en/security-ux.ftl
+sha256 before: 1C01D0253F878C903178366A3E6944F2FE0F0F047A47D0DDC85E762317142D6B
+sha256 while mutated: E90FFC11829D05E5AD44170EDEA32B704CD2CE64701C660E447EF67E38F98576
+mutation: replace [Type { $org } to delete the organisation.] with [Delete the organisation.]
+ux-docs exit during mutation: 1
+[ux-docs] docs/UX/dangerous-actions.md:30: the value of "org-delete-confirm" has no `Type { $variable }` shape, so it never asks the user to type (T-0025 step 5, review F-14)
+sha256 restored: 1C01D0253F878C903178366A3E6944F2FE0F0F047A47D0DDC85E762317142D6B
+restored byte-identical: True
+
+--- F-15 step-up vs the B4.2 S cells ---
+file: docs/UX/dangerous-actions.md
+sha256 before: 703C7E4542F3552AA5DD98433FC790271A78BECBAF8C20D2586FBFB1CFCC0A41
+sha256 while mutated: 6D02552C1D49CA1F820915C2214FA59963AC82178F329FAC34B0FC3802EEE543
+mutation: replace [typed confirmation of the address; time box on the TTL; step-up.] with [typed confirmation of the address; time box on the TTL.]
+ux-docs exit during mutation: 1
+[ux-docs] docs/UX/dangerous-actions.md:32: a permission of "Create a global ban" has `S` in B4.2, so the Safeguards must name step-up (review F-15)
+sha256 restored: 703C7E4542F3552AA5DD98433FC790271A78BECBAF8C20D2586FBFB1CFCC0A41
+restored byte-identical: True
+
+--- F-16 C5 attack id and name ---
+file: docs/UX/SECURITY-UX.md
+sha256 before: E53C25FD1161E73C5028188CA3E936F35B19AEB0C6ADD7E5FA275349869EB7B3
+sha256 while mutated: 7CF02BD18B5BB4EA7C53C85C500FA5E3B5ACE822677F75B4616C21895C29E00D
+mutation: replace [| Clickjacking of a destructive control | ATK-171 | Clickjacking |] with [| Clickjacking of a destructive control | ATK-296 | Clickjacking |]
+ux-docs exit during mutation: 1
+[ux-docs] docs/UX/SECURITY-UX.md:177: the clickjacking row cites `ATK-296`; the clickjacking class of C5 is ATK-171 (review F-16)
+sha256 restored: E53C25FD1161E73C5028188CA3E936F35B19AEB0C6ADD7E5FA275349869EB7B3
+restored byte-identical: True
+
+--- F-17 screen of the mapped journey row ---
+file: docs/UX/dangerous-actions.md
+sha256 before: 703C7E4542F3552AA5DD98433FC790271A78BECBAF8C20D2586FBFB1CFCC0A41
+sha256 while mutated: 2E842FBCDFE1958A8861AB30E528C1144023AF4785D0F2D4E1373EFE00D1EE55
+mutation: replace [| DA-32 | Toggle the proxy state of a DNS record | S-046 |] with [| DA-32 | Toggle the proxy state of a DNS record | S-052 |]
+ux-docs exit during mutation: 1
+[ux-docs] docs/UX/journeys/J-14.md:51: the safeguard row `Toggling the proxy state.` is mapped to `DA-32` on S-052 but step 4 runs on S-046; the mapped row must be reachable from the step's screen (review F-17)
+sha256 restored: 703C7E4542F3552AA5DD98433FC790271A78BECBAF8C20D2586FBFB1CFCC0A41
+restored byte-identical: True
+
+--- F-18 prose reference event ---
+file: docs/UX/dangerous-actions.md
+sha256 before: 703C7E4542F3552AA5DD98433FC790271A78BECBAF8C20D2586FBFB1CFCC0A41
+sha256 while mutated: 59C874314B87C23FFDFBD5F120BCBEDDE849E52E4DED7AF710D39886E267D528
+mutation: replace [`AUD-tls.cert_deleted` (DA-27)] with [`AUD-tls.cert_deleted` (DA-28)]
+ux-docs exit during mutation: 1
+[ux-docs] docs/UX/dangerous-actions.md:87: the prose reference `DA-28` sits next to `AUD-tls.cert_deleted`, but that row's Audit event is `AUD-apikey.revoked` (review F-18)
+sha256 restored: 703C7E4542F3552AA5DD98433FC790271A78BECBAF8C20D2586FBFB1CFCC0A41
+restored byte-identical: True
+
+=== after all restores ===
+ux-docs exit after byte-identical restores: 1
+findings naming a T-0025 file after restore: 0
+ux-docs findings after restore: 3
+[ux-docs] docs/UX/READINESS-MODEL.md: the B12.2 check phrase `delegation or CNAME verified` has no row in the mapping table (F-19c)
+[ux-docs] docs/UX/READINESS-MODEL.md:69: the mapping row `delegation or CNAME checked` is not a check phrase of the B12.2 S-044 bullet lists (F-19c)
+[ux-docs] docs/UX/RESPONSIVE.md: the print margin is stated as 15 mm; the canonical rule is A4 portrait with 12 mm margins (F-23)
+ux-docs summary after restore: ux-docs: FAIL (3 finding(s))
+
+=== later full run after the other batch tasks finished their own files ===
+command: cargo xtask ux-docs
+result: ux-docs: PASS
+findings naming a T-0025 file: 0
+cargo clippy -p hdd-xtask --all-targets -- -D warnings: exit 0 (clean)
+cargo fmt --all --check: exit 0
+cargo nextest run -p hdd-xtask ux_docs::security_ux --no-fail-fast: 29 tests run: 29 passed, 0 failed
+
+=== final full-suite run after the whole batch landed the fixture fix (S-126) ===
+cargo nextest run -p hdd-xtask ux_docs --no-fail-fast: 344 tests run: 344 passed, 0 failed, 98 skipped
+ux_docs::tests::a_complete_tree_passes_and_each_missing_document_is_named: PASS
+cargo xtask ux-docs: PASS (0 findings naming a T-0025 file)

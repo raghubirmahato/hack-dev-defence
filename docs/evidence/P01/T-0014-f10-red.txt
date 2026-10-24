@@ -1,0 +1,108 @@
+   Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.51s
+────────────
+ Nextest run ID 4cfaa2be-b9d8-4ab4-866d-5b11a689edca with nextest profile: default
+    Starting 5 tests across 1 binary (179 tests skipped)
+        FAIL [   0.011s] (1/5) hdd-xtask::bin/hdd-xtask ux_docs::tests::f10_a_bad_exception_row_is_reported
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::f10_a_bad_exception_row_is_reported ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::f10_a_bad_exception_row_is_reported
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 183 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::f10_a_bad_exception_row_is_reported' (1520) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1940:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.013s] (2/5) hdd-xtask::bin/hdd-xtask ux_docs::tests::f10_rate_class_exceptions_must_match_a_real_route
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::f10_rate_class_exceptions_must_match_a_real_route ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::f10_rate_class_exceptions_must_match_a_real_route
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 183 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::f10_rate_class_exceptions_must_match_a_real_route' (32460) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1921:5:
+    assertion failed: exceptions.get("/x").is_some_and(|methods| methods.contains("POST"))
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.019s] (3/5) hdd-xtask::bin/hdd-xtask ux_docs::tests::f10_c_the_rate_class_must_match_the_methods
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::f10_c_the_rate_class_must_match_the_methods ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::f10_c_the_rate_class_must_match_the_methods
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 183 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::f10_c_the_rate_class_must_match_the_methods' (25916) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1908:5:
+    assertion failed: consistency_messages(&bad_post, &BTreeMap::new()).contains("F-10c")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.022s] (4/5) hdd-xtask::bin/hdd-xtask ux_docs::tests::f10_b_platform_permissions_stay_on_the_admin_surface
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::f10_b_platform_permissions_stay_on_the_admin_surface ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::f10_b_platform_permissions_stay_on_the_admin_surface
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 183 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::f10_b_platform_permissions_stay_on_the_admin_surface' (8332) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1889:5:
+    assertion failed: consistency_messages(&bad_surface, &BTreeMap::new()).contains("F-10b")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.028s] (5/5) hdd-xtask::bin/hdd-xtask ux_docs::tests::f10_a_public_permission_is_rejected_where_a_session_is_expected
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::f10_a_public_permission_is_rejected_where_a_session_is_expected ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::f10_a_public_permission_is_rejected_where_a_session_is_expected
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 183 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::f10_a_public_permission_is_rejected_where_a_session_is_expected' (32412) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:1863:5:
+    app read: 
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   0.029s] 5 tests run: 0 passed, 5 failed, 179 skipped
+        FAIL [   0.011s] (1/5) hdd-xtask::bin/hdd-xtask ux_docs::tests::f10_a_bad_exception_row_is_reported
+        FAIL [   0.013s] (2/5) hdd-xtask::bin/hdd-xtask ux_docs::tests::f10_rate_class_exceptions_must_match_a_real_route
+        FAIL [   0.019s] (3/5) hdd-xtask::bin/hdd-xtask ux_docs::tests::f10_c_the_rate_class_must_match_the_methods
+        FAIL [   0.022s] (4/5) hdd-xtask::bin/hdd-xtask ux_docs::tests::f10_b_platform_permissions_stay_on_the_admin_surface
+        FAIL [   0.028s] (5/5) hdd-xtask::bin/hdd-xtask ux_docs::tests::f10_a_public_permission_is_rejected_where_a_session_is_expected
+error: test run failed

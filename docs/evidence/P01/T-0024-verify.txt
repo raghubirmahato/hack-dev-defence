@@ -1,0 +1,76 @@
+# T-0024 responsive and device strategy: verification run (final working tree)
+# Tool: DeepSeek Harness worker, 2026-10-20 (Asia/Katmandu)
+# Files owned by this task: docs/UX/RESPONSIVE.md, crates/hdd-xtask/src/ux_docs/responsive.rs,
+#   docs/evidence/P01/T-0024-red.txt, docs/evidence/P01/T-0024-verify.txt. Nothing is committed.
+# Document at this run: sha256 ABF521BF51381D5BB96D9065CCAD9F8FC8DE285331AA6BA49289E2C506F259FC
+# Commands were run from the repository root; each block below is the real output.
+
+===== 1. cargo nextest run -p hdd-xtask ux_docs::responsive --no-fail-fast =====
+   Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.51s
+────────────
+ Nextest run ID 771fb86c-1606-424a-a43c-1994b74bc909 with nextest profile: default
+    Starting 17 tests across 1 binary (384 tests skipped)
+        PASS [   0.022s] ( 1/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_a_missing_document_is_one_finding_not_a_panic
+        PASS [   0.044s] ( 2/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_sections_are_required_with_a_body
+        PASS [   0.112s] ( 3/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_an_empty_document_is_findings_not_a_panic
+        PASS [   0.111s] ( 4/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_breakpoints_match_b11_4
+        PASS [   0.111s] ( 5/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_every_cited_screen_exists_in_b12_1
+        PASS [   0.142s] ( 6/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_testing_hooks_pin_the_viewport_helper_and_naming
+        PASS [   0.203s] ( 7/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_data_dense_screens_keep_real_columns
+        PASS [   0.245s] ( 8/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_b11_7_transformations_are_stated
+        PASS [   0.253s] ( 9/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_print_rules_cover_reports_and_audit_exports
+        PASS [   0.278s] (10/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_content_priority_covers_every_breakpoint_and_never_hides_security
+        PASS [   0.365s] (11/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_performance_budgets_are_numeric_for_every_class
+        PASS [   0.399s] (12/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_device_matrix_has_exactly_the_seven_viewports
+        PASS [   0.451s] (13/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_input_modalities_use_the_b11_4_targets
+        PASS [   0.479s] (14/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_each_screen_category_has_a_small_screen_behaviour
+        PASS [   0.542s] (15/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_security_controls_are_named_and_never_hidden
+        PASS [   1.873s] (16/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_a_complete_document_passes_the_whole_check
+        PASS [   5.807s] (17/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_placeholder_cells_are_rejected
+────────────
+     Summary [   5.807s] 17 tests run: 17 passed, 384 skipped
+[exit code: 0]
+
+===== 2. cargo xtask ux-docs =====
+ux-docs: PASS
+[exit code: 0]
+
+===== 3. cargo xtask claims-lint =====
+claims-lint: scanned 247 files with 34 phrases and 1 context rules
+claims-lint: PASS
+[exit code: 0]
+
+===== 4. cargo fmt --all --check =====
+(no output; the command printed no diff)
+[exit code: 0]
+
+===== 5. cargo clippy -p hdd-xtask --all-targets -- -D warnings =====
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.18s
+[exit code: 0]
+
+===== 6. Self-review mutation demo on the shipped document (restored byte-identically) =====
+# Three mutations at once: the 24 CSS px floor became 40; "Safe mode" was put in a
+# "Moves to overflow" cell; the 1024x768 matrix row became 1024x700.
+# Before sha256: ABF521BF51381D5BB96D9065CCAD9F8FC8DE285331AA6BA49289E2C506F259FC
+# After restore sha256: ABF521BF51381D5BB96D9065CCAD9F8FC8DE285331AA6BA49289E2C506F259FC
+# (identical: true; the doc hash above equals the restored hash, and block 2 is the green run.)
+[ux-docs] docs/UX/RESPONSIVE.md:55: `1024x700` is not one of the seven viewports of T-0024 step 2
+[ux-docs] docs/UX/RESPONSIVE.md: the viewport `1024x768` is missing from the matrix (T-0024 step 2)
+[ux-docs] docs/UX/RESPONSIVE.md:69: the minimum target cell `40 CSS px minimum, with at least 8 px between adjacent targets` must state 24 CSS px (T-0024 step 3 and B11.11 2.5.8)
+[ux-docs] docs/UX/RESPONSIVE.md:116: the security-critical control `safe mode` is placed in the overflow menu; it must never move (T-0024 note)
+ux-docs: FAIL (4 finding(s))
+[exit code: 1, expected for the mutated tree]
+
+===== 7. Integration state of the whole hdd-xtask suite at handoff (not a T-0024 rule) =====
+# cargo nextest run -p hdd-xtask --no-fail-fast
+# Summary [  19.847s] 402 tests run: 392 passed, 10 failed, 0 skipped
+# All 10 failures are the ux_docs fixture-tree tests that build good_tree(). The Lead has wired
+# responsive::check into ux-docs but has not yet added the T-0024 fixtures to crates/hdd-xtask/src/ux_docs/tests.rs,
+# so every fixture tree is missing the responsive document. The repeated failure line is:
+[ux-docs] docs/UX/RESPONSIVE.md: the responsive and device strategy document does not exist (T-0024 deliverable)
+# Integration lines for the Lead, in crates/hdd-xtask/src/ux_docs/tests.rs (Lead-owned):
+#   in fake_spec():  s.push_str(&responsive::fixtures::spec_section());
+#   in good_tree():  for (path, text) in responsive::fixtures::documents() { r.put(&path, &text); }
+# After those two lines the fixture check is satisfied by the same rule set that passes on the real tree above.
+[exit code: 100, expected until the fixture integration is applied]

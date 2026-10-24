@@ -1,0 +1,18 @@
+[package]
+name = "hdd-waf-core"
+description = "normalizer, detectors, tokenizers, scoring, rules, leak scanner (pure, no I/O)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+regex = "1.13.1"
+serde = { version = "1.0.229", features = ["derive"] }
+
+[dev-dependencies]
+proptest = "1.12.0"
+serde_json = "1.0.154"

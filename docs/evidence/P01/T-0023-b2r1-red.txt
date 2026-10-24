@@ -1,0 +1,86 @@
+# T-0023 batch B2 round 1 red evidence (D-5..D-7, failing tests first)
+
+Date: 2026-10-20
+Task: T-0023 review round 1 (D-5 Fluent-only formatting column, D-6 pseudo-locale selectors, D-7 measured expansion)
+Host: Windows 11, Rust 1.98.1, Track L (no Docker)
+
+## Command line
+
+cargo nextest run -p hdd-xtask --no-fail-fast -E "test(/t23_(fluent_only|pseudo_selector|pseudo_examples_carry)/)"
+
+## What this shows
+
+The three new tests were written before the fixes. They fail on the real defect, not on a compile error:
+- D-5: the fixture formatting table still says `Fluent or ICU message` and carries ICU plural cells.
+- D-6: `pseudo_transform` copies the whole selector, so the variant text ` event ` is not accented or expanded.
+- D-7: the worked-example table has no Measured expansion column and the filler cap is not stated as a deliberate limit.
+
+## Real output (exit=100)
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.20s
+────────────
+ Nextest run ID e4ead456-5b9f-48a9-b73c-cbf058085fd9 with nextest profile: default
+    Starting 3 tests across 1 binary (494 tests skipped)
+        FAIL [   0.010s] (1/3) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_pseudo_examples_carry_measured_expansion
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_pseudo_examples_carry_measured_expansion ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_pseudo_examples_carry_measured_expansion
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 496 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_pseudo_examples_carry_measured_expansion' (35616) panicked at crates\hdd-xtask\src\ux_docs\i18n_plan.rs:2995:9:
+    the worked-example table needs a Measured expansion column (D-7)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.013s] (2/3) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_pseudo_selector_variant_text_is_transformed
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_pseudo_selector_variant_text_is_transformed ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_pseudo_selector_variant_text_is_transformed
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 496 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_pseudo_selector_variant_text_is_transformed' (27732) panicked at crates\hdd-xtask\src\ux_docs\i18n_plan.rs:2976:9:
+    the selector variant text is copied unchanged: [[{ $count -> [one] { $count } event *[other] { $count } events }]]
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.018s] (3/3) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_fluent_only_message_cells
+  stdout ───
+
+    running 1 test
+    test ux_docs::i18n_plan::tests::t23_fluent_only_message_cells ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::i18n_plan::tests::t23_fluent_only_message_cells
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 496 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::i18n_plan::tests::t23_fluent_only_message_cells' (32544) panicked at crates\hdd-xtask\src\ux_docs\i18n_plan.rs:3020:9:
+    the formatting column must be titled `Fluent message`, not `Fluent or ICU message`
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   0.019s] 3 tests run: 0 passed, 3 failed, 494 skipped
+        FAIL [   0.010s] (1/3) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_pseudo_examples_carry_measured_expansion
+        FAIL [   0.013s] (2/3) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_pseudo_selector_variant_text_is_transformed
+        FAIL [   0.018s] (3/3) hdd-xtask::bin/hdd-xtask ux_docs::i18n_plan::tests::t23_fluent_only_message_cells
+error: test run failed

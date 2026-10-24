@@ -1,0 +1,39 @@
+HK1 end-to-end run against a live Vercel origin (Claude, 2026-10-23, Asia/Kathmandu evening)
+
+Setup (real):
+- Origin: https://hdd-demo-shop-hack-dev1.vercel.app (project hdd-demo-shop on the operator's own Vercel account;
+  source lab/demo/shop; fake data only; the admin login is deliberately injectable, SHOP_VULN unset).
+- HDD: the hdd-proxy binary built from this tree, run on the operator's laptop (127.0.0.1:18081, admin 127.0.0.1:19091),
+  one site 127.0.0.1 -> the Vercel URL, mode block, upstream_host set, origin secret header X-HDD-Origin-Secret injected.
+- Script: scratchpad e2e_vercel.py (urllib; retries network errors and 502 because the laptop link to Vercel dropped
+  connections during the run). Ban cleared through the admin API before each payload so every 403 is the detector's
+  own verdict, not the consequence of an earlier ban.
+
+Run A: origin NOT locked down (no origin secret enforced on Vercel)
+  PASS shop home through HDD is 200 with products
+  PASS legitimate admin login through HDD reaches /admin
+  PASS admin panel renders through HDD for the real admin
+  PASS wrong password is 401
+  direct (no HDD): M1 303 /admin, M2 401, M3 303 /admin, M4 500 (SQLite has no # comment), M5 303 /admin, M6 303 /admin
+  PASS without HDD 4 of the 6 mandated payloads reach the admin panel
+  via HDD: M1 403 H1-001 tautology, M2 403 H1-001, M3 403 H2-001 comment_breakout, M4 403 H2-001, M5 403 H2-001, M6 403 H1-001
+  PASS all 6 mandated payloads blocked by a detector rule (form_body, field username)
+  PASS the sender is banned with an explainable reason (rule H1-001, redacted evidence)
+  PASS a banned sender is refused even with the right password
+  PASS protection off: the same injection reaches /admin through HDD (303 /admin)
+  PASS protection back on: the same injection is 403
+  PASS legitimate login still works after re-enabling
+  summary: 11 PASS, 0 FAIL
+
+Run B: origin locked down (Vercel env ORIGIN_SECRET_HEADER=x-hdd-origin-secret plus a secret value; redeployed)
+  direct request without the header: 403 "direct origin access refused" (also 403 with a guessed header value)
+  HDD lockdown-check API: {"result":"refused","detail":"a direct request to the origin was refused with HTTP 403; the origin lock-down holds","protected":true,"status_code":403}
+  HDD site status: protection "blocking_locked", lockdown_verified true
+  direct (no HDD): all six payloads 403, none reaches the admin panel
+  via HDD: same results as Run A, 11 PASS, 0 FAIL
+
+Honest limits
+- HDD ran on the operator's laptop, not on a public host; visitors on the internet are not yet routed through it.
+  DNS, TLS termination and a public HDD host are UNVERIFIED(human_step_pending).
+- The 3 s origin connect timeout in the forwarder is tight for a flaky link; several requests needed the script's retry.
+- Detector gaps found by the independent review are tracked in docs/COLLAB.md "review of HK1 (round 1)".

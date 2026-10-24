@@ -1,0 +1,140 @@
+# T-0210 batch B2 review round 2: mutation demos
+# Date: 2026-10-20 (Asia/Katmandu); host: Windows 11, Track L
+# Method: back up the file, mutate the seam, run the new test (it must FAIL), restore byte-identically,
+# refresh the mtime so cargo rebuilds, run the test again (it must PASS). SHA-256 before = after in every demo.
+
+## Reason-code correction - an invented reason code is printed
+File: crates/hddctl/src/main.rs
+SHA-256 before: 17C97884CE50EBC26FF81E719B27FFC21971C467CAB4D2E635C16F034AD8976B
+SHA-256 while mutated: 5D134268849D8B1E15C5CDD747C40DF9083356C44F2BE64DFA94585AD3759B12
+Command while mutated: cargo nextest run -p hddctl -E "test(t0210_verify_uses_only_the_closed_reason_set)" -> exit 100 (expected non-zero)
+  FAIL [   2.679s] (1/1) hddctl::canary t0210_verify_uses_only_the_closed_reason_set
+  thread 't0210_verify_uses_only_the_closed_reason_set' (25764) panicked at crates\hddctl\tests\canary.rs:1441:13:
+  reason `no_hdd_evidence` is outside the closed set:
+  FAIL [   2.679s] (1/1) hddctl::canary t0210_verify_uses_only_the_closed_reason_set
+SHA-256 after restore: 17C97884CE50EBC26FF81E719B27FFC21971C467CAB4D2E635C16F034AD8976B
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   4.332s] (1/1) hddctl::canary t0210_verify_uses_only_the_closed_reason_set
+  Summary [   4.332s] 1 test run: 1 passed, 45 skipped
+
+## K-1 - the echo returns secret-bearing header values again
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: 9414193BACEE1582AB372613FDA2C47040126372546E4DE6EC983D8CCB8158CC
+SHA-256 while mutated: 6F51573573520866F16DC98534D5B69A0E6C29D9DCC8D1A86C21489DE15D0AAD
+Command while mutated: cargo nextest run -p hdd-canary -E "test(t0210_echo_headers_never_leaks_secret_bearing_headers)" -> exit 100 (expected non-zero)
+  FAIL [   0.010s] (1/1) hdd-canary tests::t0210_echo_headers_never_leaks_secret_bearing_headers
+  thread 'tests::t0210_echo_headers_never_leaks_secret_bearing_headers' (28728) panicked at
+  the echo leaked `api-secret-value`:
+  FAIL [   0.010s] (1/1) hdd-canary tests::t0210_echo_headers_never_leaks_secret_bearing_headers
+SHA-256 after restore: 9414193BACEE1582AB372613FDA2C47040126372546E4DE6EC983D8CCB8158CC
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   0.011s] (1/1) hdd-canary tests::t0210_echo_headers_never_leaks_secret_bearing_headers
+  Summary [   0.012s] 1 test run: 1 passed, 43 skipped
+
+## K-2 / K-5 - a through-HDD PASS without HDD-specific evidence
+File: crates/hddctl/src/main.rs
+SHA-256 before: 17C97884CE50EBC26FF81E719B27FFC21971C467CAB4D2E635C16F034AD8976B
+SHA-256 while mutated: BB52E13BF6CEC73763A8B6994C0D5CC8ED0B585CB5C417AB5872D19B7A65EF83
+Command while mutated: cargo nextest run -p hddctl -E "test(t0210_parsing_verify_a_different_host_is_not_hdd_evidence)" -> exit 100 (expected non-zero)
+  FAIL [   4.241s] (1/1) hddctl::canary t0210_parsing_verify_a_different_host_is_not_hdd_evidence
+  thread 't0210_parsing_verify_a_different_host_is_not_hdd_evidence' (9980) panicked at
+  FAIL [   4.241s] (1/1) hddctl::canary t0210_parsing_verify_a_different_host_is_not_hdd_evidence
+SHA-256 after restore: 17C97884CE50EBC26FF81E719B27FFC21971C467CAB4D2E635C16F034AD8976B
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   4.319s] (1/1) hddctl::canary t0210_parsing_verify_a_different_host_is_not_hdd_evidence
+  Summary [   4.320s] 1 test run: 1 passed, 45 skipped
+
+## K-3 - the write path ignores the absolute deadline
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: 9414193BACEE1582AB372613FDA2C47040126372546E4DE6EC983D8CCB8158CC
+SHA-256 while mutated: 5B607BEF0E73D2A334DE9F399C6410AD6C061BFAD58ABDEDA7EAF2C8312A6FF8
+Command while mutated: cargo nextest run -p hdd-canary -E "test(t0210_write_with_deadline_abandons_a_slow_reader_at_the_deadline)" -> exit 100 (expected non-zero)
+  FAIL [   5.206s] (1/1) hdd-canary tests::t0210_write_with_deadline_abandons_a_slow_reader_at_the_deadline
+  thread 'tests::t0210_write_with_deadline_abandons_a_slow_reader_at_the_deadline' (35716) panicked at
+  the write must be abandoned at the deadline
+  FAIL [   5.206s] (1/1) hdd-canary tests::t0210_write_with_deadline_abandons_a_slow_reader_at_the_deadline
+SHA-256 after restore: 9414193BACEE1582AB372613FDA2C47040126372546E4DE6EC983D8CCB8158CC
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   0.316s] (1/1) hdd-canary tests::t0210_write_with_deadline_abandons_a_slow_reader_at_the_deadline
+  Summary [   0.316s] 1 test run: 1 passed, 43 skipped
+
+## K-4 - a dead listener thread is reported as a clean exit
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: 9414193BACEE1582AB372613FDA2C47040126372546E4DE6EC983D8CCB8158CC
+SHA-256 while mutated: DDBE7D2D2DD6008A2AD849244C6709C4ED649D576FF96B7EE356C649FFC10652
+Command while mutated: cargo nextest run -p hdd-canary -E "test(t0210_wait_reports_a_dead_listener_thread)" -> exit 100 (expected non-zero)
+  FAIL [   0.015s] (1/1) hdd-canary tests::t0210_wait_reports_a_dead_listener_thread
+  thread '<unnamed>' (26172) panicked at crates\hdd-canary\src\lib.rs:2527:48:
+  thread 'tests::t0210_wait_reports_a_dead_listener_thread' (34456) panicked at crates\hdd-canary\src\lib.rs:2530:9:
+  a dead listener thread must be an error
+  FAIL [   0.015s] (1/1) hdd-canary tests::t0210_wait_reports_a_dead_listener_thread
+SHA-256 after restore: 9414193BACEE1582AB372613FDA2C47040126372546E4DE6EC983D8CCB8158CC
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   0.016s] (1/1) hdd-canary tests::t0210_wait_reports_a_dead_listener_thread
+  Summary [   0.016s] 1 test run: 1 passed, 43 skipped
+
+## K-6 - a transport failure after delegation is recorded as done stays a pending step
+File: crates/hddctl/src/main.rs
+SHA-256 before: 17C97884CE50EBC26FF81E719B27FFC21971C467CAB4D2E635C16F034AD8976B
+Mutation: the through-HDD transport branch ignores delegation_done (if delegation_done -> if false).
+SHA-256 while mutated: 
+Command while mutated: cargo nextest run -p hddctl -E "test(t0210_verify_through_transport_fails_when_delegation_is_recorded_as_done)" -> exit 100 (expected non-zero)
+  FAIL [   3.269s] (1/1) hddctl::canary t0210_verify_through_transport_fails_when_delegation_is_recorded_as_done
+  thread 't0210_verify_through_transport_fails_when_delegation_is_recorded_as_done' (29800) panicked at
+  FAIL [   3.269s] (1/1) hddctl::canary t0210_verify_through_transport_fails_when_delegation_is_recorded_as_done
+SHA-256 after restore: 17C97884CE50EBC26FF81E719B27FFC21971C467CAB4D2E635C16F034AD8976B
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   2.762s] (1/1) hddctl::canary t0210_verify_through_transport_fails_when_delegation_is_recorded_as_done
+  Summary [   2.763s] 1 test run: 1 passed, 45 skipped
+
+## K-7 - the regular-file decision accepts every node kind
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: 9414193BACEE1582AB372613FDA2C47040126372546E4DE6EC983D8CCB8158CC
+SHA-256 while mutated: 06271AE5DFE9609AB6FFC891F4766D43C0FE72AA7D5E1382319E7C980E2DB020
+Command while mutated: cargo nextest run -p hdd-canary -E "test(t0210_ensure_regular_decision_table)" -> exit 100 (expected non-zero)
+  FAIL [   0.009s] (1/1) hdd-canary tests::t0210_ensure_regular_decision_table
+  thread 'tests::t0210_ensure_regular_decision_table' (24564) panicked at crates\hdd-canary\src\lib.rs:2544:14:
+  a symlink must be refused: ()
+  FAIL [   0.009s] (1/1) hdd-canary tests::t0210_ensure_regular_decision_table
+SHA-256 after restore: 9414193BACEE1582AB372613FDA2C47040126372546E4DE6EC983D8CCB8158CC
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   0.011s] (1/1) hdd-canary tests::t0210_ensure_regular_decision_table
+  Summary [   0.011s] 1 test run: 1 passed, 43 skipped
+
+## K-8 - the echo JSON boolean literal is skipped, not checked
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: 9414193BACEE1582AB372613FDA2C47040126372546E4DE6EC983D8CCB8158CC
+SHA-256 while mutated: E496D7D830F165184CCFB21712C3D805A790C86BD4192B724B7DAD1D6DA57C2C
+Command while mutated: cargo nextest run -p hdd-canary -E "test(t0210_parse_echo_json_requires_boolean_literals)" -> exit 100 (expected non-zero)
+  FAIL [   0.010s] (1/1) hdd-canary tests::t0210_parse_echo_json_requires_boolean_literals
+  thread 'tests::t0210_parse_echo_json_requires_boolean_literals' (31968) panicked at
+  FAIL [   0.010s] (1/1) hdd-canary tests::t0210_parse_echo_json_requires_boolean_literals
+SHA-256 after restore: 9414193BACEE1582AB372613FDA2C47040126372546E4DE6EC983D8CCB8158CC
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   0.010s] (1/1) hdd-canary tests::t0210_parse_echo_json_requires_boolean_literals
+  Summary [   0.011s] 1 test run: 1 passed, 43 skipped
+
+  MUTATION ANCHOR MISSING (pair 0)
+## K-8 (drain) - the rejected connection is not shut down for writing
+File: crates/hdd-canary/src/lib.rs
+SHA-256 before: 9414193BACEE1582AB372613FDA2C47040126372546E4DE6EC983D8CCB8158CC
+Mutation: remove shutdown(Write) after the rejection response.
+SHA-256 while mutated: 
+Command while mutated: cargo nextest run -p hdd-canary -E "test(a_rejected_client_sees_the_response_close_before_the_deadline)" -> exit 100 (expected non-zero)
+  FAIL [   0.345s] (1/1) hdd-canary::hostile a_rejected_client_sees_the_response_close_before_the_deadline
+  thread 'a_rejected_client_sees_the_response_close_before_the_deadline' (33244) panicked at
+  the write side is shut down after the rejection, so EOF is immediate; took 319.3035ms
+  FAIL [   0.345s] (1/1) hdd-canary::hostile a_rejected_client_sees_the_response_close_before_the_deadline
+SHA-256 after restore: 9414193BACEE1582AB372613FDA2C47040126372546E4DE6EC983D8CCB8158CC
+Restore byte-identical: True
+Command after restore: same -> exit 0 (expected 0)
+  PASS [   0.027s] (1/1) hdd-canary::hostile a_rejected_client_sees_the_response_close_before_the_deadline
+  Summary [   0.027s] 1 test run: 1 passed, 43 skipped

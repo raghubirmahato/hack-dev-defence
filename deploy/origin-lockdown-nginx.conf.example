@@ -1,0 +1,53 @@
+# deploy/origin-lockdown-nginx.conf.example - make the ORIGIN refuse everything
+# except the HDD proxy host, so the site cannot be bypassed by connecting to the
+# origin directly (R-34: a site is not protected while it can be bypassed).
+#
+# Use this when the origin has a FIXED IP and runs nginx. Put it in the origin's
+# server block (the one that serves the application), then reload nginx.
+#
+# Steps:
+#   1. Replace 203.0.113.10 with the HDD host's public (egress) IP address.
+#   2. If the HDD host has IPv6, add its v6 address too.
+#   3. Test from a machine that is NOT the HDD host:
+#        curl -sS -o /dev/null -w '%{http_code}\n' https://origin.example.com/login
+#      Expected: 403 (or a connection refusal at the firewall). If the page loads,
+#      the origin is NOT locked down.
+#   4. Only after step 3 passes and the verification run through the public hostname
+#      blocks the payload may the site be described as protected in block mode.
+#
+# For a serverless origin (Vercel/Netlify/Render) there is no fixed IP to allow-list:
+# use deploy/vercel-middleware.ts.example (shared secret header) instead.
+
+server {
+    listen 443 ssl;
+    http2 on;
+    server_name origin.example.com;
+
+    # Operator: TLS for the origin (certbot or the provider's certificate).
+    ssl_certificate     /etc/letsencrypt/live/origin.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/origin.example.com/privkey.pem;
+
+    # Allow only the HDD proxy host; refuse everyone else, including the operator's
+    # browser (use the dashboard, not the origin, for checks).
+    allow 203.0.113.10;
+    deny all;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;   # the real application behind the origin
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Optional extra belt-and-braces: a shared-secret check at the origin (see the
+    # Vercel middleware example). Do NOT rely on both being present; either one must
+    # be able to refuse a direct request on its own.
+    # add_header X-HDD-Lockdown "ip-allowlist" always;
+}
+
+# A fixed-IP origin can also be locked down at the host firewall instead of nginx, for
+# example with ufw:
+#   ufw allow from 203.0.113.10 to any port 443 proto tcp
+#   ufw deny 443/tcp
+# or with nftables/iptables. The rule must be tested from outside the HDD host as in
+# step 3 above, and must have a documented undo (R-13).

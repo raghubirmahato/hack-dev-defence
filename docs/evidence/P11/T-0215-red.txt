@@ -1,0 +1,1189 @@
+# T-0215 red run: acceptance runner skeleton
+
+Note: the `NativeCommandError` and `At line:` records in this transcript are cargo's stderr captured through Windows PowerShell, not test failures; the authoritative lines are the `FAIL [...]` test lines and the final `Summary` line.
+Note: the compiler warnings (unused variables, unreachable code) come from the temporary pass-through seams of this red state; they do not exist on the implemented tree (see T-0215-verify.txt).
+
+Date (UTC): 2026-10-20T04:07:41Z
+Command: cargo nextest run -p hdd-acceptance --no-fail-fast
+State: red demonstration. The acceptance tests are written first; to show that they fail before the safety seams are wired, the seven enforcement seams were temporarily reduced to pass-throughs for this run (limits.rs token bucket a no-op; guard.rs request reaches the sender before any guard; inspect.rs gate issues a ticket unconditionally; runner.rs no kill switch, signal, timeout or panic isolation and the cleanup stack not drained; registry.rs cross-check always agrees; report.rs redactor a pass-through). The same tests then pass on the implemented tree (T-0215-verify.txt), and T-0215-negative-demos.txt proves each seam's test fails again when that seam alone is mutated. The failures below name the acceptance criterion they cover: A1 (guard), A2 (limits), A3 (kill switch/cleanup), A4 (registry cross-check), A5 (inspect gate), plus the reporter redaction tests.
+cargo.exe :     Blocking waiting for file lock on build directory
+At line:17 char:8
++ $out = & cargo nextest run -p hdd-acceptance --no-fail-fast 2>&1 | Ou ...
++        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Blocking wa...build directory:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: unused variable: `cost`
+   --> crates\hdd-acceptance\src\limits.rs:424:27
+    |
+424 |     fn acquire(&mut self, cost: u64, now_us: u64, lane: Lane) -> Result<(), LimitDenial> {
+    |                           ^^^^ help: if this is intentional, prefix it with an underscore: `_cost`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `now_us`
+   --> crates\hdd-acceptance\src\limits.rs:424:38
+    |
+424 |     fn acquire(&mut self, cost: u64, now_us: u64, lane: Lane) -> Result<(), LimitDenial> {
+    |                                      ^^^^^^ help: if this is intentional, prefix it with an underscore: `_now_us`
+
+warning: unused variable: `lane`
+   --> crates\hdd-acceptance\src\limits.rs:424:51
+    |
+424 |     fn acquire(&mut self, cost: u64, now_us: u64, lane: Lane) -> Result<(), LimitDenial> {
+    |                                                   ^^^^ help: if this is intentional, prefix it with an 
+underscore: `_lane`
+
+warning: variable does not need to be mutable
+   --> crates\hdd-acceptance\src\runner.rs:537:13
+    |
+537 |         let mut stack = match self.cleanup.lock() {
+    |             ----^^^^^
+    |             |
+    |             help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: `hdd-acceptance` (lib) generated 4 warnings (run `cargo fix --lib -p hdd-acceptance` to apply 4 suggestions)
+warning: `hdd-acceptance` (lib test) generated 4 warnings (4 duplicates)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.75s
+────────────
+ Nextest run ID 7b181b00-6c6e-4264-919d-9c8b7fe8c793 with nextest profile: default
+    Starting 119 tests across 3 binaries
+        PASS [   0.025s] (  1/119) hdd-acceptance config::tests::an_unusable_profile_is_refused_with_its_failures
+        PASS [   0.028s] (  2/119) hdd-acceptance config::tests::a_profile_that_does_not_parse_reports_its_key_path
+        PASS [   0.325s] (  3/119) hdd-acceptance control::tests::an_auto_runner_ip_is_unverified_stage_not_reached
+        PASS [   0.329s] (  4/119) hdd-acceptance config::tests::pilot_allows_destructive_checks_with_a_warning
+        PASS [   0.335s] (  5/119) hdd-acceptance 
+config::tests::an_approval_must_carry_its_record_and_its_maintenance_window
+        PASS [   0.341s] (  6/119) hdd-acceptance 
+config::tests::a_load_run_needs_the_profile_flag_and_the_runs_own_written_approval
+        PASS [   0.340s] (  7/119) hdd-acceptance config::tests::a_missing_profile_file_is_an_io_error
+        PASS [   0.358s] (  8/119) hdd-acceptance control::tests::a_mistyped_runner_ip_is_refused
+        PASS [   0.364s] (  9/119) hdd-acceptance config::tests::the_runner_ip_is_checked_before_the_run_starts
+        PASS [   0.365s] ( 10/119) hdd-acceptance 
+config::tests::production_refuses_destructive_checks_without_this_runs_approval
+        PASS [   0.378s] ( 11/119) hdd-acceptance config::tests::the_example_profile_assembles_a_run_configuration
+        PASS [   0.385s] ( 12/119) hdd-acceptance 
+config::tests::an_invalid_dns_entry_in_the_egress_allowlist_is_refused_by_the_gate
+        PASS [   0.397s] ( 13/119) hdd-acceptance control::tests::hostile_remote_arguments_stay_one_argv_element
+        PASS [   0.405s] ( 14/119) hdd-acceptance control::tests::a_runner_inside_admin_cidrs_is_refused
+        PASS [   0.410s] ( 15/119) hdd-acceptance config::tests::lab_mode_requires_a_configured_lab
+        PASS [   0.412s] ( 16/119) hdd-acceptance config::tests::the_non_load_profiles_do_not_need_the_load_approval
+        PASS [   0.393s] ( 17/119) hdd-acceptance 
+control::tests::the_runner_ip_from_the_profile_is_used_when_the_caller_supplies_none
+        PASS [   0.393s] ( 18/119) hdd-acceptance control::tests::the_runner_is_bannable_when_it_is_not_in_admin_cidrs
+        PASS [   0.104s] ( 19/119) hdd-acceptance 
+control::tests::the_ssh_command_is_an_argv_vector_with_batch_mode_and_no_shell
+        PASS [   0.113s] ( 20/119) hdd-acceptance 
+control::tests::the_vantage_plan_records_the_count_and_the_sequential_strategy_when_absent
+        PASS [   0.107s] ( 21/119) hdd-acceptance 
+guard::tests::a1_the_allowlisted_targets_reach_the_sender_exactly_once
+        FAIL [   0.112s] ( 22/119) hdd-acceptance 
+guard::tests::a1_a_non_allowlisted_target_aborts_before_the_sender_is_called
+  stdout ───
+
+    running 1 test
+    test guard::tests::a1_a_non_allowlisted_target_aborts_before_the_sender_is_called ... FAILED
+
+    failures:
+
+    failures:
+        guard::tests::a1_a_non_allowlisted_target_aborts_before_the_sender_is_called
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'guard::tests::a1_a_non_allowlisted_target_aborts_before_the_sender_is_called' (34056) panicked at 
+crates\hdd-acceptance\src\guard\tests.rs:66:9:
+    www.example.com: Ok(Sent { target: "www.example.com", path: "/" })
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.123s] ( 23/119) hdd-acceptance control::tests::wireguard_and_missing_ssh_fields_are_typed_refusals
+        PASS [   0.101s] ( 24/119) hdd-acceptance 
+guard::tests::a_normalised_target_reaches_the_sender_in_lower_case_without_a_trailing_dot
+        PASS [   0.095s] ( 25/119) hdd-acceptance guard::tests::an_empty_profile_yields_no_connector
+        FAIL [   0.104s] ( 26/119) hdd-acceptance guard::tests::lab_mode_refuses_live_names
+  stdout ───
+
+    running 1 test
+    test guard::tests::lab_mode_refuses_live_names ... FAILED
+
+    failures:
+
+    failures:
+        guard::tests::lab_mode_refuses_live_names
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'guard::tests::lab_mode_refuses_live_names' (30740) panicked at 
+crates\hdd-acceptance\src\guard\tests.rs:329:5:
+    assertion failed: matches!(connector.dispatch(&attempt(TEST_HOST, PayloadClass::A, Method::Get,
+        false), &mut sender), Err(Denial::Target(_)))
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.096s] ( 27/119) hdd-acceptance guard::tests::load_and_protocol_abuse_may_only_target_the_sandbox
+  stdout ───
+
+    running 1 test
+    test guard::tests::load_and_protocol_abuse_may_only_target_the_sandbox ... FAILED
+
+    failures:
+
+    failures:
+        guard::tests::load_and_protocol_abuse_may_only_target_the_sandbox
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'guard::tests::load_and_protocol_abuse_may_only_target_the_sandbox' (2804) panicked at 
+crates\hdd-acceptance\src\guard\tests.rs:157:9:
+    assertion failed: matches!(connector.dispatch(&attempt(TEST_HOST, PayloadClass::A, Method::Get,
+        false), &mut sender), Err(Denial::ProfileOnlySandbox { profile, .. }) if
+        profile == load)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.093s] ( 28/119) hdd-acceptance guard::tests::no_send_function_exists_in_this_crate
+        FAIL [   0.089s] ( 29/119) hdd-acceptance 
+guard::tests::pilot_allows_destructive_checks_with_a_warning_and_production_needs_this_runs_approval
+  stdout ───
+
+    running 1 test
+    test guard::tests::pilot_allows_destructive_checks_with_a_warning_and_production_needs_this_runs_approval ... 
+FAILED
+
+    failures:
+
+    failures:
+        guard::tests::pilot_allows_destructive_checks_with_a_warning_and_production_needs_this_runs_approval
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'guard::tests::pilot_allows_destructive_checks_with_a_warning_and_production_needs_this_runs_approval' 
+(9772) panicked at crates\hdd-acceptance\src\guard\tests.rs:219:5:
+    assertion failed: matches!(connector.dispatch(&attempt(TEST_HOST, PayloadClass::A, Method::Get,
+        true), &mut sender), Err(Denial::Stage(_)))
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.089s] ( 30/119) hdd-acceptance 
+guard::tests::production_refuses_a_destructive_check_before_the_target_check_runs
+  stdout ───
+
+    running 1 test
+    test guard::tests::production_refuses_a_destructive_check_before_the_target_check_runs ... FAILED
+
+    failures:
+
+    failures:
+        guard::tests::production_refuses_a_destructive_check_before_the_target_check_runs
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'guard::tests::production_refuses_a_destructive_check_before_the_target_check_runs' (34128) panicked at 
+crates\hdd-acceptance\src\guard\tests.rs:187:5:
+    Ok(Sent { target: "www.example.com", path: "/" })
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.091s] ( 31/119) hdd-acceptance 
+guard::tests::the_egress_gate_denies_by_default_and_allows_listed_infrastructure_destinations
+        FAIL [   0.096s] ( 32/119) hdd-acceptance guard::tests::the_kill_switch_stops_a_request_before_it_is_sent
+  stdout ───
+
+    running 1 test
+    test guard::tests::the_kill_switch_stops_a_request_before_it_is_sent ... FAILED
+
+    failures:
+
+    failures:
+        guard::tests::the_kill_switch_stops_a_request_before_it_is_sent
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'guard::tests::the_kill_switch_stops_a_request_before_it_is_sent' (10048) panicked at 
+crates\hdd-acceptance\src\guard\tests.rs:238:5:
+    assertion `left == right` failed
+      left: Ok(Sent { target: "hddtest.example.com", path: "/" })
+     right: Err(KillSwitch)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.097s] ( 33/119) hdd-acceptance guard::tests::the_payload_class_rules_are_enforced_before_the_sender
+  stdout ───
+
+    running 1 test
+    test guard::tests::the_payload_class_rules_are_enforced_before_the_sender ... FAILED
+
+    failures:
+
+    failures:
+        guard::tests::the_payload_class_rules_are_enforced_before_the_sender
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'guard::tests::the_payload_class_rules_are_enforced_before_the_sender' (1776) panicked at 
+crates\hdd-acceptance\src\guard\tests.rs:105:5:
+    assertion failed: matches!(connector.dispatch(&attempt(TEST_HOST, PayloadClass::C, Method::Get,
+        false), &mut sender), Err(Denial::ClassCNeverSent { .. }))
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.098s] ( 34/119) hdd-acceptance 
+guard::tests::the_shared_limiter_stops_the_twenty_first_request_of_a_functional_check
+  stdout ───
+
+    running 1 test
+    test guard::tests::the_shared_limiter_stops_the_twenty_first_request_of_a_functional_check ... FAILED
+
+    failures:
+
+    failures:
+        guard::tests::the_shared_limiter_stops_the_twenty_first_request_of_a_functional_check
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'guard::tests::the_shared_limiter_stops_the_twenty_first_request_of_a_functional_check' (30224) panicked at 
+crates\hdd-acceptance\src\guard\tests.rs:261:5:
+    Ok(Sent { target: "hddtest.example.com", path: "/" })
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.095s] ( 35/119) hdd-acceptance guard::tests::the_target_guard_is_derived_from_the_profile_only
+  stdout ───
+
+    running 1 test
+    test guard::tests::the_target_guard_is_derived_from_the_profile_only ... FAILED
+
+    failures:
+
+    failures:
+        guard::tests::the_target_guard_is_derived_from_the_profile_only
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'guard::tests::the_target_guard_is_derived_from_the_profile_only' (11820) panicked at 
+crates\hdd-acceptance\src\guard\tests.rs:291:5:
+    the old example hostname is no longer in the profile
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.084s] ( 36/119) hdd-acceptance inspect::tests::a5_a_changed_config_revision_fails_the_gate
+  stdout ───
+
+    running 1 test
+    test inspect::tests::a5_a_changed_config_revision_fails_the_gate ... FAILED
+
+    failures:
+
+    failures:
+        inspect::tests::a5_a_changed_config_revision_fails_the_gate
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'inspect::tests::a5_a_changed_config_revision_fails_the_gate' (4616) panicked at 
+crates\hdd-acceptance\src\inspect\tests.rs:91:40:
+    must refuse: InspectTicket { request: InspectRequest { site: "shop-site.org", path: "/", method: Get, class: A }, 
+revision: "rev-7", category: None }
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.084s] ( 37/119) hdd-acceptance 
+inspect::tests::a5_a_false_would_block_fails_the_gate_without_a_ticket
+  stdout ───
+
+    running 1 test
+    test inspect::tests::a5_a_false_would_block_fails_the_gate_without_a_ticket ... FAILED
+
+    failures:
+
+    failures:
+        inspect::tests::a5_a_false_would_block_fails_the_gate_without_a_ticket
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'inspect::tests::a5_a_false_would_block_fails_the_gate_without_a_ticket' (15980) panicked at 
+crates\hdd-acceptance\src\inspect\tests.rs:71:40:
+    must refuse: InspectTicket { request: InspectRequest { site: "shop-site.org", path: "/", method: Get, class: A }, 
+revision: "rev-7", category: None }
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.083s] ( 38/119) hdd-acceptance inspect::tests::a_malformed_answer_fails_closed
+  stdout ───
+
+    running 1 test
+    test inspect::tests::a_malformed_answer_fails_closed ... FAILED
+
+    failures:
+
+    failures:
+        inspect::tests::a_malformed_answer_fails_closed
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'inspect::tests::a_malformed_answer_fails_closed' (34204) panicked at 
+crates\hdd-acceptance\src\inspect\tests.rs:128:44:
+    must refuse: InspectTicket { request: InspectRequest { site: "shop-site.org", path: "/", method: Get, class: A }, 
+revision: "rev-7", category: None }
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.087s] ( 39/119) hdd-acceptance inspect::tests::a_transport_failure_fails_closed
+  stdout ───
+
+    running 1 test
+    test inspect::tests::a_transport_failure_fails_closed ... FAILED
+
+    failures:
+
+    failures:
+        inspect::tests::a_transport_failure_fails_closed
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'inspect::tests::a_transport_failure_fails_closed' (11980) panicked at 
+crates\hdd-acceptance\src\inspect\tests.rs:107:40:
+    must refuse: InspectTicket { request: InspectRequest { site: "shop-site.org", path: "/", method: Get, class: A }, 
+revision: "rev-7", category: None }
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.091s] ( 40/119) hdd-acceptance inspect::tests::an_empty_site_is_refused_without_calling_the_client
+  stdout ───
+
+    running 1 test
+    test inspect::tests::an_empty_site_is_refused_without_calling_the_client ... FAILED
+
+    failures:
+
+    failures:
+        inspect::tests::an_empty_site_is_refused_without_calling_the_client
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'inspect::tests::an_empty_site_is_refused_without_calling_the_client' (2000) panicked at 
+crates\hdd-acceptance\src\inspect\tests.rs:164:5:
+    assertion failed: matches!(gate.check(&empty), Err(InspectGateError::Malformed { .. }))
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.099s] ( 41/119) hdd-acceptance inspect::tests::the_gate_calls_the_client_once_per_check
+  stdout ───
+
+    running 1 test
+    test inspect::tests::the_gate_calls_the_client_once_per_check ... FAILED
+
+    failures:
+
+    failures:
+        inspect::tests::the_gate_calls_the_client_once_per_check
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'inspect::tests::the_gate_calls_the_client_once_per_check' (31028) panicked at 
+crates\hdd-acceptance\src\inspect\tests.rs:178:5:
+    assertion `left == right` failed
+      left: 0
+     right: 2
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.097s] ( 42/119) hdd-acceptance 
+inspect::tests::the_happy_path_issues_a_ticket_bound_to_the_request_and_revision
+  stdout ───
+
+    running 1 test
+    test inspect::tests::the_happy_path_issues_a_ticket_bound_to_the_request_and_revision ... FAILED
+
+    failures:
+
+    failures:
+        inspect::tests::the_happy_path_issues_a_ticket_bound_to_the_request_and_revision
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'inspect::tests::the_happy_path_issues_a_ticket_bound_to_the_request_and_revision' (30916) panicked at 
+crates\hdd-acceptance\src\inspect\tests.rs:146:5:
+    assertion `left == right` failed
+      left: None
+     right: Some("sqli")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.101s] ( 43/119) hdd-acceptance inspect::tests::the_inspect_request_uses_the_documented_endpoint
+        FAIL [   0.106s] ( 44/119) hdd-acceptance 
+limits::tests::a2_the_five_minute_ceiling_trips_while_a_check_is_running
+  stdout ───
+
+    running 1 test
+    test limits::tests::a2_the_five_minute_ceiling_trips_while_a_check_is_running ... FAILED
+
+    failures:
+
+    failures:
+        limits::tests::a2_the_five_minute_ceiling_trips_while_a_check_is_running
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'limits::tests::a2_the_five_minute_ceiling_trips_while_a_check_is_running' (21392) panicked at 
+crates\hdd-acceptance\src\limits\tests.rs:100:5:
+    assertion `left == right` failed
+      left: Ok(())
+     right: Err(DurationExceeded { lane: Http, limit_s: 300 })
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.104s] ( 45/119) hdd-acceptance 
+limits::tests::a2_the_functional_profile_is_capped_at_twenty_requests_per_second_sustained
+  stdout ───
+
+    running 1 test
+    test limits::tests::a2_the_functional_profile_is_capped_at_twenty_requests_per_second_sustained ... FAILED
+
+    failures:
+
+    failures:
+        limits::tests::a2_the_functional_profile_is_capped_at_twenty_requests_per_second_sustained
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'limits::tests::a2_the_functional_profile_is_capped_at_twenty_requests_per_second_sustained' (35328) 
+panicked at crates\hdd-acceptance\src\limits\tests.rs:59:5:
+    assertion `left == right` failed: the 21st request in the same instant is over 20 req/s
+      left: Ok(())
+     right: Err(RateExceeded { lane: Http, retry_after_ms: 50 })
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.104s] ( 46/119) hdd-acceptance 
+limits::tests::a2_the_measured_run_holds_twenty_per_second_for_all_three_hundred_seconds
+  stdout ───
+
+    running 1 test
+    test limits::tests::a2_the_measured_run_holds_twenty_per_second_for_all_three_hundred_seconds ... FAILED
+
+    failures:
+
+    failures:
+        limits::tests::a2_the_measured_run_holds_twenty_per_second_for_all_three_hundred_seconds
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'limits::tests::a2_the_measured_run_holds_twenty_per_second_for_all_three_hundred_seconds' (13636) panicked 
+at crates\hdd-acceptance\src\limits\tests.rs:123:13:
+    more than 20 requests in second 0
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.101s] ( 47/119) hdd-acceptance 
+limits::tests::a_check_cannot_raise_the_functional_ceiling_but_may_lower_it
+  stdout ───
+
+    running 1 test
+    test limits::tests::a_check_cannot_raise_the_functional_ceiling_but_may_lower_it ... FAILED
+
+    failures:
+
+    failures:
+        limits::tests::a_check_cannot_raise_the_functional_ceiling_but_may_lower_it
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'limits::tests::a_check_cannot_raise_the_functional_ceiling_but_may_lower_it' (32176) panicked at 
+crates\hdd-acceptance\src\limits\tests.rs:169:5:
+    assertion failed: matches!(limiter.acquire(Lane::Http, 1),
+        Err(LimitDenial::RateExceeded { .. }))
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.101s] ( 48/119) hdd-acceptance 
+limits::tests::a_refusal_does_not_consume_the_budget_it_was_refused_from
+  stdout ───
+
+    running 1 test
+    test limits::tests::a_refusal_does_not_consume_the_budget_it_was_refused_from ... FAILED
+
+    failures:
+
+    failures:
+        limits::tests::a_refusal_does_not_consume_the_budget_it_was_refused_from
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'limits::tests::a_refusal_does_not_consume_the_budget_it_was_refused_from' (34804) panicked at 
+crates\hdd-acceptance\src\limits\tests.rs:321:9:
+    assertion failed: matches!(limiter.acquire(Lane::Http, 1),
+        Err(LimitDenial::TotalExceeded { .. }))
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.101s] ( 49/119) hdd-acceptance limits::tests::one_limiter_is_shared_by_every_check_of_the_run
+  stdout ───
+
+    running 1 test
+    test limits::tests::one_limiter_is_shared_by_every_check_of_the_run ... FAILED
+
+    failures:
+
+    failures:
+        limits::tests::one_limiter_is_shared_by_every_check_of_the_run
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'limits::tests::one_limiter_is_shared_by_every_check_of_the_run' (25780) panicked at 
+crates\hdd-acceptance\src\limits\tests.rs:194:5:
+    assertion failed: matches!(shared.acquire(Lane::Http, 1), Err(LimitDenial::RateExceeded { .. }))
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.104s] ( 50/119) hdd-acceptance 
+limits::tests::the_burst_profile_caps_one_hundred_http_requests_and_five_hundred_dns_queries
+  stdout ───
+
+    running 1 test
+    test limits::tests::the_burst_profile_caps_one_hundred_http_requests_and_five_hundred_dns_queries ... FAILED
+
+    failures:
+
+    failures:
+        limits::tests::the_burst_profile_caps_one_hundred_http_requests_and_five_hundred_dns_queries
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'limits::tests::the_burst_profile_caps_one_hundred_http_requests_and_five_hundred_dns_queries' (35508) 
+panicked at crates\hdd-acceptance\src\limits\tests.rs:207:5:
+    assertion `left == right` failed
+      left: Ok(())
+     right: Err(TotalExceeded { lane: Http, ceiling: 100 })
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.106s] ( 51/119) hdd-acceptance limits::tests::the_denial_messages_name_the_lane_and_the_ceiling
+        PASS [   0.115s] ( 52/119) hdd-acceptance 
+limits::tests::the_five_profiles_are_the_spec_set_and_parse_as_whole_tokens
+        FAIL [   0.118s] ( 53/119) hdd-acceptance 
+limits::tests::the_lab_and_load_ceilings_are_five_hundred_and_one_hundred_requests_per_second
+  stdout ───
+
+    running 1 test
+    test limits::tests::the_lab_and_load_ceilings_are_five_hundred_and_one_hundred_requests_per_second ... FAILED
+
+    failures:
+
+    failures:
+        limits::tests::the_lab_and_load_ceilings_are_five_hundred_and_one_hundred_requests_per_second
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'limits::tests::the_lab_and_load_ceilings_are_five_hundred_and_one_hundred_requests_per_second' (26784) 
+panicked at crates\hdd-acceptance\src\limits\tests.rs:293:5:
+    assertion `left == right` failed
+      left: Ok(())
+     right: Err(RateExceeded { lane: Http, retry_after_ms: 2 })
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.122s] ( 54/119) hdd-acceptance 
+limits::tests::the_protocol_abuse_profile_caps_connections_frames_and_bytes
+  stdout ───
+
+    running 1 test
+    test limits::tests::the_protocol_abuse_profile_caps_connections_frames_and_bytes ... FAILED
+
+    failures:
+
+    failures:
+        limits::tests::the_protocol_abuse_profile_caps_connections_frames_and_bytes
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'limits::tests::the_protocol_abuse_profile_caps_connections_frames_and_bytes' (32976) panicked at 
+crates\hdd-acceptance\src\limits\tests.rs:239:5:
+    assertion `left == right` failed
+      left: Ok(())
+     right: Err(TotalExceeded { lane: Connections, ceiling: 5 })
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.122s] ( 55/119) hdd-acceptance limits::tests::the_refill_is_sub_second_accurate
+  stdout ───
+
+    running 1 test
+    test limits::tests::the_refill_is_sub_second_accurate ... FAILED
+
+    failures:
+
+    failures:
+        limits::tests::the_refill_is_sub_second_accurate
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'limits::tests::the_refill_is_sub_second_accurate' (16244) panicked at 
+crates\hdd-acceptance\src\limits\tests.rs:342:5:
+    assertion failed: matches!(limiter.acquire(Lane::Http, 1),
+        Err(LimitDenial::RateExceeded { .. }))
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.127s] ( 56/119) hdd-acceptance registry::tests::a4_a_dry_run_emits_one_status_line_per_registered_id
+        FAIL [   0.126s] ( 57/119) hdd-acceptance 
+registry::tests::a4_the_master_specification_agrees_with_the_registry_whole_token
+  stdout ───
+
+    running 1 test
+    test registry::tests::a4_the_master_specification_agrees_with_the_registry_whole_token ... FAILED
+
+    failures:
+
+    failures:
+        registry::tests::a4_the_master_specification_agrees_with_the_registry_whole_token
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'registry::tests::a4_the_master_specification_agrees_with_the_registry_whole_token' (34784) panicked at 
+crates\hdd-acceptance\src\registry\tests.rs:72:5:
+    assertion `left == right` failed
+      left: 0
+     right: 63
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.132s] ( 58/119) hdd-acceptance registry::tests::a4_the_rendered_dry_run_report_has_one_row_per_id
+        FAIL [   0.127s] ( 59/119) hdd-acceptance 
+registry::tests::a4_the_split_specification_agrees_with_the_registry_whole_token
+  stdout ───
+
+    running 1 test
+    test registry::tests::a4_the_split_specification_agrees_with_the_registry_whole_token ... FAILED
+
+    failures:
+
+    failures:
+        registry::tests::a4_the_split_specification_agrees_with_the_registry_whole_token
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'registry::tests::a4_the_split_specification_agrees_with_the_registry_whole_token' (2208) panicked at 
+crates\hdd-acceptance\src\registry\tests.rs:56:5:
+    assertion `left == right` failed
+      left: 0
+     right: 63
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.124s] ( 60/119) hdd-acceptance registry::tests::a_dry_run_with_a_missing_id_is_refused
+        PASS [   0.122s] ( 61/119) hdd-acceptance 
+registry::tests::every_registry_row_is_a_whole_token_id_with_a_title_and_a_tier
+        PASS [   0.121s] ( 62/119) hdd-acceptance registry::tests::the_ac_table_is_cross_checked_not_trusted
+        PASS [   0.123s] ( 63/119) hdd-acceptance registry::tests::the_mismatch_messages_name_the_problem
+        PASS [   0.124s] ( 64/119) hdd-acceptance 
+registry::tests::the_parser_does_not_mistake_substrings_or_prose_for_ids
+        PASS [   0.122s] ( 65/119) hdd-acceptance 
+registry::tests::the_registry_has_the_sixty_three_expected_ids_in_order
+        PASS [   0.122s] ( 66/119) hdd-acceptance report::tests::a_pass_without_evidence_is_refused_by_both_renderers
+        FAIL [   0.122s] ( 67/119) hdd-acceptance 
+report::tests::a_planted_secret_never_appears_in_either_rendered_format
+  stdout ───
+
+    running 1 test
+    test report::tests::a_planted_secret_never_appears_in_either_rendered_format ... FAILED
+
+    failures:
+
+    failures:
+        report::tests::a_planted_secret_never_appears_in_either_rendered_format
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'report::tests::a_planted_secret_never_appears_in_either_rendered_format' (31416) panicked at 
+crates\hdd-acceptance\src\report\tests.rs:133:9:
+    the planted secret leaked into a report: # Acceptance report
+
+    | Field | Value |
+    | --- | --- |
+    | Generated | 2026-10-20T09:00:00Z |
+    | Mode | live |
+    | Stage | pilot |
+    | Load profile | functional |
+    | Vantages | 0 |
+
+    ## Summary
+
+    3 checks: 1 PASS, 1 FAIL, 1 UNVERIFIED
+
+    ## Checks
+
+    | ID | Tier | Status | Title |
+    | --- | --- | --- | --- |
+    | AC-00 | smoke | PASS | Preflight and safety-envelope self-tests |
+    | AC-01 | nondestructive | FAIL(a would not block) | Authentication and admin isolation |
+    | AC-02 | pilot-full | UNVERIFIED(stage_not_reached) | Zone import and parity |
+
+    ## Evidence
+
+    ### AC-00 / http_response
+
+    - status: 403
+    - header.content-type: text/html
+
+    ### AC-00 / http_response
+
+    - request_headers: Authorization: Bearer hunter2-SECRET-VALUE
+    - body: password=hunter2-SECRET-VALUE
+
+    ## Logs
+
+    - `acceptance-x/run.log` (42 bytes, sha256 `bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb`)
+
+    ```text
+    line one
+    line two
+    ```
+
+    - `acceptance-x/secret.log` (12 bytes, sha256 `bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb`)
+
+    ```text
+    client_secret: hunter2-SECRET-VALUE
+    Authorization: Bearer hunter2-SECRET-VALUE
+    ```
+
+    ## Notes
+
+    - a note
+    - the token hunter2-SECRET-VALUE was redacted
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.120s] ( 68/119) hdd-acceptance report::tests::a_saved_log_is_redacted_before_it_is_written
+  stdout ───
+
+    running 1 test
+    test report::tests::a_saved_log_is_redacted_before_it_is_written ... FAILED
+
+    failures:
+
+    failures:
+        report::tests::a_saved_log_is_redacted_before_it_is_written
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'report::tests::a_saved_log_is_redacted_before_it_is_written' (32264) panicked at 
+crates\hdd-acceptance\src\report\tests.rs:206:5:
+    assertion failed: !saved.contains("hunter2")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.119s] ( 69/119) hdd-acceptance 
+report::tests::a_saved_log_keeps_its_sha256_verifiable_and_embeds_the_tail
+        PASS [   0.117s] ( 70/119) hdd-acceptance 
+report::tests::a_status_line_of_an_unregistered_shape_is_still_refused
+        PASS [   0.117s] ( 71/119) hdd-acceptance 
+report::tests::an_oversized_or_unknown_json_report_is_refused_not_panicked
+        PASS [   0.114s] ( 72/119) hdd-acceptance report::tests::counts_survive_a_json_round_trip
+        PASS [   0.112s] ( 73/119) hdd-acceptance report::tests::duplicate_check_ids_are_refused
+        PASS [   0.107s] ( 74/119) hdd-acceptance report::tests::evidence_values_are_truncated_to_512_bytes
+        PASS [   0.111s] ( 75/119) hdd-acceptance report::tests::hostile_values_cannot_break_the_markdown_table
+        PASS [   0.112s] ( 76/119) hdd-acceptance report::tests::one_status_line_per_report_id_in_both_formats
+        PASS [   0.113s] ( 77/119) hdd-acceptance report::tests::report_golden_json
+        PASS [   0.116s] ( 78/119) hdd-acceptance report::tests::report_golden_markdown
+        FAIL [   0.114s] ( 79/119) hdd-acceptance report::tests::the_redactor_keeps_digests_and_redacts_marked_values
+  stdout ───
+
+    running 1 test
+    test report::tests::the_redactor_keeps_digests_and_redacts_marked_values ... FAILED
+
+    failures:
+
+    failures:
+        report::tests::the_redactor_keeps_digests_and_redacts_marked_values
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'report::tests::the_redactor_keeps_digests_and_redacts_marked_values' (24444) panicked at 
+crates\hdd-acceptance\src\report\tests.rs:155:5:
+    assertion failed: !redacted.contains("hunter2")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.115s] ( 80/119) hdd-acceptance report::tests::the_timestamp_is_iso8601_utc
+        FAIL [   0.112s] ( 81/119) hdd-acceptance 
+runner::tests::a_cleanup_action_registered_by_a_completed_check_still_runs
+  stdout ───
+
+    running 1 test
+    test runner::tests::a_cleanup_action_registered_by_a_completed_check_still_runs ... FAILED
+
+    failures:
+
+    failures:
+        runner::tests::a_cleanup_action_registered_by_a_completed_check_still_runs
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'runner::tests::a_cleanup_action_registered_by_a_completed_check_still_runs' (23228) panicked at 
+crates\hdd-acceptance\src\runner\tests.rs:460:5:
+    assertion `left == right` failed
+      left: 0
+     right: 1
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.110s] ( 82/119) hdd-acceptance runner::tests::a_completed_check_keeps_its_own_verdict
+  stdout ───
+
+    running 1 test
+    test runner::tests::a_completed_check_keeps_its_own_verdict ... FAILED
+
+    failures:
+
+    failures:
+        runner::tests::a_completed_check_keeps_its_own_verdict
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'runner::tests::a_completed_check_keeps_its_own_verdict' (16932) panicked at 
+crates\hdd-acceptance\src\runner\tests.rs:444:5:
+    assertion `left == right` failed
+      left: Some(Timeout)
+     right: None
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.108s] ( 83/119) hdd-acceptance runner::tests::a_dependency_cycle_is_reported
+        PASS [   0.109s] ( 84/119) hdd-acceptance 
+runner::tests::a_duplicate_id_a_bad_id_and_a_zero_timeout_are_reported
+        FAIL [   0.111s] ( 85/119) hdd-acceptance 
+runner::tests::a_kill_switch_that_is_already_set_aborts_before_the_check_body_runs
+  stdout ───
+
+    running 1 test
+    test runner::tests::a_kill_switch_that_is_already_set_aborts_before_the_check_body_runs ... FAILED
+
+    failures:
+
+    failures:
+        runner::tests::a_kill_switch_that_is_already_set_aborts_before_the_check_body_runs
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'runner::tests::a_kill_switch_that_is_already_set_aborts_before_the_check_body_runs' (26380) panicked at 
+crates\hdd-acceptance\src\runner\tests.rs:359:5:
+    assertion `left == right` failed
+      left: Some(Timeout)
+     right: Some(KillSwitch)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.190s] ( 86/119) hdd-acceptance report::tests::properties::tail_lines_never_panics
+        PASS [   0.107s] ( 87/119) hdd-acceptance runner::tests::a_panicking_cleanup_action_does_not_stop_the_others
+        PASS [   0.205s] ( 88/119) hdd-acceptance 
+report::tests::properties::the_redactor_never_panics_and_never_keeps_a_registered_secret
+        PASS [   0.088s] ( 89/119) hdd-acceptance runner::tests::an_unknown_dependency_is_reported
+        PASS [   0.233s] ( 90/119) hdd-acceptance report::tests::properties::from_json_never_panics_on_arbitrary_text
+        PASS [   0.088s] ( 91/119) hdd-acceptance runner::tests::order_runs_dependencies_first_and_is_stable
+        PASS [   0.085s] ( 92/119) hdd-acceptance runner::tests::the_abort_causes_display_honestly
+        PASS [   0.086s] ( 93/119) hdd-acceptance runner::tests::the_cleanup_stack_runs_last_in_first_out
+        PASS [   0.092s] ( 94/119) hdd-acceptance status::tests::a_bad_id_is_refused
+        FAIL [   0.108s] ( 95/119) hdd-acceptance 
+runner::tests::the_per_check_timeout_aborts_the_check_and_cleanup_runs
+  stdout ───
+
+    running 1 test
+    test runner::tests::the_per_check_timeout_aborts_the_check_and_cleanup_runs ... FAILED
+
+    failures:
+
+    failures:
+        runner::tests::the_per_check_timeout_aborts_the_check_and_cleanup_runs
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.03s
+
+  stderr ───
+
+    thread 'runner::tests::the_per_check_timeout_aborts_the_check_and_cleanup_runs' (32780) panicked at 
+crates\hdd-acceptance\src\runner\tests.rs:401:5:
+    assertion `left == right` failed
+      left: []
+     right: ["unban 198.51.100.7"]
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.203s] ( 96/119) hdd-acceptance 
+runner::tests::a_panicking_check_is_caught_counted_and_its_cleanup_runs
+  stdout ───
+
+    running 1 test
+    test runner::tests::a_panicking_check_is_caught_counted_and_its_cleanup_runs ... FAILED
+
+    failures:
+
+    failures:
+        runner::tests::a_panicking_check_is_caught_counted_and_its_cleanup_runs
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.09s
+
+  stderr ───
+
+    thread 'runner::tests::a_panicking_check_is_caught_counted_and_its_cleanup_runs' (3084) panicked at 
+crates\hdd-acceptance\src\runner\tests.rs:411:5:
+    assertion `left == right` failed: R-09: caught panics are counted
+      left: 0
+     right: 1
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.188s] ( 97/119) hdd-acceptance runner::tests::a_pass_without_evidence_is_turned_into_a_fail
+  stdout ───
+
+    running 1 test
+    test runner::tests::a_pass_without_evidence_is_turned_into_a_fail ... FAILED
+
+    failures:
+
+    failures:
+        runner::tests::a_pass_without_evidence_is_turned_into_a_fail
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.08s
+
+  stderr ───
+
+    thread 'runner::tests::a_pass_without_evidence_is_turned_into_a_fail' (3492) panicked at 
+crates\hdd-acceptance\src\runner\tests.rs:431:5:
+    Fail { reason: "aborted: per-check timeout" }
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.149s] ( 98/119) hdd-acceptance runner::tests::cleanup_runs_when_a_check_fails
+  stdout ───
+
+    running 1 test
+    test runner::tests::cleanup_runs_when_a_check_fails ... FAILED
+
+    failures:
+
+    failures:
+        runner::tests::cleanup_runs_when_a_check_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.06s
+
+  stderr ───
+
+    thread 'runner::tests::cleanup_runs_when_a_check_fails' (11792) panicked at 
+crates\hdd-acceptance\src\runner\tests.rs:284:5:
+    assertion `left == right` failed: the finally stack ran
+      left: []
+     right: ["remove temporary rule"]
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.100s] ( 99/119) hdd-acceptance runner::tests::the_shared_limiter_is_one_instance_for_all_checks
+  stdout ───
+
+    running 1 test
+    test runner::tests::the_shared_limiter_is_one_instance_for_all_checks ... FAILED
+
+    failures:
+
+    failures:
+        runner::tests::the_shared_limiter_is_one_instance_for_all_checks
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.02s
+
+  stderr ───
+
+    thread 'runner::tests::the_shared_limiter_is_one_instance_for_all_checks' (27056) panicked at 
+crates\hdd-acceptance\src\runner\tests.rs:589:5:
+    assertion `left == right` failed: 20 req/s in one instant
+      left: 18446744073709551615
+     right: 20
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.092s] (100/119) hdd-acceptance status::tests::a_pass_without_hashed_evidence_is_not_representable
+        PASS [   0.085s] (101/119) hdd-acceptance status::tests::check_ids_are_whole_tokens
+        PASS [   0.083s] (102/119) hdd-acceptance status::tests::counts_total_every_line
+        PASS [   0.085s] (103/119) hdd-acceptance status::tests::every_status_renders_the_taxonomy_of_e3_1
+        PASS [   0.083s] (104/119) hdd-acceptance 
+status::tests::fail_and_unverified_need_no_evidence_but_keep_their_reason
+        PASS [   0.076s] (105/119) hdd-acceptance status::tests::the_reason_set_is_closed_and_round_trips_by_code
+        PASS [   0.075s] (106/119) hdd-acceptance status::tests::verdicts_serialise_with_their_status_tag
+        FAIL [   0.321s] (107/119) hdd-acceptance 
+runner::tests::a3_the_kill_switch_aborts_a_running_check_within_one_second_and_cleanup_runs
+  stdout ───
+
+    running 1 test
+    test runner::tests::a3_the_kill_switch_aborts_a_running_check_within_one_second_and_cleanup_runs ... FAILED
+
+    failures:
+
+    failures:
+        runner::tests::a3_the_kill_switch_aborts_a_running_check_within_one_second_and_cleanup_runs
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.21s
+
+  stderr ───
+
+    thread 'runner::tests::a3_the_kill_switch_aborts_a_running_check_within_one_second_and_cleanup_runs' (31620) 
+panicked at crates\hdd-acceptance\src\runner\tests.rs:316:5:
+    assertion `left == right` failed
+      left: Some(Timeout)
+     right: Some(KillSwitch)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.083s] (108/119) hdd-acceptance::cli a_profile_that_does_not_parse_is_refused
+        PASS [   0.091s] (109/119) hdd-acceptance::cli a_lab_run_without_a_lab_profile_is_refused
+        PASS [   0.092s] (110/119) hdd-acceptance::cli a_run_without_a_profile_is_a_usage_error
+        PASS [   0.095s] (111/119) hdd-acceptance::cli a_load_run_without_the_operators_approval_is_refused
+        PASS [   0.108s] (112/119) hdd-acceptance::cli a_profile_with_missing_required_fields_is_refused
+        PASS [   0.107s] (113/119) hdd-acceptance::cli an_unknown_load_profile_is_a_usage_error
+        PASS [   0.116s] (114/119) hdd-acceptance::cli a_valid_profile_is_accepted_and_reports_the_environment_facts
+        PASS [   0.114s] (115/119) hdd-acceptance::cli no_cli_invocation_reaches_the_network
+        PASS [   0.104s] (116/119) hdd-acceptance::cli the_registry_command_lists_all_sixty_three_checks
+        PASS [   0.111s] (117/119) hdd-acceptance::cli the_dry_run_writes_both_report_formats_and_the_log
+        FAIL [   0.323s] (118/119) hdd-acceptance runner::tests::a_signal_aborts_a_running_check_and_cleanup_runs
+  stdout ───
+
+    running 1 test
+    test runner::tests::a_signal_aborts_a_running_check_and_cleanup_runs ... FAILED
+
+    failures:
+
+    failures:
+        runner::tests::a_signal_aborts_a_running_check_and_cleanup_runs
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.23s
+
+  stderr ───
+
+    thread 'runner::tests::a_signal_aborts_a_running_check_and_cleanup_runs' (26488) panicked at 
+crates\hdd-acceptance\src\runner\tests.rs:380:5:
+    assertion `left == right` failed
+      left: Some(Timeout)
+     right: Some(Signal(Interrupt))
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.334s] (119/119) hdd-acceptance 
+runner::tests::run_plan_executes_in_order_and_marks_the_rest_skipped_after_an_abort
+  stdout ───
+
+    running 1 test
+    test runner::tests::run_plan_executes_in_order_and_marks_the_rest_skipped_after_an_abort ... FAILED
+
+    failures:
+
+    failures:
+        runner::tests::run_plan_executes_in_order_and_marks_the_rest_skipped_after_an_abort
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 108 filtered out; finished in 0.25s
+
+  stderr ───
+
+    thread 'runner::tests::run_plan_executes_in_order_and_marks_the_rest_skipped_after_an_abort' (28152) panicked at 
+crates\hdd-acceptance\src\runner\tests.rs:561:5:
+    assertion `left == right` failed
+      left: Some(Timeout)
+     right: Some(KillSwitch)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   1.216s] 119 tests run: 77 passed, 42 failed, 0 skipped
+        FAIL [   0.112s] ( 22/119) hdd-acceptance 
+guard::tests::a1_a_non_allowlisted_target_aborts_before_the_sender_is_called
+        FAIL [   0.104s] ( 26/119) hdd-acceptance guard::tests::lab_mode_refuses_live_names
+        FAIL [   0.096s] ( 27/119) hdd-acceptance guard::tests::load_and_protocol_abuse_may_only_target_the_sandbox
+        FAIL [   0.089s] ( 29/119) hdd-acceptance 
+guard::tests::pilot_allows_destructive_checks_with_a_warning_and_production_needs_this_runs_approval
+        FAIL [   0.089s] ( 30/119) hdd-acceptance 
+guard::tests::production_refuses_a_destructive_check_before_the_target_check_runs
+        FAIL [   0.096s] ( 32/119) hdd-acceptance guard::tests::the_kill_switch_stops_a_request_before_it_is_sent
+        FAIL [   0.097s] ( 33/119) hdd-acceptance guard::tests::the_payload_class_rules_are_enforced_before_the_sender
+        FAIL [   0.098s] ( 34/119) hdd-acceptance 
+guard::tests::the_shared_limiter_stops_the_twenty_first_request_of_a_functional_check
+        FAIL [   0.095s] ( 35/119) hdd-acceptance guard::tests::the_target_guard_is_derived_from_the_profile_only
+        FAIL [   0.084s] ( 36/119) hdd-acceptance inspect::tests::a5_a_changed_config_revision_fails_the_gate
+        FAIL [   0.084s] ( 37/119) hdd-acceptance 
+inspect::tests::a5_a_false_would_block_fails_the_gate_without_a_ticket
+        FAIL [   0.083s] ( 38/119) hdd-acceptance inspect::tests::a_malformed_answer_fails_closed
+        FAIL [   0.087s] ( 39/119) hdd-acceptance inspect::tests::a_transport_failure_fails_closed
+        FAIL [   0.091s] ( 40/119) hdd-acceptance inspect::tests::an_empty_site_is_refused_without_calling_the_client
+        FAIL [   0.099s] ( 41/119) hdd-acceptance inspect::tests::the_gate_calls_the_client_once_per_check
+        FAIL [   0.097s] ( 42/119) hdd-acceptance 
+inspect::tests::the_happy_path_issues_a_ticket_bound_to_the_request_and_revision
+        FAIL [   0.106s] ( 44/119) hdd-acceptance 
+limits::tests::a2_the_five_minute_ceiling_trips_while_a_check_is_running
+        FAIL [   0.104s] ( 45/119) hdd-acceptance 
+limits::tests::a2_the_functional_profile_is_capped_at_twenty_requests_per_second_sustained
+        FAIL [   0.104s] ( 46/119) hdd-acceptance 
+limits::tests::a2_the_measured_run_holds_twenty_per_second_for_all_three_hundred_seconds
+        FAIL [   0.101s] ( 47/119) hdd-acceptance 
+limits::tests::a_check_cannot_raise_the_functional_ceiling_but_may_lower_it
+        FAIL [   0.101s] ( 48/119) hdd-acceptance 
+limits::tests::a_refusal_does_not_consume_the_budget_it_was_refused_from
+        FAIL [   0.101s] ( 49/119) hdd-acceptance limits::tests::one_limiter_is_shared_by_every_check_of_the_run
+        FAIL [   0.104s] ( 50/119) hdd-acceptance 
+limits::tests::the_burst_profile_caps_one_hundred_http_requests_and_five_hundred_dns_queries
+        FAIL [   0.118s] ( 53/119) hdd-acceptance 
+limits::tests::the_lab_and_load_ceilings_are_five_hundred_and_one_hundred_requests_per_second
+        FAIL [   0.122s] ( 54/119) hdd-acceptance 
+limits::tests::the_protocol_abuse_profile_caps_connections_frames_and_bytes
+        FAIL [   0.122s] ( 55/119) hdd-acceptance limits::tests::the_refill_is_sub_second_accurate
+        FAIL [   0.126s] ( 57/119) hdd-acceptance 
+registry::tests::a4_the_master_specification_agrees_with_the_registry_whole_token
+        FAIL [   0.127s] ( 59/119) hdd-acceptance 
+registry::tests::a4_the_split_specification_agrees_with_the_registry_whole_token
+        FAIL [   0.122s] ( 67/119) hdd-acceptance 
+report::tests::a_planted_secret_never_appears_in_either_rendered_format
+        FAIL [   0.120s] ( 68/119) hdd-acceptance report::tests::a_saved_log_is_redacted_before_it_is_written
+        FAIL [   0.114s] ( 79/119) hdd-acceptance report::tests::the_redactor_keeps_digests_and_redacts_marked_values
+        FAIL [   0.112s] ( 81/119) hdd-acceptance 
+runner::tests::a_cleanup_action_registered_by_a_completed_check_still_runs
+        FAIL [   0.110s] ( 82/119) hdd-acceptance runner::tests::a_completed_check_keeps_its_own_verdict
+        FAIL [   0.111s] ( 85/119) hdd-acceptance 
+runner::tests::a_kill_switch_that_is_already_set_aborts_before_the_check_body_runs
+        FAIL [   0.108s] ( 95/119) hdd-acceptance 
+runner::tests::the_per_check_timeout_aborts_the_check_and_cleanup_runs
+        FAIL [   0.203s] ( 96/119) hdd-acceptance 
+runner::tests::a_panicking_check_is_caught_counted_and_its_cleanup_runs
+        FAIL [   0.188s] ( 97/119) hdd-acceptance runner::tests::a_pass_without_evidence_is_turned_into_a_fail
+        FAIL [   0.149s] ( 98/119) hdd-acceptance runner::tests::cleanup_runs_when_a_check_fails
+        FAIL [   0.100s] ( 99/119) hdd-acceptance runner::tests::the_shared_limiter_is_one_instance_for_all_checks
+        FAIL [   0.321s] (107/119) hdd-acceptance 
+runner::tests::a3_the_kill_switch_aborts_a_running_check_within_one_second_and_cleanup_runs
+        FAIL [   0.323s] (118/119) hdd-acceptance runner::tests::a_signal_aborts_a_running_check_and_cleanup_runs
+        FAIL [   0.334s] (119/119) hdd-acceptance 
+runner::tests::run_plan_executes_in_order_and_marks_the_rest_skipped_after_an_abort
+error: test run failed
+
+Exit code: 100

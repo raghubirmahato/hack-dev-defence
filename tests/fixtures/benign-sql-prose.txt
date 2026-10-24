@@ -1,0 +1,168 @@
+# hdd-waf-core benign fixtures: SQL-in-prose values (C4.9, HK1 demo track).
+# Format: one value per line; lines starting with '#' and blank lines are ignored.
+# None of these values may produce a Block verdict under the default Balanced settings: zero false positives.
+# They are the kind of text a documentation site, a Q&A site or a support desk receives: SQL words in prose.
+# Review round 1 added the quoted-word prose cases: a bare quoted literal after a break-out is soft in Balanced.
+'a' or 'b'
+I said 'no' or 'yes'
+how to select a database
+select a date and time from the calendar
+select a colour from the palette
+select the items you want to keep
+please order by date
+order by name, then by date
+order by 1, 2, 3
+group by category
+group by region and sum the totals
+group by customer and count the orders
+how to insert a row into a table
+insert your details in the form
+update your profile information
+update the record after review
+delete old records after 30 days
+delete this draft when you are done
+drop unused tables during maintenance
+drop table statements are dangerous
+create a table with three columns
+create an index on the email column
+alter the table to add a column
+alter table statements need care
+truncate the log when it grows too large
+truncate table removes every row quickly
+grant read access to the analyst role
+grant all privileges to the admin user
+revoke the old credentials
+revoke access from the former employee
+the union of two sets
+union all keeps duplicate rows
+union select syntax is explained in the docs
+union and select are SQL keywords
+how to join two tables
+inner join and outer join explained
+the where clause filters rows
+the having clause filters groups
+order by limit offset pagination
+limit the result set to ten rows
+the where clause can use and or conditions
+use and to combine predicates
+the or operator matches either side
+is null checks for missing values
+not null columns must have values
+like matches patterns with percent signs
+between filters numeric ranges
+in filters against a list of values
+the equals sign compares two values
+quote the string with single quotes
+escape single quotes by doubling them
+parameterised queries prevent sql injection
+never concatenate user input into a query
+use prepared statements for every query
+the database normalises the username column
+column names are case insensitive
+the primary key is an integer id
+foreign keys enforce referential integrity
+transactions wrap multiple statements
+rollback undoes the current transaction
+commit saves the transaction
+commits are durable
+the schema defines tables and indexes
+information schema lists table metadata
+pg catalog lists system tables
+sqlite master lists tables in sqlite
+the version function returns the server version
+the current user is a sql function
+string functions build and slice text
+sleep delays a query
+benchmark measures query time
+wait for the query to finish
+select into writes rows to a new table
+load file reads files on the server
+xp cmdshell is a stored procedure
+the stored procedure executes a shell command
+database administrators restrict access
+sql injection attempts should be blocked
+a tautology is always true
+the condition is always true
+one equals one is trivially true
+select from the menu
+how to select from a list
+select from the dropdown
+select all rows from a table
+select distinct names from customers
+update from a backup
+delete from the table
+insert into the table
+the drop command removes tables
+the copy command duplicates data
+declare variables with the set statement
+exec runs a command
+execute the stored procedure
+shutdown the server gracefully
+the pragma statement configures sqlite
+attach a database file
+vacuum reclaims space
+char functions build strings
+chr returns a character
+concat joins strings
+ascii returns the code of a character
+hex converts bytes to text
+substring returns part of a string
+if returns one value or another
+case expressions choose a branch
+select case when x then y else z end from t
+boolean conditions use and or not
+parentheses group conditions
+single quotes delimit strings
+double quotes delimit identifiers in sql
+backticks quote identifiers in mysql
+comments start with two dashes
+comment lines begin with two dashes in sql
+block comments use slash star
+semicolons separate statements
+end each statement with a semicolon
+stacked statements are dangerous
+stacked queries run multiple statements
+time based attacks use sleep
+error based attacks use extractvalue
+blind injection asks yes or no questions
+out of band attacks use dns
+hex literals start with zero x
+the 0x prefix marks a hex literal
+scientific notation uses e as in 1e0
+the value 1e0 equals one
+quotes may be used to break out of a string
+an injection payload often contains an apostrophe
+names like O'Brien and D'Arcy are common
+the admin account should be protected
+the login form accepts a username and password
+credentials are compared against the database
+hash passwords with a slow algorithm
+sessions expire after eight hours
+csrf tokens protect forms
+the referer header can be spoofed
+user agent strings vary widely
+x forwarded for carries the client address
+cookies store session identifiers
+set cookie attributes carefully
+content type is application json
+multipart forms upload files
+the filename may contain an apostrophe
+please order by last name
+select your seat from the map
+the query returns zero rows
+run the update at midnight
+the database has two replicas
+backups run every night
+the index speeds up the lookup
+the view joins three tables
+the trigger fires after insert
+the procedure declares a variable
+the cursor moves through the result set
+the transaction rolls back on error
+constraints reject invalid values
+normalisation removes duplication
+denormalisation can improve reads
+the schema migration adds a column
+seed the database with sample data
+truncate the output for display
+drop the temporary view afterwards

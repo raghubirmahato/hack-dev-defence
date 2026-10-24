@@ -1,0 +1,109 @@
+# Context-rule fixtures for `cargo xtask claims-lint` (T-0019 step 4, R-10).
+#
+# Every row is one line of public copy, the repository path it would live at, and the expected result of
+# `claims::scan_text` under the shipped configuration: `pass` means no finding, `fail` means at least one finding from
+# the context rule (a claim word without a scope term within 12 words). The fixtures contain no forbidden phrase from
+# section 4.2 in a path the phrase rules scan, so a `fail` here is the context rule firing.
+#
+# This file is scanned by claims-lint itself (docs/** is included); that is why the failing sentences use only the
+# context rule and never a forbidden phrase.
+
+[[fixture]]
+sentence = "HDD protects your site against SQL injection."
+path = "docs/site/index.md"
+expect = "pass"
+
+[[fixture]]
+sentence = "Our lab tests show which addresses the rules protect today."
+path = "docs/site/features.md"
+expect = "pass"
+
+[[fixture]]
+sentence = "Protection is measured against 120 payloads in our lab."
+path = "i18n/en/landing.ftl"
+expect = "pass"
+
+[[fixture]]
+sentence = "The protection we sell is scoped to proxied names."
+path = "crates/hdd-web/templates/pricing.html"
+expect = "pass"
+
+[[fixture]]
+sentence = "This protection has known limitations, listed on the coverage page."
+path = "docs/site/limits.md"
+expect = "pass"
+
+[[fixture]]
+sentence = "Protection is tested in the lab and measured against 200 payloads."
+path = "docs/site/trust.md"
+expect = "pass"
+
+[[fixture]]
+sentence = "Rules protect the origin against XSS payloads in tests."
+path = "crates/hdd-web/templates/features.html"
+expect = "pass"
+
+[[fixture]]
+sentence = "The protection is measured on our reference lab."
+path = "i18n/en/pricing.ftl"
+expect = "pass"
+
+[[fixture]]
+sentence = "HDD protection is scoped to the tested attack class."
+path = "docs/site/security.md"
+expect = "pass"
+
+[[fixture]]
+sentence = "Lab-proven protection against SQL injection is documented with results."
+path = "docs/site/lab.md"
+expect = "pass"
+
+[[fixture]]
+sentence = "We protect your site."
+path = "docs/site/index.md"
+expect = "fail"
+
+[[fixture]]
+sentence = "Our protection keeps every visitor safe."
+path = "docs/site/features.md"
+expect = "fail"
+
+[[fixture]]
+sentence = "Protect your login page from bad traffic."
+path = "i18n/en/landing.ftl"
+expect = "fail"
+
+[[fixture]]
+sentence = "This plan includes protection for your whole business."
+path = "crates/hdd-web/templates/pricing.html"
+expect = "fail"
+
+[[fixture]]
+sentence = "You are protected around the clock."
+path = "docs/site/trust.md"
+expect = "fail"
+
+[[fixture]]
+sentence = "The protection has no limit worth mentioning."
+path = "docs/site/limits.md"
+expect = "fail"
+
+[[fixture]]
+sentence = "Our rules protect everything behind your domain."
+path = "docs/site/security.md"
+expect = "fail"
+
+[[fixture]]
+sentence = "Protection starts here today."
+path = "crates/hdd-web/templates/landing.html"
+expect = "fail"
+
+[[fixture]]
+sentence = "Protect the admin area with one click."
+path = "i18n/en/features.ftl"
+expect = "fail"
+
+[[fixture]]
+sentence = "Enterprise protection is included in every plan."
+path = "docs/site/enterprise.md"
+expect = "fail"

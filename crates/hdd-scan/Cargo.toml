@@ -1,0 +1,10 @@
+[package]
+name = "hdd-scan"
+description = "read-only posture scanner and origin hardening report"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true

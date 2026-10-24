@@ -1,0 +1,94 @@
+
+============================================================
+7) SHA-256 of the delivered/edited files
+============================================================
+C92C30C296DEBC95AAD6449B81D6D0ACB0C292F6E76706B2545BC4D0CE7ED2CA  crates/hdd-canary/src/lib.rs
+141681E1FEF9BE6595D23D8283E3C91E30F6F7F74166ED4D17A922C5EE6FD5DB  crates/hdd-canary/src/main.rs
+C9F947142AB621DB03989FE2A0EC1D17B9573C812974E86D63FF0AC678426580  crates/hdd-canary/tests/hostile.rs
+2A881F7699E32E9092AF14DF66300FFE211C8824AC7B3C2A880813DB63FBCFE0  crates/hdd-canary/tests/cli.rs
+C8CD0BB8BD9BF06225A900295BA6156E6F045076AF922E89B29E015EDA2634CE  crates/hddctl/src/main.rs
+6B5BF95DB739B1A8016398C616B6D0C0CAB09FEA47F2270855E82301397E9201  crates/hddctl/tests/canary.rs
+A2C136458602435C220CD7A85D1199E706177A142E12B889E6F97B8557983218  CANARY.md
+F89257C77FF676500358421F6A99B6229A749316A39A436E8E0C52920DD3A7CF  deploy/hdd-canary.service
+6C63073BD89BBA13FD7BD7B0DFA9C6CF774705FAE44FF7FE0722285346C12496  docs/evidence/P11/T-0210-b2r1-red.txt
+ABD683FC147B33E9A0A13220167BAA05EE9226A9E4C64214D282F0FB6C2C3148  docs/evidence/P11/T-0210-b2r1-negative-demos.txt
+
+============================================================
+8) Encoding check (UTF-8 without byte-order mark)
+============================================================
+   crates/hdd-canary/src/lib.rs  BOM=False
+   crates/hdd-canary/src/main.rs  BOM=False
+   crates/hdd-canary/tests/hostile.rs  BOM=False
+   crates/hdd-canary/tests/cli.rs  BOM=False
+   crates/hddctl/src/main.rs  BOM=False
+   crates/hddctl/tests/canary.rs  BOM=False
+   CANARY.md  BOM=False
+   deploy/hdd-canary.service  BOM=False
+   docs/evidence/P11/T-0210-b2r1-red.txt  BOM=False
+   docs/evidence/P11/T-0210-b2r1-negative-demos.txt  BOM=False
+
+============================================================
+9) Scope check: working-tree state (git status --short; peer files of the parallel batch included)
+============================================================
+ M ARCHITECTURE.md
+ M CANARY.md
+ M Cargo.lock
+ M OPERATIONS.md
+ M crates/hdd-acceptance/Cargo.toml
+ M crates/hdd-acceptance/src/main.rs
+ M crates/hdd-canary/Cargo.toml
+ M crates/hdd-canary/src/main.rs
+ M crates/hdd-xtask/src/ux_docs.rs
+ M crates/hdd-xtask/src/ux_docs/tests.rs
+ M crates/hddctl/Cargo.toml
+ M crates/hddctl/src/main.rs
+ M docs/DEVIATIONS.md
+ M docs/OPERATOR-QUESTIONS.md
+ M docs/STRIDE.md
+ M docs/UX/CONTENT.md
+ M supply-chain/config.toml
+?? crates/hdd-acceptance/src/config.rs
+?? crates/hdd-acceptance/src/config/
+?? crates/hdd-acceptance/src/control.rs
+?? crates/hdd-acceptance/src/control/
+?? crates/hdd-acceptance/src/guard.rs
+?? crates/hdd-acceptance/src/guard/
+?? crates/hdd-acceptance/src/inspect.rs
+?? crates/hdd-acceptance/src/inspect/
+?? crates/hdd-acceptance/src/lib.rs
+?? crates/hdd-acceptance/src/limits.rs
+?? crates/hdd-acceptance/src/limits/
+?? crates/hdd-acceptance/src/registry.rs
+?? crates/hdd-acceptance/src/registry/
+?? crates/hdd-acceptance/src/report.rs
+?? crates/hdd-acceptance/src/report/
+?? crates/hdd-acceptance/src/runner.rs
+?? crates/hdd-acceptance/src/runner/
+?? crates/hdd-acceptance/src/status.rs
+?? crates/hdd-acceptance/src/status/
+?? crates/hdd-acceptance/src/test_support.rs
+?? crates/hdd-acceptance/tests/
+?? crates/hdd-canary/src/lib.rs
+?? crates/hdd-canary/tests/
+?? crates/hdd-xtask/src/ux_docs/errors.rs
+?? crates/hdd-xtask/src/ux_docs/i18n_plan.rs
+?? crates/hddctl/tests/canary.rs
+?? deploy/hdd-canary.service
+?? docs/ACCEPTANCE.md
+?? docs/UX/ERRORS.md
+?? docs/UX/I18N.md
+?? docs/evidence/P01/T-0020-23-verify.txt
+?? docs/evidence/P01/T-0020-b2r1-negative-demos.txt
+?? docs/evidence/P01/T-0020-b2r1-red.txt
+?? docs/evidence/P01/T-0020-negative-demos.txt
+?? docs/evidence/P01/T-0020-red.txt
+?? docs/evidence/P01/T-0020-verify.txt
+?? docs/evidence/P01/T-0023-b2r1-negative-demos.txt
+?? docs/evidence/P01/T-0023-b2r1-red.txt
+?? docs/evidence/P01/T-0023-negative-demos.txt
+?? docs/evidence/P01/T-0023-red.txt
+?? docs/evidence/P01/T-0023-verify.txt
+?? docs/evidence/P11/
+?? i18n/en/errors.ftl
+?? scratch_b2r1_demos.ps1
+

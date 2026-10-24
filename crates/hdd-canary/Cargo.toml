@@ -1,0 +1,16 @@
+[package]
+name = "hdd-canary"
+description = "origin-side sidecar: serves canary files, echoes received headers"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+# SHA-256 over the generated canary files for the manifest (A1 of T-0210). Already in this workspace and its graph
+# (`crates/hdd-xtask/Cargo.toml`, `crates/hdd-local/Cargo.toml`, `Cargo.lock`), vetted in `docs/vetting.toml`
+# (MIT OR Apache-2.0, MSRV 1.88, last release 2026-10-12). Only the public digest API is used.
+sha2 = "0.11.1"

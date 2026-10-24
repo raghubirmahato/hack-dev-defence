@@ -1,0 +1,28 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.19s
+────────────
+ Nextest run ID 4b62fffd-04cb-44b0-995f-31eb1c8cbe4c with nextest profile: default
+    Starting 1 test across 1 binary (135 tests skipped)
+        FAIL [   0.009s] (1/1) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_primary_persona_row_must_sit_in_the_named_section
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::the_primary_persona_row_must_sit_in_the_named_section ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::the_primary_persona_row_must_sit_in_the_named_section
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 135 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::the_primary_persona_row_must_sit_in_the_named_section' (25888) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:825:5:
+    [ux-docs] docs/OPERATOR-QUESTIONS.md:5: the primary-persona question has no default; the default is Maya, the site owner (B1.1)
+    [ux-docs] docs/OPERATOR-QUESTIONS.md:5: the primary-persona question is not marked OPEN (A5)
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   0.010s] 1 test run: 0 passed, 1 failed, 135 skipped
+        FAIL [   0.009s] (1/1) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_primary_persona_row_must_sit_in_the_named_section
+error: test run failed

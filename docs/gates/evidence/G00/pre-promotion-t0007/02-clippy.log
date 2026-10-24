@@ -1,0 +1,12 @@
+$ cargo clippy --workspace --all-targets -- -D warnings
+   Compiling ring v0.17.14
+   Compiling rustls v0.23.46
+    Checking rustls-webpki v0.103.15
+    Checking rcgen v0.14.10
+    Checking tokio-rustls v0.26.6
+    Checking hdd-common v0.0.0 (D:\Hack Dev Defence\crates\hdd-common)
+    Checking hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+    Checking hddctl v0.0.0 (D:\Hack Dev Defence\crates\hddctl)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 6.35s
+
+(exit 0)

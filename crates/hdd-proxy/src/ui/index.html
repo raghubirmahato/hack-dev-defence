@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>HDD control panel</title>
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/static/app.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <symbol id="i-overview" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></symbol>
+      <symbol id="i-events" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></symbol>
+      <symbol id="i-bans" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></symbol>
+      <symbol id="i-sites" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></symbol>
+      <symbol id="i-console" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M7 10l3 2.5L7 15M13 15h4"/></symbol>
+      <symbol id="i-block" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9.5 9.5l5 5M14.5 9.5l-5 5"/></symbol>
+      <symbol id="i-account" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.3-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.8a3.5 3.5 0 010 6.4M18 14.8c1.9.7 3.2 2.4 3.7 5.2"/></symbol>
+      <symbol id="i-about" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/></symbol>
+      <symbol id="i-theme" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z"/></symbol>
+      <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 4H5a2 2 0 00-2 2v12a2 2 0 002 2h4M16 8l4 4-4 4M20 12H9"/></symbol>
+    </svg>
+
+    <div class="app">
+    <header class="sidebar">
+      <a class="brand" href="/" aria-label="HDD home">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 44" focusable="false"><defs><linearGradient id="hg0" x1="4" y1="2" x2="36" y2="42" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#14b8a6"/><stop offset="1" stop-color="#2563eb"/></linearGradient></defs><path d="M20 2.2 35.5 8v13.2c0 10.2-6.5 17.4-15.5 20.8C11 38.600 4.500 31.400 4.500 21.200V8z" fill="url(#hg0)"/><path d="M20 2.2 4.500 8v13.200c0 10.200 6.500 17.400 15.500 20.800z" fill="#fff" opacity=".13"/><path d="M20 6 32 10.500v10.800c0 8-5 13.800-12 16.800C13 35.100 8 29.300 8 21.300V10.500z" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="1"/><path d="M13.200 14.500v15M26.800 14.500v15" fill="none" stroke="#fff" stroke-width="3.600" stroke-linecap="round"/><path d="M13.200 22h13.600" fill="none" stroke="#99f6e4" stroke-width="3.600" stroke-linecap="round"/></svg></span>
+        <span><span class="brand-name">HDD</span><span class="brand-sub">Hack Dev Defence</span></span>
+      </a>
+      <p class="nav-label">Monitor</p>
+      <nav class="main-nav" aria-label="Main">
+        <a href="#/overview" data-route="overview" aria-current="page"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-overview"/></svg>Overview</a>
+        <a href="#/events" data-route="events"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-events"/></svg>Events</a>
+        <a href="#/bans" data-route="bans"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-bans"/></svg>Bans</a>
+        <a href="#/sites" data-route="sites"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-sites"/></svg>Sites</a>
+        <a href="#/console" data-route="console"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-console"/></svg>Test console</a>
+        <a href="#/block-preview" data-route="block-preview"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-block"/></svg>Block page</a>
+        <a href="#/account" data-route="account"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-account"/></svg>Account</a>
+        <a href="#/users" data-route="users" data-owner-only hidden><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-users"/></svg>Users</a>
+        <a href="#/about" data-route="about"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-about"/></svg>About</a>
+      </nav>
+      <div class="session-box">
+        <span id="session-name" class="mono"></span>
+        <span id="session-role" class="chip muted"></span>
+        <button type="button" class="btn small" id="logout-btn"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-out"/></svg>Sign out</button>
+        <button type="button" class="btn small theme-toggle" id="theme-toggle" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-theme"/></svg>Dark mode</button>
+      </div>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <div id="global-error" class="alert error" role="alert" hidden></div>
+      <p id="global-status" class="sr-only" role="status" aria-live="polite"></p>
+
+      <!-- ==================== Overview ==================== -->
+      <section class="screen" id="screen-overview" aria-labelledby="overview-title">
+        <h1 id="overview-title">Overview</h1>
+        <p class="lead">
+          What HDD inspected in the last hour, and the <strong>honest protection state</strong> of every site. A site is only shown as
+          protected when <strong>block mode is on and the origin lockdown check has actually passed</strong>.
+        </p>
+        <div id="overview-banner"></div>
+        <div id="overview-checklist"></div>
+        <div class="grid cols-4" id="overview-counters" aria-label="Counters for the last hour"></div>
+        <h2>Live blocked requests</h2>
+        <p class="lead">
+          The feed polls the events API every two seconds while this screen is visible. When the API cannot be reached
+          it says so instead of inventing rows.
+        </p>
+        <p id="overview-live-status" class="chip muted" role="status">Live feed not connected yet.</p>
+        <ul class="feed" id="overview-feed" aria-label="Recently blocked requests"></ul>
+        <h2>Your sites</h2>
+        <div class="grid cols-2" id="overview-sites"></div>
+      </section>
+
+      <!-- ==================== Events ==================== -->
+      <section class="screen" id="screen-events" aria-labelledby="events-title" hidden>
+        <h1 id="events-title">Events</h1>
+        <p class="lead">
+          Every inspected request HDD recorded, newest first. Blocked and would-block rows explain <strong>why the detector
+          fired</strong>: rule family, vector, field and redacted evidence. Use the filters to narrow the list.
+        </p>
+        <div class="toolbar">
+          <label for="event-site">
+            Site
+            <select id="event-site"><option value="">All sites</option></select>
+          </label>
+          <label for="event-action">
+            Action
+            <select id="event-action">
+              <option value="">All actions</option>
+              <option value="block">block</option>
+              <option value="would_block">would_block</option>
+              <option value="allow">allow</option>
+            </select>
+          </label>
+          <label for="event-search">
+            Search
+            <input type="search" id="event-search" placeholder="IP, path, rule id, Ray ID, evidence…" autocomplete="off" />
+          </label>
+          <div class="spacer"></div>
+          <button type="button" class="btn" id="events-refresh">Refresh</button>
+        </div>
+        <p class="preview-note" id="events-count" role="status"></p>
+        <div id="events-empty" class="empty" hidden>
+          <h3>No events yet</h3>
+          <p>
+            Events appear here as soon as requests reach a site in <code>monitor</code> or <code>block</code> mode. HDD
+            does not show sample rows: an empty table means nothing was recorded.
+          </p>
+        </div>
+        <div class="table-wrap" id="events-table" hidden>
+          <table>
+            <caption id="events-caption">Inspected requests, newest first</caption>
+            <thead>
+              <tr>
+                <th scope="col">Time</th>
+                <th scope="col">Action</th>
+                <th scope="col">Client IP</th>
+                <th scope="col">What was detected</th>
+                <th scope="col">Where</th>
+                <th scope="col">Evidence (redacted)</th>
+                <th scope="col"><span class="sr-only">Details</span></th>
+              </tr>
+            </thead>
+            <tbody id="events-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== Bans ==================== -->
+      <section class="screen" id="screen-bans" aria-labelledby="bans-title" hidden>
+        <h1 id="bans-title">Bans</h1>
+        <p class="lead">
+          Client IPs currently refused. The time-to-live counts down in real time; a ban lifts automatically at zero,
+          or an owner can lift it early with Unban.
+        </p>
+        <div class="toolbar">
+          <form id="unblock-form" class="inline-form" novalidate>
+            <label for="unblock-ip">
+              Unblock an IP address
+              <input type="text" id="unblock-ip" name="ip" placeholder="for example 203.0.113.7" autocomplete="off" spellcheck="false" inputmode="text" />
+            </label>
+            <button type="submit" class="btn" id="unblock-submit">Unblock IP</button>
+            <span class="field-error" id="unblock-validation" role="alert"></span>
+          </form>
+          <div class="spacer"></div>
+          <button type="button" class="btn" id="bans-refresh">Refresh</button>
+        </div>
+        <div id="bans-empty" class="empty" hidden>
+          <h3>No bans</h3>
+          <p>
+            When block mode refuses an attack, the client IP is banned with the site's progressive TTL ladder. No bans
+            right now means no client is currently refused.
+          </p>
+        </div>
+        <div class="table-wrap" id="bans-table" hidden>
+          <table>
+            <caption id="bans-caption">Active bans, soonest expiry first</caption>
+            <thead>
+              <tr>
+                <th scope="col">Client IP</th>
+                <th scope="col">Site</th>
+                <th scope="col">Reason</th>
+                <th scope="col">Rule</th>
+                <th scope="col">Step</th>
+                <th scope="col">Expires in</th>
+                <th scope="col">Expires at</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="bans-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== Sites ==================== -->
+      <section class="screen" id="screen-sites" aria-labelledby="sites-title" hidden>
+        <h1 id="sites-title">Sites</h1>
+        <p class="lead">
+          The sites HDD sits in front of, their detection settings and their connection setup. Adding a site starts a
+          three-step wizard: connection method, origin lockdown, then protection verification.
+        </p>
+        <div class="toolbar">
+          <button type="button" class="btn primary" id="add-site-btn" data-owner-only>Add site</button>
+          <div class="spacer"></div>
+          <button type="button" class="btn" id="sites-refresh">Refresh</button>
+        </div>
+        <div id="sites-empty" class="empty" hidden>
+          <h3>No sites configured</h3>
+          <p>
+            HDD forwards nothing until a site exists. Add your domain and origin, then follow the generated connection
+            steps: the site is not protected until the origin is locked down and verification passes.
+          </p>
+        </div>
+        <div class="grid cols-2" id="sites-list"></div>
+      </section>
+
+      <!-- ==================== Test console ==================== -->
+      <section class="screen" id="screen-console" aria-labelledby="console-title" hidden>
+        <h1 id="console-title">Test console</h1>
+        <p class="lead">
+          Run a payload through the SQL-injection detector without sending anything to a site. This calls the same
+          inspection API the proxy uses; nothing leaves this machine.
+        </p>
+        <form id="inspect-form" class="stack" novalidate>
+          <div class="examples" id="inspect-examples" role="group" aria-label="Example payloads"></div>
+          <label for="inspect-payload">
+            Payload
+            <span class="hint">Paste the suspicious value, for example an auth-bypass string from a login form.</span>
+            <textarea id="inspect-payload" name="payload" rows="4" required spellcheck="false"></textarea>
+          </label>
+          <div class="form-grid">
+            <label for="inspect-kind">
+              Field kind
+              <select id="inspect-kind" name="field_kind">
+                <option value="">unknown (infer from the field name)</option>
+                <option value="password">password</option>
+                <option value="username">username</option>
+                <option value="numeric_id">numeric id</option>
+                <option value="search">search</option>
+                <option value="free_text">free text</option>
+                <option value="filename">filename</option>
+                <option value="header">header</option>
+                <option value="cookie">cookie</option>
+                <option value="unknown">unknown</option>
+              </select>
+            </label>
+            <label for="inspect-vector">
+              Vector
+              <select id="inspect-vector" name="vector">
+                <option value="query">query</option>
+                <option value="path">path</option>
+                <option value="form_body">form body</option>
+                <option value="json_body">JSON body</option>
+                <option value="multipart_field">multipart field</option>
+                <option value="multipart_filename">multipart filename</option>
+                <option value="header">header</option>
+                <option value="cookie">cookie</option>
+              </select>
+            </label>
+            <label for="inspect-site">
+              Site settings
+              <select id="inspect-site" name="site">
+                <option value="">Default (balanced strictness)</option>
+              </select>
+            </label>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn primary" id="inspect-submit">Inspect payload</button>
+            <span class="field-error" id="inspect-validation" role="alert"></span>
+          </div>
+        </form>
+        <div id="inspect-result" hidden></div>
+        <div class="empty" id="inspect-empty">
+          <h3>No verdict yet</h3>
+          <p>Enter a payload and press Inspect payload. The verdict shows the action, rule family, vector, field and the redacted evidence.</p>
+        </div>
+      </section>
+
+      <!-- ==================== Block page preview ==================== -->
+      <section class="screen" id="screen-block-preview" aria-labelledby="block-preview-title" hidden>
+        <h1 id="block-preview-title">Block page</h1>
+        <p class="lead">
+          The self-contained page a blocked request receives. It makes no external requests and shows the Ray ID so the
+          site owner can find the matching event.
+        </p>
+        <div class="toolbar">
+          <button type="button" class="btn" id="block-preview-refresh">Refresh preview</button>
+        </div>
+        <p class="preview-note" id="block-preview-meta" role="status"></p>
+        <div id="block-preview-empty" class="empty" hidden>
+          <h3>Preview unavailable</h3>
+          <p>The block page preview could not be loaded from the API. Nothing is shown rather than a fabricated substitute.</p>
+        </div>
+        <iframe
+          class="preview-frame"
+          id="block-preview-frame"
+          title="Block page preview"
+          sandbox=""
+          referrerpolicy="no-referrer"
+        ></iframe>
+      </section>
+
+      <!-- ==================== Account ==================== -->
+      <section class="screen" id="screen-account" aria-labelledby="account-title" hidden>
+        <h1 id="account-title">Account</h1>
+        <p class="lead">Your profile, active sessions, sign-in methods and script API tokens.</p>
+        <div class="grid cols-2">
+          <div class="card">
+            <h2>Profile</h2>
+            <div id="account-profile"><p class="preview-note">Loading…</p></div>
+          </div>
+          <div class="card">
+            <h2>Change email</h2>
+            <form id="email-form" class="stack" novalidate>
+              <label for="email-password">
+                Current password
+                <input type="password" id="email-password" name="password" autocomplete="current-password" required />
+              </label>
+              <label for="email-new">
+                New email
+                <input type="email" id="email-new" name="email" autocomplete="email" required />
+              </label>
+              <div class="form-actions">
+                <button type="submit" class="btn">Change email</button>
+                <span class="field-error" id="email-error" role="alert"></span>
+              </div>
+            </form>
+          </div>
+          <div class="card">
+            <h2>Change password</h2>
+            <form id="password-form" class="stack" novalidate>
+              <label for="password-current">
+                Current password
+                <input type="password" id="password-current" name="current_password" autocomplete="current-password" required />
+              </label>
+              <label for="password-new">
+                New password
+                <span class="hint">At least 12 characters; mix upper case, lower case, digits and symbols.</span>
+                <input type="password" id="password-new" name="new_password" autocomplete="new-password" minlength="12" required />
+              </label>
+              <label for="password-confirm">
+                Confirm new password
+                <input type="password" id="password-confirm" name="confirm_password" autocomplete="new-password" minlength="12" required />
+              </label>
+              <div class="form-actions">
+                <button type="submit" class="btn">Change password</button>
+                <span class="field-error" id="password-error" role="alert"></span>
+              </div>
+            </form>
+          </div>
+          <div class="card">
+            <h2>Create API token</h2>
+            <p class="preview-note">
+              Tokens authenticate scripts under your role (API parity). The value is shown once and only its hash is
+              stored.
+            </p>
+            <form id="token-form" class="stack" novalidate>
+              <label for="token-name">
+                Token label
+                <input type="text" id="token-name" name="name" maxlength="80" required />
+              </label>
+              <div class="form-actions">
+                <button type="submit" class="btn">Create token</button>
+                <span class="field-error" id="token-error" role="alert"></span>
+              </div>
+            </form>
+          </div>
+        </div>
+        <h2>Active sessions</h2>
+        <div id="sessions-empty" class="empty" hidden>
+          <h3>No active sessions</h3>
+          <p>There are no active sessions. You are reading this from a session that has since been revoked.</p>
+        </div>
+        <div class="table-wrap" id="sessions-table" hidden>
+          <table>
+            <caption>Sign-ins that are still valid</caption>
+            <thead>
+              <tr>
+                <th scope="col">Created</th>
+                <th scope="col">Last seen</th>
+                <th scope="col">Client IP</th>
+                <th scope="col">Current</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="sessions-body"></tbody>
+          </table>
+        </div>
+        <h2>API tokens</h2>
+        <div id="tokens-empty" class="empty" hidden>
+          <h3>No API tokens</h3>
+          <p>No script tokens exist. Create one above and copy it immediately: it is never shown again.</p>
+        </div>
+        <div class="table-wrap" id="tokens-table" hidden>
+          <table>
+            <caption>Script credentials for the admin API</caption>
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Created</th>
+                <th scope="col">Last used</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tokens-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== Users ==================== -->
+      <section class="screen" id="screen-users" aria-labelledby="users-title" hidden>
+        <h1 id="users-title">Users</h1>
+        <p class="lead">
+          Accounts that can sign in. Owners can change everything; viewers are read-only. The last owner cannot be
+          removed or demoted.
+        </p>
+        <div class="card" id="add-user-card">
+          <h2>Add user</h2>
+          <form id="user-form" class="form-grid" novalidate>
+            <label for="user-username">
+              Username
+              <input type="text" id="user-username" name="username" autocomplete="off" required />
+            </label>
+            <label for="user-email">
+              Email
+              <input type="email" id="user-email" name="email" autocomplete="off" required />
+            </label>
+            <label for="user-password">
+              Initial password
+              <span class="hint">At least 12 characters; strength-checked like the owner password.</span>
+              <input type="password" id="user-password" name="password" autocomplete="new-password" minlength="12" required />
+            </label>
+            <label for="user-role">
+              Role
+              <select id="user-role" name="role">
+                <option value="viewer">viewer (read-only)</option>
+                <option value="owner">owner</option>
+              </select>
+            </label>
+            <div class="form-actions">
+              <button type="submit" class="btn primary">Add user</button>
+              <span class="field-error" id="user-error" role="alert"></span>
+            </div>
+          </form>
+        </div>
+        <div id="users-empty" class="empty" hidden>
+          <h3>No users</h3>
+          <p>The account list is empty. This should be impossible after first-run setup; reload the page or check the data directory.</p>
+        </div>
+        <div class="table-wrap" id="users-table" hidden>
+          <table>
+            <caption>Accounts that can sign in</caption>
+            <thead>
+              <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+                <th scope="col">Created</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="users-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== About ==================== -->
+      <section class="screen" id="screen-about" aria-labelledby="about-title" hidden>
+        <h1 id="about-title">About</h1>
+        <p class="lead">Health of this HDD instance and the limits of what it can honestly claim.</p>
+        <div class="card">
+          <h2>Health</h2>
+          <div id="about-health"><p class="preview-note">Loading /healthz…</p></div>
+        </div>
+        <div class="card" style="margin-top: 1rem">
+          <h2>What this build does and does not claim</h2>
+          <ul class="checklist">
+            <li>It inspects request vectors for SQL-injection shapes and blocks them when a site is in block mode.</li>
+            <li>It records what it saw: rule family, vector, field, redacted evidence and a Ray ID.</li>
+            <li>A site is not protected while it can be bypassed: block mode needs a verified origin lockdown (R-34).</li>
+            <li>Detection is measured against its fixtures; it is not a completeness claim and there is no absolute protection.</li>
+            <li>Request bodies are never logged in full and evidence is redacted and capped.</li>
+            <li>TLS is terminated by Caddy, Cloudflare or nginx in front of the proxy; the proxy itself is HTTP on loopback.</li>
+          </ul>
+        </div>
+        <p class="footer-note">
+          HDD Hack Dev Defence demo build. The UI never fabricates numbers, sample rows or protection claims: empty and
+          unverified states are shown as such.
+        </p>
+      </section>
+    </main>
+    </div>
+
+    <script src="/static/theme.js"></script>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

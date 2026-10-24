@@ -1,0 +1,476 @@
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+Failed to match (ignoring source) package: registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2 
+     Removed 12414 files, 5.8GiB total
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.27
+    Checking windows-link v0.2.1
+    Checking cfg-if v1.0.5
+   Compiling serde_core v1.0.229
+    Checking itoa v1.0.18
+   Compiling shlex v2.0.1
+   Compiling find-msvc-tools v0.1.14
+    Checking bytes v1.12.1
+   Compiling rustversion v1.0.23
+    Checking anstyle v1.0.14
+    Checking zeroize v1.9.1
+    Checking pin-project-lite v0.2.17
+    Checking memchr v2.8.3
+    Checking smallvec v1.16.3
+    Checking windows-sys v0.61.2
+    Checking getrandom v0.2.17
+    Checking typenum v1.20.1
+   Compiling autocfg v1.5.1
+   Compiling httparse v1.10.1
+    Checking untrusted v0.9.0
+   Compiling zmij v1.0.23
+    Checking rustls-pki-types v1.15.1
+    Checking scopeguard v1.2.0
+    Checking once_cell_polyfill v1.70.2
+    Checking core_detect v1.0.0
+    Checking futures-core v0.3.34
+   Compiling multiversion_no_op v1.0.0
+    Checking http v1.5.0
+    Checking simdutf8 v0.1.5
+   Compiling num-traits v0.2.19
+   Compiling serde_json v1.0.154
+   Compiling cc v1.8.0
+    Checking try-lock v0.2.5
+   Compiling serde v1.0.229
+    Checking hybrid-array v0.4.15
+   Compiling rustls v0.23.46
+   Compiling ref-cast v1.0.27
+    Checking utf8parse v0.2.2
+    Checking want v0.3.2
+    Checking anstyle-parse v1.0.0
+    Checking is_terminal_polyfill v1.70.2
+    Checking subtle v2.6.1
+    Checking once_cell v1.21.4
+    Checking arraydeque v0.5.1
+    Checking socket2 v0.6.5
+    Checking mio v1.2.4
+   Compiling encoding_rs v0.8.42
+    Checking http-body v1.1.0
+    Checking anstyle-query v1.1.5
+    Checking anstyle-wincon v3.0.11
+   Compiling ring v0.17.14
+    Checking atomic-waker v1.1.2
+    Checking colorchoice v1.0.5
+    Checking log v0.4.34
+    Checking unicode-width v0.2.2
+   Compiling getrandom v0.4.3
+    Checking crypto-common v0.2.2
+    Checking block-buffer v0.12.1
+    Checking schannel v0.1.30
+    Checking aho-corasick v1.1.5
+    Checking granit-parser v2.0.0
+    Checking anstream v1.0.0
+    Checking const-oid v0.10.2
+    Checking regex-syntax v0.8.11
+   Compiling heck v0.5.0
+    Checking annotate-snippets v0.12.16
+   Compiling syn v3.0.9
+    Checking dyn-clone v1.0.20
+    Checking winnow v1.0.4
+    Checking strsim v0.11.1
+    Checking clap_lex v1.1.1
+    Checking rustls-native-certs v0.8.5
+    Checking http-body-util v0.1.5
+    Checking digest v0.11.3
+    Checking serde_spanned v1.1.2
+    Checking serde_path_to_error v0.1.20
+    Checking toml_datetime v1.1.2+spec-1.1.0
+    Checking cpufeatures v0.3.1
+    Checking toml_writer v1.1.3+spec-1.1.0
+    Checking clap_builder v4.6.7
+    Checking toml_parser v1.1.5+spec-1.1.0
+    Checking regex-automata v0.4.18
+   Compiling tokio-macros v2.7.2
+   Compiling serde_derive v1.0.229
+   Compiling ref-cast-impl v1.0.27
+   Compiling serde_derive_internals v0.30.0
+   Compiling clap_derive v4.6.7
+    Checking sha2 v0.11.1
+    Checking toml v1.1.8+spec-1.1.0
+    Checking tokio v1.53.3
+    Checking rustls-webpki v0.103.15
+   Compiling schemars_derive v1.2.3
+    Checking regex v1.13.1
+    Checking clap v4.6.7
+    Checking encoding_rs_io v0.1.8
+    Checking serde-saphyr v2.0.0
+    Checking schemars v1.2.3
+    Checking hyper v1.12.0
+    Checking tokio-rustls v0.26.6
+    Checking hyper-util v0.1.21
+    Checking hdd-common v0.0.0 (D:\Hack Dev Defence\crates\hdd-common)
+    Checking hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 21.77s
+    Scanning done
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-ecdsa-p256k1.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\annotate-snippets-0.12.16\examples\highlight_message.svg
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-rsa-pss-sha512.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-rsa-pkcs1-sha256.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\annotate-snippets-0.12.16\examples\struct_name_as_context.svg
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-ml-dsa-65.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\clap_derive-4.6.7\README.md
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\schemars_derive-1.2.3\deriving.md
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\hex-0.4.3\src\lib.rs
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-rsa-pss-sha384.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\annotate-snippets-0.12.16\examples\elide_header.svg
+WARNING: Dependency file was never scanned: \\?\D:\Hack Dev Defence\target\debug\build\ref-cast-3009c2fc24726259\out\private.rs
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-rsa-pkcs1-sha384.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\digest-0.11.3\README.md
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\const-oid-0.10.2\README.md
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\cpufeatures-0.3.1\README.md
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\schemars-1.2.3\README.md
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-webpki-0.103.15\src\data\alg-rsa-pkcs1-sha384-absent-params.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\sha2-0.11.1\README.md
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\cc-1.8.0\src\detect_cpp_stdlib.cpp
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-rsa-pkcs1-sha512.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\annotate-snippets-0.12.16\examples\expected_type.svg
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\hybrid-array-0.4.15\README.md
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-ml-dsa-87.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-webpki-0.103.15\src\data\alg-rsa-pkcs1-sha256-absent-params.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-saphyr-2.0.0\README.md
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ring-0.17.14\src\ec\suite_b\ecdsa\ecPublicKey_p256_pkcs8_v1_template.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-ecdsa-sha512.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-ecdsa-sha384.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-rsa-pss-sha256.der
+WARNING: Dependency file was never scanned: \\?\D:\Hack Dev Defence\target\debug\build\serde-0c4946dbbfb1eb7f\out\private.rs
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ring-0.17.14\src\ec\suite_b\ecdsa\ecPublicKey_p384_pkcs8_v1_template.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\getrandom-0.4.3\README.md
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-ecdsa-p521.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\cc-1.8.0\src\detect_compiler_family.c
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\hex-0.4.3\src\error.rs
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\clap-4.6.7\examples\demo.md
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-ecdsa-p384.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ring-0.17.14\src\ec\curve25519\ed25519\ed25519_pkcs8_v2_template.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\clap_builder-4.6.7\README.md
+WARNING: Dependency file was never scanned: \\?\D:\Hack Dev Defence\target\debug\build\rustversion-5d102dbf4fdc2cc5\out\version.expr
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-ml-dsa-44.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\annotate-snippets-0.12.16\examples\multi_suggestion.svg
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ring-0.17.14\src\data\alg-rsa-encryption.der
+WARNING: Dependency file was never scanned: \\?\D:\Hack Dev Defence\target\debug\build\serde_core-0af5aa221fe1592d\out\private.rs
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\annotate-snippets-0.12.16\examples\custom_level.svg
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\crypto-common-0.2.2\README.md
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-ed448.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-webpki-0.103.15\src\data\alg-rsa-pkcs1-sha512-absent-params.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-ecdsa-sha256.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-rsa-encryption.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\schemars_derive-1.2.3\attributes.md
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-ed25519.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\zeroize-1.9.1\README.md
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rustls-pki-types-1.15.1\src\data\alg-ecdsa-p256.der
+WARNING: Dependency file was never scanned: \\?\C:\Users\Raghu\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-link-0.2.1\readme.md
+
+Metric output format: x/y=z%
+    x = safe code found in the crate
+    y = total code found in the crate
+    z = percentage of safe ratio as defined by x/y
+
+Symbols:
+    :) = No `unsafe` usage found, declares #![forbid(unsafe_code)]
+    ?  = No `unsafe` usage found, missing #![forbid(unsafe_code)]
+    !  = `unsafe` usage found
+
+Functions  Expressions  Impls  Traits  Methods  Dependency
+
+  142/142=100.00%  4372/4372=100.00%    10/10=100.00%       0/0=100.00%    11/11=100.00%  :) hdd-xtask 0.0.0
+   78/78=100.00%  4911/4911=100.00%    78/78=100.00%       2/2=100.00%   149/149=100.00%  :) ├── hdd-common 0.0.0
+   44/84=52.38%  1694/2520=67.22%    139/153=90.85%       3/4=75.00%   252/272=92.65%  !  │   ├── bytes 1.12.1
+   25/25=100.00%  3352/3357=99.85%    330/330=100.00%     23/23=100.00%   742/742=100.00%  ?  │   │   └── serde 1.0.229
+   12/12=100.00%  1575/1580=99.68%    230/230=100.00%     22/22=100.00%   368/368=100.00%  !  │   │       ├── serde_core 1.0.229
+  152/152=100.00%  5946/5946=100.00%    49/49=100.00%       0/0=100.00%   141/141=100.00%  ?  │   │       └── serde_derive 1.0.229
+  100/100=100.00%  3403/3417=99.59%    147/147=100.00%      3/3=100.00%   338/341=99.12%  !  │   │           ├── proc-macro2 1.0.107
+   12/12=100.00%  1765/1769=99.77%      0/0=100.00%        0/0=100.00%     0/0=100.00%  !  │   │           │   └── unicode-ident 1.0.27
+   25/25=100.00%   291/291=100.00%     74/74=100.00%      10/10=100.00%    75/75=100.00%  ?  │   │           ├── quote 1.0.47
+  100/100=100.00%  3403/3417=99.59%    147/147=100.00%      3/3=100.00%   338/341=99.12%  !  │   │           │   └── proc-macro2 1.0.107
+  830/830=100.00% 39494/39582=99.78%  2139/2142=99.86%     27/27=100.00%  2123/2125=99.91%  !  │   │           └── syn 3.0.9
+  100/100=100.00%  3403/3417=99.59%    147/147=100.00%      3/3=100.00%   338/341=99.12%  !  │   │               ├── proc-macro2 1.0.107
+   25/25=100.00%   291/291=100.00%     74/74=100.00%      10/10=100.00%    75/75=100.00%  ?  │   │               ├── quote 1.0.47
+   12/12=100.00%  1765/1769=99.77%      0/0=100.00%        0/0=100.00%     0/0=100.00%  !  │   │               └── unicode-ident 1.0.27
+   79/86=91.86%   751/1000=75.10%     19/19=100.00%       1/1=100.00%    23/23=100.00%  !  │   ├── getrandom 0.4.3
+    0/0=100.00%     0/0=100.00%        0/0=100.00%        0/0=100.00%     0/0=100.00%  ?  │   │   ├── cfg-if 1.0.5
+    6/6=100.00%   318/318=100.00%     24/24=100.00%      10/10=100.00%    38/38=100.00%  ?  │   │   └── rand_core 0.10.1
+    0/0=100.00%   647/653=99.08%      75/75=100.00%       2/2=100.00%   121/121=100.00%  !  │   ├── http-body-util 0.1.5
+   44/84=52.38%  1694/2520=67.22%    139/153=90.85%       3/4=75.00%   252/272=92.65%  !  │   │   ├── bytes 1.12.1
+    0/0=100.00%    84/120=70.00%      19/21=90.48%        8/8=100.00%    23/23=100.00%  !  │   │   ├── futures-core 0.3.34
+    2/2=100.00%   126/130=96.92%      10/10=100.00%       1/1=100.00%    40/40=100.00%  !  │   │   ├── http-body 1.1.0
+   44/84=52.38%  1694/2520=67.22%    139/153=90.85%       3/4=75.00%   252/272=92.65%  !  │   │   │   ├── bytes 1.12.1
+   29/30=96.67%  4030/4198=96.00%    347/357=97.20%       5/5=100.00%   581/583=99.66%  !  │   │   │   └── http 1.5.0
+   44/84=52.38%  1694/2520=67.22%    139/153=90.85%       3/4=75.00%   252/272=92.65%  !  │   │   │       ├── bytes 1.12.1
+    6/7=85.71%   158/303=52.15%       5/5=100.00%        3/3=100.00%     5/5=100.00%  !  │   │   │       └── itoa 1.0.18
+   29/30=96.67%  4030/4198=96.00%    347/357=97.20%       5/5=100.00%   581/583=99.66%  !  │   │   ├── http 1.5.0
+   66/66=100.00%    70/261=26.82%      93/93=100.00%      17/17=100.00%    42/44=95.45%  !  │   │   ├── pin-project-lite 0.2.17
+ 1240/1270=97.64% 34047/37099=91.77%  1313/1433=91.63%     45/48=93.75%  3085/3223=95.72%  !  │   │   └── tokio 1.53.3
+   44/84=52.38%  1694/2520=67.22%    139/153=90.85%       3/4=75.00%   252/272=92.65%  !  │   │       ├── bytes 1.12.1
+  162/164=98.78%  3935/4621=85.15%    196/217=90.32%       1/1=100.00%   429/452=94.91%  !  │   │       ├── mio 1.2.4
+   29/31=93.55%  1152/1170=98.46%    129/130=99.23%       7/7=100.00%   270/270=100.00%  !  │   │       │   ├── log 0.4.34
+   12/12=100.00%  1575/1580=99.68%    230/230=100.00%     22/22=100.00%   368/368=100.00%  !  │   │       │   │   └── serde_core 1.0.229
+    2/2=100.00% 26875/35800=75.07%  8938/8938=100.00%     0/0=100.00%  8926/8926=100.00%  !  │   │       │   └── windows-sys 0.61.2
+    0/0=100.00%     1/1=100.00%        0/0=100.00%        0/0=100.00%     0/0=100.00%  ?  │   │       │       └── windows-link 0.2.1
+   66/66=100.00%    70/261=26.82%      93/93=100.00%      17/17=100.00%    42/44=95.45%  !  │   │       ├── pin-project-lite 0.2.17
+  104/110=94.55%  1426/2244=63.55%     77/83=92.77%        1/1=100.00%   301/308=97.73%  !  │   │       ├── socket2 0.6.5
+    2/2=100.00% 26875/35800=75.07%  8938/8938=100.00%     0/0=100.00%  8926/8926=100.00%  !  │   │       │   └── windows-sys 0.61.2
+   22/22=100.00%   736/736=100.00%      6/6=100.00%        0/0=100.00%    17/17=100.00%  ?  │   │       ├── tokio-macros 2.7.2
+  100/100=100.00%  3403/3417=99.59%    147/147=100.00%      3/3=100.00%   338/341=99.12%  !  │   │       │   ├── proc-macro2 1.0.107
+   25/25=100.00%   291/291=100.00%     74/74=100.00%      10/10=100.00%    75/75=100.00%  ?  │   │       │   ├── quote 1.0.47
+  830/830=100.00% 39494/39582=99.78%  2139/2142=99.86%     27/27=100.00%  2123/2125=99.91%  !  │   │       │   └── syn 3.0.9
+    2/2=100.00% 26875/35800=75.07%  8938/8938=100.00%     0/0=100.00%  8926/8926=100.00%  !  │   │       └── windows-sys 0.61.2
+   29/30=96.67%  4030/4198=96.00%    347/357=97.20%       5/5=100.00%   581/583=99.66%  !  │   ├── http 1.5.0
+   82/82=100.00%  6621/6673=99.22%    287/288=99.65%      16/16=100.00%   560/560=100.00%  !  │   ├── hyper-util 0.1.21
+  122/130=93.85%  3793/4078=93.01%     71/71=100.00%       7/7=100.00%   161/163=98.77%  ?  │   │   ├── base64 0.23.1
+   44/84=52.38%  1694/2520=67.22%    139/153=90.85%       3/4=75.00%   252/272=92.65%  !  │   │   ├── bytes 1.12.1
+    2/2=100.00%   126/130=96.92%      10/10=100.00%       1/1=100.00%    40/40=100.00%  !  │   │   ├── http-body 1.1.0
+   29/30=96.67%  4030/4198=96.00%    347/357=97.20%       5/5=100.00%   581/583=99.66%  !  │   │   ├── http 1.5.0
+   55/74=74.32%   952/1297=73.40%     13/13=100.00%       0/0=100.00%    46/52=88.46%  !  │   │   ├── httparse 1.10.1
+   72/73=98.63%  7570/7706=98.24%    251/262=95.80%      23/24=95.83%   680/684=99.42%  !  │   │   ├── hyper 1.12.0
+    4/4=100.00%    86/118=72.88%       6/8=75.00%         1/1=100.00%     9/9=100.00%  !  │   │   │   ├── atomic-waker 1.1.2
+   44/84=52.38%  1694/2520=67.22%    139/153=90.85%       3/4=75.00%   252/272=92.65%  !  │   │   │   ├── bytes 1.12.1
+    0/0=100.00%    84/120=70.00%      19/21=90.48%        8/8=100.00%    23/23=100.00%  !  │   │   │   ├── futures-core 0.3.34
+    0/0=100.00%   647/653=99.08%      75/75=100.00%       2/2=100.00%   121/121=100.00%  !  │   │   │   ├── http-body-util 0.1.5
+    2/2=100.00%   126/130=96.92%      10/10=100.00%       1/1=100.00%    40/40=100.00%  !  │   │   │   ├── http-body 1.1.0
+   29/30=96.67%  4030/4198=96.00%    347/357=97.20%       5/5=100.00%   581/583=99.66%  !  │   │   │   ├── http 1.5.0
+   55/74=74.32%   952/1297=73.40%     13/13=100.00%       0/0=100.00%    46/52=88.46%  !  │   │   │   ├── httparse 1.10.1
+    6/7=85.71%   158/303=52.15%       5/5=100.00%        3/3=100.00%     5/5=100.00%  !  │   │   │   ├── itoa 1.0.18
+   66/66=100.00%    70/261=26.82%      93/93=100.00%      17/17=100.00%    42/44=95.45%  !  │   │   │   ├── pin-project-lite 0.2.17
+    6/7=85.71%   572/1185=48.27%     80/87=91.95%        3/4=75.00%   145/159=91.19%  !  │   │   │   ├── smallvec 1.16.3
+   25/25=100.00%  3352/3357=99.85%    330/330=100.00%     23/23=100.00%   742/742=100.00%  ?  │   │   │   │   └── serde 1.0.229
+ 1240/1270=97.64% 34047/37099=91.77%  1313/1433=91.63%     45/48=93.75%  3085/3223=95.72%  !  │   │   │   ├── tokio 1.53.3
+    2/2=100.00%   154/154=100.00%     12/12=100.00%       0/0=100.00%    21/21=100.00%  ?  │   │   │   └── want 0.3.2
+    0/0=100.00%    31/51=60.78%        7/9=77.78%         0/0=100.00%    11/12=91.67%  !  │   │   │       └── try-lock 0.2.5
+   62/155=40.00%  6157/7016=87.76%     49/59=83.05%        0/0=100.00%    17/159=10.69%  ?  │   │   ├── libc 0.2.191
+   66/66=100.00%    70/261=26.82%      93/93=100.00%      17/17=100.00%    42/44=95.45%  !  │   │   ├── pin-project-lite 0.2.17
+  104/110=94.55%  1426/2244=63.55%     77/83=92.77%        1/1=100.00%   301/308=97.73%  !  │   │   ├── socket2 0.6.5
+ 1240/1270=97.64% 34047/37099=91.77%  1313/1433=91.63%     45/48=93.75%  3085/3223=95.72%  !  │   │   └── tokio 1.53.3
+   72/73=98.63%  7570/7706=98.24%    251/262=95.80%      23/24=95.83%   680/684=99.42%  !  │   ├── hyper 1.12.0
+    9/9=100.00%   219/219=100.00%      5/5=100.00%        0/0=100.00%    10/10=100.00%  ?  │   ├── rustls-native-certs 0.8.5
+   19/19=100.00%  1349/1350=99.93%    131/131=100.00%      4/4=100.00%   142/142=100.00%  !  │   │   ├── rustls-pki-types 1.15.1
+    4/6=66.67%   103/141=73.05%      44/45=97.78%        6/6=100.00%    37/39=94.87%  !  │   │   │   └── zeroize 1.9.1
+   25/25=100.00%  3352/3357=99.85%    330/330=100.00%     23/23=100.00%   742/742=100.00%  ?  │   │   │       └── serde 1.0.229
+    8/10=80.00%   873/2604=33.53%     59/67=88.06%        2/2=100.00%   183/187=97.86%  !  │   │   └── schannel 0.1.30
+    2/2=100.00% 26875/35800=75.07%  8938/8938=100.00%     0/0=100.00%  8926/8926=100.00%  !  │   │       └── windows-sys 0.61.2
+  222/222=100.00% 19465/19465=100.00%   750/750=100.00%     47/47=100.00%  1624/1624=100.00%  :) │   ├── rustls 0.23.46
+   29/31=93.55%  1152/1170=98.46%    129/130=99.23%       7/7=100.00%   270/270=100.00%  !  │   │   ├── log 0.4.34
+   21/21=100.00%   720/848=84.91%      53/62=85.48%        0/0=100.00%   113/118=95.76%  !  │   │   ├── once_cell 1.21.4
+  326/334=97.60%  8398/8842=94.98%    346/346=100.00%     30/30=100.00%   532/540=98.52%  !  │   │   ├── ring 0.17.14
+    0/0=100.00%     0/0=100.00%        0/0=100.00%        0/0=100.00%     0/0=100.00%  ?  │   │   │   ├── cfg-if 1.0.5
+   41/47=87.23%   568/760=74.74%      11/12=91.67%        0/0=100.00%    13/16=81.25%  !  │   │   │   ├── getrandom 0.2.17
+    0/0=100.00%     0/0=100.00%        0/0=100.00%        0/0=100.00%     0/0=100.00%  ?  │   │   │   │   └── cfg-if 1.0.5
+    1/1=100.00%   110/110=100.00%      7/7=100.00%        0/0=100.00%    25/25=100.00%  ?  │   │   │   └── untrusted 0.9.0
+   19/19=100.00%  1349/1350=99.93%    131/131=100.00%      4/4=100.00%   142/142=100.00%  !  │   │   ├── rustls-pki-types 1.15.1
+   59/59=100.00%  3045/3045=100.00%    79/79=100.00%       2/2=100.00%   132/132=100.00%  ?  │   │   ├── rustls-webpki 0.103.15
+  326/334=97.60%  8398/8842=94.98%    346/346=100.00%     30/30=100.00%   532/540=98.52%  !  │   │   │   ├── ring 0.17.14
+   19/19=100.00%  1349/1350=99.93%    131/131=100.00%      4/4=100.00%   142/142=100.00%  !  │   │   │   ├── rustls-pki-types 1.15.1
+    1/1=100.00%   110/110=100.00%      7/7=100.00%        0/0=100.00%    25/25=100.00%  ?  │   │   │   └── untrusted 0.9.0
+    1/1=100.00%   209/217=96.31%      29/29=100.00%       5/5=100.00%    36/36=100.00%  !  │   │   ├── subtle 2.6.1
+    4/6=66.67%   103/141=73.05%      44/45=97.78%        6/6=100.00%    37/39=94.87%  !  │   │   └── zeroize 1.9.1
+   98/98=100.00%  2600/2600=100.00%   116/116=100.00%      5/5=100.00%   235/235=100.00%  :) │   ├── schemars 1.2.3
+   44/84=52.38%  1694/2520=67.22%    139/153=90.85%       3/4=75.00%   252/272=92.65%  !  │   │   ├── bytes 1.12.1
+    7/7=100.00%    57/72=79.17%       10/10=100.00%       4/4=100.00%     7/7=100.00%  !  │   │   ├── dyn-clone 1.0.20
+   15/15=100.00%     6/6=100.00%       14/16=87.50%        4/6=66.67%     1/1=100.00%  !  │   │   ├── ref-cast 1.0.27
+   13/13=100.00%   294/294=100.00%      1/1=100.00%        0/0=100.00%     1/1=100.00%  ?  │   │   │   └── ref-cast-impl 1.0.27
+  100/100=100.00%  3403/3417=99.59%    147/147=100.00%      3/3=100.00%   338/341=99.12%  !  │   │   │       ├── proc-macro2 1.0.107
+   25/25=100.00%   291/291=100.00%     74/74=100.00%      10/10=100.00%    75/75=100.00%  ?  │   │   │       ├── quote 1.0.47
+  830/830=100.00% 39494/39582=99.78%  2139/2142=99.86%     27/27=100.00%  2123/2125=99.91%  !  │   │   │       └── syn 3.0.9
+   52/52=100.00%  2191/2191=100.00%    26/26=100.00%       1/1=100.00%    71/71=100.00%  :) │   │   ├── schemars_derive 1.2.3
+  100/100=100.00%  3403/3417=99.59%    147/147=100.00%      3/3=100.00%   338/341=99.12%  !  │   │   │   ├── proc-macro2 1.0.107
+   25/25=100.00%   291/291=100.00%     74/74=100.00%      10/10=100.00%    75/75=100.00%  ?  │   │   │   ├── quote 1.0.47
+   47/47=100.00%  2846/2846=100.00%    31/31=100.00%       0/0=100.00%   111/111=100.00%  ?  │   │   │   ├── serde_derive_internals 0.30.0
+  100/100=100.00%  3403/3417=99.59%    147/147=100.00%      3/3=100.00%   338/341=99.12%  !  │   │   │   │   ├── proc-macro2 1.0.107
+   25/25=100.00%   291/291=100.00%     74/74=100.00%      10/10=100.00%    75/75=100.00%  ?  │   │   │   │   ├── quote 1.0.47
+  830/830=100.00% 39494/39582=99.78%  2139/2142=99.86%     27/27=100.00%  2123/2125=99.91%  !  │   │   │   │   └── syn 3.0.9
+  830/830=100.00% 39494/39582=99.78%  2139/2142=99.86%     27/27=100.00%  2123/2125=99.91%  !  │   │   │   └── syn 3.0.9
+   25/25=100.00%  3352/3357=99.85%    330/330=100.00%     23/23=100.00%   742/742=100.00%  ?  │   │   ├── serde 1.0.229
+  161/161=100.00%  6435/6515=98.77%    237/237=100.00%     17/17=100.00%   885/886=99.89%  !  │   │   ├── serde_json 1.0.154
+    6/7=85.71%   158/303=52.15%       5/5=100.00%        3/3=100.00%     5/5=100.00%  !  │   │   │   ├── itoa 1.0.18
+   38/86=44.19%  2289/4729=48.40%    130/132=98.48%       5/5=100.00%   325/473=68.71%  !  │   │   │   ├── memchr 2.8.3
+   29/31=93.55%  1152/1170=98.46%    129/130=99.23%       7/7=100.00%   270/270=100.00%  !  │   │   │   │   └── log 0.4.34
+   12/12=100.00%  1575/1580=99.68%    230/230=100.00%     22/22=100.00%   368/368=100.00%  !  │   │   │   ├── serde_core 1.0.229
+   27/30=90.00%   985/1605=61.37%     18/18=100.00%       5/5=100.00%    24/30=80.00%  !  │   │   │   └── zmij 1.0.23
+    6/7=85.71%   572/1185=48.27%     80/87=91.95%        3/4=75.00%   145/159=91.19%  !  │   │   └── smallvec 1.16.3
+  735/735=100.00% 24058/24058=100.00%   442/442=100.00%      9/9=100.00%  1144/1144=100.00%  :) │   ├── serde-saphyr 2.0.0
+   44/44=100.00%  3705/3705=100.00%    45/45=100.00%       1/1=100.00%   128/128=100.00%  ?  │   │   ├── annotate-snippets 0.12.16
+    3/3=100.00%   676/682=99.12%      38/38=100.00%       0/0=100.00%   106/106=100.00%  !  │   │   │   ├── anstyle 1.0.14
+   38/86=44.19%  2289/4729=48.40%    130/132=98.48%       5/5=100.00%   325/473=68.71%  !  │   │   │   ├── memchr 2.8.3
+   23/23=100.00%  2075/2075=100.00%     8/8=100.00%        3/3=100.00%    20/20=100.00%  :) │   │   │   └── unicode-width 0.2.2
+  122/130=93.85%  3793/4078=93.01%     71/71=100.00%       7/7=100.00%   161/163=98.77%  ?  │   │   ├── base64 0.23.1
+    1/1=100.00%   398/398=100.00%     11/11=100.00%       0/0=100.00%    27/27=100.00%  ?  │   │   ├── encoding_rs_io 0.1.8
+  204/207=98.55% 115243/115970=99.37%    63/63=100.00%       1/1=100.00%   329/330=99.70%  !  │   │   │   └── encoding_rs 0.8.42
+    0/0=100.00%     0/0=100.00%        0/0=100.00%        0/0=100.00%     0/0=100.00%  ?  │   │   │       ├── cfg-if 1.0.5
+   10/10=100.00%   175/188=93.09%       4/4=100.00%        0/0=100.00%     8/8=100.00%  !  │   │   │       ├── core_detect 1.0.0
+    1/1=100.00%     0/0=100.00%        0/0=100.00%        0/0=100.00%     0/0=100.00%  ?  │   │   │       ├── multiversion_no_op 1.0.0
+   51/52=98.08%   719/720=99.86%      11/11=100.00%       0/0=100.00%    14/14=100.00%  ?  │   │   │       ├── rustversion 1.0.23
+    6/6=100.00%    36/52=69.23%        8/9=88.89%         1/1=100.00%     9/9=100.00%  !  │   │   │       ├── scopeguard 1.2.0
+   25/25=100.00%  3352/3357=99.85%    330/330=100.00%     23/23=100.00%   742/742=100.00%  ?  │   │   │       ├── serde 1.0.229
+   24/52=46.15%   136/719=18.92%      20/20=100.00%       3/3=100.00%    11/83=13.25%  !  │   │   │       └── simdutf8 0.1.5
+  192/192=100.00%  9974/9974=100.00%   103/103=100.00%      7/7=100.00%   466/466=100.00%  ?  │   │   ├── granit-parser 2.0.0
+    3/5=60.00%   480/823=58.32%      51/51=100.00%       2/2=100.00%    88/101=87.13%  !  │   │   │   ├── arraydeque 0.5.1
+    6/7=85.71%   572/1185=48.27%     80/87=91.95%        3/4=75.00%   145/159=91.19%  !  │   │   │   └── smallvec 1.16.3
+   18/18=100.00%   586/586=100.00%     44/44=100.00%      56/56=100.00%    45/45=100.00%  ?  │   │   ├── num-traits 0.2.19
+   25/25=100.00%  3352/3357=99.85%    330/330=100.00%     23/23=100.00%   742/742=100.00%  ?  │   │   ├── serde 1.0.229
+   12/12=100.00%  1575/1580=99.68%    230/230=100.00%     22/22=100.00%   368/368=100.00%  !  │   │   ├── serde_core 1.0.229
+    6/7=85.71%   572/1185=48.27%     80/87=91.95%        3/4=75.00%   145/159=91.19%  !  │   │   ├── smallvec 1.16.3
+   27/30=90.00%   985/1605=61.37%     18/18=100.00%       5/5=100.00%    24/30=80.00%  !  │   │   └── zmij 1.0.23
+   25/25=100.00%  3352/3357=99.85%    330/330=100.00%     23/23=100.00%   742/742=100.00%  ?  │   ├── serde 1.0.229
+  161/161=100.00%  6435/6515=98.77%    237/237=100.00%     17/17=100.00%   885/886=99.89%  !  │   ├── serde_json 1.0.154
+    4/4=100.00%  1610/1610=100.00%    46/46=100.00%       0/0=100.00%   251/251=100.00%  ?  │   ├── serde_path_to_error 0.1.20
+    6/7=85.71%   158/303=52.15%       5/5=100.00%        3/3=100.00%     5/5=100.00%  !  │   │   ├── itoa 1.0.18
+   12/12=100.00%  1575/1580=99.68%    230/230=100.00%     22/22=100.00%   368/368=100.00%  !  │   │   └── serde_core 1.0.229
+   15/15=100.00%  1434/1434=100.00%    54/54=100.00%       1/1=100.00%   121/121=100.00%  ?  │   ├── tokio-rustls 0.26.6
+  222/222=100.00% 19465/19465=100.00%   750/750=100.00%     47/47=100.00%  1624/1624=100.00%  :) │   │   ├── rustls 0.23.46
+ 1240/1270=97.64% 34047/37099=91.77%  1313/1433=91.63%     45/48=93.75%  3085/3223=95.72%  !  │   │   └── tokio 1.53.3
+ 1240/1270=97.64% 34047/37099=91.77%  1313/1433=91.63%     45/48=93.75%  3085/3223=95.72%  !  │   └── tokio 1.53.3
+   82/82=100.00%  1717/1717=100.00%    19/19=100.00%       0/0=100.00%    29/29=100.00%  ?  ├── clap 4.6.7
+   47/47=100.00% 10218/10218=100.00%   428/428=100.00%     30/30=100.00%  1152/1152=100.00%  :) │   ├── clap_builder 4.6.7
+   24/25=96.00%   960/967=99.28%      86/86=100.00%       5/5=100.00%   102/102=100.00%  !  │   │   ├── anstream 1.0.0
+    6/6=100.00%   431/448=96.21%      12/12=100.00%       2/2=100.00%    34/34=100.00%  !  │   │   │   ├── anstyle-parse 1.0.0
+    2/2=100.00%   119/120=99.17%       4/4=100.00%        1/1=100.00%     8/8=100.00%  !  │   │   │   │   └── utf8parse 0.2.2
+   15/15=100.00%    68/90=75.56%        0/0=100.00%        0/0=100.00%     0/0=100.00%  !  │   │   │   ├── anstyle-query 1.1.5
+    2/2=100.00% 26875/35800=75.07%  8938/8938=100.00%     0/0=100.00%  8926/8926=100.00%  !  │   │   │   │   └── windows-sys 0.61.2
+   19/19=100.00%   344/371=92.72%      17/17=100.00%       1/1=100.00%    17/17=100.00%  !  │   │   │   ├── anstyle-wincon 3.0.11
+    3/3=100.00%   676/682=99.12%      38/38=100.00%       0/0=100.00%   106/106=100.00%  !  │   │   │   │   ├── anstyle 1.0.14
+    0/0=100.00%    17/17=100.00%       2/2=100.00%        0/0=100.00%     8/8=100.00%  ?  │   │   │   │   ├── once_cell_polyfill 1.70.2
+    2/2=100.00% 26875/35800=75.07%  8938/8938=100.00%     0/0=100.00%  8926/8926=100.00%  !  │   │   │   │   └── windows-sys 0.61.2
+    3/3=100.00%   676/682=99.12%      38/38=100.00%       0/0=100.00%   106/106=100.00%  !  │   │   │   ├── anstyle 1.0.14
+    0/0=100.00%    21/21=100.00%       3/3=100.00%        0/0=100.00%     8/8=100.00%  ?  │   │   │   ├── colorchoice 1.0.5
+    0/0=100.00%     0/0=100.00%        0/0=100.00%        2/2=100.00%     0/0=100.00%  ?  │   │   │   ├── is_terminal_polyfill 1.70.2
+    2/2=100.00%   119/120=99.17%       4/4=100.00%        1/1=100.00%     8/8=100.00%  !  │   │   │   └── utf8parse 0.2.2
+    3/3=100.00%   676/682=99.12%      38/38=100.00%       0/0=100.00%   106/106=100.00%  !  │   │   ├── anstyle 1.0.14
+    2/3=66.67%   285/300=95.00%       9/9=100.00%        2/2=100.00%    40/40=100.00%  !  │   │   ├── clap_lex 1.1.1
+   27/27=100.00%   742/742=100.00%      8/8=100.00%        0/0=100.00%    12/12=100.00%  :) │   │   ├── strsim 0.11.1
+   23/23=100.00%  2075/2075=100.00%     8/8=100.00%        3/3=100.00%    20/20=100.00%  :) │   │   └── unicode-width 0.2.2
+   59/59=100.00%  2731/2731=100.00%    28/28=100.00%       2/2=100.00%    86/86=100.00%  :) │   └── clap_derive 4.6.7
+    3/3=100.00%   676/682=99.12%      38/38=100.00%       0/0=100.00%   106/106=100.00%  !  │       ├── anstyle 1.0.14
+    4/4=100.00%   177/177=100.00%     19/19=100.00%      11/11=100.00%    19/19=100.00%  :) │       ├── heck 0.5.0
+  100/100=100.00%  3403/3417=99.59%    147/147=100.00%      3/3=100.00%   338/341=99.12%  !  │       ├── proc-macro2 1.0.107
+   25/25=100.00%   291/291=100.00%     74/74=100.00%      10/10=100.00%    75/75=100.00%  ?  │       ├── quote 1.0.47
+  830/830=100.00% 39494/39582=99.78%  2139/2142=99.86%     27/27=100.00%  2123/2125=99.91%  !  │       └── syn 3.0.9
+   79/86=91.86%   751/1000=75.10%     19/19=100.00%       1/1=100.00%    23/23=100.00%  !  ├── getrandom 0.4.3
+   17/17=100.00%  1714/1714=100.00%   121/122=99.18%       2/2=100.00%   306/306=100.00%  ?  ├── regex 1.13.1
+   27/35=77.14%  5916/6913=85.58%    174/179=97.21%      18/19=94.74%   518/604=85.76%  !  │   ├── aho-corasick 1.1.5
+   29/31=93.55%  1152/1170=98.46%    129/130=99.23%       7/7=100.00%   270/270=100.00%  !  │   │   ├── log 0.4.34
+   38/86=44.19%  2289/4729=48.40%    130/132=98.48%       5/5=100.00%   325/473=68.71%  !  │   │   └── memchr 2.8.3
+   38/86=44.19%  2289/4729=48.40%    130/132=98.48%       5/5=100.00%   325/473=68.71%  !  │   ├── memchr 2.8.3
+  198/198=100.00% 23429/24067=97.35%   469/476=98.53%      12/13=92.31%  1903/1914=99.43%  !  │   ├── regex-automata 0.4.18
+   27/35=77.14%  5916/6913=85.58%    174/179=97.21%      18/19=94.74%   518/604=85.76%  !  │   │   ├── aho-corasick 1.1.5
+   29/31=93.55%  1152/1170=98.46%    129/130=99.23%       7/7=100.00%   270/270=100.00%  !  │   │   ├── log 0.4.34
+   38/86=44.19%  2289/4729=48.40%    130/132=98.48%       5/5=100.00%   325/473=68.71%  !  │   │   ├── memchr 2.8.3
+   85/85=100.00% 48212/48212=100.00%   143/143=100.00%      4/4=100.00%   566/566=100.00%  :) │   │   └── regex-syntax 0.8.11
+   85/85=100.00% 48212/48212=100.00%   143/143=100.00%      4/4=100.00%   566/566=100.00%  :) │   └── regex-syntax 0.8.11
+   25/25=100.00%  3352/3357=99.85%    330/330=100.00%     23/23=100.00%   742/742=100.00%  ?  ├── serde 1.0.229
+  161/161=100.00%  6435/6515=98.77%    237/237=100.00%     17/17=100.00%   885/886=99.89%  !  ├── serde_json 1.0.154
+   87/87=100.00%  1954/2017=96.88%     22/22=100.00%       0/0=100.00%    16/16=100.00%  !  ├── sha2 0.11.1
+    0/0=100.00%     0/0=100.00%        0/0=100.00%        0/0=100.00%     0/0=100.00%  ?  │   ├── cfg-if 1.0.5
+    2/3=66.67%     4/16=25.00%        0/0=100.00%        0/0=100.00%     0/0=100.00%  ?  │   ├── cpufeatures 0.3.1
+   10/10=100.00%   707/707=100.00%     69/69=100.00%      25/25=100.00%    75/75=100.00%  :) │   └── digest 0.11.3
+    0/0=100.00%   242/315=76.83%      24/24=100.00%       4/4=100.00%    45/48=93.75%  !  │       ├── block-buffer 0.12.1
+    2/2=100.00%   286/415=68.92%      79/83=95.18%        7/8=87.50%   103/105=98.10%  !  │       │   ├── hybrid-array 0.4.15
+   25/25=100.00%  3352/3357=99.85%    330/330=100.00%     23/23=100.00%   742/742=100.00%  ?  │       │   │   ├── serde 1.0.229
+    1/1=100.00%   209/217=96.31%      29/29=100.00%       5/5=100.00%    36/36=100.00%  !  │       │   │   ├── subtle 2.6.1
+    0/0=100.00%   589/589=100.00%   1552/1552=100.00%    61/61=100.00%   393/393=100.00%  :) │       │   │   ├── typenum 1.20.1
+    4/6=66.67%   103/141=73.05%      44/45=97.78%        6/6=100.00%    37/39=94.87%  !  │       │   │   └── zeroize 1.9.1
+    4/6=66.67%   103/141=73.05%      44/45=97.78%        6/6=100.00%    37/39=94.87%  !  │       │   └── zeroize 1.9.1
+    4/4=100.00%  5058/5063=99.90%     34/34=100.00%       2/2=100.00%    61/61=100.00%  !  │       ├── const-oid 0.10.2
+    0/0=100.00%    74/74=100.00%      17/17=100.00%      18/18=100.00%    13/13=100.00%  :) │       ├── crypto-common 0.2.2
+   79/86=91.86%   751/1000=75.10%     19/19=100.00%       1/1=100.00%    23/23=100.00%  !  │       │   ├── getrandom 0.4.3
+    2/2=100.00%   286/415=68.92%      79/83=95.18%        7/8=87.50%   103/105=98.10%  !  │       │   ├── hybrid-array 0.4.15
+    6/6=100.00%   318/318=100.00%     24/24=100.00%      10/10=100.00%    38/38=100.00%  ?  │       │   └── rand_core 0.10.1
+    4/6=66.67%   103/141=73.05%      44/45=97.78%        6/6=100.00%    37/39=94.87%  !  │       └── zeroize 1.9.1
+   32/32=100.00%  4013/4013=100.00%   203/203=100.00%      4/4=100.00%   665/665=100.00%  :) └── toml 1.1.8+spec-1.1.0
+   24/25=96.00%   960/967=99.28%      86/86=100.00%       5/5=100.00%   102/102=100.00%  !      ├── anstream 1.0.0
+    3/3=100.00%   676/682=99.12%      38/38=100.00%       0/0=100.00%   106/106=100.00%  !      ├── anstyle 1.0.14
+   12/12=100.00%  1575/1580=99.68%    230/230=100.00%     22/22=100.00%   368/368=100.00%  !      ├── serde_core 1.0.229
+    2/2=100.00%   138/138=100.00%     17/17=100.00%       0/0=100.00%    21/21=100.00%  :)     ├── serde_spanned 1.1.2
+   12/12=100.00%  1575/1580=99.68%    230/230=100.00%     22/22=100.00%   368/368=100.00%  !      │   └── serde_core 1.0.229
+    4/4=100.00%   870/870=100.00%     38/38=100.00%       0/0=100.00%    75/75=100.00%  :)     ├── toml_datetime 1.1.2+spec-1.1.0
+   12/12=100.00%  1575/1580=99.68%    230/230=100.00%     22/22=100.00%   368/368=100.00%  !      │   └── serde_core 1.0.229
+   71/71=100.00%  3530/3596=98.16%     50/50=100.00%       5/5=100.00%   173/181=95.58%  !      ├── toml_parser 1.1.5+spec-1.1.0
+   24/25=96.00%   960/967=99.28%      86/86=100.00%       5/5=100.00%   102/102=100.00%  !      │   ├── anstream 1.0.0
+    3/3=100.00%   676/682=99.12%      38/38=100.00%       0/0=100.00%   106/106=100.00%  !      │   ├── anstyle 1.0.14
+  344/344=100.00%  7533/7603=99.08%    461/461=100.00%     29/29=100.00%   701/719=97.50%  !      │   └── winnow 1.0.4
+    3/3=100.00%   676/682=99.12%      38/38=100.00%       0/0=100.00%   106/106=100.00%  !      │       ├── anstyle 1.0.14
+    0/0=100.00%     0/0=100.00%        0/0=100.00%        2/2=100.00%     0/0=100.00%  ?      │       ├── is_terminal_polyfill 1.70.2
+   38/86=44.19%  2289/4729=48.40%    130/132=98.48%       5/5=100.00%   325/473=68.71%  !      │       └── memchr 2.8.3
+    3/3=100.00%   560/560=100.00%     52/52=100.00%       5/5=100.00%    70/70=100.00%  :)     ├── toml_writer 1.1.3+spec-1.1.0
+  344/344=100.00%  7533/7603=99.08%    461/461=100.00%     29/29=100.00%   701/719=97.50%  !      └── winnow 1.0.4
+
+ 7250/7575=95.71% 503821/530931=94.89% 22428/22679=98.89%   714/725=98.48% 34243/35000=97.84%
+
+error: Found 56 warnings
+exit 1

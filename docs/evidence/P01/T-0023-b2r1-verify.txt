@@ -1,0 +1,75 @@
+# T-0023 batch B2 round 1 verify evidence (D-5..D-7 green run)
+
+Date: 2026-10-20
+Task: T-0023 review round 1 (D-5 Fluent-only formatting column, D-6 pseudo-locale selectors, D-7 measured expansion)
+Host: Windows 11, Rust 1.98.1, Track L (no Docker)
+
+Note: `cargo fmt --all` is the Lead gate and is not run by a task owner; only
+`rustfmt --edition 2024` was applied to this task file, and the check below verifies it.
+
+## rustfmt check of the task file
+
+$ rustfmt --edition 2024 --check crates/hdd-xtask/src/ux_docs/i18n_plan.rs
+
+exit=0
+
+```text
+(no output: command succeeded silently)
+```
+
+## clippy
+
+$ cargo clippy -p hdd-xtask --all-targets -- -D warnings
+
+exit=0
+
+```text
+cargo :     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.27s
+    + CategoryInfo          : NotSpecified: (    Finished `d...get(s) in 0.27s:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+```
+
+## T-0023 tests
+
+$ cargo nextest run -p hdd-xtask --no-fail-fast -E 'test(/t23_/)'
+
+exit=0
+
+```text
+    + FullyQualifiedErrorId : NativeCommandError
+     Summary [   0.144s] 22 tests run: 22 passed, 481 skipped
+```
+
+## whole hdd-xtask suite
+
+$ cargo nextest run -p hdd-xtask --no-fail-fast
+
+exit=0
+
+```text
+        PASS [   0.070s] ( 23/503) hdd-xtask::bin/hdd-xtask gate::tests::nextest_summary_is_extracted_from_the_tail
+ux_docs::dataviz::tests::t27_every_chart_has_a_text_summary_and_a_view_as_table_toggle
+ux_docs::onboarding::tests::t26_monitor_summary_keeps_the_block_decision_evidence
+     Summary [  49.459s] 503 tests run: 503 passed, 0 skipped
+```
+
+## ux-docs
+
+$ cargo xtask ux-docs
+
+exit=0
+
+```text
+ux-docs: PASS
+```
+
+## claims-lint
+
+$ cargo xtask claims-lint
+
+exit=0
+
+```text
+claims-lint: scanned 307 files with 34 phrases and 1 context rules
+claims-lint: PASS
+```

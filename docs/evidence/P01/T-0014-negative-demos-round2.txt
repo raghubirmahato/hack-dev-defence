@@ -1,0 +1,32 @@
+# T-0014 review round 2: mutation demonstrations for F-10 (a, b, c) on the shipped files
+# Date: 2026-10-19. Each mutation must make 'cargo xtask ux-docs' FAIL; the files are restored after each step and the SHA-256 values are compared.
+
+## F-10a: /admin (S-100) with permission public
+[ux-docs] docs/UX/routes.toml: route 115: the `public` permission is not allowed on the `admin` surface (F-10a)
+[ux-docs] docs/UX/routes.toml: route 115: an `admin` route must carry a `PERM-platform.*` permission, or be `public` with class `auth` (F-10b)
+ux-docs: FAIL (2 finding(s))
+(exit 1)
+
+## F-10b: /admin (S-100) on the public surface with a platform permission
+[ux-docs] docs/UX/routes.toml: route 115: `PERM-platform.infra.read` is a platform permission and is allowed only on the `admin` surface (F-10b)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## F-10c: /admin (S-100) with DELETE added but class read
+[ux-docs] docs/UX/routes.toml: route 115: route `/admin` takes a non-GET method but has rate-limit class `read`; use write, auth or export, or list the pattern and method under `Rate-class exceptions` (F-10c)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## F-10c: /features (S-002) GET only but class write
+[ux-docs] docs/UX/routes.toml: route 1: route `/features` is GET/HEAD only but has rate-limit class `write` (F-10c)
+ux-docs: FAIL (1 finding(s))
+(exit 1)
+
+## restored files
+ux-docs: PASS
+(exit 0)
+routes.toml SHA-256 before: C4BF455E713448E56E01FD8000E3CF50033BF54C99DFEED42484E9DFA33CF7FA
+routes.toml SHA-256 after:  C4BF455E713448E56E01FD8000E3CF50033BF54C99DFEED42484E9DFA33CF7FA
+IA.md SHA-256 before: F1385B75DBF70CD9485C77CAC8D7437E7C6861A9CE36E780737593BA60E6AA6F
+IA.md SHA-256 after:  F1385B75DBF70CD9485C77CAC8D7437E7C6861A9CE36E780737593BA60E6AA6F
+hashes equal: True

@@ -1,0 +1,68 @@
+# T-0025 round 2 (b1r1) red: the F-14 to F-18 rules before the documents were corrected
+# Date: 2026-10-20
+# Command: cargo nextest run -p hdd-xtask ux_docs::security_ux --no-fail-fast
+#          cargo xtask ux-docs
+#
+# STATUS OF THIS RED: UNVERIFIED(literal_pre_fix_module_red_blocked_by_shared_compile)
+#
+# What happened, honestly: the new rule tests were written first, but the shared crate did not compile
+# when they were first runnable, because other tasks in the same batch were still editing their in-flight
+# modules. The literal "tests fail before the fix" module run therefore could not be captured. The real
+# failing output below is the first real compile attempt and the first real run of the new checks over
+# the repository (cargo xtask ux-docs). Every finding in that run is a red of the new rules; the fixes and
+# the green run are in the batch report and in T-0025-negative-demos-round2.txt (byte-identical restore).
+#
+# --- 1. First compile attempt: the shared crate was blocked by another task's in-flight file. ---
+# (real output tail)
+error[E0277]: the trait bound `ux_docs::a11y::Severity: std::cmp::Ord` is not satisfied
+    --> crates\hdd-xtask\src\ux_docs\a11y.rs:1396:18
+     |
+1396 |         if !seen.contains(&severity) {
+     |                  ^^^^^^^^ the trait `std::cmp::Ord` is not implemented for `ux_docs::a11y::Severity`
+error: could not compile `hdd-xtask` (bin "hdd-xtask" test) due to 3 previous errors
+error: command `cargo.exe test --no-run --message-format json-render-diagnostics --package hdd-xtask` exited with code 101
+#
+# --- 2. First run of the new checks over the repository (real output tail, 25 findings). ---
+[ux-docs] docs/UX/RESPONSIVE.md:23: the catalog row `DA-07` is time-boxed or sits on a security-critical screen, but no `## Security-critical controls` row covers it and no `excluded:` row names it with a reason (T-0024 F-22)
+[ux-docs] docs/SPEC.md: the C5 attack matrix has no attack names, so the abuse table cannot be compared with it (review F-16)
+[ux-docs] docs/UX/dangerous-actions.md: `AUD-platform.tenant_suspended` is not a B8 audit event of the master specification (T-0025 step 2)
+[ux-docs] docs/UX/dangerous-actions.md: `AUD-dns.settings_changed` is not a B8 audit event of the master specification (T-0025 step 2)
+[ux-docs] docs/UX/dangerous-actions.md:82: the prose reference `DA-02` sits next to `AUD-dns.record_imported`, but that row's Audit event is `AUD-dns.record_deleted` (review F-18)
+[ux-docs] docs/UX/dangerous-actions.md:82: the prose reference `DA-03` sits next to `AUD-dns.record_updated`, but that row's Audit event is `AUD-dns.record_imported` (review F-18)
+[ux-docs] docs/UX/dangerous-actions.md:82: the prose reference `DA-35` sits next to `AUD-dns.settings_changed`, but that row's Audit event is `AUD-dns.record_updated` (review F-18)
+[ux-docs] docs/UX/dangerous-actions.md:84: the prose reference `DA-14` sits next to `AUD-org.transferred`, but that row's Audit event is `AUD-org.deleted` (review F-18)
+[ux-docs] docs/UX/dangerous-actions.md:85: the prose reference `DA-20` sits next to `AUD-member.role_changed`, but that row's Audit event is `AUD-member.removed` (review F-18)
+[ux-docs] docs/UX/dangerous-actions.md:87: the prose reference `DA-12` sits next to `AUD-apikey.revoked`, but that row's Audit event is `AUD-apikey.created` (review F-18)
+[ux-docs] docs/UX/dangerous-actions.md:88: the prose reference `DA-33` sits next to `AUD-waf.exception_created`, but that row's Audit event is `AUD-waf.policy_updated` (review F-18)
+[ux-docs] docs/UX/dangerous-actions.md:88: the prose reference `DA-36` sits next to `AUD-ratelimit.rule_changed`, but that row's Audit event is `AUD-waf.exception_created` (review F-18)
+[ux-docs] docs/UX/dangerous-actions.md:88: the prose reference `DA-37` sits next to `AUD-platform.emergency_used`, but that row's Audit event is `AUD-ratelimit.rule_changed` (review F-18)
+[ux-docs] docs/UX/journeys/J-23.md:47: the safeguard row `Unbanning an address.` is mapped to `DA-06` on S-067 but step 4 runs on S-069; the mapped row must be reachable from the step's screen (review F-17)
+[ux-docs] docs/UX/SECURITY-UX.md:177: C5 has no attack name for `ATK-171`, so the `C5 attack` cell cannot be checked (review F-16)
+[ux-docs] docs/UX/SECURITY-UX.md:178: C5 has no attack name for `ATK-296`, so the `C5 attack` cell cannot be checked (review F-16)
+[ux-docs] docs/UX/SECURITY-UX.md:179: C5 has no attack name for `ATK-171`, so the `C5 attack` cell cannot be checked (review F-16)
+[ux-docs] docs/UX/SECURITY-UX.md:180: C5 has no attack name for `ATK-298`, so the `C5 attack` cell cannot be checked (review F-16)
+[ux-docs] docs/UX/SECURITY-UX.md:181: C5 has no attack name for `ATK-297`, so the `C5 attack` cell cannot be checked (review F-16)
+[ux-docs] docs/UX/SECURITY-UX.md:182: C5 has no attack name for `ATK-294`, so the `C5 attack` cell cannot be checked (review F-16)
+[ux-docs] docs/UX/SECURITY-UX.md:183: C5 has no attack name for `ATK-293`, so the `C5 attack` cell cannot be checked (review F-16)
+[ux-docs] docs/UX/SECURITY-UX.md:184: C5 has no attack name for `ATK-291`, so the `C5 attack` cell cannot be checked (review F-16)
+[ux-docs] docs/UX/SECURITY-UX.md:185: C5 has no attack name for `ATK-300`, so the `C5 attack` cell cannot be checked (review F-16)
+[ux-docs] docs/UX/SECURITY-UX.md:186: C5 has no attack name for `ATK-295`, so the `C5 attack` cell cannot be checked (review F-16)
+[ux-docs] docs/UX/SECURITY-UX.md:187: C5 has no attack name for `ATK-292`, so the `C5 attack` cell cannot be checked (review F-16)
+ux-docs: FAIL (25 finding(s))
+#
+# How each red was resolved:
+# * C5 attack names: the matrix is split into AG- subsections, so the name reader now scans the whole
+#   specification for ATK table rows (the same rule the id registry uses); the module test
+#   t25_abuse_cases_name_the_c5_class_and_use_the_right_generic_id covers pass and fail.
+# * F-18 nearest event: the reference distance is measured to the event's midpoint, so a reference that
+#   follows its event is paired with it; the audit notes were rewritten as `event (DA-nn)` pairs and the
+#   test t25_audit_references_in_the_prose_name_the_rows_event covers pass and fail.
+# * Audit ids: `AUD-platform.tenant_suspended` is not a B8 branch the crate's slash expansion yields, so
+#   DA-31 uses `AUD-org.suspended`; DA-32 uses `AUD-dns.record_updated`; the platform permission family
+#   now allows the org area (a platform suspension writes an org lifecycle event).
+# * F-17 J-23: DA-06 (manual ban) is reachable from the IP jail and the appeals inbox, so its Screen cell
+#   lists S-067 and S-069; the module test t25_the_screen_of_a_mapped_row_is_one_of_the_step_screens
+#   covers a matching and a wrong screen.
+# * The T-0024 RESPONSIVE.md finding is not a T-0025 file: the catalog row DA-07 legitimately sits on the
+#   appeals inbox S-069 (J-23 step 5 allowlisting), so T-0024 must cover DA-07 or add an `excluded:` row.
+#   It is reported to the lead; T-0025 does not edit RESPONSIVE.md.

@@ -1,0 +1,89 @@
+// deploy/vercel-middleware.ts.example
+//
+// Vercel / serverless origin lockdown for HDD (Addendum 5).
+//
+// A Vercel deployment has no fixed IP, so the origin cannot be protected with an IP
+// allow-list. Instead the HDD proxy injects a shared-secret header into every upstream
+// request (site config: `origin_secret_header: "X-HDD-Origin-Secret"`,
+// `origin_secret_env: HDD_ORIGIN_SECRET`) and strips any client-supplied copy of that
+// header. The origin enforces the header at the edge with this middleware: requests
+// without the correct secret are refused, so a direct request to the *.vercel.app URL
+// cannot bypass HDD.
+//
+// How to install:
+//   1. Copy this file to `middleware.ts` in the Vercel project root (next to app/ or
+//      pages/); keep the project's own middleware if it has one and merge the check.
+//   2. Set the environment variable HDD_ORIGIN_SECRET in the Vercel project (Production
+//      and Preview) to a long random value (32+ bytes, base64/hex). Never put the value
+//      in the repository or in the YAML: the HDD site config only names the env var.
+//   3. Redeploy. Confirm /login over the *.vercel.app URL returns 403 without the
+//      header and only works through HDD (which adds the header).
+//
+// SECURITY LIMITATIONS - DOCUMENT, DO NOT HIDE:
+//   * Constant-time comparison is NOT available in Edge Middleware: there is no
+//     node:crypto timingSafeEqual in the edge runtime. This example digests both
+//     values with Web Crypto SHA-256 and compares the equal-length digests, which
+//     avoids a direct early-exit string compare and hides length, but a JS engine is
+//     not a guaranteed constant-time primitive. Treat the header as a lockdown
+//     mechanism (high-entropy random secret, rotated after the event), not as a user
+//     password.
+//   * The secret is only as strong as its distribution: keep it out of logs, client
+//     bundles and screenshots; rotate it if it may have leaked.
+//   * Keep Vercel Deployment Protection / Vercel Authentication OFF for this path (or
+//     use the automation-bypass feature), otherwise the proxy's requests are
+//     challenged by Vercel's own SSO layer instead of reaching the app.
+//   * Cache the login page with no-store; do not let Vercel's CDN cache authenticated
+//     responses.
+//   * Vercel's own documentation discourages putting a proxy in front of a deployment:
+//     record that as a known limitation of this deployment method.
+//
+// Verification (R-34): request the *.vercel.app origin URL directly WITHOUT the header
+// from a machine that is not the HDD host. Expected 403. If the login page loads, the
+// origin is not locked down and the site must not be described as protected.
+
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+const ORIGIN_SECRET_HEADER = 'x-hdd-origin-secret';
+const ORIGIN_SECRET_ENV = 'HDD_ORIGIN_SECRET';
+
+/** Apply to every path: static assets are no exception for an origin lockdown. */
+export const config = {
+  matcher: ['/(.*)'],
+};
+
+async function sha256(value: string): Promise<Uint8Array> {
+  const bytes = new TextEncoder().encode(value);
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  return new Uint8Array(digest);
+}
+
+function fixedLengthEqual(left: Uint8Array, right: Uint8Array): boolean {
+  // Both digests are 32 bytes; compare all bytes without an early exit.
+  if (left.length !== right.length) return false;
+  let mismatch = 0;
+  for (let index = 0; index < left.length; index += 1) {
+    mismatch |= left[index] ^ right[index];
+  }
+  return mismatch === 0;
+}
+
+export async function middleware(request: NextRequest): Promise<NextResponse> {
+  const expected = process.env[ORIGIN_SECRET_ENV] ?? '';
+  if (expected === '') {
+    // Fail closed: a deployment without the secret configured serves nothing.
+    return new NextResponse('origin lockdown is not configured\n', {
+      status: 500,
+      headers: { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' },
+    });
+  }
+  const provided = request.headers.get(ORIGIN_SECRET_HEADER) ?? '';
+  const [providedDigest, expectedDigest] = await Promise.all([sha256(provided), sha256(expected)]);
+  if (!fixedLengthEqual(providedDigest, expectedDigest)) {
+    return new NextResponse('direct origin access refused\n', {
+      status: 403,
+      headers: { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' },
+    });
+  }
+  return NextResponse.next();
+}

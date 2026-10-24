@@ -1,0 +1,11 @@
+# Exceptions to the xtask grep rules (`cargo xtask verify`, step `rules`).
+# R-22: only `hdd-common::egress` may open outbound connections. Code that must create sockets itself (raw-socket protocol
+# attacks in the acceptance and load tools) is listed here WITH a reason and is reviewed at every gate.
+
+# HK1 demo track (ASM-HK1(c)): the reverse proxy opens the connection to the operator-configured origin itself. The
+# origin is infrastructure, not a destination built from attacker data, so the allowlist is exactly the `sites[].origin`
+# values of the loaded, validated configuration; the egress module's destination allowlist is for outbound requests built
+# from caller data. Timeouts, no redirect following, hop-by-hop stripping and "never log bodies" still apply.
+[[egress_exception]]
+path = "crates/hdd-proxy/src/forward.rs"
+reason = "reverse-proxy origin forwarder; destination is the validated operator-configured sites[].origin, ASM-HK1(c)"

@@ -1,0 +1,34 @@
+# T-0561 negative demonstrations (2026-10-19), run in the real working tree; each injected change is removed afterwards
+
+## clean tree
+profile-lint: PASS
+kv-lint: PASS
+
+## A2: a profile check injected into hdd-waf-core
+[profile-lint] crates/hdd-waf-core/src/lib.rs:7: R-31: `RuntimeProfile` in code that must not depend on the runtime profile (ask hdd-common::profile::capability or move the logic into hdd-local / hdd-common::kv)
+[profile-lint] crates/hdd-waf-core/src/lib.rs:7: R-31: `runtime.profile` in code that must not depend on the runtime profile (ask hdd-common::profile::capability or move the logic into hdd-local / hdd-common::kv)
+[profile-lint] crates/hdd-waf-core/src/lib.rs:7: R-31: `Profile::` in code that must not depend on the runtime profile (ask hdd-common::profile::capability or move the logic into hdd-local / hdd-common::kv)
+profile-lint: FAIL (3 finding(s))
+exit=0
+
+## A3: a Redis client call injected into hdd-api
+(file: crates/hdd-api/src/main.rs)
+[kv-lint] crates/hdd-api/src/main.rs:21: `redis::` outside hdd-common::kv: runtime state goes through the KvStore, Bus and Limiter traits (T-0562)
+kv-lint: FAIL (1 finding(s))
+
+## a capability added to the enum but not to Capability::ALL
+
+For more information about this error, try `rustc --explain E0004`.
+error: could not compile `hdd-common` (lib) due to 3 previous errors
+
+## after restoring everything
+profile-lint: PASS
+kv-lint: PASS
+
+## notes
+- The `exit=` shown for A2 is the exit code of `tail`, not of xtask; the xtask exit code is checked below.
+- The capability demonstration stops earlier than the lint: with a new variant the exhaustive `match` in `Capability::id()` /
+  `label()` / `availability()` no longer compiles (E0004). The lint covers the remaining gap (all matches updated, `ALL` not),
+  proven by the unit test `a_capability_missing_from_the_matrix_list_fails`.
+xtask profile-lint exit code with the violation: 1
+xtask profile-lint exit code after restoring: 0

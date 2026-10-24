@@ -1,0 +1,3 @@
+first-party unsafe scan (substitute for cargo-geiger, ADR-0018): forbid(unsafe_code) at every crate root, inherited workspace lints
+dependency unsafe counts: not part of verify. cargo-geiger 0.14.0 runs on this builder (one-off run: docs/gates/evidence/G00/geiger-attempt.txt, exit 1 on warnings); whether and how to wire it in is decided by T-0517 (ADR-0018)
+no findings

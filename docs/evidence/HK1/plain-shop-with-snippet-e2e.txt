@@ -1,0 +1,15 @@
+PASS LOCK: the plain shop + pasted snippet refuses a direct request (403) :: 403
+PASS LOCK: a wrong secret is refused (403) :: 403
+PASS LOCK: the right secret is served (200, CoreByte) :: 200
+PASS through HDD: the shop home is 200 (HDD adds the secret) :: 200
+PASS legitimate admin login through HDD (303 /admin) :: (303, '/admin')
+PASS wrong password is 401, not blocked :: 401
+PASS BLOCK: SQL injection refused by HDD (403, H1-001) :: (403, 'H1-001')
+PASS MONITOR: injection forwarded, recorded as would-block :: (303, 'would_block')
+PASS OFF: injection reaches the admin panel :: (303, '/admin')
+PASS HDD lockdown-check: the origin lock holds :: a direct request to the origin was refused with HTTP 403; the origin lock-down holds
+PASS HDD verify-protection: protected :: protection verified: the origin refused a direct bypass, the inert payload was blocked and normal requests still reach the site
+    PASS origin_lockdown
+    PASS benign_probe
+    PASS block_probe
+RESULT ALL PASS 11 / 11

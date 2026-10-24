@@ -1,0 +1,10 @@
+=== T-0022 mutation demo ===
+file: docs/UX/ACCESSIBILITY.md
+sha256 before: 473235C5A0CA6C67E7A08D2A29C6F6EC13ACFB89A29CB1A858FF5CDF39A48BF8
+sha256 while mutated: 73B39E3EEA00813093B0214014783DEE6D18627EEA16F8286950AA0F92F29431
+sha256 restored: 473235C5A0CA6C67E7A08D2A29C6F6EC13ACFB89A29CB1A858FF5CDF39A48BF8
+mutation: replace [## Regression strategy] with [## Regression notes]
+ux-docs exit during mutation: 1
+[ux-docs] docs/UX/ACCESSIBILITY.md: no `## Regression strategy` section exists (T-0022 step 1 to 8)
+ux-docs after byte-identical restore: exit 0 - ux-docs: PASS
+restored byte-identical: True

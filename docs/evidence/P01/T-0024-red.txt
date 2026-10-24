@@ -1,0 +1,646 @@
+# T-0024 responsive check: RED run (tests first, rule bodies still stubs)
+# Tool: DeepSeek Harness worker, 2026-10-20 (Asia/Katmandu)
+# Command: cargo nextest run -p hdd-xtask ux_docs::responsive --no-fail-fast
+# State: crates/hdd-xtask/src/ux_docs/responsive.rs has the 14 rule functions returning Vec::new();
+# the fixtures and all 17 tests are complete. docs/UX/RESPONSIVE.md does not exist yet.
+#
+    Blocking waiting for file lock on build directory
+warning: unused imports: `column`, `section_body`, `section_table`, `subsection_body`, `table_rows`, and `tokens_in`
+  --> crates\hdd-xtask\src\ux_docs\accessibility.rs:49:13
+   |
+49 | use super::{column, section_body, section_table, subsection_body, table_rows, tokens_in};
+   |             ^^^^^^  ^^^^^^^^^^^^  ^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^  ^^^^^^^^^^  ^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+System.Management.Automation.RemoteException
+warning: unused import: `BTreeMap`
+  --> crates\hdd-xtask\src\ux_docs\onboarding.rs:34:24
+   |
+34 | use std::collections::{BTreeMap, BTreeSet};
+   |                        ^^^^^^^^
+System.Management.Automation.RemoteException
+warning: unused import: `regex::Regex`
+  --> crates\hdd-xtask\src\ux_docs\onboarding.rs:37:5
+   |
+37 | use regex::Regex;
+   |     ^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: unused import: `read_text`
+  --> crates\hdd-xtask\src\ux_docs\onboarding.rs:39:28
+   |
+39 | use crate::util::{Finding, read_text};
+   |                            ^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: unused import: `super::content::b13_rows`
+  --> crates\hdd-xtask\src\ux_docs\onboarding.rs:41:5
+   |
+41 | use super::content::b13_rows;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: unused imports: `cells`, `column`, `finding`, `screen_ids`, `section_body`, and `section_table`
+  --> crates\hdd-xtask\src\ux_docs\onboarding.rs:42:13
+   |
+42 | use super::{cells, column, finding, section_body, section_table, screen_ids};
+   |             ^^^^^  ^^^^^^  ^^^^^^^  ^^^^^^^^^^^^  ^^^^^^^^^^^^^  ^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: constant `SECTIONS` is never used
+  --> crates\hdd-xtask\src\ux_docs\accessibility.rs:59:11
+   |
+59 | pub const SECTIONS: [&str; 8] = [
+   |           ^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+System.Management.Automation.RemoteException
+warning: constant `FLOWS` is never used
+  --> crates\hdd-xtask\src\ux_docs\accessibility.rs:71:11
+   |
+71 | pub const FLOWS: &str = "Critical flows";
+   |           ^^^^^
+System.Management.Automation.RemoteException
+warning: constant `MATRIX_MODALITIES` is never used
+  --> crates\hdd-xtask\src\ux_docs\accessibility.rs:76:11
+   |
+76 | pub const MATRIX_MODALITIES: [&str; 13] = [
+   |           ^^^^^^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: constant `SEVERITIES` is never used
+  --> crates\hdd-xtask\src\ux_docs\accessibility.rs:93:11
+   |
+93 | pub const SEVERITIES: [&str; 4] = ["Critical", "Serious", "Moderate", "Minor"];
+   |           ^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: constant `ABSOLUTE_CLAIMS` is never used
+  --> crates\hdd-xtask\src\ux_docs\accessibility.rs:96:11
+   |
+96 | pub const ABSOLUTE_CLAIMS: [&str; 9] = [
+   |           ^^^^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: struct `CriteriaFile` is never constructed
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:130:8
+    |
+130 | struct CriteriaFile {
+    |        ^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: struct `CriterionRow` is never constructed
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:141:8
+    |
+141 | struct CriterionRow {
+    |        ^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `has_any` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:178:4
+    |
+178 | fn has_any(text: &str, tokens: &[&str]) -> bool {
+    |    ^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `plain` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:183:4
+    |
+183 | fn plain(cell: &str) -> String {
+    |    ^^^^^
+System.Management.Automation.RemoteException
+warning: function `body_text` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:188:4
+    |
+188 | fn body_text(lines: &[(usize, String)]) -> String {
+    |    ^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `is_numbered` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:198:4
+    |
+198 | fn is_numbered(line: &str) -> bool {
+    |    ^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `numbered_items` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:205:4
+    |
+205 | fn numbered_items(lines: &[(usize, String)]) -> usize {
+    |    ^^^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `is_bullet` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:213:4
+    |
+213 | fn is_bullet(line: &str) -> bool {
+    |    ^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `bullets` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:218:4
+    |
+218 | fn bullets(lines: &[(usize, String)]) -> usize {
+    |    ^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `criterion_id` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:223:4
+    |
+223 | fn criterion_id(cell: &str) -> Option<String> {
+    |    ^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `slug_shape` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:239:4
+    |
+239 | fn slug_shape(slug: &str) -> bool {
+    |    ^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `not_applicable_reason` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:244:4
+    |
+244 | fn not_applicable_reason(cell: &str) -> Option<String> {
+    |    ^^^^^^^^^^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `page_pattern_name` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:253:4
+    |
+253 | fn page_pattern_name(cell: &str) -> Option<String> {
+    |    ^^^^^^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `documents` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:773:19
+    |
+773 |     pub(crate) fn documents() -> Vec<(String, String)> {
+    |                   ^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `spec_section` is never used
+   --> crates\hdd-xtask\src\ux_docs\accessibility.rs:788:19
+    |
+788 |     pub(crate) fn spec_section() -> String {
+    |                   ^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: constant `TABLES` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:329:7
+    |
+329 | const TABLES: [&str; 44] = [
+    |       ^^^^^^
+System.Management.Automation.RemoteException
+warning: constant `FORBIDDEN_CLAIMS` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:379:7
+    |
+379 | const FORBIDDEN_CLAIMS: [&str; 14] = [
+    |       ^^^^^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: constant `THIRD_PARTY` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:397:7
+    |
+397 | const THIRD_PARTY: [&str; 10] = [
+    |       ^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: constant `EMAILS` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:411:11
+    |
+411 | pub const EMAILS: [&str; 4] = ["welcome", "verify", "first domain", "weekly summary"];
+    |           ^^^^^^
+System.Management.Automation.RemoteException
+warning: struct `DecisionRule` is never constructed
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:415:8
+    |
+415 | struct DecisionRule {
+    |        ^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: enum `Status` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:426:6
+    |
+426 | enum Status {
+    |      ^^^^^^
+System.Management.Automation.RemoteException
+warning: constant `SECTIONS` is never used
+  --> crates\hdd-xtask\src\ux_docs\responsive.rs:57:7
+   |
+57 | const SECTIONS: [(&str, &str); 11] = [
+   |       ^^^^^^^^
+System.Management.Automation.RemoteException
+warning: constant `VIEWPORTS` is never used
+  --> crates\hdd-xtask\src\ux_docs\responsive.rs:72:7
+   |
+72 | const VIEWPORTS: [&str; 7] = [
+   |       ^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: constant `MIN_TARGET_CSS_PX` is never used
+  --> crates\hdd-xtask\src\ux_docs\responsive.rs:83:7
+   |
+83 | const MIN_TARGET_CSS_PX: u32 = 24;
+   |       ^^^^^^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: constant `SCREEN_CATEGORIES` is never used
+  --> crates\hdd-xtask\src\ux_docs\responsive.rs:87:7
+   |
+87 | const SCREEN_CATEGORIES: [(&str, &[&str]); 8] = [
+   |       ^^^^^^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: constant `REQUIRED_CATEGORY_SCREENS` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:100:7
+    |
+100 | const REQUIRED_CATEGORY_SCREENS: [(&str, &[&str]); 2] = [
+    |       ^^^^^^^^^^^^^^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: constant `SECURITY_CONTROLS` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:106:7
+    |
+106 | const SECURITY_CONTROLS: [(&str, &[&str]); 5] = [
+    |       ^^^^^^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: constant `BUDGET_CLASSES` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:115:7
+    |
+115 | const BUDGET_CLASSES: [(&str, &[&str]); 4] = [
+    |       ^^^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: constant `PLACEHOLDERS` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:124:7
+    |
+124 | const PLACEHOLDERS: [&str; 8] = [
+    |       ^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `line` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:134:4
+    |
+134 | fn line(n: usize, message: impl Into<String>) -> Finding {
+    |    ^^^^
+System.Management.Automation.RemoteException
+warning: function `word` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:139:4
+    |
+139 | fn word(haystack: &str, needle: &str) -> bool {
+    |    ^^^^
+System.Management.Automation.RemoteException
+warning: function `numbers` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:148:4
+    |
+148 | fn numbers(text: &str) -> Vec<u32> {
+    |    ^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `viewport_key` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:170:4
+    |
+170 | fn viewport_key(cell: &str) -> Option<String> {
+    |    ^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `is_landscape` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:221:4
+    |
+221 | fn is_landscape(viewport: &str) -> bool {
+    |    ^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `cell` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:233:4
+    |
+233 | fn cell<'a>(row: &'a [String], index: Option<usize>) -> &'a str {
+    |    ^^^^
+System.Management.Automation.RemoteException
+warning: function `table_or` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:241:4
+    |
+241 | fn table_or(text: &str, title: &str, step: &str) -> Result<(Vec<String>, Vec<(usize, Vec<String>)>), Vec<Finding>> {
+    |    ^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `required_column` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:255:4
+    |
+255 | fn required_column(header: &[String], name: &str, title: &str) -> Result<usize, Finding> {
+    |    ^^^^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `spec_row` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:264:4
+    |
+264 | fn spec_row(spec: &str, heading: &str, first: &str) -> Option<Vec<String>> {
+    |    ^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `spec_breakpoints` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:280:4
+    |
+280 | fn spec_breakpoints(spec: &str) -> Option<(Vec<u32>, Vec<u32>)> {
+    |    ^^^^^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `spec_targets` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:297:4
+    |
+297 | fn spec_targets(spec: &str) -> Option<(u32, u32)> {
+    |    ^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `spec_layout` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:319:4
+    |
+319 | fn spec_layout(spec: &str) -> Option<(u32, u32)> {
+    |    ^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `spec_screen_text` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:337:4
+    |
+337 | fn spec_screen_text(spec: &str, id: &str) -> Option<String> {
+    |    ^^^^^^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: function `screen_refs` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:365:4
+    |
+365 | fn screen_refs(cell: &str, re: &Regex) -> Vec<String> {
+    |    ^^^^^^^^^^^
+System.Management.Automation.RemoteException
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 54 warnings (run `cargo fix --bin "hdd-xtask" -p hdd-xtask --tests` to apply 6 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.72s
+────────────
+ Nextest run ID 453b8872-c8d1-48a1-b46b-d8303facac14 with nextest profile: default
+    Starting 17 tests across 1 binary (336 tests skipped)
+        FAIL [   0.009s] ( 1/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_b11_7_transformations_are_stated
+  stdout ───
+System.Management.Automation.RemoteException
+    running 1 test
+    test ux_docs::responsive::tests::t24_b11_7_transformations_are_stated ... FAILED
+System.Management.Automation.RemoteException
+    failures:
+System.Management.Automation.RemoteException
+    failures:
+        ux_docs::responsive::tests::t24_b11_7_transformations_are_stated
+System.Management.Automation.RemoteException
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+System.Management.Automation.RemoteException
+  stderr ───
+System.Management.Automation.RemoteException
+    thread 'ux_docs::responsive::tests::t24_b11_7_transformations_are_stated' (19788) panicked at crates\hdd-xtask\src\ux_docs\responsive.rs:805:9:
+System.Management.Automation.RemoteException
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+System.Management.Automation.RemoteException
+        FAIL [   0.014s] ( 2/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_sections_are_required_with_a_body
+  stdout ───
+System.Management.Automation.RemoteException
+    running 1 test
+    test ux_docs::responsive::tests::t24_sections_are_required_with_a_body ... FAILED
+System.Management.Automation.RemoteException
+    failures:
+System.Management.Automation.RemoteException
+    failures:
+        ux_docs::responsive::tests::t24_sections_are_required_with_a_body
+System.Management.Automation.RemoteException
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+System.Management.Automation.RemoteException
+  stderr ───
+System.Management.Automation.RemoteException
+    thread 'ux_docs::responsive::tests::t24_sections_are_required_with_a_body' (26756) panicked at crates\hdd-xtask\src\ux_docs\responsive.rs:747:9:
+System.Management.Automation.RemoteException
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+System.Management.Automation.RemoteException
+        FAIL [   0.019s] ( 3/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_device_matrix_has_exactly_the_seven_viewports
+  stdout ───
+System.Management.Automation.RemoteException
+    running 1 test
+    test ux_docs::responsive::tests::t24_device_matrix_has_exactly_the_seven_viewports ... FAILED
+System.Management.Automation.RemoteException
+    failures:
+System.Management.Automation.RemoteException
+    failures:
+        ux_docs::responsive::tests::t24_device_matrix_has_exactly_the_seven_viewports
+System.Management.Automation.RemoteException
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+System.Management.Automation.RemoteException
+  stderr ───
+System.Management.Automation.RemoteException
+    thread 'ux_docs::responsive::tests::t24_device_matrix_has_exactly_the_seven_viewports' (33204) panicked at crates\hdd-xtask\src\ux_docs\responsive.rs:829:9:
+System.Management.Automation.RemoteException
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+System.Management.Automation.RemoteException
+        PASS [   0.025s] ( 4/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_a_missing_document_is_one_finding_not_a_panic
+        FAIL [   0.028s] ( 5/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_breakpoints_match_b11_4
+  stdout ───
+System.Management.Automation.RemoteException
+    running 1 test
+    test ux_docs::responsive::tests::t24_breakpoints_match_b11_4 ... FAILED
+System.Management.Automation.RemoteException
+    failures:
+System.Management.Automation.RemoteException
+    failures:
+        ux_docs::responsive::tests::t24_breakpoints_match_b11_4
+System.Management.Automation.RemoteException
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+System.Management.Automation.RemoteException
+  stderr ───
+System.Management.Automation.RemoteException
+    thread 'ux_docs::responsive::tests::t24_breakpoints_match_b11_4' (20676) panicked at crates\hdd-xtask\src\ux_docs\responsive.rs:775:9:
+System.Management.Automation.RemoteException
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+System.Management.Automation.RemoteException
+        FAIL [   0.034s] ( 6/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_an_empty_document_is_findings_not_a_panic
+  stdout ───
+System.Management.Automation.RemoteException
+    running 1 test
+    test ux_docs::responsive::tests::t24_an_empty_document_is_findings_not_a_panic ... FAILED
+System.Management.Automation.RemoteException
+    failures:
+System.Management.Automation.RemoteException
+    failures:
+        ux_docs::responsive::tests::t24_an_empty_document_is_findings_not_a_panic
+System.Management.Automation.RemoteException
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+System.Management.Automation.RemoteException
+  stderr ───
+System.Management.Automation.RemoteException
+    thread 'ux_docs::responsive::tests::t24_an_empty_document_is_findings_not_a_panic' (21728) panicked at crates\hdd-xtask\src\ux_docs\responsive.rs:1120:9:
+    assertion failed: !findings.is_empty()
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+System.Management.Automation.RemoteException
+        FAIL [   0.038s] ( 7/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_content_priority_covers_every_breakpoint_and_never_hides_security
+  stdout ───
+System.Management.Automation.RemoteException
+    running 1 test
+    test ux_docs::responsive::tests::t24_content_priority_covers_every_breakpoint_and_never_hides_security ... FAILED
+System.Management.Automation.RemoteException
+    failures:
+System.Management.Automation.RemoteException
+    failures:
+        ux_docs::responsive::tests::t24_content_priority_covers_every_breakpoint_and_never_hides_security
+System.Management.Automation.RemoteException
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+System.Management.Automation.RemoteException
+  stderr ───
+System.Management.Automation.RemoteException
+    thread 'ux_docs::responsive::tests::t24_content_priority_covers_every_breakpoint_and_never_hides_security' (30528) panicked at crates\hdd-xtask\src\ux_docs\responsive.rs:948:9:
+System.Management.Automation.RemoteException
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+System.Management.Automation.RemoteException
+        PASS [   0.044s] ( 8/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_a_complete_document_passes_the_whole_check
+        FAIL [   0.047s] ( 9/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_print_rules_cover_reports_and_audit_exports
+  stdout ───
+System.Management.Automation.RemoteException
+    running 1 test
+    test ux_docs::responsive::tests::t24_print_rules_cover_reports_and_audit_exports ... FAILED
+System.Management.Automation.RemoteException
+    failures:
+System.Management.Automation.RemoteException
+    failures:
+        ux_docs::responsive::tests::t24_print_rules_cover_reports_and_audit_exports
+System.Management.Automation.RemoteException
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+System.Management.Automation.RemoteException
+  stderr ───
+System.Management.Automation.RemoteException
+    thread 'ux_docs::responsive::tests::t24_print_rules_cover_reports_and_audit_exports' (33448) panicked at crates\hdd-xtask\src\ux_docs\responsive.rs:1022:9:
+System.Management.Automation.RemoteException
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+System.Management.Automation.RemoteException
+        FAIL [   0.051s] (10/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_placeholder_cells_are_rejected
+  stdout ───
+System.Management.Automation.RemoteException
+    running 1 test
+    test ux_docs::responsive::tests::t24_placeholder_cells_are_rejected ... FAILED
+System.Management.Automation.RemoteException
+    failures:
+System.Management.Automation.RemoteException
+    failures:
+        ux_docs::responsive::tests::t24_placeholder_cells_are_rejected
+System.Management.Automation.RemoteException
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+System.Management.Automation.RemoteException
+  stderr ───
+System.Management.Automation.RemoteException
+    thread 'ux_docs::responsive::tests::t24_placeholder_cells_are_rejected' (25336) panicked at crates\hdd-xtask\src\ux_docs\responsive.rs:1087:9:
+System.Management.Automation.RemoteException
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+System.Management.Automation.RemoteException
+        FAIL [   0.056s] (11/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_input_modalities_use_the_b11_4_targets
+  stdout ───
+System.Management.Automation.RemoteException
+    running 1 test
+    test ux_docs::responsive::tests::t24_input_modalities_use_the_b11_4_targets ... FAILED
+System.Management.Automation.RemoteException
+    failures:
+System.Management.Automation.RemoteException
+    failures:
+        ux_docs::responsive::tests::t24_input_modalities_use_the_b11_4_targets
+System.Management.Automation.RemoteException
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+System.Management.Automation.RemoteException
+  stderr ───
+System.Management.Automation.RemoteException
+    thread 'ux_docs::responsive::tests::t24_input_modalities_use_the_b11_4_targets' (18076) panicked at crates\hdd-xtask\src\ux_docs\responsive.rs:861:9:
+System.Management.Automation.RemoteException
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+System.Management.Automation.RemoteException
+        FAIL [   0.062s] (12/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_security_controls_are_named_and_never_hidden
+  stdout ───
+System.Management.Automation.RemoteException
+    running 1 test
+    test ux_docs::responsive::tests::t24_security_controls_are_named_and_never_hidden ... FAILED
+System.Management.Automation.RemoteException
+    failures:
+System.Management.Automation.RemoteException
+    failures:
+        ux_docs::responsive::tests::t24_security_controls_are_named_and_never_hidden
+System.Management.Automation.RemoteException
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+System.Management.Automation.RemoteException
+  stderr ───
+System.Management.Automation.RemoteException
+    thread 'ux_docs::responsive::tests::t24_security_controls_are_named_and_never_hidden' (26860) panicked at crates\hdd-xtask\src\ux_docs\responsive.rs:911:9:
+System.Management.Automation.RemoteException
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+System.Management.Automation.RemoteException
+        FAIL [   0.067s] (13/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_every_cited_screen_exists_in_b12_1
+  stdout ───
+System.Management.Automation.RemoteException
+    running 1 test
+    test ux_docs::responsive::tests::t24_every_cited_screen_exists_in_b12_1 ... FAILED
+System.Management.Automation.RemoteException
+    failures:
+System.Management.Automation.RemoteException
+    failures:
+        ux_docs::responsive::tests::t24_every_cited_screen_exists_in_b12_1
+System.Management.Automation.RemoteException
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+System.Management.Automation.RemoteException
+  stderr ───
+System.Management.Automation.RemoteException
+    thread 'ux_docs::responsive::tests::t24_every_cited_screen_exists_in_b12_1' (33736) panicked at crates\hdd-xtask\src\ux_docs\responsive.rs:1072:9:
+System.Management.Automation.RemoteException
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+System.Management.Automation.RemoteException
+        FAIL [   0.072s] (14/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_each_screen_category_has_a_small_screen_behaviour
+  stdout ───
+System.Management.Automation.RemoteException
+    running 1 test
+    test ux_docs::responsive::tests::t24_each_screen_category_has_a_small_screen_behaviour ... FAILED
+System.Management.Automation.RemoteException
+    failures:
+System.Management.Automation.RemoteException
+    failures:
+        ux_docs::responsive::tests::t24_each_screen_category_has_a_small_screen_behaviour
+System.Management.Automation.RemoteException
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+System.Management.Automation.RemoteException
+  stderr ───
+System.Management.Automation.RemoteException
+    thread 'ux_docs::responsive::tests::t24_each_screen_category_has_a_small_screen_behaviour' (33032) panicked at crates\hdd-xtask\src\ux_docs\responsive.rs:886:9:
+System.Management.Automation.RemoteException
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+System.Management.Automation.RemoteException
+        FAIL [   0.077s] (15/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_performance_budgets_are_numeric_for_every_class
+  stdout ───
+System.Management.Automation.RemoteException
+    running 1 test
+    test ux_docs::responsive::tests::t24_performance_budgets_are_numeric_for_every_class ... FAILED
+System.Management.Automation.RemoteException
+    failures:
+System.Management.Automation.RemoteException
+    failures:
+        ux_docs::responsive::tests::t24_performance_budgets_are_numeric_for_every_class
+System.Management.Automation.RemoteException
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+System.Management.Automation.RemoteException
+  stderr ───
+System.Management.Automation.RemoteException
+    thread 'ux_docs::responsive::tests::t24_performance_budgets_are_numeric_for_every_class' (12332) panicked at crates\hdd-xtask\src\ux_docs\responsive.rs:994:9:
+System.Management.Automation.RemoteException
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+System.Management.Automation.RemoteException
+        FAIL [   0.081s] (16/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_data_dense_screens_keep_real_columns
+  stdout ───
+System.Management.Automation.RemoteException
+    running 1 test
+    test ux_docs::responsive::tests::t24_data_dense_screens_keep_real_columns ... FAILED
+System.Management.Automation.RemoteException
+    failures:
+System.Management.Automation.RemoteException
+    failures:
+        ux_docs::responsive::tests::t24_data_dense_screens_keep_real_columns
+System.Management.Automation.RemoteException
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+System.Management.Automation.RemoteException
+  stderr ───
+System.Management.Automation.RemoteException
+    thread 'ux_docs::responsive::tests::t24_data_dense_screens_keep_real_columns' (23024) panicked at crates\hdd-xtask\src\ux_docs\responsive.rs:970:9:
+System.Management.Automation.RemoteException
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+System.Management.Automation.RemoteException
+        FAIL [   0.077s] (17/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_testing_hooks_pin_the_viewport_helper_and_naming
+  stdout ───
+System.Management.Automation.RemoteException
+    running 1 test
+    test ux_docs::responsive::tests::t24_testing_hooks_pin_the_viewport_helper_and_naming ... FAILED
+System.Management.Automation.RemoteException
+    failures:
+System.Management.Automation.RemoteException
+    failures:
+        ux_docs::responsive::tests::t24_testing_hooks_pin_the_viewport_helper_and_naming
+System.Management.Automation.RemoteException
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 352 filtered out; finished in 0.00s
+System.Management.Automation.RemoteException
+  stderr ───
+System.Management.Automation.RemoteException
+    thread 'ux_docs::responsive::tests::t24_testing_hooks_pin_the_viewport_helper_and_naming' (21672) panicked at crates\hdd-xtask\src\ux_docs\responsive.rs:1050:9:
+System.Management.Automation.RemoteException
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+System.Management.Automation.RemoteException
+────────────
+     Summary [   0.088s] 17 tests run: 2 passed, 15 failed, 336 skipped
+        FAIL [   0.009s] ( 1/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_b11_7_transformations_are_stated
+        FAIL [   0.014s] ( 2/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_sections_are_required_with_a_body
+        FAIL [   0.019s] ( 3/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_device_matrix_has_exactly_the_seven_viewports
+        FAIL [   0.028s] ( 5/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_breakpoints_match_b11_4
+        FAIL [   0.034s] ( 6/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_an_empty_document_is_findings_not_a_panic
+        FAIL [   0.038s] ( 7/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_content_priority_covers_every_breakpoint_and_never_hides_security
+        FAIL [   0.047s] ( 9/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_print_rules_cover_reports_and_audit_exports
+        FAIL [   0.051s] (10/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_placeholder_cells_are_rejected
+        FAIL [   0.056s] (11/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_input_modalities_use_the_b11_4_targets
+        FAIL [   0.062s] (12/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_security_controls_are_named_and_never_hidden
+        FAIL [   0.067s] (13/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_every_cited_screen_exists_in_b12_1
+        FAIL [   0.072s] (14/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_each_screen_category_has_a_small_screen_behaviour
+        FAIL [   0.077s] (15/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_performance_budgets_are_numeric_for_every_class
+        FAIL [   0.081s] (16/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_data_dense_screens_keep_real_columns
+        FAIL [   0.077s] (17/17) hdd-xtask::bin/hdd-xtask ux_docs::responsive::tests::t24_testing_hooks_pin_the_viewport_helper_and_naming
+error: test run failed
+# exit code: 100

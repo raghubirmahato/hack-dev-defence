@@ -1,0 +1,42 @@
+T-0024 (F-21..F-24) mutation demos, round 2
+Each mutation: backup, mutate, cargo xtask ux-docs, restore, SHA-256 before/after equal.
+
+RESPONSIVE.md SHA-256 before demos: 7C06D5F69B794BB2A90F9C3543E8F89E0F9BE5A7F050E6B9DB722194C116DE99
+
+=== F-22 demo 1: remove the Pause protection row ===
+mutated SHA-256: FA24032BC6BAEBF6BC2C9F9EAE8556DD4FACDA5ADD67427F41DB9ED2021B83E5
+cargo xtask ux-docs exit: 1
+[ux-docs] docs/UX/ONBOARDING.md:103: the example expects the action `Nothing to do now.` but rule 13 returns `Review the checklist at S-044.` (T-0026 Tests)
+[ux-docs] docs/UX/ONBOARDING.md: the all-Pass state must return the distinct outcome `Nothing to do now.`, but rule 13 returns `Review the checklist at S-044.` (F-20b)
+[ux-docs] docs/UX/RESPONSIVE.md: the security-critical control `pause protection` is not listed; it must stay reachable on a small screen (T-0024 note)
+[ux-docs] docs/UX/RESPONSIVE.md:41: the catalog row `DA-25` is time-boxed or sits on a security-critical screen, but no `## Security-critical controls` row covers it and no `excluded:` row names it with a reason (T-0024 F-22)
+[ux-docs] docs/UX/journeys/J-14.md:51: the safeguard row `Toggling the proxy state.` is mapped to `DA-32` on S-052 but step 4 runs on S-046; the mapped row must be reachable from the step's screen (review F-17)
+ux-docs: FAIL (5 finding(s))
+restored SHA-256: 7C06D5F69B794BB2A90F9C3543E8F89E0F9BE5A7F050E6B9DB722194C116DE99
+sha equal: True
+
+=== F-22 demo 2: drop platform emergency controls from the 768 to 1023 px Never moves cell ===
+mutated SHA-256: 953EB68E36A5A53FB3C22E5062F3D67DB2CA3D2759ADDAAC3DBA54F0ACFD2A27
+cargo xtask ux-docs exit: 1
+[ux-docs] docs/UX/READINESS-MODEL.md:140: case F uses the ratio 0.25 but the monitor-mode design value is 0.5 (F-19a)
+[ux-docs] docs/UX/READINESS-MODEL.md:140: the scoring example `RD-WAF-MODE Partial(0.25)` expects the score 96 but the scoring function gives 94 (T-0026 Tests)
+[ux-docs] docs/UX/RESPONSIVE.md:139: the `Never moves` cell does not name the security-critical control `Platform emergency controls`; every breakpoint names the same control set as the `## Security-critical controls` table (F-22)
+[ux-docs] docs/UX/dangerous-actions.md:87: the prose reference `DA-28` sits next to `AUD-tls.cert_deleted`, but that row's Audit event is `AUD-apikey.revoked` (review F-18)
+ux-docs: FAIL (4 finding(s))
+restored SHA-256: 7C06D5F69B794BB2A90F9C3543E8F89E0F9BE5A7F050E6B9DB722194C116DE99
+sha equal: True
+
+=== F-23 demo 3: change the canonical print margin from 12 mm to 15 mm ===
+mutated SHA-256: FE86A968C1ED3D91056C36D291E9E4E1A90E4FE90E787BCB5C439176598E8E04
+cargo xtask ux-docs exit: 1
+[ux-docs] docs/UX/READINESS-MODEL.md: the B12.2 check phrase `delegation or CNAME verified` has no row in the mapping table (F-19c)
+[ux-docs] docs/UX/READINESS-MODEL.md:69: the mapping row `delegation or CNAME checked` is not a check phrase of the B12.2 S-044 bullet lists (F-19c)
+[ux-docs] docs/UX/RESPONSIVE.md: the print margin is stated as 15 mm; the canonical rule is A4 portrait with 12 mm margins (F-23)
+ux-docs: FAIL (3 finding(s))
+restored SHA-256: 7C06D5F69B794BB2A90F9C3543E8F89E0F9BE5A7F050E6B9DB722194C116DE99
+sha equal: True
+
+RESPONSIVE.md SHA-256 after restore: 7C06D5F69B794BB2A90F9C3543E8F89E0F9BE5A7F050E6B9DB722194C116DE99
+all SHA-256 equal: True
+Final restored tree: cargo xtask ux-docs exit: 0
+ux-docs: PASS

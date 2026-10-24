@@ -1,0 +1,322 @@
+   Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+warning: unused variable: `text`
+    --> crates\hdd-xtask\src\ux_docs\a11y.rs:1037:14
+     |
+1037 |     fn parse(text: &str) -> Option<Severity> {
+     |              ^^^^ help: if this is intentional, prefix it with an underscore: `_text`
+     |
+     = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `JOURNEY_DIR` is never used
+  --> crates\hdd-xtask\src\ux_docs\a11y.rs:58:11
+   |
+58 | pub const JOURNEY_DIR: &str = "docs/UX/journeys";
+   |           ^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 2 warnings (run `cargo fix --bin "hdd-xtask" -p hdd-xtask --tests` to apply 1 suggestion)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 7.87s
+────────────
+ Nextest run ID d8286892-964e-451e-aef4-2476120d6693 with nextest profile: default
+    Starting 46 tests across 1 binary (396 tests skipped)
+        PASS [   0.023s] ( 1/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_accepts_screens_not_covered_with_a_reason
+        FAIL [   0.026s] ( 2/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_reports_an_uncovered_journey_screen
+  stdout ───
+
+    running 1 test
+    test ux_docs::a11y::tests::checklist_reports_an_uncovered_journey_screen ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::a11y::tests::checklist_reports_an_uncovered_journey_screen
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::a11y::tests::checklist_reports_an_uncovered_journey_screen' (21440) panicked at crates\hdd-xtask\src\ux_docs\a11y.rs:2645:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.035s] ( 3/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_accepts_an_outside_the_journey_line_with_a_reason
+  stdout ───
+
+    running 1 test
+    test ux_docs::a11y::tests::checklist_accepts_an_outside_the_journey_line_with_a_reason ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::a11y::tests::checklist_accepts_an_outside_the_journey_line_with_a_reason
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::a11y::tests::checklist_accepts_an_outside_the_journey_line_with_a_reason' (31344) panicked at crates\hdd-xtask\src\ux_docs\a11y.rs:2633:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.043s] ( 4/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::criteria_file_rejects_a_bad_id_level_source_and_duplicate
+        FAIL [   0.047s] ( 5/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_requires_the_screens_line
+  stdout ───
+
+    running 1 test
+    test ux_docs::a11y::tests::checklist_requires_the_screens_line ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::a11y::tests::checklist_requires_the_screens_line
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::a11y::tests::checklist_requires_the_screens_line' (25980) panicked at crates\hdd-xtask\src\ux_docs\a11y.rs:2675:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.049s] ( 6/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_coverage_requires_the_doc_subsection
+  stdout ───
+
+    running 1 test
+    test ux_docs::a11y::tests::checklist_coverage_requires_the_doc_subsection ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::a11y::tests::checklist_coverage_requires_the_doc_subsection
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::a11y::tests::checklist_coverage_requires_the_doc_subsection' (32044) panicked at crates\hdd-xtask\src\ux_docs\a11y.rs:2687:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.052s] ( 7/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_reports_a_screen_outside_the_journey
+  stdout ───
+
+    running 1 test
+    test ux_docs::a11y::tests::checklist_reports_a_screen_outside_the_journey ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::a11y::tests::checklist_reports_a_screen_outside_the_journey
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::a11y::tests::checklist_reports_a_screen_outside_the_journey' (34640) panicked at crates\hdd-xtask\src\ux_docs\a11y.rs:2604:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.063s] ( 8/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_screen_coverage_accepts_the_fixture
+        PASS [   0.066s] ( 9/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::criteria_file_rejects_malformed_toml
+        FAIL [   0.074s] (10/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_coverage_reports_a_missing_journey
+  stdout ───
+
+    running 1 test
+    test ux_docs::a11y::tests::checklist_coverage_reports_a_missing_journey ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::a11y::tests::checklist_coverage_reports_a_missing_journey
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::a11y::tests::checklist_coverage_reports_a_missing_journey' (25400) panicked at crates\hdd-xtask\src\ux_docs\a11y.rs:2706:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.077s] (11/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::automated_checks_name_the_axe_oracle_and_the_named_checks
+        PASS [   0.079s] (12/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::criteria_file_parses_the_fixture_list
+        PASS [   0.082s] (13/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_has_the_required_parts
+        PASS [   0.082s] (14/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::fixtures_cover_the_files_the_lead_writes
+        PASS [   0.089s] (15/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::criteria_file_requires_an_unverified_provenance_marker
+        FAIL [   0.067s] (16/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::journey_screen_ids_read_the_steps_screen_column
+  stdout ───
+
+    running 1 test
+    test ux_docs::a11y::tests::journey_screen_ids_read_the_steps_screen_column ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::a11y::tests::journey_screen_ids_read_the_steps_screen_column
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::a11y::tests::journey_screen_ids_read_the_steps_screen_column' (17324) panicked at crates\hdd-xtask\src\ux_docs\a11y.rs:2573:51:
+    the steps table parses: ""
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.083s] (17/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::human_steps_require_the_pending_marker_and_instructions
+        PASS [   0.089s] (18/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::flows_require_twelve_real_journeys_with_exact_titles
+        PASS [   0.095s] (19/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::manual_checks_name_walkthroughs_twelve_scripts_zoom_and_reflow
+        PASS [   0.093s] (20/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::missing_documents_are_findings_not_panics
+        PASS [   0.162s] (21/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_accepts_the_fixture_and_every_owner_form
+        PASS [   0.158s] (22/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_a_duplicate_row
+        PASS [   0.162s] (23/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_names_the_b11_11_extension
+        FAIL [   0.073s] (24/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::screen_ids_are_whole_tokens_not_parts_of_error_codes
+  stdout ───
+
+    running 1 test
+    test ux_docs::a11y::tests::screen_ids_are_whole_tokens_not_parts_of_error_codes ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::a11y::tests::screen_ids_are_whole_tokens_not_parts_of_error_codes
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::a11y::tests::screen_ids_are_whole_tokens_not_parts_of_error_codes' (20052) panicked at crates\hdd-xtask\src\ux_docs\a11y.rs:2557:9:
+    assertion `left == right` failed
+      left: {}
+     right: {"S-020", "S-021"}
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.020s] (25/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::sections_require_all_eight_with_a_body
+        FAIL [   0.013s] (26/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_classifier_precedence_is_a_function
+  stdout ───
+
+    running 1 test
+    test ux_docs::a11y::tests::severity_classifier_precedence_is_a_function ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::a11y::tests::severity_classifier_precedence_is_a_function
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::a11y::tests::severity_classifier_precedence_is_a_function' (31092) panicked at crates\hdd-xtask\src\ux_docs\a11y.rs:2357:9:
+    assertion `left == right` failed
+      left: Minor
+     right: Critical
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.019s] (27/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_examples_are_evaluated_by_the_classifier
+  stdout ───
+
+    running 1 test
+    test ux_docs::a11y::tests::severity_examples_are_evaluated_by_the_classifier ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::a11y::tests::severity_examples_are_evaluated_by_the_classifier
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::a11y::tests::severity_examples_are_evaluated_by_the_classifier' (18676) panicked at crates\hdd-xtask\src\ux_docs\a11y.rs:2434:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.123s] (28/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::page_patterns_require_a_real_component
+        PASS [   0.166s] (29/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_a_missing_criterion
+        FAIL [   0.024s] (30/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_examples_need_six_rows_and_all_four_severities
+  stdout ───
+
+    running 1 test
+    test ux_docs::a11y::tests::severity_examples_need_six_rows_and_all_four_severities ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::a11y::tests::severity_examples_need_six_rows_and_all_four_severities
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::a11y::tests::severity_examples_need_six_rows_and_all_four_severities' (10840) panicked at crates\hdd-xtask\src\ux_docs\a11y.rs:2474:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.126s] (31/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::regression_names_the_artifact_directory_and_the_baseline_tasks
+        PASS [   0.167s] (32/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_a_vacuous_not_applicable_reason
+        PASS [   0.171s] (33/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_an_id_not_in_the_stored_list
+        FAIL [   0.040s] (34/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_rejects_a_moderate_row_that_names_a_criterion_failure
+  stdout ───
+
+    running 1 test
+    test ux_docs::a11y::tests::severity_rejects_a_moderate_row_that_names_a_criterion_failure ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::a11y::tests::severity_rejects_a_moderate_row_that_names_a_criterion_failure
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::a11y::tests::severity_rejects_a_moderate_row_that_names_a_criterion_failure' (31508) panicked at crates\hdd-xtask\src\ux_docs\a11y.rs:2496:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.175s] (35/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_an_undeclared_page_pattern
+        FAIL [   0.059s] (36/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_names_the_four_levels_and_the_ac40_gate_rule
+  stdout ───
+
+    running 1 test
+    test ux_docs::a11y::tests::severity_names_the_four_levels_and_the_ac40_gate_rule ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::a11y::tests::severity_names_the_four_levels_and_the_ac40_gate_rule
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.03s
+
+  stderr ───
+
+    thread 'ux_docs::a11y::tests::severity_names_the_four_levels_and_the_ac40_gate_rule' (11036) panicked at crates\hdd-xtask\src\ux_docs\a11y.rs:2183:9:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.039s] (37/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::strategy_cites_only_real_screens_and_journeys
+        PASS [   0.199s] (38/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_a_whole_token_owner_that_is_not_a_component
+        PASS [   0.057s] (39/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::statement_rejects_an_absolute_conformance_claim
+        PASS [   0.055s] (40/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::statement_requires_known_gaps
+        PASS [   0.053s] (41/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::whole_token_matching_rejects_longer_words_and_ids
+        PASS [   0.238s] (42/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::mapping_reports_a_level_or_title_drift
+        PASS [   0.277s] (43/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::matrix_marks_jaws_as_available_only_if_available
+        PASS [   0.397s] (44/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::matrix_requires_every_modality
+        PASS [   0.511s] (45/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_set_requires_exactly_the_named_files
+        PASS [   0.437s] (46/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::the_fixture_documents_pass_every_rule
+────────────
+     Summary [   0.670s] 46 tests run: 33 passed, 13 failed, 396 skipped
+        FAIL [   0.026s] ( 2/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_reports_an_uncovered_journey_screen
+        FAIL [   0.035s] ( 3/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_accepts_an_outside_the_journey_line_with_a_reason
+        FAIL [   0.047s] ( 5/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_requires_the_screens_line
+        FAIL [   0.049s] ( 6/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_coverage_requires_the_doc_subsection
+        FAIL [   0.052s] ( 7/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_reports_a_screen_outside_the_journey
+        FAIL [   0.074s] (10/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::checklist_coverage_reports_a_missing_journey
+        FAIL [   0.067s] (16/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::journey_screen_ids_read_the_steps_screen_column
+        FAIL [   0.073s] (24/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::screen_ids_are_whole_tokens_not_parts_of_error_codes
+        FAIL [   0.013s] (26/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_classifier_precedence_is_a_function
+        FAIL [   0.019s] (27/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_examples_are_evaluated_by_the_classifier
+        FAIL [   0.024s] (30/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_examples_need_six_rows_and_all_four_severities
+        FAIL [   0.040s] (34/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_rejects_a_moderate_row_that_names_a_criterion_failure
+        FAIL [   0.059s] (36/46) hdd-xtask::bin/hdd-xtask ux_docs::a11y::tests::severity_names_the_four_levels_and_the_ac40_gate_rule
+error: test run failed

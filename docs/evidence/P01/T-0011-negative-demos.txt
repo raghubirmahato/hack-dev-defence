@@ -1,0 +1,19 @@
+# T-0011 negative demos: each mutation of the shipped documents must make 'cargo xtask ux-docs' FAIL; the documents are restored afterwards
+## 1. empty enforcement cell for principle 1
+[ux-docs] docs/UX/CHARTER.md:19: principle `Calm, honest, expert` has an empty `Enforced by` cell
+ux-docs: FAIL (1 finding(s))
+## 2. an honesty test that is a statement
+[ux-docs] docs/UX/CHARTER.md:38: an honesty test must be phrased as a yes/no question ending in `?`
+ux-docs: FAIL (1 finding(s))
+## 3. a measure without a privacy treatment
+[ux-docs] docs/UX/MEASURES.md:17: measure `Time to unban` has an empty `Privacy treatment` cell
+ux-docs: FAIL (1 finding(s))
+## 4. a broken relative link and a broken anchor
+[ux-docs] docs/UX/CHARTER.md:66: `GONE.md` does not exist (looked for docs/UX/GONE.md)
+[ux-docs] docs/UX/CHARTER.md:66: `MEASURES.md#no-such-heading`: `#no-such-heading` is not a heading of docs/UX/MEASURES.md
+ux-docs: FAIL (2 finding(s))
+## 5. a 2,500-word charter
+[ux-docs] docs/UX/CHARTER.md: 2479 words; the charter must fit four printed pages (2400 words)
+ux-docs: FAIL (1 finding(s))
+## 6. restored documents
+ux-docs: PASS

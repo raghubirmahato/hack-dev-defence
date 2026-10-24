@@ -1,0 +1,420 @@
+   Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.24s
+────────────
+ Nextest run ID 0925005c-e611-49a1-8219-dd9451d5b3b3 with nextest profile: default
+    Starting 127 tests across 1 binary
+        PASS [   0.013s] (  1/127) hdd-xtask::bin/hdd-xtask deps::tests::ffi_and_unmaintained_crates_need_an_existing_adr
+        PASS [   0.017s] (  2/127) hdd-xtask::bin/hdd-xtask claims::tests::qualified_ddos_protection_passes_and_unqualified_fails
+        PASS [   0.023s] (  3/127) hdd-xtask::bin/hdd-xtask claims::tests::allow_block_excuses_quotations_and_unbalanced_blocks_fail
+        PASS [   0.030s] (  4/127) hdd-xtask::bin/hdd-xtask gate::tests::criteria_are_parsed_from_the_acceptance_list
+        PASS [   0.033s] (  5/127) hdd-xtask::bin/hdd-xtask claims::tests::a_line_that_merely_mentions_the_marker_does_not_open_a_block
+        PASS [   0.038s] (  6/127) hdd-xtask::bin/hdd-xtask deps::tests::stale_entries_and_bad_dates_are_flagged
+        PASS [   0.044s] (  7/127) hdd-xtask::bin/hdd-xtask deps::tests::a_crate_whose_msrv_exceeds_the_workspace_is_flagged
+        PASS [   0.048s] (  8/127) hdd-xtask::bin/hdd-xtask deps::tests::external_deps_skip_path_dependencies_and_include_dev
+        PASS [   0.053s] (  9/127) hdd-xtask::bin/hdd-xtask claims::tests::seeded_forbidden_phrase_in_a_template_fails
+        PASS [   0.058s] ( 10/127) hdd-xtask::bin/hdd-xtask deps::tests::fully_vetted_manifest_passes
+        PASS [   0.063s] ( 11/127) hdd-xtask::bin/hdd-xtask claims::tests::the_shipped_configuration_does_not_excuse_the_phrase_by_a_mere_upstream_mention
+        PASS [   0.067s] ( 12/127) hdd-xtask::bin/hdd-xtask gate::tests::cells_escape_pipes_and_newlines
+        PASS [   0.072s] ( 13/127) hdd-xtask::bin/hdd-xtask deps::tests::workspace_and_target_tables_are_read
+        PASS [   0.076s] ( 14/127) hdd-xtask::bin/hdd-xtask claims::tests::approved_patterns_of_section_4_3_pass
+        PASS [   0.086s] ( 15/127) hdd-xtask::bin/hdd-xtask deps::tests::adding_a_crate_without_vetting_is_flagged
+        PASS [   0.086s] ( 16/127) hdd-xtask::bin/hdd-xtask claims::tests::scope_follows_include_exclude_and_extension
+        PASS [   0.076s] ( 17/127) hdd-xtask::bin/hdd-xtask gate::tests::nextest_summary_is_extracted_from_the_tail
+        PASS [   0.079s] ( 18/127) hdd-xtask::bin/hdd-xtask matrix::tests::a_done_row_with_hash_checked_passing_evidence_passes_and_tampering_fails
+        PASS [   0.077s] ( 19/127) hdd-xtask::bin/hdd-xtask matrix::tests::a_done_row_without_evidence_fails
+        PASS [   0.079s] ( 20/127) hdd-xtask::bin/hdd-xtask matrix::tests::failing_run_record_and_missing_test_are_rejected
+        PASS [   0.077s] ( 21/127) hdd-xtask::bin/hdd-xtask matrix::tests::generated_matrix_has_one_row_per_task_with_req_ids
+        PASS [   0.078s] ( 22/127) hdd-xtask::bin/hdd-xtask matrix::tests::run_record_detection
+        PASS [   0.078s] ( 23/127) hdd-xtask::bin/hdd-xtask matrix::tests::todo_rows_and_explicit_deferrals_need_nothing
+        PASS [   0.078s] ( 24/127) hdd-xtask::bin/hdd-xtask profile_check::tests::schema_paths_list_nested_object_fields_and_treat_arrays_as_leaves
+        PASS [   0.085s] ( 25/127) hdd-xtask::bin/hdd-xtask profile_check::tests::generated_schema_is_valid_json_with_the_expected_top_level_fields
+        PASS [   0.122s] ( 26/127) hdd-xtask::bin/hdd-xtask gate::tests::the_gate_report_is_deterministic_follows_the_template_and_flags_unrecorded_criteria
+        PASS [   0.077s] ( 27/127) hdd-xtask::bin/hdd-xtask profile_check::tests::value_paths_follow_mappings_only
+        PASS [   0.085s] ( 28/127) hdd-xtask::bin/hdd-xtask profile_lint::tests::a2_a_profile_check_added_to_the_detection_crate_fails_and_the_clean_tree_passes
+        PASS [   0.082s] ( 29/127) hdd-xtask::bin/hdd-xtask profile_lint::tests::a3_a_redis_client_call_outside_the_kv_module_fails
+        PASS [   0.078s] ( 30/127) hdd-xtask::bin/hdd-xtask profile_lint::tests::a_capability_missing_from_the_matrix_list_fails
+        PASS [   0.076s] ( 31/127) hdd-xtask::bin/hdd-xtask profile_lint::tests::a_mention_of_the_test_marker_in_a_comment_does_not_hide_the_rest_of_the_file
+        PASS [   0.078s] ( 32/127) hdd-xtask::bin/hdd-xtask profile_lint::tests::a_missing_config_is_a_finding_not_a_pass
+        PASS [   0.078s] ( 33/127) hdd-xtask::bin/hdd-xtask profile_lint::tests::a_renamed_redis_dependency_is_still_caught
+        PASS [   0.070s] ( 34/127) hdd-xtask::bin/hdd-xtask profile_lint::tests::redis_client_dependencies_are_caught_in_every_manifest_but_the_common_one
+        PASS [   0.080s] ( 35/127) hdd-xtask::bin/hdd-xtask profile_lint::tests::profile_cfg_features_and_environment_variables_are_caught
+        PASS [   0.070s] ( 36/127) hdd-xtask::bin/hdd-xtask profile_lint::tests::the_registry_rows_are_parsed_and_the_generated_table_round_trips
+        PASS [   0.096s] ( 37/127) hdd-xtask::bin/hdd-xtask profile_lint::tests::comments_test_code_and_other_crates_are_not_flagged
+        PASS [   0.084s] ( 38/127) hdd-xtask::bin/hdd-xtask profile_lint::tests::the_kv_check_walks_the_crates_and_reports_each_file
+        PASS [   0.072s] ( 39/127) hdd-xtask::bin/hdd-xtask rules::tests::a_first_response_with_a_missing_question_or_an_extra_section_fails
+        PASS [   0.074s] ( 40/127) hdd-xtask::bin/hdd-xtask rules::tests::a_shipped_binary_reaching_the_vuln_lab_is_a_finding_but_a_dev_dependency_is_not
+        PASS [   0.086s] ( 41/127) hdd-xtask::bin/hdd-xtask profile_lint::tests::the_runtime_profile_is_confined_to_the_places_that_may_know_it
+        PASS [   0.079s] ( 42/127) hdd-xtask::bin/hdd-xtask rules::tests::agents_md_over_the_cap_is_a_finding
+        PASS [   0.070s] ( 43/127) hdd-xtask::bin/hdd-xtask rules::tests::comments_may_mention_the_patterns
+        PASS [   0.072s] ( 44/127) hdd-xtask::bin/hdd-xtask rules::tests::egress_patterns_outside_the_module_are_flagged
+        PASS [   0.077s] ( 45/127) hdd-xtask::bin/hdd-xtask rules::tests::forbid_unsafe_is_required_except_for_the_ebpf_crate
+        PASS [   0.074s] ( 46/127) hdd-xtask::bin/hdd-xtask rules::tests::placeholders_are_flagged
+        PASS [   0.082s] ( 47/127) hdd-xtask::bin/hdd-xtask rules::tests::repo_state_requires_state_files_and_ignore_patterns
+        PASS [   0.081s] ( 48/127) hdd-xtask::bin/hdd-xtask rules::tests::stride_cites_only_tests_that_exist
+        PASS [   0.069s] ( 49/127) hdd-xtask::bin/hdd-xtask rules::tests::the_egress_module_tests_and_listed_exceptions_are_exempt
+        PASS [   0.071s] ( 50/127) hdd-xtask::bin/hdd-xtask rules::tests::the_shipped_first_response_satisfies_its_acceptance_checks
+        PASS [   0.075s] ( 51/127) hdd-xtask::bin/hdd-xtask rust_share::tests::below_ninety_percent_fails
+        PASS [   0.065s] ( 52/127) hdd-xtask::bin/hdd-xtask rust_share::tests::empty_tree_is_one_hundred_percent
+        PASS [   0.079s] ( 53/127) hdd-xtask::bin/hdd-xtask rust_share::tests::caps_fail_independently_of_the_share
+        PASS [   0.068s] ( 54/127) hdd-xtask::bin/hdd-xtask rust_share::tests::invalid_json_is_an_error
+        PASS [   0.085s] ( 55/127) hdd-xtask::bin/hdd-xtask rust_share::tests::exclusions_are_applied_and_listed
+        PASS [   0.075s] ( 56/127) hdd-xtask::bin/hdd-xtask secrets::tests::base64url_matches_known_vectors
+        PASS [   0.083s] ( 57/127) hdd-xtask::bin/hdd-xtask secrets::tests::allow_marker_excuses_a_line
+        PASS [   0.088s] ( 58/127) hdd-xtask::bin/hdd-xtask secrets::tests::aws_style_key_is_found
+        PASS [   0.074s] ( 59/127) hdd-xtask::bin/hdd-xtask secrets::tests::env_files_are_forbidden_except_the_example
+        PASS [   0.070s] ( 60/127) hdd-xtask::bin/hdd-xtask secrets::tests::the_committed_hook_equals_what_hooks_install_writes
+        PASS [   0.157s] ( 61/127) hdd-xtask::bin/hdd-xtask rules::tests::unsafe_code_is_a_compile_error_under_the_workspace_lints
+        PASS [   0.073s] ( 62/127) hdd-xtask::bin/hdd-xtask secrets::tests::unreadable_files_are_findings_not_silent_skips
+        PASS [   0.083s] ( 63/127) hdd-xtask::bin/hdd-xtask secrets::tests::private_key_block_is_found_and_not_echoed
+        PASS [   0.114s] ( 64/127) hdd-xtask::bin/hdd-xtask secrets::tests::gen_secrets_writes_distinct_32_byte_secrets_and_never_overwrites
+        PASS [   0.136s] ( 65/127) hdd-xtask::bin/hdd-xtask secrets::tests::credential_assignment_ignores_env_var_names_and_placeholders
+        PASS [   0.067s] ( 66/127) hdd-xtask::bin/hdd-xtask spec::tests::golden_manifest_for_the_sample
+        PASS [   0.071s] ( 67/127) hdd-xtask::bin/hdd-xtask spec::tests::missing_markers_is_an_error
+        PASS [   0.126s] ( 68/127) hdd-xtask::bin/hdd-xtask secrets::tests::high_entropy_token_is_found_but_hashes_and_words_are_not
+        PASS [   0.072s] ( 69/127) hdd-xtask::bin/hdd-xtask spec::tests::preamble_is_kept_when_text_precedes_the_first_marker
+        PASS [   0.137s] ( 70/127) hdd-xtask::bin/hdd-xtask secrets::tests::gen_secrets_leaves_an_existing_directory_alone_and_protects_a_new_one
+        PASS [   0.110s] ( 71/127) hdd-xtask::bin/hdd-xtask secrets::tests::url_credentials_are_found
+        PASS [   0.048s] ( 72/127) hdd-xtask::bin/hdd-xtask spec::tests::split_is_lossless_and_cut_at_markers
+        PASS [   0.139s] ( 73/127) hdd-xtask::bin/hdd-xtask secrets::tests::placeholders_are_recognised_by_prefix_and_env_names_need_an_underscore
+        PASS [   0.049s] ( 74/127) hdd-xtask::bin/hdd-xtask tasks::tests::closure_includes_roots_and_transitive_deps
+        PASS [   0.090s] ( 75/127) hdd-xtask::bin/hdd-xtask spec::tests::registry_refs_finds_ids
+        PASS [   0.052s] ( 76/127) hdd-xtask::bin/hdd-xtask tasks::tests::cycle_is_an_error
+        PASS [   0.109s] ( 77/127) hdd-xtask::bin/hdd-xtask secrets::tests::utf16_and_nul_padded_text_is_scanned_not_skipped
+        PASS [   0.052s] ( 78/127) hdd-xtask::bin/hdd-xtask tasks::tests::order_is_stable_topological_and_later_numbers_may_run_first
+        PASS [   0.052s] ( 79/127) hdd-xtask::bin/hdd-xtask tasks::tests::req_ids_follow_phase_prefix_and_position
+        PASS [   0.065s] ( 80/127) hdd-xtask::bin/hdd-xtask tasks::tests::state_validation
+        PASS [   0.065s] ( 81/127) hdd-xtask::bin/hdd-xtask tasks::tests::unknown_dependency_is_an_error
+        PASS [   0.076s] ( 82/127) hdd-xtask::bin/hdd-xtask tasks::tests::parse_small_spec_fixture
+        PASS [   0.067s] ( 83/127) hdd-xtask::bin/hdd-xtask util::tests::civil_round_trip
+        PASS [   0.071s] ( 84/127) hdd-xtask::bin/hdd-xtask util::tests::sha256_known_vector
+        PASS [   0.073s] ( 85/127) hdd-xtask::bin/hdd-xtask util::tests::glob_semantics
+        PASS [   0.068s] ( 86/127) hdd-xtask::bin/hdd-xtask util::tests::tail_lines_takes_last
+        PASS [   0.077s] ( 87/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_charter_over_four_printed_pages_fails_a5
+        PASS [   0.081s] ( 88/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_complete_charter_passes
+        PASS [   0.080s] ( 89/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_complete_persona_passes
+        PASS [   0.086s] ( 90/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_decision_record_needs_status_date_and_the_three_sections
+        PASS [   0.096s] ( 91/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_file_link_with_a_line_fragment_on_a_non_markdown_file_checks_only_the_file
+        PASS [   0.090s] ( 92/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_link_to_a_file_that_exists_passes_and_a_missing_one_names_file_and_line
+        PASS [   0.120s] ( 93/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_broken_link_in_any_ux_document_or_agents_md_fails_the_tree
+        FAIL [   0.075s] ( 94/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_matrix_row_must_link_a_persona_file
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::a_matrix_row_must_link_a_persona_file ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::a_matrix_row_must_link_a_persona_file
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 126 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::a_matrix_row_must_link_a_persona_file' (6480) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:594:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.076s] ( 95/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_matrix_row_must_not_invent_a_journey
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::a_matrix_row_must_not_invent_a_journey ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::a_matrix_row_must_not_invent_a_journey
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 126 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::a_matrix_row_must_not_invent_a_journey' (29088) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:607:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.080s] ( 96/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_measure_without_source_or_privacy_treatment_fails_a2
+        FAIL [   0.080s] ( 97/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_persona_header_must_say_it_is_a_fictional_composite
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::a_persona_header_must_say_it_is_a_fictional_composite ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::a_persona_header_must_say_it_is_a_fictional_composite
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 126 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::a_persona_header_must_say_it_is_a_fictional_composite' (15420) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:456:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.076s] ( 98/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_persona_must_cross_link_journeys_and_screens
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::a_persona_must_cross_link_journeys_and_screens ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::a_persona_must_cross_link_journeys_and_screens
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 126 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::a_persona_must_cross_link_journeys_and_screens' (5740) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:534:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.080s] ( 99/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_persona_needs_the_five_context_of_use_rows
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::a_persona_needs_the_five_context_of_use_rows ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::a_persona_needs_the_five_context_of_use_rows
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 126 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::a_persona_needs_the_five_context_of_use_rows' (25036) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:463:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.082s] (100/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_persona_with_two_scenarios_fails_a1
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::a_persona_with_two_scenarios_fails_a1 ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::a_persona_with_two_scenarios_fails_a1
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 126 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::a_persona_with_two_scenarios_fails_a1' (12624) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:475:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.071s] (101/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_persona_without_anti_goals_fails
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::a_persona_without_anti_goals_fails ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::a_persona_without_anti_goals_fails
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 126 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::a_persona_without_anti_goals_fails' (33136) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:510:5:
+    assertion failed: persona_messages("maya", &text).contains("Anti-goals")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.073s] (102/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_principle_without_an_enforcement_mechanism_fails_a1
+        FAIL [   0.074s] (103/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_scenario_without_a_measurable_outcome_fails_a1
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::a_scenario_without_a_measurable_outcome_fails_a1 ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::a_scenario_without_a_measurable_outcome_fails_a1
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 126 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::a_scenario_without_a_measurable_outcome_fails_a1' (32700) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:486:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.067s] (104/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::accessibility_must_be_present_and_mapped_to_b11_11
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::accessibility_must_be_present_and_mapped_to_b11_11 ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::accessibility_must_be_present_and_mapped_to_b11_11
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 126 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::accessibility_must_be_present_and_mapped_to_b11_11' (22212) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:516:5:
+    assertion failed: persona_messages("maya", &missing).contains("Accessibility")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.062s] (105/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::complete_measures_pass
+        PASS [   0.068s] (106/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::an_anchor_must_name_a_real_heading_in_the_same_or_the_target_file
+        FAIL [   0.062s] (107/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::every_journey_must_be_in_the_matrix
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::every_journey_must_be_in_the_matrix ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::every_journey_must_be_in_the_matrix
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 126 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::every_journey_must_be_in_the_matrix' (17292) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:587:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.069s] (108/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::every_measure_the_task_names_must_be_present
+        PASS [   0.074s] (109/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::external_mailto_and_bare_anchor_links_are_not_file_links
+        PASS [   0.075s] (110/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::honesty_tests_must_be_five_questions_a3
+        PASS [   0.196s] (111/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_complete_tree_passes_and_each_missing_document_is_named
+        PASS [   0.077s] (112/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::links_in_code_blocks_and_code_spans_are_examples_not_links
+        PASS [   0.075s] (113/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::six_principles_instead_of_seven_fail
+        PASS [   0.073s] (114/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::slugs_follow_the_github_rule
+        FAIL [   0.073s] (115/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_adversary_needs_ten_abuse_stories_mapped_to_the_registry
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::the_adversary_needs_ten_abuse_stories_mapped_to_the_registry ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::the_adversary_needs_ten_abuse_stories_mapped_to_the_registry
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 126 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::the_adversary_needs_ten_abuse_stories_mapped_to_the_registry' (15272) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:563:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.071s] (116/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_attack_registry_is_read_from_the_matrix_rows
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::the_attack_registry_is_read_from_the_matrix_rows ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::the_attack_registry_is_read_from_the_matrix_rows
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 126 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::the_attack_registry_is_read_from_the_matrix_rows' (25292) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:574:5:
+    assertion failed: ids.contains("ATK-001") && ids.contains("ATK-390")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.074s] (117/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_primary_persona_question_must_be_recorded_open_with_maya_as_default
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::the_primary_persona_question_must_be_recorded_open_with_maya_as_default ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::the_primary_persona_question_must_be_recorded_open_with_maya_as_default
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 126 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::tests::the_primary_persona_question_must_be_recorded_open_with_maya_as_default' (20664) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:621:5:
+    assertion failed: messages(&primary_persona_findings(&absent)).contains("primary-persona")
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.083s] (118/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::titles_directories_parent_paths_and_escapes_are_handled
+        FAIL [   0.139s] (119/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::every_persona_file_is_required_and_named
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::every_persona_file_is_required_and_named ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::every_persona_file_is_required_and_named
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 126 filtered out; finished in 0.08s
+
+  stderr ───
+
+    thread 'ux_docs::tests::every_persona_file_is_required_and_named' (12420) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:649:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.086s] (120/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_shipped_ux_documents_pass
+        PASS [   0.074s] (121/127) hdd-xtask::bin/hdd-xtask verify::tests::an_executable_blocked_by_application_control_is_unverified_not_failed
+        PASS [   0.072s] (122/127) hdd-xtask::bin/hdd-xtask verify::tests::exit_codes_map_to_statuses
+        PASS [   0.073s] (123/127) hdd-xtask::bin/hdd-xtask verify::tests::findings_status_fails_on_any_finding
+        PASS [   0.078s] (124/127) hdd-xtask::bin/hdd-xtask verify::tests::stubs_are_named_and_unverified
+        FAIL [   0.152s] (125/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_primary_persona_question_is_linked_from_the_matrix_or_maya
+  stdout ───
+
+    running 1 test
+    test ux_docs::tests::the_primary_persona_question_is_linked_from_the_matrix_or_maya ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::tests::the_primary_persona_question_is_linked_from_the_matrix_or_maya
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 126 filtered out; finished in 0.08s
+
+  stderr ───
+
+    thread 'ux_docs::tests::the_primary_persona_question_is_linked_from_the_matrix_or_maya' (23612) panicked at crates\hdd-xtask\src\ux_docs\tests.rs:639:5:
+
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.147s] (126/127) hdd-xtask::bin/hdd-xtask verify::tests::a_failing_command_step_fails_and_a_missing_program_is_unverified
+        PASS [   1.213s] (127/127) hdd-xtask::bin/hdd-xtask profile_lint::tests::the_shipped_tree_passes_both_lints
+────────────
+     Summary [   1.353s] 127 tests run: 112 passed, 15 failed, 0 skipped
+        FAIL [   0.075s] ( 94/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_matrix_row_must_link_a_persona_file
+        FAIL [   0.076s] ( 95/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_matrix_row_must_not_invent_a_journey
+        FAIL [   0.080s] ( 97/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_persona_header_must_say_it_is_a_fictional_composite
+        FAIL [   0.076s] ( 98/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_persona_must_cross_link_journeys_and_screens
+        FAIL [   0.080s] ( 99/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_persona_needs_the_five_context_of_use_rows
+        FAIL [   0.082s] (100/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_persona_with_two_scenarios_fails_a1
+        FAIL [   0.071s] (101/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_persona_without_anti_goals_fails
+        FAIL [   0.074s] (103/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::a_scenario_without_a_measurable_outcome_fails_a1
+        FAIL [   0.067s] (104/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::accessibility_must_be_present_and_mapped_to_b11_11
+        FAIL [   0.062s] (107/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::every_journey_must_be_in_the_matrix
+        FAIL [   0.073s] (115/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_adversary_needs_ten_abuse_stories_mapped_to_the_registry
+        FAIL [   0.071s] (116/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_attack_registry_is_read_from_the_matrix_rows
+        FAIL [   0.074s] (117/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_primary_persona_question_must_be_recorded_open_with_maya_as_default
+        FAIL [   0.139s] (119/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::every_persona_file_is_required_and_named
+        FAIL [   0.152s] (125/127) hdd-xtask::bin/hdd-xtask ux_docs::tests::the_primary_persona_question_is_linked_from_the_matrix_or_maya
+error: test run failed

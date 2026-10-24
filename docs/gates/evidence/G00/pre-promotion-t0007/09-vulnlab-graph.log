@@ -1,0 +1,2 @@
+Vuln-Lab isolation: no default workspace member reaches hdd-vulnlab through normal or build dependencies (section 2.8, T-0004 A4)
+no findings

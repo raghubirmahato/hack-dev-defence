@@ -1,0 +1,72 @@
+# T-0215 batch-B2 round 2 - final state note (COMPLETE)
+
+Status: **the round-2 work is finished and the tree is green.** This note replaces the earlier "INCOMPLETE / mid-edit"
+resume note of the interrupted session. Nothing is committed (no commit was allowed) and no shared file, no other
+teammate's crate and no lead-owned file was edited; the changes are confined to `crates/hdd-acceptance/**`,
+`docs/ACCEPTANCE.md` and the new `docs/evidence/P11/T-0215-b2r2-*` evidence files.
+
+## What was delivered
+
+The correction of the round-2 review came first, then R-1..R-13:
+
+* **Correction.** `ReasonCode::DependencyNotMet` is removed; `ReasonCode::ALL` is `[ReasonCode; 8]` and the taxonomy test
+  asserts the closed eight codes and that `dependency_not_met`/`no_hdd_evidence` do not parse. A dependent of a non-PASS
+  dependency is `UNVERIFIED(stage_not_reached)` with a `detail` naming the dependency id. `docs/ACCEPTANCE.md` drops the
+  ninth-code deviation text and states the eight-code taxonomy.
+* **R-1** `LoadProfile::allows_mode` (5 x 2 matrix) enforced in `RunnerConfig::build` **and** `Connector::new`;
+  `ConfigError::ProfileModeMismatch`/`ConnectorError::ProfileModeMismatch`. Tests: config matrix + guard matrix.
+* **R-2** `Report::resume_with(previous, resume_dir)` re-hashes every referenced evidence file inside the resume dir
+  (path containment), binds the report to `config_revision`, target host names and a 24 h maximum age, refuses mismatch;
+  `verify_evidence_inside` is shared with the executor; `Executor::set_resume` + `order_with_satisfied` make a resumed
+  PASS satisfy dependencies (and the AC-00 gate). CLI `--config-revision` added; the old CLI test that codified
+  `sha256="aaaa..."` now asserts the refusal, with a positive bound-resume test beside it.
+* **R-3** `ConnectorParts`, `Connector::new`, `RateBudget::new`, `Limiter::new`, `CheckContext::new`, `AbortLatch::new`,
+  `RunInvalidLatch::new` and `EvidenceRef::new` are `pub(crate)`; the executor builds the connector for the check via
+  `CheckContext::connector(...)`; four `compile_fail` doc-tests hold the seal.
+* **R-4** only `EvidenceStore` builds an `EvidenceRef` (hashing the bytes it wrote, no overwrite); the executor re-reads and
+  re-hashes the evidence files inside the run's evidence root before accepting a PASS, else `FAIL(evidence invalid)`.
+* **R-5** the inspect ticket is single-use (`consume`), TTL 30 s, digest over the actual verb, path, body hash and header
+  hash, and the `config_revision` is re-read at send time; reuse/expiry/digest/verb/revision tests.
+* **R-6** redaction handles spaces after the separator, quoted values (single/double) and tabs, failing closed to the end of
+  the line; the exact review inputs are tested (`password = hunter2`, `password="my pass phrase"`, `token = abc def`,
+  `secret=a<TAB>b`).
+* **R-7** `PlannedRequest` has a short send window and is refused when stale; the budget token is spent at send, not at
+  prepare; `Sender::send` takes the pinned addresses (no re-resolution, DNS rebinding).
+* **R-8** a plan without AC-00 is `PlanError::MissingSelfTest`; AC-00 runs first and the run stops unless it ends PASS (the
+  remainder is `UNVERIFIED(stage_not_reached)`); a target/stage guard denial latches `run_invalid` with an audit line and
+  reaches the `RunReport` even when the check swallows the error; `Executor.panics` is carried into the `RunReport`.
+* **R-9** the signal listener is primed (first poll) in the executor constructor; test asserts the poll happens before the
+  first check.
+* **R-10** expired grants are popped from the front on every acquisition; a 300k-grant lab test runs quickly and asserts the
+  retained window is bounded.
+* **R-11** `EvidenceStore` refuses overwrite, Windows reserved device names and NTFS streams; the truncation cap is exactly
+  512 bytes including the `[truncated]` marker; the cap test is non-vacuous.
+* **R-12** redaction happens on field values before serialisation (no document-wide replacement; short secrets cannot corrupt
+  hashes, ids or `pass`), evidence field names and `block.check` are escaped in Markdown.
+* **R-13** a class B send implies destructive; the lifecycle policy is the single production rule, bound to the run id, and
+  the approval ticket names that run id (`--run-id`); a mismatch is refused at run start and at the gate.
+
+## Green state
+
+`cargo nextest run -p hdd-acceptance --no-fail-fast` -> `Summary [...] 192 tests run: 192 passed, 0 skipped`; `cargo fmt -p
+hdd-acceptance -- --check` exit 0; `cargo clippy -p hdd-acceptance --all-targets -- -D warnings` clean; `cargo test -p
+hdd-acceptance --doc` 4 compile-fail tests pass; `cargo check --workspace` green. The full transcript, the CLI refusals and the
+deliverable SHA-256 values are in `docs/evidence/P11/T-0215-b2r2-verify.txt`.
+
+## Evidence
+
+* `docs/evidence/P11/T-0215-b2r2-red.txt` - one section per finding (correction + R-1..R-13) with the command and the real
+  failing lines. The round-2 fixes were already implemented when this session took over, so each red is a **re-created red
+  demonstration**: the specific seam is reverted, the named test is run, the failure captured, and the file restored.
+* `docs/evidence/P11/T-0215-b2r2-negative-demos.txt` - the mutation demo for every finding: mutate the seam, the named test
+  fails with the expected message, restore, and SHA-256 before = after (byte-identical restore recorded per section).
+* `docs/evidence/P11/T-0215-b2r2-verify.txt` - the green transcript above.
+
+## For the lead
+
+* `task-10` is complete; the crate compiles, the tests are green and the workspace check is green.
+* No commit, no stash and no branch change was made. No `STATUS.md`, `HANDOFF.md`, matrix/INDEX, `docs/COLLAB.md`,
+  `docs/DEVIATIONS.md`, `OPERATIONS.md`, `ARCHITECTURE.md`, `docs/STRIDE.md`, `docs/OPERATOR-QUESTIONS.md`,
+  `supply-chain/` or workspace `Cargo.toml`/`Cargo.lock` edit was made by this session.
+* The `CLI` gains two flags that need a mention in the review: `--run-id` (R-13) and `--config-revision` (R-2). A resume of a
+  report that carries no binding is now refused (exit 3); a dry-run report has no binding.

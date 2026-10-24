@@ -1,0 +1,101 @@
+# T-0022 verification evidence (real output, 2026-10-20)
+
+## 1. cargo nextest run -p hdd-xtask ux_docs::accessibility --no-fail-fast
+cargo.exe :     Blocking waiting for file lock on package cache
+At line:7 char:9
++ $out = (& cargo nextest run -p hdd-xtask ux_docs::accessibility --no- ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Blocking wa...n package cache:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    Blocking waiting for file lock on build directory
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.26s
+────────────
+ Nextest run ID 361480a3-2479-4001-a63d-f41345e5785c with nextest profile: default
+    Starting 31 tests across 1 binary (370 tests skipped)
+        PASS [   0.019s] ( 1/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::criteria_file_parses_the_fixture_list
+        PASS [   0.027s] ( 2/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::criteria_file_rejects_malformed_toml
+        PASS [   0.054s] ( 3/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::flows_require_twelve_real_journeys_with_exact_titles
+        PASS [   0.081s] ( 4/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::criteria_file_rejects_a_bad_id_level_source_and_duplicate
+        PASS [   0.082s] ( 5/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::manual_checks_name_walkthroughs_twelve_scripts_zoom_and_reflow
+        PASS [   0.095s] ( 6/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::fixtures_cover_the_files_the_lead_writes
+        PASS [   0.097s] ( 7/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::human_steps_require_the_pending_marker_and_instructions
+        PASS [   0.101s] ( 8/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_a_duplicate_row
+        PASS [   0.109s] ( 9/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::checklist_has_the_required_parts
+        PASS [   0.131s] (10/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::automated_checks_name_the_axe_oracle_and_the_named_checks
+        PASS [   0.136s] (11/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_accepts_the_fixture_and_every_owner_form
+        PASS [   0.049s] (12/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::missing_documents_are_findings_not_panics
+        PASS [   0.144s] (13/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_a_missing_criterion
+        PASS [   0.047s] (14/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::sections_require_all_eight_with_a_body
+        PASS [   0.080s] (15/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::page_patterns_require_a_real_component
+        PASS [   0.078s] (16/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::regression_names_the_artifact_directory_and_the_baseline_tasks
+        PASS [   0.179s] (17/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_a_vacuous_not_applicable_reason
+        PASS [   0.187s] (18/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_names_the_b11_11_extension
+        PASS [   0.066s] (19/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::severity_names_the_four_levels_and_the_ac40_gate_rule
+        PASS [   0.053s] (20/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::strategy_cites_only_real_screens_and_journeys
+        PASS [   0.063s] (21/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::statement_rejects_an_absolute_conformance_claim
+        PASS [   0.059s] (22/31) hdd-xtask::bin/hdd-xtask ux_docs::accessibility::tests::statement_requires_known_gaps
+        PASS [   0.177s] (23/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_an_id_not_in_the_stored_list
+        PASS [   0.033s] (24/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::whole_token_matching_rejects_longer_words_and_ids
+        PASS [   0.157s] (25/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_an_undeclared_page_pattern
+        PASS [   0.205s] (26/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_a_whole_token_owner_that_is_not_a_component
+        PASS [   0.238s] (27/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::mapping_reports_a_level_or_title_drift
+        PASS [   0.221s] (28/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::matrix_marks_jaws_as_available_only_if_available
+        PASS [   0.367s] (29/31) hdd-xtask::bin/hdd-xtask ux_docs::accessibility::tests::matrix_requires_every_modality
+        PASS [   0.475s] (30/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::checklist_set_requires_exactly_the_named_files
+        PASS [   0.453s] (31/31) hdd-xtask::bin/hdd-xtask 
+ux_docs::accessibility::tests::the_fixture_documents_pass_every_rule
+────────────
+     Summary [   0.609s] 31 tests run: 31 passed, 370 skipped
+
+exit=0
+## 2. cargo xtask ux-docs
+ux-docs: PASS
+
+exit=0
+## 3. cargo xtask claims-lint
+claims-lint: scanned 249 files with 34 phrases and 1 context rules
+claims-lint: PASS
+
+exit=0
+## 4. cargo fmt --all --check
+
+exit=0
+## 5. cargo clippy -p hdd-xtask --all-targets -- -D warnings
+cargo.exe :     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.26s
+At line:15 char:9
++ $out = (& cargo clippy -p hdd-xtask --all-targets -- -D warnings 2>&1 ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Finished `d...get(s) in 0.26s:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+exit=0

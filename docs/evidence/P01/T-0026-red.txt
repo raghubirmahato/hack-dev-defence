@@ -1,0 +1,629 @@
+cargo :    Compiling hdd-xtask v0.0.0 (D:\Hack Dev Defence\crates\hdd-xtask)
+At line:1 char:129
++ ... ew($false); cargo nextest run -p hdd-xtask ux_docs::onboarding --no-f ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...ates\hdd-xtask):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: unused import: `BTreeMap`
+  --> crates\hdd-xtask\src\ux_docs\onboarding.rs:34:24
+   |
+34 | use std::collections::{BTreeMap, BTreeSet};
+   |                        ^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `regex::Regex`
+  --> crates\hdd-xtask\src\ux_docs\onboarding.rs:37:5
+   |
+37 | use regex::Regex;
+   |     ^^^^^^^^^^^^
+
+warning: unused import: `read_text`
+  --> crates\hdd-xtask\src\ux_docs\onboarding.rs:39:28
+   |
+39 | use crate::util::{Finding, read_text};
+   |                            ^^^^^^^^^
+
+warning: unused import: `super::content::b13_rows`
+  --> crates\hdd-xtask\src\ux_docs\onboarding.rs:41:5
+   |
+41 | use super::content::b13_rows;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `cells`, `column`, `finding`, `screen_ids`, `section_body`, and `section_table`
+  --> crates\hdd-xtask\src\ux_docs\onboarding.rs:42:13
+   |
+42 | use super::{cells, column, finding, section_body, section_table, screen_ids};
+   |             ^^^^^  ^^^^^^  ^^^^^^^  ^^^^^^^^^^^^  ^^^^^^^^^^^^^  ^^^^^^^^^^
+
+warning: constant `TABLES` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:329:7
+    |
+329 | const TABLES: [&str; 44] = [
+    |       ^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `FORBIDDEN_CLAIMS` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:379:7
+    |
+379 | const FORBIDDEN_CLAIMS: [&str; 14] = [
+    |       ^^^^^^^^^^^^^^^^
+
+warning: constant `THIRD_PARTY` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:397:7
+    |
+397 | const THIRD_PARTY: [&str; 10] = [
+    |       ^^^^^^^^^^^
+
+warning: constant `EMAILS` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:411:11
+    |
+411 | pub const EMAILS: [&str; 4] = ["welcome", "verify", "first domain", "weekly summary"];
+    |           ^^^^^^
+
+warning: struct `DecisionRule` is never constructed
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:415:8
+    |
+415 | struct DecisionRule {
+    |        ^^^^^^^^^^^^
+
+warning: enum `Status` is never used
+   --> crates\hdd-xtask\src\ux_docs\onboarding.rs:426:6
+    |
+426 | enum Status {
+    |      ^^^^^^
+
+warning: constant `SECTIONS` is never used
+  --> crates\hdd-xtask\src\ux_docs\responsive.rs:57:7
+   |
+57 | const SECTIONS: [(&str, &str); 11] = [
+   |       ^^^^^^^^
+
+warning: constant `VIEWPORTS` is never used
+  --> crates\hdd-xtask\src\ux_docs\responsive.rs:72:7
+   |
+72 | const VIEWPORTS: [&str; 7] = [
+   |       ^^^^^^^^^
+
+warning: constant `MIN_TARGET_CSS_PX` is never used
+  --> crates\hdd-xtask\src\ux_docs\responsive.rs:83:7
+   |
+83 | const MIN_TARGET_CSS_PX: u32 = 24;
+   |       ^^^^^^^^^^^^^^^^^
+
+warning: constant `SCREEN_CATEGORIES` is never used
+  --> crates\hdd-xtask\src\ux_docs\responsive.rs:87:7
+   |
+87 | const SCREEN_CATEGORIES: [(&str, &[&str]); 8] = [
+   |       ^^^^^^^^^^^^^^^^^
+
+warning: constant `REQUIRED_CATEGORY_SCREENS` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:100:7
+    |
+100 | const REQUIRED_CATEGORY_SCREENS: [(&str, &[&str]); 2] = [
+    |       ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `SECURITY_CONTROLS` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:106:7
+    |
+106 | const SECURITY_CONTROLS: [(&str, &[&str]); 5] = [
+    |       ^^^^^^^^^^^^^^^^^
+
+warning: constant `BUDGET_CLASSES` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:115:7
+    |
+115 | const BUDGET_CLASSES: [(&str, &[&str]); 4] = [
+    |       ^^^^^^^^^^^^^^
+
+warning: constant `PLACEHOLDERS` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:124:7
+    |
+124 | const PLACEHOLDERS: [&str; 8] = [
+    |       ^^^^^^^^^^^^
+
+warning: function `line` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:134:4
+    |
+134 | fn line(n: usize, message: impl Into<String>) -> Finding {
+    |    ^^^^
+
+warning: function `word` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:139:4
+    |
+139 | fn word(haystack: &str, needle: &str) -> bool {
+    |    ^^^^
+
+warning: function `numbers` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:148:4
+    |
+148 | fn numbers(text: &str) -> Vec<u32> {
+    |    ^^^^^^^
+
+warning: function `viewport_key` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:170:4
+    |
+170 | fn viewport_key(cell: &str) -> Option<String> {
+    |    ^^^^^^^^^^^^
+
+warning: function `is_landscape` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:221:4
+    |
+221 | fn is_landscape(viewport: &str) -> bool {
+    |    ^^^^^^^^^^^^
+
+warning: function `cell` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:233:4
+    |
+233 | fn cell<'a>(row: &'a [String], index: Option<usize>) -> &'a str {
+    |    ^^^^
+
+warning: function `table_or` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:241:4
+    |
+241 | fn table_or(text: &str, title: &str, step: &str) -> Result<(Vec<String>, Vec<(usize, Vec<String>)>), 
+Vec<Finding>> {
+    |    ^^^^^^^^
+
+warning: function `required_column` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:255:4
+    |
+255 | fn required_column(header: &[String], name: &str, title: &str) -> Result<usize, Finding> {
+    |    ^^^^^^^^^^^^^^^
+
+warning: function `spec_row` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:264:4
+    |
+264 | fn spec_row(spec: &str, heading: &str, first: &str) -> Option<Vec<String>> {
+    |    ^^^^^^^^
+
+warning: function `spec_breakpoints` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:280:4
+    |
+280 | fn spec_breakpoints(spec: &str) -> Option<(Vec<u32>, Vec<u32>)> {
+    |    ^^^^^^^^^^^^^^^^
+
+warning: function `spec_targets` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:297:4
+    |
+297 | fn spec_targets(spec: &str) -> Option<(u32, u32)> {
+    |    ^^^^^^^^^^^^
+
+warning: function `spec_layout` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:319:4
+    |
+319 | fn spec_layout(spec: &str) -> Option<(u32, u32)> {
+    |    ^^^^^^^^^^^
+
+warning: function `spec_screen_text` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:337:4
+    |
+337 | fn spec_screen_text(spec: &str, id: &str) -> Option<String> {
+    |    ^^^^^^^^^^^^^^^^
+
+warning: function `screen_refs` is never used
+   --> crates\hdd-xtask\src\ux_docs\responsive.rs:365:4
+    |
+365 | fn screen_refs(cell: &str, re: &Regex) -> Vec<String> {
+    |    ^^^^^^^^^^^
+
+warning: `hdd-xtask` (bin "hdd-xtask" test) generated 33 warnings (run `cargo fix --bin "hdd-xtask" -p hdd-xtask 
+--tests` to apply 5 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.11s
+────────────
+ Nextest run ID 872c7dd0-374e-4961-9513-5edba638cbb2 with nextest profile: default
+    Starting 19 tests across 1 binary (305 tests skipped)
+        FAIL [   0.014s] ( 1/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_category_weights_sum_to_one_hundred
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_category_weights_sum_to_one_hundred ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_category_weights_sum_to_one_hundred
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 323 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_category_weights_sum_to_one_hundred' (9928) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:1027:9:
+    a category weight that breaks the sum must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.018s] ( 2/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_catalog_weights_sum_to_one_hundred
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_catalog_weights_sum_to_one_hundred ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_catalog_weights_sum_to_one_hundred
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 323 filtered out; finished in 0.01s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_catalog_weights_sum_to_one_hundred' (30776) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:1073:9:
+    a catalog weight sum of 99 must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.023s] ( 3/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_catalog_rows_have_weight_source_interval_and_real_screen
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_catalog_rows_have_weight_source_interval_and_real_screen ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_catalog_rows_have_weight_source_interval_and_real_screen
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 323 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_catalog_rows_have_weight_source_interval_and_real_screen' (32140) panicked 
+at crates\hdd-xtask\src\ux_docs\onboarding.rs:1045:9:
+    an unknown remediation screen must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.028s] ( 4/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_activation_emails_have_a_subject_structure_and_safe_keys
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_activation_emails_have_a_subject_structure_and_safe_keys ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_activation_emails_have_a_subject_structure_and_safe_keys
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 323 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_activation_emails_have_a_subject_structure_and_safe_keys' (27096) panicked 
+at crates\hdd-xtask\src\ux_docs\onboarding.rs:997:9:
+    a B13 key used as an email stem must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.033s] ( 5/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_empty_states_name_real_screens_and_honest_keys
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_empty_states_name_real_screens_and_honest_keys ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_empty_states_name_real_screens_and_honest_keys
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 323 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_empty_states_name_real_screens_and_honest_keys' (24900) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:951:9:
+    a valid B13 key in the wrong place must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.037s] ( 6/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_checklist_requires_persistence_and_resume
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_checklist_requires_persistence_and_resume ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_checklist_requires_persistence_and_resume
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 323 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_checklist_requires_persistence_and_resume' (33064) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:902:9:
+    a checklist without S-040 persistence must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.040s] ( 7/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_scoring_example_is_evaluated
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_scoring_example_is_evaluated ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_scoring_example_is_evaluated
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 323 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_scoring_example_is_evaluated' (25036) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:1121:9:
+    an arithmetic example that does not match the scoring function must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        PASS [   0.043s] ( 8/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_check_on_a_fixture_tree_is_green
+        FAIL [   0.045s] ( 9/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_missing_documents_are_findings_not_panics
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_missing_documents_are_findings_not_panics ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_missing_documents_are_findings_not_panics
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 323 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_missing_documents_are_findings_not_panics' (8536) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:1145:9:
+    a missing document must be a finding
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.054s] (10/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_measures_use_local_counters_only
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_measures_use_local_counters_only ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_measures_use_local_counters_only
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 323 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_measures_use_local_counters_only' (22784) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:982:9:
+    a third-party analytics name must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.058s] (11/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_monitor_summary_keeps_the_block_decision_evidence
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_monitor_summary_keeps_the_block_decision_evidence ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_monitor_summary_keeps_the_block_decision_evidence
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 323 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_monitor_summary_keeps_the_block_decision_evidence' (24312) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:967:9:
+    a monitor summary without the 48-hour hint must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.062s] (12/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_footnote_equals_the_b13_text
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_footnote_equals_the_b13_text ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_footnote_equals_the_b13_text
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 323 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_footnote_equals_the_b13_text' (29400) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:1106:9:
+    a footnote one word off must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.066s] (13/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_no_forbidden_claims_phrase
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_no_forbidden_claims_phrase ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_no_forbidden_claims_phrase
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 323 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_no_forbidden_claims_phrase' (19976) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:1012:9:
+    a forbidden claims phrase must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.070s] (14/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_nudges_have_a_numeric_cap_and_an_opt_out
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_nudges_have_a_numeric_cap_and_an_opt_out ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_nudges_have_a_numeric_cap_and_an_opt_out
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 323 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_nudges_have_a_numeric_cap_and_an_opt_out' (32472) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:936:9:
+    a non-numeric frequency cap must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.075s] (15/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_next_best_action_is_evaluated_against_its_examples
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_next_best_action_is_evaluated_against_its_examples ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_next_best_action_is_evaluated_against_its_examples
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 323 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_next_best_action_is_evaluated_against_its_examples' (24356) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:920:9:
+    an example row that does not match the decision list must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.075s] (16/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_malformed_specification_is_findings_not_panics
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_malformed_specification_is_findings_not_panics ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_malformed_specification_is_findings_not_panics
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 323 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_malformed_specification_is_findings_not_panics' (19980) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:1153:9:
+    a missing B13 table and missing documents must be findings
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.070s] (17/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_stage_map_uses_the_expected_real_screen_for_each_stage
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_stage_map_uses_the_expected_real_screen_for_each_stage ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_stage_map_uses_the_expected_real_screen_for_each_stage
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 323 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_stage_map_uses_the_expected_real_screen_for_each_stage' (29848) panicked 
+at crates\hdd-xtask\src\ux_docs\onboarding.rs:884:9:
+    a valid screen in the wrong stage row must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.070s] (18/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_structure_requires_the_named_sections
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_structure_requires_the_named_sections ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_structure_requires_the_named_sections
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 323 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_structure_requires_the_named_sections' (13516) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:869:9:
+    a missing section must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+        FAIL [   0.070s] (19/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_unknown_never_counts_as_a_pass
+  stdout ───
+
+    running 1 test
+    test ux_docs::onboarding::tests::t26_unknown_never_counts_as_a_pass ... FAILED
+
+    failures:
+
+    failures:
+        ux_docs::onboarding::tests::t26_unknown_never_counts_as_a_pass
+
+    test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 323 filtered out; finished in 0.00s
+
+  stderr ───
+
+    thread 'ux_docs::onboarding::tests::t26_unknown_never_counts_as_a_pass' (31380) panicked at 
+crates\hdd-xtask\src\ux_docs\onboarding.rs:1088:9:
+    an unknown rule that allows a pass must be a finding: []
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+────────────
+     Summary [   0.095s] 19 tests run: 1 passed, 18 failed, 305 skipped
+        FAIL [   0.014s] ( 1/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_category_weights_sum_to_one_hundred
+        FAIL [   0.018s] ( 2/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_catalog_weights_sum_to_one_hundred
+        FAIL [   0.023s] ( 3/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_catalog_rows_have_weight_source_interval_and_real_screen
+        FAIL [   0.028s] ( 4/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_activation_emails_have_a_subject_structure_and_safe_keys
+        FAIL [   0.033s] ( 5/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_empty_states_name_real_screens_and_honest_keys
+        FAIL [   0.037s] ( 6/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_checklist_requires_persistence_and_resume
+        FAIL [   0.040s] ( 7/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_scoring_example_is_evaluated
+        FAIL [   0.045s] ( 9/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_missing_documents_are_findings_not_panics
+        FAIL [   0.054s] (10/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_measures_use_local_counters_only
+        FAIL [   0.058s] (11/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_monitor_summary_keeps_the_block_decision_evidence
+        FAIL [   0.062s] (12/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_footnote_equals_the_b13_text
+        FAIL [   0.066s] (13/19) hdd-xtask::bin/hdd-xtask ux_docs::onboarding::tests::t26_no_forbidden_claims_phrase
+        FAIL [   0.070s] (14/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_nudges_have_a_numeric_cap_and_an_opt_out
+        FAIL [   0.075s] (15/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_next_best_action_is_evaluated_against_its_examples
+        FAIL [   0.075s] (16/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_malformed_specification_is_findings_not_panics
+        FAIL [   0.070s] (17/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_stage_map_uses_the_expected_real_screen_for_each_stage
+        FAIL [   0.070s] (18/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_structure_requires_the_named_sections
+        FAIL [   0.070s] (19/19) hdd-xtask::bin/hdd-xtask 
+ux_docs::onboarding::tests::t26_unknown_never_counts_as_a_pass
+error: test run failed

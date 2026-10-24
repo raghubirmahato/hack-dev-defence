@@ -1,0 +1,15 @@
+HK1 end-to-end on the deployed Vercel shop with the redesigned control panel (Claude, 2026-10-24)
+
+Setup: hdd-proxy built from the working tree (new embedded UI) on the operator's laptop, one site 127.0.0.1 -> the deployed shop
+https://hdd-demo-shop-hack-dev1.vercel.app (upstream Host set, origin secret header injected), mode block.
+
+Run A, origin not locked down (ORIGIN_LOCKDOWN=0): 11 PASS, 0 FAIL
+  direct to Vercel: M1, M3, M5, M6 reach /admin (M2 401, M4 500 on SQLite); through HDD all six are 403 with detector rules
+  H1-001 / H2-001; a ban is created with an explainable reason; protection off lets the injection through, back on blocks it;
+  a legitimate admin login works throughout.
+Run B, origin locked down (ORIGIN_LOCKDOWN=1, secret header enforced on Vercel): 11 PASS, 0 FAIL
+  direct to Vercel: all six payloads 403 (none reaches /admin); HDD lockdown-check API: refused / protected:true;
+  site status protection=blocking_locked; panel Overview shows "Protected · block + lockdown verified".
+UI flows against this stack: 29 PASS, 0 FAIL (sign in, navigation, console verdicts, mode switch, typed confirmation,
+  event drawer, add-site wizard, ban + typed-confirm unban, theme, landing, sign out).
+Restored afterwards: ORIGIN_LOCKDOWN=0 so the deployed shop opens directly in a browser (not protected while open).

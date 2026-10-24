@@ -1,0 +1,279 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RuntimeEnv",
+  "description": "The settings that come from the environment, each `None` when the variable is unset.",
+  "type": "object",
+  "properties": {
+    "data_dir": {
+      "description": "`HDD_DATA_DIR`: an absolute path.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "hosting_profile": {
+      "description": "`HDD_HOSTING_PROFILE`.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/HostingProfile"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "kv_backend": {
+      "description": "`HDD_KV_BACKEND`.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/KvBackend"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "local_database": {
+      "description": "`HDD_LOCAL_DATABASE`.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LocalDatabase"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "local_dogfood": {
+      "description": "`HDD_LOCAL_DOGFOOD`.",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "local_lan_ack": {
+      "description": "True when `HDD_LOCAL_LAN_ACK` equals the acknowledgement string exactly.",
+      "type": "boolean"
+    },
+    "local_lan_exposure": {
+      "description": "`HDD_LOCAL_LAN_EXPOSURE`.",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "local_loopback_identity": {
+      "description": "`HDD_LOCAL_LOOPBACK_IDENTITY`.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LoopbackIdentity"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "local_ports": {
+      "description": "`HDD_LOCAL_PORTS`.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LocalPorts"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "local_suffix": {
+      "description": "`HDD_LOCAL_SUFFIX`.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "local_tls": {
+      "description": "`HDD_LOCAL_TLS`.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LocalTls"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "runtime_profile": {
+      "description": "`HDD_RUNTIME_PROFILE`.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RuntimeProfile"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "local_lan_ack"
+  ],
+  "$defs": {
+    "HostingProfile": {
+      "description": "Hosting profile (C18.10).",
+      "oneOf": [
+        {
+          "description": "Single VPS.",
+          "type": "string",
+          "const": "H1"
+        },
+        {
+          "description": "Two servers or providers.",
+          "type": "string",
+          "const": "H2"
+        },
+        {
+          "description": "Third hosting profile (see C18.10).",
+          "type": "string",
+          "const": "H3"
+        },
+        {
+          "description": "Fourth hosting profile (see C18.10).",
+          "type": "string",
+          "const": "H4"
+        },
+        {
+          "description": "Fifth hosting profile (see C18.10).",
+          "type": "string",
+          "const": "H5"
+        }
+      ]
+    },
+    "KvBackend": {
+      "description": "Backing store for runtime state (`HDD_KV_BACKEND`).",
+      "oneOf": [
+        {
+          "description": "In-process `MemoryKv`.",
+          "type": "string",
+          "const": "memory"
+        },
+        {
+          "description": "Redis or Valkey.",
+          "type": "string",
+          "const": "redis"
+        }
+      ]
+    },
+    "LocalDatabase": {
+      "description": "Database used by the local profile.",
+      "oneOf": [
+        {
+          "description": "A private PostgreSQL managed by `hdd-local`.",
+          "type": "string",
+          "const": "embedded"
+        },
+        {
+          "description": "An external server given by `HDD_DATABASE_URL`.",
+          "type": "string",
+          "const": "external"
+        },
+        {
+          "description": "Docker Compose services.",
+          "type": "string",
+          "const": "compose"
+        }
+      ]
+    },
+    "LocalPorts": {
+      "description": "Unprivileged default ports of the local profile.",
+      "type": "object",
+      "properties": {
+        "api": {
+          "description": "Control-plane API.",
+          "type": "integer",
+          "format": "uint16",
+          "default": 8000,
+          "maximum": 65535,
+          "minimum": 0
+        },
+        "dns": {
+          "description": "DNS listener.",
+          "type": "integer",
+          "format": "uint16",
+          "default": 5300,
+          "maximum": 65535,
+          "minimum": 0
+        },
+        "proxy_http": {
+          "description": "Protected-site HTTP listener.",
+          "type": "integer",
+          "format": "uint16",
+          "default": 8080,
+          "maximum": 65535,
+          "minimum": 0
+        },
+        "proxy_https": {
+          "description": "Protected-site HTTPS listener.",
+          "type": "integer",
+          "format": "uint16",
+          "default": 8444,
+          "maximum": 65535,
+          "minimum": 0
+        },
+        "web": {
+          "description": "Product web surfaces.",
+          "type": "integer",
+          "format": "uint16",
+          "default": 8443,
+          "maximum": 65535,
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "LocalTls": {
+      "description": "TLS mode of the local profile.",
+      "oneOf": [
+        {
+          "description": "A name-constrained local certificate authority (needs the operator's consent to install).",
+          "type": "string",
+          "const": "local_ca"
+        },
+        {
+          "description": "Plain HTTP on loopback only.",
+          "type": "string",
+          "const": "http_only"
+        }
+      ]
+    },
+    "LoopbackIdentity": {
+      "description": "How loopback clients are told apart (C18.5).",
+      "oneOf": [
+        {
+          "description": "Keyed by the user agent.",
+          "type": "string",
+          "const": "ua_keyed"
+        },
+        {
+          "description": "One identity for every loopback client (refused while any site is in `block` mode).",
+          "type": "string",
+          "const": "single"
+        }
+      ]
+    },
+    "RuntimeProfile": {
+      "description": "Runtime profile (R-31).",
+      "oneOf": [
+        {
+          "description": "A server running 24/7.",
+          "type": "string",
+          "const": "hosted"
+        },
+        {
+          "description": "A personal computer; protection exists only while HDD runs (section 2.11).",
+          "type": "string",
+          "const": "local"
+        }
+      ]
+    }
+  }
+}

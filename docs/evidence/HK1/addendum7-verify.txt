@@ -1,0 +1,127 @@
+Addendum 7 (front door for serverless origins) - real command transcript, 2026-10-24 Asia/Kathmandu.
+Working tree: the HK1 change set (uncommitted on purpose; HEAD stays c86fc64). Host: Windows builder.
+Note: Windows Application Control transiently blocked two freshly linked test binaries (os error 4551, ASM-048/ASM-029);
+the ai-client test file got a documentation-only comment to relink it and the suite then passed. No machine setting changed.
+============================================================================================================
+
+$ git log -1 --oneline (no commit from this round)
+c86fc64 docs: assign Addendum 7 (front door for serverless origins) to DeepSeek Harness
+exit=0
+
+$ git status --short STATUS.md HANDOFF.md docs/CAPABILITY-MATRIX.md docs/matrix-links.toml INDEX.md (must be empty)
+exit=0
+
+$ cargo fmt --all -- --check
+exit=0
+
+$ cargo clippy -p hdd-proxy --all-targets -- -D warnings
+cargo :     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.26s
+At line:23 char:64
++ ...  warnings' { cargo clippy -p hdd-proxy --all-targets -- -D warnings }
++                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Finished `d...get(s) in 0.26s:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+exit=0
+
+$ cargo nextest run -p hdd-proxy --no-fail-fast
+        PASS [   3.064s] (192/197) hdd-proxy::web_accounts viewer_is_read_only_and_cannot_touch_users
+        PASS [   3.215s] (193/197) hdd-proxy::web_accounts users_crud_and_role_changes
+        PASS [   5.721s] (194/197) hdd-proxy::web_accounts change_password_requires_the_current_password_and_rehashes
+        PASS [   6.196s] (195/197) hdd-proxy::web_accounts 
+offline_reset_password_returns_a_one_time_password_and_revokes_sessions
+        PASS [   4.775s] (196/197) hdd-proxy::web_accounts wrong_password_locks_out_after_five_failures
+        PASS [  10.070s] (197/197) hdd-proxy::proxy_core slow_header_and_slow_body_clients_are_cut_off
+────────────
+     Summary [  10.900s] 197 tests run: 197 passed, 0 skipped
+exit=0
+
+$ node --test scripts/test/front-door.test.mjs
+front door: HDD request failed (attempt 1): ECONNRESET
+front door: HDD request failed (attempt 1): ECONNRESET
+✔ a GET is retried after a reset; a POST is not replayed (320.1745ms)
+✔ while HDD_ORIGIN_SECRET is unset the front door is off and the app answers everyone (6.9841ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3499.7493
+exit=0
+
+$ node scripts/run-node-tests.mjs
+✔ attack.ps1 parses with PowerShell when PowerShell is installed (350.8745ms)
+✔ attack.sh parses with bash -n when bash is installed (97.1091ms)
+✔ the lab app compiles as Python 3 when Python 3 is installed (112.6806ms)
+✔ README documents the HK1 quickstart honestly (0.6204ms)
+ℹ tests 51
+ℹ suites 0
+ℹ pass 51
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3562.2982
+exit=0
+
+$ node --check scripts/hdd-tunnel.mjs
+exit=0
+
+$ node --test test/shop.test.js test/lock.test.js test/gate.test.js (lab shop unchanged)
+✔ the real admin password opens the dashboard, orders, products, customers and team pages (7.7774ms)
+✔ the deliberately injectable login is bypassed by a tautology and by a comment (the demo vulnerability) (1.5165ms)
+✔ a forged cookie is refused (0.4446ms)
+✔ a malformed cookie is treated as signed out, not as a server error (0.262ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3518.6158
+exit=0
+
+$ cargo xtask claims-lint
+claims-lint: scanned 350 files with 34 phrases and 1 context rules
+claims-lint: PASS
+exit=0
+
+$ cargo xtask verify --only secret-scan
+[17] secret-scan          PASS  (log 17-secret-scan.log, sha256 4012cf0a2eace263)
+verify: 1 PASS, 0 FAIL, 0 UNVERIFIED; logs in D:\Hack Dev Defence\acceptance-verify\20261024T000941Z-verify
+exit=0
+
+$ cargo build -p hdd-proxy
+cargo :    Compiling hdd-proxy v0.0.0 (D:\Hack Dev Defence\crates\hdd-proxy)
+At line:33 char:34
++ Run 'cargo build -p hdd-proxy' { cargo build -p hdd-proxy } 4
++                                  ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling hd...ates\hdd-proxy):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.60s
+exit=0
+
+$ node hdd-data/a7-e2e/run.mjs (front door rehearsal against the real binary, loopback only)
+PASS proxy and front-door app are up (loopback only) :: proxy :18180, app :18182
+PASS lockdown check: the direct origin probe is answered by HDD, not the app (front-door lockdown holds) :: 200 refused protected=true
+PASS front door: the app own address is served through HDD (200, CoreByte) :: 200
+PASS the app received no X-HDD-Gate-Host header (stripped before forwarding) :: null
+PASS the app received the origin secret header from HDD
+PASS the request reached the app exactly once :: 1 -> 2
+PASS HDD recorded the event under the gate host (site lookup used X-HDD-Gate-Host) :: hdd-demo-shop.vercel.app
+PASS a forged secret header is not accepted as a bypass (200 from the app, inspected by HDD) :: 200
+PASS BLOCK: SQL injection through the front door gets 403 with a Ray ID :: 403 6c27165b42327cda-HDD1
+PASS the block page carries the documented copy
+PASS the app never received the blocked request :: 3 -> 3
+PASS HDD recorded the block under the gate host with the detector verdict :: sqli/H2-001
+PASS the sender was banned (audit trail) :: ban.created
+PASS HDD down: the front door fails closed with 503 :: 503
+PASS HDD down: the app is not served uninspected :: no app body, no app hit
+RESULT ALL PASS 15 / 15
+app log tail: front door: HDD request failed (attempt 5): ECONNREFUSED
+proxy log tail: press Ctrl+C to stop
+fixture sha256 head: ece6855315b2197f
+exit=0
+

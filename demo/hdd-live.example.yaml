@@ -1,0 +1,70 @@
+# HK1 live-site example (template only; copy to a file outside the repository and fill in the operator's details).
+#
+# The operator must provide: the domain to protect, the origin URL, how the origin is locked down, and where the TLS
+# terminator runs. Until the origin refuses direct requests (or enforces the origin secret header) the site is NOT
+# protected, whatever the mode says (R-34); the dashboard shows that honestly.
+#
+# This file contains no secret values: `admin_token_env` and `origin_secret_env` are the NAMES of environment
+# variables. Set them in the service environment, never in the YAML (R-03).
+listen: "127.0.0.1:8080"
+admin_listen: "127.0.0.1:9090"
+# The admin listener is loopback-only by default (R1-9). Binding it to a non-loopback address is refused unless this
+# explicit acknowledgement is true, and the process then logs a warning at start. Prefer a loopback admin listener and
+# an SSH tunnel over exposing the admin surface; this key exists only for an operator who accepts that risk.
+# admin_non_loopback_ack: false
+data_dir: "/var/lib/hdd"
+log_path: "/var/lib/hdd/events.jsonl"
+admin_token_env: HDD_ADMIN_TOKEN
+# Only the TLS terminator (Caddy, or Cloudflare) is trusted to set X-Forwarded-For; add its egress CIDRs here.
+trusted_proxies: []
+
+# Optional DeepSeek explanation of findings (Addendum 6), off when this block is absent. The key is read only from the
+# environment variable named here, at call time; never put the value in this file, a log or anywhere in the repository.
+# The egress allowlist is exactly this base_url's host. AI text is advisory only: it never decides a block or a ban
+# (R-33). Leave it out when the operator does not want an external API call at all.
+# ai:
+#   provider: deepseek
+#   base_url: "https://api.deepseek.com"
+#   model: deepseek-flash
+#   api_key_env: DEEPSEEK_API_KEY
+#   timeout_s: 20
+#   max_calls_per_hour: 30
+
+sites:
+  # A domain whose origin has a fixed IP: point the DNS A/CNAME at the HDD host, keep the origin allowlisted to the
+  # HDD host's IP and test that a direct request is refused before switching to block.
+  - host: "shop.example.com"
+    origin: "https://origin.example.com"
+    mode: monitor
+    strictness: balanced
+    public_url: "https://shop.example.com"
+    preserve_host: true
+    ban:
+      enabled: true
+      ttl_ladder_seconds: [60, 600, 3600]
+    field_hints:
+      - field: "username"
+        kind: username
+      - field: "password"
+        kind: password
+    extra_rules: []
+    # lockdown_verified is set by the Verify-protection flow, never by hand in a live profile.
+    lockdown_verified: false
+
+  # A serverless origin (Vercel/Netlify/Render) has no fixed IP, so the origin is locked down by a shared secret
+  # header that the edge middleware enforces (Addendum 5). The value comes only from the environment variable named
+  # in origin_secret_env; a client-supplied copy of the header is stripped by the proxy.
+  - host: "app.example.com"
+    origin: "https://project.vercel.app"
+    upstream_host: "project.vercel.app"
+    origin_secret_header: "X-HDD-Origin-Secret"
+    origin_secret_env: HDD_ORIGIN_SECRET
+    mode: monitor
+    strictness: balanced
+    public_url: "https://app.example.com"
+    preserve_host: false
+    ban:
+      enabled: true
+      ttl_ladder_seconds: [60, 600, 3600]
+    extra_rules: []
+    lockdown_verified: false

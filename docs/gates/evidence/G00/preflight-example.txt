@@ -1,0 +1,48 @@
+RULE                  STATUS                               FIELD / MESSAGE
+---------------------------------------------------------------------------
+PROF-SCHEMA           PASS                                 schema_version: schema_version is 5
+PROF-REQUIRED         FAIL                                 operator_email: required field `operator_email` is empty
+                                                           -> Set `operator_email` to the address that receives test mail and alerts; it is the only address the agent may mail.
+PROF-REQUIRED         FAIL                                 acme.email: required field `acme.email` is empty
+                                                           -> Set `acme.email` to the account email for the certificate authority.
+PROF-LOCAL            N/A                                  runtime.local: runtime.profile is hosted; `runtime.local` is not read
+PROF-HOSTNAME         PASS                                 15 host name(s) are syntactically valid
+PROF-TEST-SANDBOX     PASS                                 test_hostname and sandbox_hostname are distinct subdomains of domain
+PROF-PLATFORM-DOMAIN  PASS                                 platform_domain: `example.com` is a registrable apex (checked against the built-in suffix list; the full public suffix list arrives with T-0154)
+PROF-CIDR             PASS                                 0 CIDR value(s) parse
+PROF-RUNNER-ADMIN     UNVERIFIED(stage_not_reached)        test_runner.public_ip: the runner IP is `auto`: it is discovered through the canary echo at run time
+                                                           -> `hddctl preflight` repeats this check once the runner IP is known (T-0217); until then keep your own workstation address out of admin_cidrs only if it is also the runner.
+PROF-EGRESS           UNVERIFIED(human_step_pending)       egress_allowlist: egress_allowlist is empty: every outbound request (CA, resolvers, feeds, SMTP, GeoIP download) is denied and outbound checks cannot run
+                                                           -> Add the destinations you permit (Q-040), for example `acme-staging-v02.api.letsencrypt.org`, `tcp://<smtp host>:587`, `dns://1.1.1.1`, `dns://9.9.9.9`.
+PROF-ACME             PASS                                 acme.directory: acme.directory is staging (default)
+PROF-SIGNUP           PASS                                 signup.mode: signup mode is invite_only
+PROF-ORIGIN           PASS                                 origin.url: origin is https://203.0.113.10
+PROF-PLATFORM         UNVERIFIED(capability_not_supplied)  platform.uplink_mbps: uplink is 0 (unknown): shield capacity figures stay UNVERIFIED
+                                                           -> Enter the contracted or measured uplink in Mbit/s (Q-002).
+PROF-PLATFORM         PASS                                 platform: server addresses and deployment settings are consistent
+PROF-DNS              UNVERIFIED(capability_not_supplied)  secondary_dns: no secondary DNS configured: the cutover gate, AC-21 and AC-28 stay UNVERIFIED
+                                                           -> Name an external secondary DNS provider and the TSIG key variable (Q-032) before cutover.
+PROF-DNS              PASS                                 dns: DNS topology settings are consistent
+PROF-LIFECYCLE        WARN                                 upstream_ddos.mode: DDoS readiness reports NOT READY while upstream_ddos.mode is none (acceptable for the pilot only)
+                                                           -> Fill upstream_ddos from your provider contract before cutover (Q-029).
+PROF-SMTP             UNVERIFIED(human_step_pending)       smtp.host: no SMTP relay: a local SMTP sink is used and real delivery tests (AC-46) stay UNVERIFIED
+                                                           -> Provide relay host, port, TLS mode and credentials (as env var names) before M3 (Q-011).
+PROF-POLICY           PASS                                 retention, password length, locales and branding meet the floors
+PROF-LAB              UNVERIFIED(capability_not_supplied)  lab: no closed lab: AC-26, AC-29, AC-38 and AC-39 lab portions stay UNVERIFIED
+                                                           -> Provide a lab machine (Q-004) if you want those checks.
+PROF-LOAD             PASS                                 load_profile_approved: no load run is approved
+PROF-SECRETS          PASS                                 8 secret-bearing fields; 0 name an environment variable; values are never read from this file (enforced when the file is parsed)
+PROF-PLACEHOLDER      WARN                                 platform_domain, domain, test_hostname, sandbox_hostname, surfaces.public_host, surfaces.app_host, surfaces.admin_host, surfaces.api_host, surfaces.status_host, origin.tls_server_name, origin.host_header, platform.edge_cname_zone, platform.acme_cname_zone, platform.ns_hostnames[0], platform.ns_hostnames[1], origin.url, platform.public_ip[0]: 17 value(s) use documentation placeholders (example.com, TEST-NET addresses)
+                                                           -> Replace them with your real names and addresses before any live use.
+PROF-PROBES           UNVERIFIED(stage_not_reached)        platform.ns_hostnames, smtp.host: DNS resolution of the nameserver names and a TCP connect to the SMTP relay are reachability probes; they run only in `hddctl preflight` without --profile-only and only through the egress client
+                                                           -> Run `hddctl preflight` (without --profile-only) once egress_allowlist lists a `dns://` resolver and the SMTP relay as `tcp://host:port`.
+
+13 PASS, 2 FAIL, 2 WARN, 7 UNVERIFIED, 1 N/A
+
+2 required field(s) missing for runtime.profile: hosted:
+  - operator_email
+      Set `operator_email` to the address that receives test mail and alerts; it is the only address the agent may mail.
+  - acme.email
+      Set `acme.email` to the account email for the certificate authority.
+
+exit 1
